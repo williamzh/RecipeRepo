@@ -1,4 +1,4 @@
-﻿@model MainApp.Models.Recipe
+﻿@model IEnumerable<BusinessLogic.Entities.Recipe>
 
 @{
 	ViewBag.Title = "Index";
@@ -6,13 +6,46 @@
 
 <div class="container shop-container">
 	<div class="row">
-
 		<div class="col-md-3">
-			<p class="lead">Shop Name</p>
-			<div class="list-group">
-				<a href="#" class="list-group-item">Printable</a>
-				<a href="#" class="list-group-item">Cupcake Wrappers</a>
-				<a href="#" class="list-group-item">Authentic Dragon Bones</a>
+
+			<div class="well">
+				<h4>Search recipe</h4>
+				<div class="input-group">
+					<input type="text" class="form-control">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span>
+				</div>
+			</div>
+
+			<div class="well">
+				<div class="row">
+					<div class="col-md-8">
+						<h4>Meals</h4>
+						<ul class="list-unstyled">
+							<li>@Html.ActionLink("Breakfeast", "Index", "Recipe", new { categoryType = "MealType", mealType = "Breakfeast" }, null)</li>
+							<li>@Html.ActionLink("Lunch", "Index", "Recipe", new { categoryType = "MealType", mealType = "Lunch" }, null)</li>
+							<li>@Html.ActionLink("Dinner", "Index", "Recipe", new { categoryType = "MealType", mealType = "Dinner" }, null)</li>
+						</ul>
+					</div>
+					<div class="col-md-8">
+						<h4>Courses</h4>
+						<ul class="list-unstyled">
+							<li>@Html.ActionLink("Starters", "Index", "Recipe", new { categoryType = "CourseType", mealType = "Starter" }, null)</li>
+							<li>@Html.ActionLink("Mains", "Index", "Recipe", new { categoryType = "CourseType", mealType = "Main" }, null)</li>
+							<li>@Html.ActionLink("Desserts", "Index", "Recipe", new { categoryType = "CourseType", mealType = "Desert" }, null)</li>
+						</ul>
+					</div>
+					<div class="col-md-8">
+						<h4>Cuisines</h4>
+						<ul class="list-unstyled">
+							<li>@Html.ActionLink("Chinese", "Index", "Recipe", new { categoryType = "Cuisine", mealType = "Chinese" }, null)</li>
+							<li>@Html.ActionLink("Swedish", "Index", "Recipe", new { categoryType = "Cuisine", mealType = "Swedish" }, null)</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 

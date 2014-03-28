@@ -1,53 +1,73 @@
-﻿@model MainApp.Models.Recipe
+﻿@model IEnumerable<BusinessLogic.Entities.Recipe>
 
 @{
 	ViewBag.Title = "Index";
 }
 
-<div class="header-image">
+<div class="container">
 
-	<div class="headline">
-		<div class="container">
-			<h1>One Page Wonder</h1>
-			<h2>Will Knock Your Socks Off</h2>
+	<div class="row">
+
+		<div class="col-lg-12">
+			<h1 class="page-header">3 Col Portfolio<small> Showcase Your Work</small></h1>
 		</div>
+
+	</div>
+
+	@{ var modelList = Model.ToList(); }
+	@for (var i = 1; i <= modelList.Count; i++) 
+  {
+		var recipe = modelList[i - 1];
+	  
+		<div class="col-md-4 portfolio-item">
+			<a href="@Url.Action("Details", new { id = recipe.Id })">
+				<img class="img-responsive" src="http://placehold.it/700x400">
+			</a>
+			<h3><a href="@Url.Action("Details", "Recipe", new { id = recipe.Id })">@recipe.Name</a></h3>
+			<p>@recipe.Description</p>
+			<div class="ratings">
+				<p class="pull-right">31 reviews</p>
+				<p>
+					@for(var j = 0; j < 5; j++)
+					{
+						if(j <= recipe.Rating)
+						{									 
+							<span class="glyphicon glyphicon-star"></span>
+						}
+						else
+						{
+							<span class="glyphicon glyphicon-star-empty"></span>
+						}																								
+					}
+				</p>
+			</div>
+		</div>
+	}
+
+	<hr>
+  
+	<div class="row text-center">
+
+		<div class="col-md-12">
+			<ul class="pagination">
+				<li><a href="#">&laquo;</a>
+				</li>
+				<li class="active"><a href="#">1</a>
+				</li>
+				<li><a href="#">2</a>
+				</li>
+				<li><a href="#">3</a>
+				</li>
+				<li><a href="#">4</a>
+				</li>
+				<li><a href="#">5</a>
+				</li>
+				<li><a href="#">&raquo;</a>
+				</li>
+			</ul>
+		</div>
+
 	</div>
 
 </div>
-<!-- /header-image -->
-
-<div class="container">
-
-	<!-- START THE FEATURETTES -->
-
-	<hr class="featurette-divider">
-
-	<div class="featurette" id="about">
-		<img class="featurette-image img-circle img-responsive pull-right" src="http://placehold.it/500x500">
-		<h2 class="featurette-heading">This First Heading
-                <span class="text-muted">Will Catch Your Eye</span>
-		</h2>
-		<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-	</div>
-
-	<hr class="featurette-divider">
-
-	<div class="featurette" id="services">
-		<img class="featurette-image img-circle img-responsive pull-left" src="http://placecreature.com/500/500">
-		<h2 class="featurette-heading">The Second Heading
-                <span class="text-muted">Is Pretty Cool Too.</span>
-		</h2>
-		<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-	</div>
-
-	<hr class="featurette-divider">
-
-	<div class="featurette" id="contact">
-		<img class="featurette-image img-circle img-responsive pull-right" src="http://placecreature.com/500/500">
-		<h2 class="featurette-heading">The Third Heading
-                <span class="text-muted">Will Seal the Deal.</span>
-		</h2>
-		<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-	</div>
-
-	<!-- /END THE FEATURETTES -->
+<!-- /.container -->

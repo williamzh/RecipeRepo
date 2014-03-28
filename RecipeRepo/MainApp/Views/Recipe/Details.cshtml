@@ -1,0 +1,55 @@
+﻿@model BusinessLogic.Entities.Recipe
+
+<div class="header-image" style="background-image:url('@(string.IsNullOrEmpty(Model.ImagePath) ? "" : Url.Content(Model.ImagePath))')">
+	<div class="headline">
+		<div class="container">
+			<h1>@Model.Name</h1>
+      <h2>@Model.Name</h2>
+		</div>
+	</div>
+
+</div>
+<!-- /header-image -->
+
+<div class="container">
+
+	<!-- START THE FEATURETTES -->
+
+	<hr class="featurette-divider">
+
+	<div class="featurette" id="ingredients">
+		<img class="featurette-image img-circle img-responsive pull-right" src="http://placehold.it/500x500">
+		<h2 class="featurette-heading">Ingredients</h2>
+		<ul>
+      @foreach (var ing in Model.Ingredients)
+      {
+        <li>@(ing.Name + " " + ing.Quantity + ing.Unit.ToString())</li>
+      }
+		</ul>
+	</div>
+
+	<hr class="featurette-divider">
+
+	<div class="featurette" id="directions">
+		<img class="featurette-image img-circle img-responsive pull-left" src="http://placecreature.com/500/500">
+		<h2 class="featurette-heading">Directions</h2>
+		<ol>
+      @foreach (var prep in Model.PreparationMethod)
+      {
+        <li>@prep</li>
+      }
+		</ol>
+	</div>
+
+	<hr class="featurette-divider">
+
+	<div class="featurette" id="contact">
+		<img class="featurette-image img-circle img-responsive pull-right" src="http://placecreature.com/500/500">
+		<h2 class="featurette-heading">The Third Heading
+                <span class="text-muted">Will Seal the Deal.</span>
+		</h2>
+		<p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+	</div>
+
+	<!-- /END THE FEATURETTES -->
+</div>

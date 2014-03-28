@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2EF6A1
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "BusinessLogic\BusinessLogic.csproj", "{8A829B13-F417-48F5-A208-9B41210CDE53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{583A3D81-08A5-4C33-938A-EF6C5C9CCC40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{583A3D81-08A5-4C33-938A-EF6C5C9CCC40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{583A3D81-08A5-4C33-938A-EF6C5C9CCC40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A829B13-F417-48F5-A208-9B41210CDE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A829B13-F417-48F5-A208-9B41210CDE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A829B13-F417-48F5-A208-9B41210CDE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A829B13-F417-48F5-A208-9B41210CDE53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
