@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Api", "RecipeRepo.Api\RecipeRepo.Api.csproj", "{22B32F1F-28C8-4211-9AA8-C964EAE7D14C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Api.Tests", "RecipeRepo.Api.Tests\RecipeRepo.Api.Tests.csproj", "{3076209A-FAEB-4394-AACA-509D36FEEBD2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22B32F1F-28C8-4211-9AA8-C964EAE7D14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B32F1F-28C8-4211-9AA8-C964EAE7D14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B32F1F-28C8-4211-9AA8-C964EAE7D14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B32F1F-28C8-4211-9AA8-C964EAE7D14C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3076209A-FAEB-4394-AACA-509D36FEEBD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3076209A-FAEB-4394-AACA-509D36FEEBD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3076209A-FAEB-4394-AACA-509D36FEEBD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3076209A-FAEB-4394-AACA-509D36FEEBD2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
