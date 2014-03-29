@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RecipeRepo.Api.Models.Home;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,30 +11,18 @@ namespace RecipeRepo.Api.Controllers
 	public class HomeController : ApiController
 	{
 		// GET api/<controller>
-		public IEnumerable<string> Get()
+		public dynamic Get()
 		{
-			return new string[] { "value1", "value2" };
-		}
-
-		// GET api/<controller>/5
-		public string Get(int id)
-		{
-			return "value";
-		}
-
-		// POST api/<controller>
-		public void Post([FromBody]string value)
-		{
-		}
-
-		// PUT api/<controller>/5
-		public void Put(int id, [FromBody]string value)
-		{
-		}
-
-		// DELETE api/<controller>/5
-		public void Delete(int id)
-		{
+			return new
+			{
+				Name = "RecipeRepo.Api",
+				Version = "0.0.1",
+				Services = new []
+				{
+					new ServiceInfo { Description = "Recipes", Endpoint = "/recipes" },
+					new ServiceInfo { Description = "Administrative actions/info", Endpoint = "/admin" }
+				}
+			};
 		}
 	}
 }
