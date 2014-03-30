@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace RecipeRepo.Api.Controllers
 {
+	[EnableCors(origins: "http://localhost:8000", headers: "*", methods: "*")]
 	public class RecipesController : ApiController
 	{
 		private readonly IRecipeStore _recipeStore;

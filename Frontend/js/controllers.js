@@ -16,7 +16,11 @@ controllers.controller('HomeCtrl', ['$scope', function($scope) {
  * -----------------------------------------------------------
  */
 
-controllers.controller('RecipeListCtrl', ['$scope', function($scope) {
+controllers.controller('RecipeListCtrl', ['$scope', '$http', function($scope, $http) {
+	var x = $http.get('http://localhost:32951/api/recipes').success(function(data) {
+		console.log(data);
+	});
+
 	var recipes = [{
 		id: 1,
 		name: "Spaghetti",
