@@ -36,7 +36,7 @@ namespace RecipeRepo.Api.Controllers
 			_recipeStore.AddRecipe(recipe);
 		}
 
-		// PUT api/recipes/5
+		// PUT api/recipes/{id}
 		public void Put([FromBody]Recipe recipe)
 		{
 			_recipeStore.UpdateRecipe(recipe);
