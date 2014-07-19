@@ -1,6 +1,5 @@
 var recipeRepoApp = angular.module('recipeRepoApp', [
-	'ngRoute', 
-	'appControllers'
+	'ngRoute'
 ]);
 
 recipeRepoApp.config(['$routeProvider', function($routeProvider) {

@@ -13,7 +13,7 @@ namespace RecipeRepo.Api.Models
 		public string Description { get; set; }
 		public int Rating { get; set; }
 		public IEnumerable<Ingredient> Ingredients { get; set; }
-		public IEnumerable<string> PreparationMethod { get; set; }
+		public IEnumerable<string> PreparationSteps { get; set; }
 		public IEnumerable<Tag> Tags { get; set; }
 
 		// TEMP
@@ -34,7 +34,7 @@ namespace RecipeRepo.Api.Models
  							new Ingredient { Name = "Köttfärs", Quantity = 500, Unit = new Unit(Metric.Gram) },
 							new Ingredient { Name = "Krossade tomater", Quantity = 400, Unit = new Unit(Metric.Gram) }
 						},
-						PreparationMethod = new []
+						PreparationSteps = new []
 						{
 							"Hacka löken och riv grönsakerna.",
 							"Fräs ca 5 min i olivolja, tillsätt sedan färsen och bryn den.",

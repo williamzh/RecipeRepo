@@ -1,4 +1,4 @@
-controllers.controller('RecipeListCtrl', ['$scope', '$http', function($scope, $http) {
+angular.module('recipeRepoApp').controller('RecipeListCtrl', ['$scope', '$http', function($scope, $http) {
 	var x = $http.get('http://localhost:32951/api/recipes').success(function(data) {
 		console.log(data);
 	});
@@ -20,7 +20,7 @@ controllers.controller('RecipeListCtrl', ['$scope', '$http', function($scope, $h
 function convertRatingToStars(rating) {
 	var ratings = [];
 	for(var i = 1; i <= 5; i++) {
-  	ratings.push({ isFilled: i <= rating });
+  		ratings.push({ isFilled: i <= rating });
 	}
 
 	return ratings;

@@ -1,4 +1,4 @@
-controllers.controller('RecipeDetailsCtrl', ['$scope', '$routeParams', function($scope, $routeParams) {
+angular.module('recipeRepoApp').controller('RecipeDetailsCtrl', ['$scope', '$routeParams', function($scope, $routeParams) {
 	var recipe = {
 		name: "Spaghetti",
 		description: 'A nice dish dsfsd',
@@ -19,7 +19,7 @@ controllers.controller('RecipeDetailsCtrl', ['$scope', '$routeParams', function(
 function convertRatingToStars(rating) {
 	var ratings = [];
 	for(var i = 1; i <= 5; i++) {
-  	ratings.push({ isFilled: i <= rating });
+  		ratings.push({ isFilled: i <= rating });
 	}
 
 	return ratings;
