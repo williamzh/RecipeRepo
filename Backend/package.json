@@ -1,0 +1,9 @@
+{
+  "name": "RecipeRepoApi",
+  "description": "API for the RecipeRepo app",
+  "author": "William Zhang <foo@test.com>",
+  "dependencies": {
+    "express": "4.6.x",
+    "request": "~2.39.0"
+  }
+}
