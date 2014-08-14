@@ -1,4 +1,4 @@
-var request = require('supertest');
+var nock = require('nock');
 var recipeStore = require('../recipe-store');
 
 describe('Provided a RecipeStore', function() {
