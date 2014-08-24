@@ -82,17 +82,24 @@ exports = module.exports = (function recipeController() {
 	}
 
 	function updateRecipe(recipeId, recipe, successCallback, errorCallback) {
-		if(recipeId !== recipe) {
-			errorCallback('Recipe ID mismatch.');
-		}
-
-		if(!recipe || !recipeId) {
+		if(!recipeId) {
 			errorCallback('Recipe ID must be supplied');
+			return;
 		}
 
-		getRecipe(recipeId, function(data) {
-			if(data.indexOf(recipe) == -1) {
-				errorCallback('Recipe with ID ' + recipeId + ' does not exist.');
+		if(!recipe) {
+			errorCallback('Recipe must be supplied');
+			return;
+		}
+
+		if(recipeId != recipe.id) {
+			errorCallback('Recipe ID mismatch');
+			return;
+		}
+
+		getRecipe(recipeId, function(existingRecipe) {
+			if(!existingRecipe) {
+				errorCallback('Recipe with ID ' + recipeId + ' does not exist');
 				return;
 			}
 
@@ -104,10 +111,10 @@ exports = module.exports = (function recipeController() {
 
 			request(config, function(error, response, data) {
 				if(!error && response.statusCode == 200) {
-					successCallback(data);
+					successCallback('Recipe successfully udpated');
 				}
 				else {
-					errorCallback(error);
+					errorCallback('Failed to update recipe');
 				}
 			});
 		}, errorCallback);
