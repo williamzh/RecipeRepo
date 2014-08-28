@@ -8,20 +8,20 @@ exports = module.exports = (function recipeController() {
 			return;
 		}
 
-		if(!recipe.id) {
+		if(!recipe.recipeId) {
 			errorCallback('Recipe ID must be supplied.');
 			return;
 		}
 
 		var config = {
-			url: 'http://localhost:9200/reciperepo/recipe/' + recipe.id,
+			url: 'http://localhost:9200/reciperepo/recipe/' + recipe.recipeId,
 			method: 'GET'
 		};
 
 		request(config, function(error, response, data) {
 			if(response.statusCode == 404) {
 				var config = {
-					url: 'http://localhost:9200/reciperepo/recipe/' + recipe.id,
+					url: 'http://localhost:9200/reciperepo/recipe/' + recipe.recipeId,
 					method: 'PUT',
 					body: JSON.stringify(recipe)
 				};
@@ -36,7 +36,7 @@ exports = module.exports = (function recipeController() {
 				});
 			}
 			else if(response.statusCode == 200) {
-				errorCallback('Recipe with ID ' + recipe.id + ' already exists.');
+				errorCallback('Recipe with ID ' + recipe.recipeId + ' already exists.');
 			}
 			else {
 				errorCallback('Failed to add recipe. See error log for details.');
@@ -92,7 +92,7 @@ exports = module.exports = (function recipeController() {
 			return;
 		}
 
-		if(recipeId != recipe.id) {
+		if(recipeId != recipe.recipeId) {
 			errorCallback('Recipe ID mismatch');
 			return;
 		}
@@ -104,9 +104,9 @@ exports = module.exports = (function recipeController() {
 			}
 
 			var config = {
-				url: 'http://localhost:9200/reciperepo/recipe/',
+				url: 'http://localhost:9200/reciperepo/recipe/' + recipeId,
 				method: 'PUT',
-				body: recipe
+				body: JSON.stringify(recipe)
 			};
 
 			request(config, function(error, response, data) {
@@ -121,13 +121,14 @@ exports = module.exports = (function recipeController() {
 	}
 
 	function removeRecipe(recipeId, successCallback, errorCallback) {
-		if(!recipe.id) {
+		if(!recipeId) {
 			errorCallback('Recipe ID must be supplied');
+			return;
 		}
 
-		getRecipe(recipe.id, function(data) {
-			if(data.indexOf(recipe) === -1) {
-				errorCallback();
+		getRecipe(recipeId, function(recipe) {
+			if(!recipe) {
+				errorCallback("Recipe with ID " + recipeId + " doesn't exist");
 				return;
 			}
 
@@ -138,10 +139,10 @@ exports = module.exports = (function recipeController() {
 
 			request(config, function(error, response, data) {
 				if(!error && response.statusCode == 200) {
-					successCallback(data);
+					successCallback('Recipe successfully removed');
 				}
 				else {
-					errorCallback(error);
+					errorCallback('Failed to remove recipe');
 				}
 			});
 		}, errorCallback);

@@ -4,7 +4,7 @@ var recipeStore = require('../recipe-store');
 
 describe('Provided a RecipeStore', function() {
 	
-	var elasticSearchPath = 'http://localhost:9200';
+	var elasticSearchUrl = 'http://localhost:9200';
 
 	describe('when adding a recipe', function() {
 		it('should return error if recipe is not defined', function(done) {
@@ -15,35 +15,35 @@ describe('Provided a RecipeStore', function() {
 		});
 
 		it('should return error if recipe ID is not defined', function(done) {
-			recipeStore.add({ id: undefined }, undefined, function (error) {
+			recipeStore.add({ recipeId: undefined }, undefined, function (error) {
 				assert.equal(error, 'Recipe ID must be supplied.');
 				done();
 			});
 		});
 
 		it('should return error if recipe already exists', function(done) {
-			nock(elasticSearchPath)
+			nock(elasticSearchUrl)
 				.get('/reciperepo/recipe/1')
 				.reply(200, {
-				   "_source": { "id": 1 }
+				   "_source": { "recipeId": '1' }
 				});
 
-			recipeStore.add({ id: 1 }, undefined, function(error) {
+			recipeStore.add({ recipeId: '1' }, undefined, function(error) {
 				assert.equal(error, 'Recipe with ID 1 already exists.');
 				done();
 			});
 		});
 
 		it('should add the recipe otherwise', function(done) {
-			nock(elasticSearchPath)
+			nock(elasticSearchUrl)
 				.get('/reciperepo/recipe/1')
 				.reply(404);
 
-			nock(elasticSearchPath)
+			nock(elasticSearchUrl)
 				.put('/reciperepo/recipe/1')
 				.reply(201);
 
-			recipeStore.add({ id: 1 }, function(result) {
+			recipeStore.add({ recipeId: 1 }, function(result) {
 				assert.equal(result, 'Recipe successfully added.');
 				done();
 			});
@@ -52,15 +52,15 @@ describe('Provided a RecipeStore', function() {
 
 	describe('when getting all recipes', function() {
 		it('should return all existing recipes', function(done) {
-			nock(elasticSearchPath)
+			nock(elasticSearchUrl)
 				.get('/reciperepo/_search')
 				.reply(200, {
 					"hits": {
 				    	"total": 1,
 				    	"hits": [{
-				            "_source": { "id": 1 }
+				            "_source": { "recipeId": '1' }
 				        }, {
-				            "_source": { "id": 2 }
+				            "_source": { "recipeId": '2' }
 				        }]
 					}
 				});
@@ -72,7 +72,7 @@ describe('Provided a RecipeStore', function() {
 		});
 
 		it('should return empty array if there are no recipes', function(done) {
-			nock(elasticSearchPath)
+			nock(elasticSearchUrl)
 				.get('/reciperepo/_search')
 				.reply(200, {
 				   "hits": {
@@ -91,20 +91,20 @@ describe('Provided a RecipeStore', function() {
 
 	describe('when getting recipe by ID', function() {
 		it('should return recipe if it exists', function(done) {
-			nock(elasticSearchPath)
+			nock(elasticSearchUrl)
 				.get('/reciperepo/recipe/1')
 				.reply(200, {
-				   "_source": { "id": 1 }
+				   "_source": { "recipeId": '1' }
 				});
 
 			recipeStore.get('1', function(recipe) {
-				assert.equal(recipe.id, '1');
+				assert.equal(recipe.recipeId, '1');
 				done();
 			});
 		});
 
 		it("should return null if recipe doesn't exist", function(done) {
-			nock(elasticSearchPath)
+			nock(elasticSearchUrl)
 				.get('/reciperepo/recipe/1')
 				.reply(404);
 
@@ -117,14 +117,14 @@ describe('Provided a RecipeStore', function() {
 
 	describe('when updating an existing recipe', function() {
 		it("should return error if recipe IDs don't match", function(done) {
-			recipeStore.update('1', { id: '2' }, undefined, function(error) {
+			recipeStore.update('1', { recipeId: '2' }, undefined, function(error) {
 				assert.equal(error, 'Recipe ID mismatch');
 				done();
 			});
 		});
 
 		it('should return error if recipe ID is missing', function(done) {
-			recipeStore.update(undefined, { id: '1' }, undefined, function(error) {
+			recipeStore.update(undefined, { recipeId: '1' }, undefined, function(error) {
 				assert.equal(error, 'Recipe ID must be supplied');
 				done();
 			});
@@ -138,21 +138,32 @@ describe('Provided a RecipeStore', function() {
 		});
 
 		it("should return error if recipe doesn't exist", function(done) {
-			nock(elasticSearchPath)
+			nock(elasticSearchUrl)
 				.get('/reciperepo/recipe/1')
 				.reply(404);
 
-			recipeStore.update('1', { id: 1 }, undefined, function(error) {
+			recipeStore.update('1', { recipeId: '1' }, undefined, function(error) {
 				assert.equal(error, 'Recipe with ID 1 does not exist');
 				done();
 			});
 		});
 
 		it('should update an existing recipe correctly', function(done) {
-			//TODO: mock PUT call
+			nock(elasticSearchUrl)
+				.get('/reciperepo/recipe/1')
+				.reply(200, {
+				   "_source": { "recipeId": '1', "name": 'Spaghetti Bolognese' }
+				});
 
-			recipeStore.update('2', { id: '2' }, function(result) {
-				assert.equal(expectedPut.isDone(), true);
+			var expectedPut = nock(elasticSearchUrl)
+				.put('/reciperepo/recipe/1', { 
+					recipeId: '1', 
+					name: 'Spaghetti Carbonara' 
+				})
+				.reply(200);
+
+			recipeStore.update('1', { recipeId: '1', name: 'Spaghetti Carbonara' }, function(result) {
+				assert(expectedPut.isDone());
 				assert.equal(result, 'Recipe successfully udpated');
 				done();
 			});
@@ -160,6 +171,40 @@ describe('Provided a RecipeStore', function() {
 	});
 	
 	describe('when removing a recipe', function() {
+		it('should return error if no recipe ID is provided', function(done) {
+			recipeStore.remove(undefined, undefined, function(error) {
+				assert.equal(error, 'Recipe ID must be supplied');
+				done();
+			});
+		});
 
+		it('should return error if recipe does not exist', function(done) {
+			nock(elasticSearchUrl)
+				.get('/reciperepo/recipe/1')
+				.reply(404);
+
+			recipeStore.remove('1', undefined, function(error) {
+				assert.equal(error, "Recipe with ID 1 doesn't exist");
+				done();
+			});
+		});
+
+		it('should remove recipe otherwise', function(done) {
+			nock(elasticSearchUrl)
+				.get('/reciperepo/recipe/1')
+				.reply(200, {
+					"_source": { "recipeId": '1' }
+				});
+
+			var expectedDelete = nock(elasticSearchUrl)
+				.delete('/reciperepo/recipe/1')
+				.reply(200);
+
+			recipeStore.remove('1', function(result) {
+				assert(expectedDelete.isDone());
+				assert.equal(result, 'Recipe successfully removed');
+				done();
+			});
+		});
 	});
 });
