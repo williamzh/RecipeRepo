@@ -1,0 +1,28 @@
+#rd-nav {
+	height: 50px;
+	background-color: red;
+}
+
+#rd-banner {
+	background-color: blue;
+}
+
+#rd-banner .headline {
+	margin: 0 auto;
+	text-align: center;
+	max-width: 400px;
+	overflow: hidden;
+}
+
+#rd-favorite {
+	background-color: green;
+}
+
+#rd-ingredients {
+	background-color: orange;
+}
+
+#rd-method {
+	background-color: yellow;
+}
+
