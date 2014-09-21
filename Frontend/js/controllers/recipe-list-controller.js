@@ -1,5 +1,5 @@
 angular.module('recipeRepoApp').controller('RecipeListCtrl', ['$scope', '$http', function($scope, $http) {
-	var x = $http.get('http://localhost:32951/api/recipes').success(function(data) {
+	var x = $http.get('http://localhost:8001/api/recipes').success(function(data) {
 		console.log(data);
 	});
 

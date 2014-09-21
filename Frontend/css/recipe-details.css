@@ -1,28 +1,86 @@
+/* =============== Navbar =============== */
 #rd-nav {
-	height: 50px;
-	background-color: red;
+	height: 40px;
+	background-color: #EEE;
 }
 
+#rd-nav .back-btn {
+	font-size: 24px;
+}
+
+/* =============== Banner =============== */
 #rd-banner {
-	background-color: blue;
+	border: 2px solid blue;
+	overflow: hidden;
+	height: 300px;
 }
 
 #rd-banner .headline {
 	margin: 0 auto;
 	text-align: center;
 	max-width: 400px;
-	overflow: hidden;
 }
+
+#rd-banner .serving-info {
+	float: right;
+	padding-right: 15px;
+	padding-bottom: 15px;
+}
+
+/* =============== Favorite =============== */
 
 #rd-favorite {
 	background-color: green;
+	position: relative;
 }
+
+#rd-favorite .favorite-icon {
+	position: absolute;
+	display: inline-block;
+	margin: 0 auto;
+	left:0;
+    right:0;
+	top: -12px;
+	width: 36px;
+	height: 36px;
+	border-radius: 100px;
+}
+
+#rd-favorite .favorite-icon.filled {
+	background: url(/img/heart-red.png) no-repeat;
+}
+
+#rd-favorite .favorite-icon.unfilled {
+	background: url(/img/heart-black.png) no-repeat;
+}
+
+/* =============== Ingredients =============== */
 
 #rd-ingredients {
-	background-color: orange;
+	border: 2px solid orange;
+	padding-top: 10px;
 }
+
+#rd-ingredients ul {
+	padding: 0 20px;
+}
+
+#rd-ingredients li {
+	padding: 10px 0;
+	border-bottom: 1px dotted #AAA;
+}
+
+#rd-ingredients li:last-child {
+	border-bottom: none;
+}
+
+/* =============== Method =============== */
 
 #rd-method {
-	background-color: yellow;
+	border: 2px solid yellow;
+	padding-top: 10px
 }
 
+#rd-method li {
+	padding: 8px 0;
+}
