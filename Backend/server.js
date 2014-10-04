@@ -1,8 +1,16 @@
 var express = require('express');
-var app = express();
+var bodyParser = require('body-parser');
 var recipeStore = require('./recipe-store');
 
-app.use(express.bodyParser());
+var app = express();
+
+app.use(bodyParser.json());
+
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
 
 app.get('/api/recipes', function(req, res) {
 	recipeStore.getAll(function(data) {

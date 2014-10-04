@@ -12,7 +12,6 @@
 #rd-banner {
 	border: 2px solid blue;
 	overflow: hidden;
-	height: 300px;
 }
 
 #rd-banner .headline {
