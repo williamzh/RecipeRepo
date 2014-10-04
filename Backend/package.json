@@ -4,6 +4,7 @@
   "author": "William Zhang <foo@test.com>",
   "dependencies": {
     "express": "4.6.x",
+    "body-parser": "~1.8.0",
     "request": "~2.39.0",
     "mocha": "~1.21.4"
   }

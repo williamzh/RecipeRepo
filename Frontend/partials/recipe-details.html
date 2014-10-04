@@ -1,27 +1,33 @@
 <nav id="rd-nav">
-	<div class="back-btn"></div>
+	<div class="back-btn">
+		<i class="fa fa-chevron-left"></i>
+	</div>
 	<div class="menu"></div>		
 </nav>
 
 <section id="rd-banner">
+	<img src="{{recipe.imagePath}}">
 	<div class="headline">
-		<h1>{{recipe.name}}</h1>
+		<h1>{{recipe.recipeName}}</h1>
 	</div>
+	<div class="serving-info">{{recipe.servingSize}} portioner</div>
 </section>
 
 <section id="rd-favorite">
-	<div class="favorite-icon"></div>
+	<span class="favorite-icon" ng-class="{ filled: recipe.isFavorite === true, unfilled: recipe.isFavorite === false }"></span>
 </section>
 
 <section id="rd-ingredients">
+	<h3>Ingredients</h3>
 	<ul>
 		<li ng-repeat="ing in recipe.ingredients">
-			{{ing.name}}
+			{{ing.quantity + ' ' + ing.unit + ' ' + ing.name}}
 		</li>
 	</ul>
 </section>
 
 <section id="rd-method">
+	<h3>Method</h3>
 	<ol>
 		<li ng-repeat="step in recipe.method">
 			{{step}}
