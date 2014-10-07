@@ -1,4 +1,5 @@
 var request = require('request');
+require('sugar');
 
 exports = module.exports = (function recipeController() {
 
@@ -53,7 +54,11 @@ exports = module.exports = (function recipeController() {
 		request(config, function(error, response, data) {
 			if(!error && response.statusCode == 200) {
 				var parsedData = JSON.parse(data);
-				successCallback(parsedData.hits.hits);
+				var recipes = parsedData.hits.hits.map(function(hit) {
+					return hit._source;
+				});
+				
+				successCallback(recipes);
 			}
 			else {
 				errorCallback(error);

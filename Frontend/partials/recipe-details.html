@@ -1,12 +1,13 @@
 <nav id="rd-nav">
 	<div class="back-btn">
-		<i class="fa fa-chevron-left"></i>
+		<a href="#/recipes"><i class="fa fa-chevron-left"></i></a>
 	</div>
 	<div class="menu"></div>		
 </nav>
 
 <section id="rd-banner">
-	<img src="{{recipe.imagePath}}">
+	<!-- <img src="{{recipe.imagePath}}"> -->
+	<img src="http://placehold.it/980x400">
 	<div class="headline">
 		<h1>{{recipe.recipeName}}</h1>
 	</div>
@@ -14,7 +15,9 @@
 </section>
 
 <section id="rd-favorite">
-	<span class="favorite-icon" ng-class="{ filled: recipe.isFavorite === true, unfilled: recipe.isFavorite === false }"></span>
+	<span class="favorite-icon-wrapper" ng-click="onFavoriteClick($event)">
+		<span class="favorite-icon" ng-class="{ filled: recipe.isFavorite === true, unfilled: recipe.isFavorite === false }"></span>
+	</span>
 </section>
 
 <section id="rd-ingredients">

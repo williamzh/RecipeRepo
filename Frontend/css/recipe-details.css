@@ -1,29 +1,37 @@
 /* =============== Navbar =============== */
 #rd-nav {
-	height: 40px;
 	background-color: #EEE;
 }
 
 #rd-nav .back-btn {
 	font-size: 24px;
+	color: #888;
+	display: inline-block;
+	padding: 10px;
+	cursor: pointer;
 }
 
 /* =============== Banner =============== */
 #rd-banner {
 	border: 2px solid blue;
-	overflow: hidden;
+	position: relative;
+	height: 400px;
 }
 
 #rd-banner .headline {
+	position: absolute;
 	margin: 0 auto;
+	left: 0;
+    right: 0;
 	text-align: center;
 	max-width: 400px;
+	top: 130px;
 }
 
 #rd-banner .serving-info {
-	float: right;
-	padding-right: 15px;
-	padding-bottom: 15px;
+	position: absolute;
+	right: 15px;
+	top: 365px;
 }
 
 /* =============== Favorite =============== */
@@ -33,24 +41,36 @@
 	position: relative;
 }
 
-#rd-favorite .favorite-icon {
-	position: absolute;
+#rd-favorite .favorite-icon-wrapper {
 	display: inline-block;
+	position: absolute;
 	margin: 0 auto;
-	left:0;
-    right:0;
-	top: -12px;
+	left: 0;
+    right: 0;
+	top: -15px;
 	width: 36px;
 	height: 36px;
 	border-radius: 100px;
+	background-color: #DDD;
+	text-align: center;
+}
+
+#rd-favorite .favorite-icon {
+	width: 24px;
+	height: 24px;
+	background-size: 24px;
+	background-repeat: no-repeat;
+	display: inline-block;
+	margin-top: 9px;
+	cursor: pointer;
 }
 
 #rd-favorite .favorite-icon.filled {
-	background: url(/img/heart-red.png) no-repeat;
+	background-image: url(/img/heart_filled.png);
 }
 
 #rd-favorite .favorite-icon.unfilled {
-	background: url(/img/heart-black.png) no-repeat;
+	background-image: url(/img/heart_unfilled.png);
 }
 
 /* =============== Ingredients =============== */

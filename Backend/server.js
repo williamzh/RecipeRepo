@@ -8,7 +8,8 @@ app.use(bodyParser.json());
 
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header("Access-Control-Allow-Headers", 'Content-Type');
   next();
  });
 
@@ -36,7 +37,7 @@ app.post('/api/recipes', function(req, res) {
 	});
 });
 
-app.put('/api/recipes/:id', function(req, res) {
+app.post('/api/recipes/:id', function(req, res) {
 	recipeStore.update(req.params.id, req.body.recipe, function(data) {
 		res.json(200, data);
 	}, function(error) {
