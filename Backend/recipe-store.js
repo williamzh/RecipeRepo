@@ -45,7 +45,7 @@ exports = module.exports = (function recipeController() {
 		});
 	}
 
-	function getAllRecipes(successCallback, errorCallback) {
+	function getAllRecipes(successCallback, errorCallback, options) {
 		var config = {
 			url: 'http://localhost:9200/reciperepo/_search',
 			method: 'GET'
@@ -57,8 +57,34 @@ exports = module.exports = (function recipeController() {
 				var recipes = parsedData.hits.hits.map(function(hit) {
 					return hit._source;
 				});
-				
-				successCallback(recipes);
+
+				if(recipes.length == 0) {
+					successCallback(recipes);
+					return;
+				}
+
+				if(!options) {
+					successCallback(recipes);
+					return;
+				}
+
+				if(options.groupBy) {
+					var key = options.groupBy;
+					if(!(key in recipes[0].meta)) {
+						errorCallback('Failed to get grouped recipes. Key "' + key + '" is invalid.');
+						return;
+					}
+
+					successCallback(recipes.groupBy(function(r) {
+						return r.meta[key];
+					}));
+				}
+				else if(options.sortBy) {
+					successCallback(recipes);
+				}
+				else {
+					errorCallback('Failed to group recipes. Invalid options.');
+				}				
 			}
 			else {
 				errorCallback(error);

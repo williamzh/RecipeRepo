@@ -87,6 +87,55 @@ describe('Provided a RecipeStore', function() {
 				done();
 			});
 		});
+
+		describe('with grouping', function() {
+			beforeEach(function() {
+				nock(elasticSearchUrl)
+				.get('/reciperepo/_search')
+				.reply(200, {
+					"hits": {
+				    	"total": 1,
+				    	"hits": [{
+				            "_source": { 
+				            	"recipeId": '1',
+				            	"meta": {
+				            		"cuisine": "Swedish"
+				            	}
+				            }
+				        }, {
+				            "_source": { 
+				            	"recipeId": '2',
+				            	"meta": {
+				            		"cuisine": "Italian"
+				            	}
+				            }
+				        }, {
+				            "_source": { 
+				            	"recipeId": '2',
+				            	"meta": {
+				            		"cuisine": "Swedish"
+				            	}
+				            }
+				        }]
+					}
+				});
+			});
+
+			it('should return error if key is invalid', function(done) {
+				recipeStore.getAll(undefined, function(error) {
+					assert.equal(error, 'Failed to get grouped recipes. Key "category" is invalid.');
+					done();
+				}, { groupBy: 'category' })
+			});
+
+			it('should group recipes if key is valid', function(done) {
+				recipeStore.getAll(function(result) {
+					assert.equal(result['Swedish'].length, 2);
+					assert.equal(result['Italian'].length, 1);
+					done();
+				}, function(error) {}, { groupBy: 'cuisine' })
+			});
+		});
 	});
 
 	describe('when getting recipe by ID', function() {

@@ -9,6 +9,18 @@ h1, h2, h3 {
 	margin: 0;
 }
 
+h1 { 
+	font-size: 1.5em;
+}
+
+h2 { 
+	font-size: 1.3em;
+}
+
+h3 { 
+	font-size: 1.1em;
+}
+
 ul {
 	margin: 0;
 	padding: 0;
@@ -17,4 +29,19 @@ ul {
 
 ol {
 	margin: 0;
+}
+
+.top-navigation {
+	background-color: #EEE;
+	font-size: 24px;
+	color: #888;
+}
+
+.top-navigation .main-btn a {
+	display: inline-block;
+	padding: 10px;
+}
+
+.top-navigation .main-btn a:visited {
+	color: #888;
 }

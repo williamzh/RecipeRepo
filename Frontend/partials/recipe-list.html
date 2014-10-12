@@ -1,54 +1,53 @@
-<div class="container">
+<nav id="rl-nav" class="top-navigation">
+	<div class="main-btn">
+		<a href="#/"><i class="fa fa-home"></i></a>
+	</div>
+	<div class="menu"></div>		
+</nav>
 
-	<div class="row">
+<section id="rl-header">
+	<h1>Recipes</h1>
+</section>
 
-		<div class="col-lg-12">
-			<h1 class="page-header">Recipes<small> x</small></h1>
+<section id="rl-content">
+	<div class="recipe-category" ng-repeat="(category, recipes) in categories">
+		<h2>{{category}}</h2>
+		<div class="recipe-wrapper" ng-repeat="recipe in recipes">
+			<a href="#/recipes/{{recipe.recipeId}}"><img src="http://placehold.it/200x120"></a>
+			<h3><a href="#/recipes/{{recipe.recipeId}}">{{recipe.recipeName}}</a></h3>
+			<p>{{recipe.description}}</p>
+			<!-- <div>
+				<p>31 reviews</p>
+				<p>		 -->						 
+					<!-- <span class="glyphicon glyphicon-star"></span>
+					<span class="glyphicon glyphicon-star-empty"></span> -->
+					<!-- <span ng-repeat="star in recipe.stars" class="glyphicon glyphicon-star{{star.isFilled ? '' : '-empty'}}">
+				</p>
+			</div> -->
 		</div>
+		<hr/>
+	</div>
+</section>
 
+<!-- <div class="row text-center">
+
+	<div class="col-md-12">
+		<ul class="pagination">
+			<li><a href="#">&laquo;</a>
+			</li>
+			<li class="active"><a href="#">1</a>
+			</li>
+			<li><a href="#">2</a>
+			</li>
+			<li><a href="#">3</a>
+			</li>
+			<li><a href="#">4</a>
+			</li>
+			<li><a href="#">5</a>
+			</li>
+			<li><a href="#">&raquo;</a>
+			</li>
+		</ul>
 	</div>
 
-	<div ng-repeat="recipe in recipes" class="col-md-4 portfolio-item">
-		<a href="#/recipes/{{recipe.id}}">
-			<img class="img-responsive" src="http://placehold.it/700x400">
-		</a>
-		<h3><a href="#/recipes/{{recipe.id}}">{{recipe.name}}</a></h3>
-		<p>{{recipe.description}}</p>
-		<div class="ratings">
-			<p class="pull-right">31 reviews</p>
-			<p>								 
-				<!-- <span class="glyphicon glyphicon-star"></span>
-				<span class="glyphicon glyphicon-star-empty"></span> -->
-
-				<span ng-repeat="star in recipe.stars" class="glyphicon glyphicon-star{{star.isFilled ? '' : '-empty'}}">
-			</p>
-		</div>
-	</div>
-
-	<hr>
-  
-	<div class="row text-center">
-
-		<div class="col-md-12">
-			<ul class="pagination">
-				<li><a href="#">&laquo;</a>
-				</li>
-				<li class="active"><a href="#">1</a>
-				</li>
-				<li><a href="#">2</a>
-				</li>
-				<li><a href="#">3</a>
-				</li>
-				<li><a href="#">4</a>
-				</li>
-				<li><a href="#">5</a>
-				</li>
-				<li><a href="#">&raquo;</a>
-				</li>
-			</ul>
-		</div>
-
-	</div>
-
-</div>
-<!-- /.container -->
+</div> -->

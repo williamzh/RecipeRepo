@@ -14,11 +14,15 @@ app.all('*', function(req, res, next) {
  });
 
 app.get('/api/recipes', function(req, res) {
+	var options = req.query.groupBy ? { 'groupBy': req.query.groupBy } :
+		req.query.sortBy ? { 'sortBy': req.query.sortBy } :
+		undefined;
+
 	recipeStore.getAll(function(data) {
 		res.json(200, data);
 	}, function(error) {
 		res.json(500, { error: error });
-	});
+	}, options);
 });
 
 app.get('/api/recipes/:id', function(req, res) {

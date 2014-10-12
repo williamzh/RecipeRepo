@@ -1,20 +1,12 @@
 angular.module('recipeRepoApp').controller('RecipeListCtrl', ['$scope', '$http', function($scope, $http) {
-	var x = $http.get('http://localhost:8001/api/recipes').success(function(data) {
-		console.log(data);
-	});
+	$http.get('http://localhost:8001/api/recipes?groupBy=category').then(function(result) {
 
-	var recipes = [{
-		id: 1,
-		name: "Spaghetti",
-		description: 'A nice dish',
-		rating: 3
-	}];
+		// for(var i = 0; i < recipes.length; i++) {
+		// 	recipes[i].stars = convertRatingToStars(recipes[i].rating);
+		// }
 
-	for(var i = 0; i < recipes.length; i++) {
-		recipes[i].stars = convertRatingToStars(recipes[i].rating);
-	}
-
-	$scope.recipes = recipes;
+		$scope.categories = result.data;
+	});	
 }]);
 
 function convertRatingToStars(rating) {

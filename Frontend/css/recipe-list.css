@@ -1,0 +1,24 @@
+#rl-header {
+	margin: 15px 0;
+}
+
+#rl-content {
+
+}
+
+#rl-content a {
+	text-decoration: none;
+}
+
+#rl-content a:visited {
+	color: #222;
+}
+
+#rl-content .recipe-category h2 {
+	margin: 5px 0 10px 0;
+}
+
+#rl-content .recipe-wrapper {
+	display: inline-block;
+	max-width: 300px;
+}
