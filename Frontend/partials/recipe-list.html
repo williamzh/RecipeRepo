@@ -7,23 +7,18 @@
 
 <section id="rl-header">
 	<h1>Recipes</h1>
+	<select ng-model="selectedGrouping" ng-options="key for key in groupKeys" ng-change="updateRecipeGrouping()"></select>
 </section>
 
 <section id="rl-content">
 	<div class="recipe-category" ng-repeat="(category, recipes) in categories">
 		<h2>{{category}}</h2>
 		<div class="recipe-wrapper" ng-repeat="recipe in recipes">
-			<a href="#/recipes/{{recipe.recipeId}}"><img src="http://placehold.it/200x120"></a>
-			<h3><a href="#/recipes/{{recipe.recipeId}}">{{recipe.recipeName}}</a></h3>
-			<p>{{recipe.description}}</p>
-			<!-- <div>
-				<p>31 reviews</p>
-				<p>		 -->						 
-					<!-- <span class="glyphicon glyphicon-star"></span>
-					<span class="glyphicon glyphicon-star-empty"></span> -->
-					<!-- <span ng-repeat="star in recipe.stars" class="glyphicon glyphicon-star{{star.isFilled ? '' : '-empty'}}">
-				</p>
-			</div> -->
+			<a href="#/recipes/{{recipe.recipeId}}">
+				<img src="http://placehold.it/245x100">
+				<p class="recipe-title">{{recipe.recipeName}}</p>
+			</a>
+			<div class="recipe-rating" rd-rating rating="{{recipe.meta.rating}}"></div>
 		</div>
 		<hr/>
 	</div>

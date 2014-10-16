@@ -10,20 +10,28 @@
 	left: 0;
     right: 0;
 	text-align: center;
-	max-width: 400px;
+	max-width: 360px;
 	top: 120px;
+	background-color: rgba(238, 233, 233, .7);
+	border-radius: 10px;
+}
+
+#rd-banner .headline h1 {
+	margin: 10px 0;
 }
 
 #rd-banner .serving-info {
 	position: absolute;
 	right: 15px;
-	top: 365px;
+	top: 345px;
+	padding: 10px;
+	background-color: rgba(238, 233, 233, .7);
+	border-radius: 10px;
 }
 
 /* =============== Favorite =============== */
 
 #rd-favorite {
-	background-color: green;
 	position: relative;
 }
 
@@ -37,7 +45,7 @@
 	width: 36px;
 	height: 36px;
 	border-radius: 100px;
-	background-color: #DDD;
+	background-color: rgba(216, 216, 216, .7);
 	text-align: center;
 }
 
@@ -63,7 +71,7 @@
 
 #rd-ingredients {
 	border: 2px solid orange;
-	padding-top: 10px;
+	padding: 10px 10px 0 10px;
 }
 
 #rd-ingredients ul {
@@ -83,7 +91,7 @@
 
 #rd-method {
 	border: 2px solid yellow;
-	padding-top: 10px
+	padding: 10px;
 }
 
 #rd-method li {

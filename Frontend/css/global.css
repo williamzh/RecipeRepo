@@ -1,16 +1,30 @@
+/* User agent overrides, global styles */
 body {
 	margin: 0 auto;
-	color: #222;
-	font: 18px Century Gothic, sans-serif;
+	color: #444;
+	font: 15px Century Gothic, sans-serif;
 	max-width: 980px;
 }
 
-h1, h2, h3 {
+body select {
+	font: 15px Century Gothic, sans-serif;
+}
+
+body a, a:visited  {
+	color: #444;
+	text-decoration: none;
+}
+
+body a:visited {
+	color: #444;
+}
+
+h1, h2, h3, h4, p {
 	margin: 0;
 }
 
 h1 { 
-	font-size: 1.5em;
+	font-size: 1.6em;
 }
 
 h2 { 
@@ -31,6 +45,7 @@ ol {
 	margin: 0;
 }
 
+/* Common classes */
 .top-navigation {
 	background-color: #EEE;
 	font-size: 24px;
