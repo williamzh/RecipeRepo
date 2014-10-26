@@ -7,8 +7,6 @@ angular.module('recipeRepoApp').controller('RecipeDetailsCtrl', ['$scope', '$rou
 			// Show error - emit to main ctrl?
 		}
 
-		recipe.stars = convertRatingToStars(recipe.rating);
-
 		$scope.recipe = recipe;
 	}, function() {
 		// Show error - emit to main ctrl?
@@ -26,12 +24,3 @@ angular.module('recipeRepoApp').controller('RecipeDetailsCtrl', ['$scope', '$rou
 		});
 	};
 }]);
-
-function convertRatingToStars(rating) {
-	var ratings = [];
-	for(var i = 1; i <= 5; i++) {
-  		ratings.push({ isFilled: i <= rating });
-	}
-
-	return ratings;
-}

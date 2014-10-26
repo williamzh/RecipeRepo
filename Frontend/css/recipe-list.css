@@ -30,10 +30,18 @@
 	vertical-align: top;
 }
 
+#rl-content .recipe-wrapper .recipe-image {
+	background-image: url("http://placehold.it/245x100");
+	background-size: 245px 100px;
+	width: 245px;
+	height: 100px;
+}
+
 #rl-content .recipe-wrapper .recipe-title {
-	margin-top: 10px;
+	margin: 0 3px;
 }
 
 #rl-content .recipe-wrapper .recipe-rating {
+	margin: 0 3px;
 	color: orange;
 }

@@ -15,7 +15,7 @@
 		<h2>{{category}}</h2>
 		<div class="recipe-wrapper" ng-repeat="recipe in recipes">
 			<a href="#/recipes/{{recipe.recipeId}}">
-				<img src="http://placehold.it/245x100">
+				<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 				<p class="recipe-title">{{recipe.recipeName}}</p>
 			</a>
 			<div class="recipe-rating" rd-rating rating="{{recipe.meta.rating}}"></div>
