@@ -1,7 +1,10 @@
 var request = require('request');
 require('sugar');
+var configManager = require('./config-manager.js');
 
 exports = module.exports = (function recipeController() {
+
+	var host = configManager.getConfigValue('elasticSearchUrl');
 
 	function addRecipe(recipe, successCallback, errorCallback) {
 		if(!recipe) {
@@ -15,14 +18,14 @@ exports = module.exports = (function recipeController() {
 		}
 
 		var config = {
-			url: 'http://localhost:9200/reciperepo/recipe/' + recipe.recipeId,
+			url: 'http://{1}:9200/reciperepo/recipe/{2}'.assign(host, recipe.recipeId),
 			method: 'GET'
 		};
 
 		request(config, function(error, response, data) {
 			if(response.statusCode == 404) {
 				var config = {
-					url: 'http://localhost:9200/reciperepo/recipe/' + recipe.recipeId,
+					url: 'http://{1}:9200/reciperepo/recipe/{2}'.assign(host, recipe.recipeId),
 					method: 'PUT',
 					body: JSON.stringify(recipe)
 				};
@@ -47,7 +50,7 @@ exports = module.exports = (function recipeController() {
 
 	function getAllRecipes(successCallback, errorCallback, options) {
 		var config = {
-			url: 'http://localhost:9200/reciperepo/_search',
+			url: 'http://{1}:9200/reciperepo/_search'.assign(host),
 			method: 'GET'
 		};
 
@@ -94,7 +97,7 @@ exports = module.exports = (function recipeController() {
 
 	function getRecipe(recipeId, successCallback, errorCallback) {
 		var config = {
-			url: 'http://localhost:9200/reciperepo/recipe/' + recipeId,
+			url: 'http://{1}:9200/reciperepo/recipe/{2}'.assign(host, recipeId),
 			method: 'GET'
 		};
 
@@ -135,7 +138,7 @@ exports = module.exports = (function recipeController() {
 			}
 
 			var config = {
-				url: 'http://localhost:9200/reciperepo/recipe/' + recipeId,
+				url: 'http://{1}:9200/reciperepo/recipe/{2}'.assign(host, recipeId),
 				method: 'PUT',
 				body: JSON.stringify(recipe)
 			};
@@ -164,7 +167,7 @@ exports = module.exports = (function recipeController() {
 			}
 
 			var config = {
-				url: 'http://localhost:9200/reciperepo/recipe/' + recipeId,
+				url: 'http://{1}:9200/reciperepo/recipe/{2}'.assign(host, recipeId),
 				method: 'DELETE'
 			};
 

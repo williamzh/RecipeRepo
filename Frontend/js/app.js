@@ -5,16 +5,20 @@ var recipeRepoApp = angular.module('recipeRepoApp', [
 recipeRepoApp.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 		when('/', { 
-			templateUrl: 'partials/start.html', 
+			templateUrl: 'views/start.html', 
 			controller: 'HomeCtrl'
 		}).
 		when('/recipes', { 
-			templateUrl: 'partials/recipe-list.html', 
+			templateUrl: 'views/recipe-list.html', 
 			controller: 'RecipeListCtrl' 
 		}).
 		when('/recipes/:recipeId', { 
-			templateUrl: 'partials/recipe-details.html', 
+			templateUrl: 'views/recipe-details.html', 
 			controller: 'RecipeDetailsCtrl'
+		}).
+		when('/admin', {
+			templateUrl: 'views/manage-recipe.html',
+			controller: 'ManageRecipeCtrl'
 		}).
 		otherwise({
 			redirectTo: '/'

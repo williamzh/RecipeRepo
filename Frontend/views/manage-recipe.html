@@ -1,0 +1,21 @@
+<h1>Create recipe</h1>
+
+<section id="edit-form">
+	<form ng-submit="onSubmit()">
+		<input type="text" name="name" ng-model="recipe.name" />
+		<textarea name="description" ng-model="recipe.description"></textarea>
+		<input type="text" name="imagePath" ng-model="recipe.imagePath" />
+		<select>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+		</select>
+		<input type="checkbox" name="isFavorite" ng-model="recipe.isFavorite" />
+		<input type="text" name="name" ng-model="recipe.name" />
+
+		<input type="submit" value="Create" />
+	</form>
+</section>

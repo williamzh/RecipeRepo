@@ -52,11 +52,11 @@ ol {
 	color: #888;
 }
 
-.top-navigation .main-btn a {
+.top-navigation > div {
 	display: inline-block;
 	padding: 7px 10px;
 }
 
-.top-navigation .main-btn a:visited {
+.top-navigation a:visited {
 	color: #888;
 }
