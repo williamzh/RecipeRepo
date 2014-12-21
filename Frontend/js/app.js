@@ -2,7 +2,7 @@ var recipeRepoApp = angular.module('recipeRepoApp', [
 	'ngRoute'
 ]);
 
-recipeRepoApp.config(['$routeProvider', function($routeProvider) {
+recipeRepoApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider.
 		when('/', { 
 			templateUrl: 'views/start.html', 
@@ -23,4 +23,6 @@ recipeRepoApp.config(['$routeProvider', function($routeProvider) {
 		otherwise({
 			redirectTo: '/'
 		});
+
+	//$locationProvider.html5Mode(true);
 }]);

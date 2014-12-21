@@ -1,21 +1,79 @@
 <h1>Create recipe</h1>
 
 <section id="edit-form">
-	<form ng-submit="onSubmit()">
-		<input type="text" name="name" ng-model="recipe.name" />
-		<textarea name="description" ng-model="recipe.description"></textarea>
-		<input type="text" name="imagePath" ng-model="recipe.imagePath" />
-		<select>
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-		</select>
-		<input type="checkbox" name="isFavorite" ng-model="recipe.isFavorite" />
-		<input type="text" name="name" ng-model="recipe.name" />
+	<form name="recipeForm" ng-submit="onSubmit(recipeForm.$valid)" novalidate>
+		<div>
+			<label for="recipe-name">Recipe name</label>
+			<input type="text" id="recipe-name" name="name" ng-model="name" required />
+			 <p ng-show="recipeForm.name.$invalid && (!recipeForm.name.$pristine || submitted)" class="help-block">Recipe name is required.</p>
+		</div>
 
-		<input type="submit" value="Create" />
+		<div>
+			<label for="recipe-desc">Description</label>
+			<textarea id="recipe-desc" name="description" ng-model="description"></textarea>
+		</div>
+
+		<div>
+			<label for="recipe-img">Image path</label>
+			<input type="text" name="imagePath" ng-model="imagePath" />
+		</div>
+
+		<div>
+			<label for="servings">Servings</label>
+			<select name="selectedServings" ng-model="selectedServings" ng-options="s for s in servingValues" ng-init="selectedServings = 1"></select>
+		</div>
+
+		<div>
+			<input type="checkbox" id="is-favorite" name="isFavorite" ng-model="isFavorite" />
+			<label for="is-favorite">Is favorite</label>
+		</div>
+
+		<div>
+			<label>Ingredients</label>
+			<table>
+				<thead>
+					<tr>
+						<td>Name</td>
+						<td>Quantity</td>
+						<td>Unit</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="ing in ingredients">
+						<td><input type="text" ng-model="ing.name" /></td>
+						<td><input type="text" ng-model="ing.quantity" /></td>
+						<td><input type="text" ng-model="ing.unit" /></td>
+						<td><button type="button" ng-click="removeIngredient($index)">Remove</button></td>
+					</tr>
+				</tbody>
+			</table>
+			<button type="button" ng-click="addIngredient()">Add ingredient</button>
+		</div>
+
+		<div>
+			<label>Method</label>
+			<table>
+				<thead>
+					<tr>
+						<td></td>
+						<td>Name</td>
+						<td>Quantity</td>
+						<td>Unit</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="step in method">
+						<td>{{$index + 1}}</td>
+						<td><textarea ng-model="step.value"></textarea></td>
+						<td><button type="button" ng-click="removeStep($index)">Remove</button></td>
+					</tr>
+				</tbody>
+			</table>
+			<button type="button" ng-click="addStep()">Add method step</button>
+		</div>
+
+		<input type="submit" value="Create" ng-click="submitted = true" />
 	</form>
 </section>
