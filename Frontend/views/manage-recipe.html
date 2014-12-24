@@ -1,79 +1,100 @@
-<h1>Create recipe</h1>
+<nav rd-navbar back=""></nav>
 
-<section id="edit-form">
-	<form name="recipeForm" ng-submit="onSubmit(recipeForm.$valid)" novalidate>
-		<div>
-			<label for="recipe-name">Recipe name</label>
-			<input type="text" id="recipe-name" name="name" ng-model="name" required />
-			 <p ng-show="recipeForm.name.$invalid && (!recipeForm.name.$pristine || submitted)" class="help-block">Recipe name is required.</p>
-		</div>
+<h1 class="page-heading">Create recipe</h1>
 
-		<div>
-			<label for="recipe-desc">Description</label>
-			<textarea id="recipe-desc" name="description" ng-model="description"></textarea>
-		</div>
+<section id="edit-form" class="row">
+	<div class="col-md-6">
+		<form name="recipeForm" ng-submit="onSubmit(recipeForm.$valid)" novalidate>
+			<div class="form-group">
+				<label for="recipe-name">Recipe name</label>
+				<input type="text" id="recipe-name" class="form-control input-sm" name="name" ng-model="name" required />
+				<label class="control-label" ng-show="recipeForm.name.$invalid && (!recipeForm.name.$pristine || submitted)">Recipe name is required.</label>
+			</div>
 
-		<div>
-			<label for="recipe-img">Image path</label>
-			<input type="text" name="imagePath" ng-model="imagePath" />
-		</div>
+			<div class="form-group">
+				<label for="recipe-desc">Description</label>
+				<textarea id="recipe-desc" class="form-control input-sm" name="description" ng-model="description"></textarea>
+			</div>
 
-		<div>
-			<label for="servings">Servings</label>
-			<select name="selectedServings" ng-model="selectedServings" ng-options="s for s in servingValues" ng-init="selectedServings = 1"></select>
-		</div>
+			<div class="form-group">
+				<label for="recipe-cuisines">Cuisine</label>
+				<select id="recipe-cuisines" class="form-control input-sm" name="selectedCuisine" ng-model="selectedCuisine" ng-options="c for c in cuisines" ng-init="selectedCuisine = cuisines[0]"></select>
+			</div>
 
-		<div>
-			<input type="checkbox" id="is-favorite" name="isFavorite" ng-model="isFavorite" />
-			<label for="is-favorite">Is favorite</label>
-		</div>
+			<div class="form-group">
+				<label for="recipe-categories">Category</label>
+				<select id="recipe-categories" class="form-control input-sm" name="selectedCategory" ng-model="selectedCategory" ng-options="s for s in categories" ng-init="selectedCategory = categories[0]"></select>
+			</div>
 
-		<div>
-			<label>Ingredients</label>
-			<table>
-				<thead>
-					<tr>
-						<td>Name</td>
-						<td>Quantity</td>
-						<td>Unit</td>
-						<td></td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="ing in ingredients">
-						<td><input type="text" ng-model="ing.name" /></td>
-						<td><input type="text" ng-model="ing.quantity" /></td>
-						<td><input type="text" ng-model="ing.unit" /></td>
-						<td><button type="button" ng-click="removeIngredient($index)">Remove</button></td>
-					</tr>
-				</tbody>
-			</table>
-			<button type="button" ng-click="addIngredient()">Add ingredient</button>
-		</div>
+			<div class="form-group">
+				<label for="recipe-img">Image path</label>
+				<input type="text" id="recipe-img" class="form-control input-sm" name="imagePath" ng-model="imagePath" />
+			</div>
 
-		<div>
-			<label>Method</label>
-			<table>
-				<thead>
-					<tr>
-						<td></td>
-						<td>Name</td>
-						<td>Quantity</td>
-						<td>Unit</td>
-						<td></td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="step in method">
-						<td>{{$index + 1}}</td>
-						<td><textarea ng-model="step.value"></textarea></td>
-						<td><button type="button" ng-click="removeStep($index)">Remove</button></td>
-					</tr>
-				</tbody>
-			</table>
-			<button type="button" ng-click="addStep()">Add method step</button>
-		</div>
+			<div class="form-group">
+				<label for="recipe-servings">Servings</label>
+				<input type="number" id="recipe-servings" class="form-control input-sm" name="servings" ng-model="servings" min="1" max="4" step="1" ng-init="servings = 1" required>
+				<label class="control-label" ng-show="recipeForm.servings.$invalid && (!recipeForm.servings.$pristine || submitted)">Number of servings must be a number between 1 and 4.</label>
+			</div>
 
-		<input type="submit" value="Create" ng-click="submitted = true" />
-	</form>
+			<div class="checkbox">
+				<label for="is-favorite">
+					<input type="checkbox" id="is-favorite" name="isFavorite" ng-model="isFavorite" />
+					Mark as favorite
+				</label>
+			</div>
+
+			<div class="form-group">
+				<label>Ingredients</label>
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="col-xs-7">Name</th>
+							<th class="col-xs-2">Quantity</th>
+							<th class="col-xs-2">Unit</th>
+							<th class="col-xs-1"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="ing in ingredients">
+							<td><input type="text" class="form-control input-sm" ng-model="ing.name" /></td>
+							<td><input type="text" class="form-control input-sm" ng-model="ing.quantity" /></td>
+							<td><input type="text" class="form-control input-sm" ng-model="ing.unit" /></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeIngredient($index)"><i class="fa fa-remove"></i></button></td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="button" class="btn btn-default btn-sm" ng-click="addIngredient()"><i class="fa fa-plus"></i> Add ingredient</button>
+			</div>
+
+			<div class="form-group">
+				<label>Method</label>
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="col-xs-1"></th>
+							<th class="col-xs-10">Instruction</th>
+							<th class="col-xs-1"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="step in method">
+							<td>{{$index + 1}}</td>
+							<td><textarea class="form-control input-sm" ng-model="step.value"></textarea></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeStep($index)">Remove</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="button" class="btn btn-default btn-sm" ng-click="addStep()">Add method step</button>
+			</div>
+
+			<div class="form-group">
+				<label for="recipe-rating">Rating</label>
+				<input type="number" id="recipe-rating" class="form-control input-sm" name="rating" ng-model="rating" min="1" max="5" step="0.5" ng-init="rating = 1" required>
+				<p ng-show="recipeForm.rating.$invalid && (!recipeForm.rating.$pristine || submitted)">Rating must be a number between 1 and 5.</p>
+			</div>
+
+			<input type="submit" class="btn btn-primary" value="Create" ng-click="submitted = true" />
+		</form>
+	</div>
 </section>

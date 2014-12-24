@@ -1,8 +1,15 @@
 recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$http', function($scope, $http) {
 
-	$scope.servingValues = [1, 2, 3, 4];
+	$scope.cuisines = [];
+
 	$scope.ingredients = [];
 	$scope.method = [];
+
+   // Init
+
+   $scope.cuisines.push();
+
+   // End init
 
 	$scope.addIngredient = function() {
 		$scope.ingredients.push({});
