@@ -1,6 +1,10 @@
 recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$http', function($scope, $http) {
 
-	$scope.cuisines = [];
+	$scope.selectedCuisine = "";
+	$scope.cuisines = ['Chinese', 'Swedish', 'Italian'];
+
+	$scope.selectedCategory = "";
+	$scope.categories = ['Pasta', 'Rice, couscous, bulgur', 'Fish'];
 
 	$scope.ingredients = [];
 	$scope.method = [];
@@ -37,6 +41,14 @@ recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$http', function($scope
 			// 	// Show error - emit to main ctrl?
 			// });
 		}
+	};
+
+	$scope.hasError = function(field) {
+    	//if(validation){
+    		var isInvalid = $scope.recipeForm[field].$invalid;
+      		return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
+    	//}
+    	//return ($scope.recipeForm[field].$dirty && $scope.recipeForm[field].$invalid) || ($scope.submitted && $scope.recipeForm[field].$invalid);
 	};
 
 	function formatData(formData) {

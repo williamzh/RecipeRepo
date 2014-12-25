@@ -1,40 +1,40 @@
-<nav rd-navbar back=""></nav>
-
 <h1 class="page-heading">Create recipe</h1>
 
 <section id="edit-form" class="row">
 	<div class="col-md-6">
 		<form name="recipeForm" ng-submit="onSubmit(recipeForm.$valid)" novalidate>
-			<div class="form-group">
+			<div class="form-group" ng-class="{ 'has-error': hasError('name') }">
 				<label for="recipe-name">Recipe name</label>
-				<input type="text" id="recipe-name" class="form-control input-sm" name="name" ng-model="name" required />
-				<label class="control-label" ng-show="recipeForm.name.$invalid && (!recipeForm.name.$pristine || submitted)">Recipe name is required.</label>
+				<input type="text" id="recipe-name" class="form-control" name="name" ng-model="name" required />
+				<span class="control-label" ng-show="hasError('name')">Recipe name is required.</span>
 			</div>
 
 			<div class="form-group">
 				<label for="recipe-desc">Description</label>
-				<textarea id="recipe-desc" class="form-control input-sm" name="description" ng-model="description"></textarea>
+				<textarea id="recipe-desc" class="form-control" name="description" ng-model="description"></textarea>
 			</div>
 
-			<div class="form-group">
-				<label for="recipe-cuisines">Cuisine</label>
-				<select id="recipe-cuisines" class="form-control input-sm" name="selectedCuisine" ng-model="selectedCuisine" ng-options="c for c in cuisines" ng-init="selectedCuisine = cuisines[0]"></select>
+			<div class="form-group" ng-class="{ 'has-error': hasError('cuisine') }">
+				<label for="recipe-cuisine">Cuisine</label>
+				<input type="text" id="recipe-cuisine" name="cuisine" ng-model="selectedCuisine" typeahead="c for c in cuisines | filter:$viewValue | limitTo:8" class="form-control" required>
+				<span class="control-label" ng-show="hasError('cuisine')">Cuisine is required.</span>
 			</div>
 
-			<div class="form-group">
-				<label for="recipe-categories">Category</label>
-				<select id="recipe-categories" class="form-control input-sm" name="selectedCategory" ng-model="selectedCategory" ng-options="s for s in categories" ng-init="selectedCategory = categories[0]"></select>
+			<div class="form-group" ng-class="{ 'has-error': hasError('category') }">
+				<label for="recipe-category">Category</label>
+				<input type="text" id="recipe-category" name="category" ng-model="selectedCategory" typeahead="c for c in categories | filter:$viewValue | limitTo:8" class="form-control" required>
+				<span class="control-label" ng-show="hasError('category')">Category is required.</span>
 			</div>
 
 			<div class="form-group">
 				<label for="recipe-img">Image path</label>
-				<input type="text" id="recipe-img" class="form-control input-sm" name="imagePath" ng-model="imagePath" />
+				<input type="text" id="recipe-img" class="form-control" name="imagePath" ng-model="imagePath" />
 			</div>
 
-			<div class="form-group">
+			<div class="form-group" ng-class="{ 'has-error': hasError('servings') }">
 				<label for="recipe-servings">Servings</label>
-				<input type="number" id="recipe-servings" class="form-control input-sm" name="servings" ng-model="servings" min="1" max="4" step="1" ng-init="servings = 1" required>
-				<label class="control-label" ng-show="recipeForm.servings.$invalid && (!recipeForm.servings.$pristine || submitted)">Number of servings must be a number between 1 and 4.</label>
+				<input type="number" id="recipe-servings" class="form-control" name="servings" ng-model="servings" min="1" max="4" step="1" ng-init="servings = 1" required>
+				<span class="control-label" ng-show="hasError('servings')">Number of servings must be a number between 1 and 4.</span>
 			</div>
 
 			<div class="checkbox">
@@ -57,9 +57,9 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="ing in ingredients">
-							<td><input type="text" class="form-control input-sm" ng-model="ing.name" /></td>
-							<td><input type="text" class="form-control input-sm" ng-model="ing.quantity" /></td>
-							<td><input type="text" class="form-control input-sm" ng-model="ing.unit" /></td>
+							<td><input type="text" class="form-control" ng-model="ing.name" /></td>
+							<td><input type="text" class="form-control" ng-model="ing.quantity" /></td>
+							<td><input type="text" class="form-control" ng-model="ing.unit" /></td>
 							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeIngredient($index)"><i class="fa fa-remove"></i></button></td>
 						</tr>
 					</tbody>
@@ -73,25 +73,25 @@
 					<thead>
 						<tr>
 							<th class="col-xs-1"></th>
-							<th class="col-xs-10">Instruction</th>
+							<th class="col-xs-10"></th>
 							<th class="col-xs-1"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr ng-repeat="step in method">
 							<td>{{$index + 1}}</td>
-							<td><textarea class="form-control input-sm" ng-model="step.value"></textarea></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeStep($index)">Remove</button></td>
+							<td><textarea class="form-control" ng-model="step.value"></textarea></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeStep($index)"><i class="fa fa-remove"></i></button></td>
 						</tr>
 					</tbody>
 				</table>
-				<button type="button" class="btn btn-default btn-sm" ng-click="addStep()">Add method step</button>
+				<button type="button" class="btn btn-default btn-sm" ng-click="addStep()"><i class="fa fa-plus"></i> Add method step</button>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group" ng-class="{ 'has-error': hasError('rating') }">
 				<label for="recipe-rating">Rating</label>
-				<input type="number" id="recipe-rating" class="form-control input-sm" name="rating" ng-model="rating" min="1" max="5" step="0.5" ng-init="rating = 1" required>
-				<p ng-show="recipeForm.rating.$invalid && (!recipeForm.rating.$pristine || submitted)">Rating must be a number between 1 and 5.</p>
+				<input type="number" id="recipe-rating" class="form-control" name="rating" ng-model="rating" min="1" max="5" step="0.5" ng-init="rating = 1" required>
+				<span class="control-label" ng-show="hasError('rating')">Rating must be a number between 1 and 5.</span>
 			</div>
 
 			<input type="submit" class="btn btn-primary" value="Create" ng-click="submitted = true" />

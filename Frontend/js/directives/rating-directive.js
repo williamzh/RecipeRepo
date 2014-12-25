@@ -2,13 +2,13 @@ recipeRepoApp.directive('rdRating', function() {
   return {
     restrict: 'A',
     scope: {
-      rating: '@'
+      ratingvalue: '@'
     },
     controller: ['$scope', function($scope) {
     	var maxStars = 5;
 
-    	var fullStars = Math.floor($scope.rating);
-    	var hasHalfStar = ($scope.rating - fullStars) > 0;
+    	var fullStars = Math.floor($scope.ratingvalue);
+    	var hasHalfStar = ($scope.ratingvalue - fullStars) > 0;
 
     	var starClasses = [];
     	for(var i = 0; i < maxStars; i++) {

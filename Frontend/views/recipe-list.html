@@ -1,8 +1,6 @@
-<nav rd-navbar back=""></nav>
-
-<section id="rl-header">
+<section id="rl-header" class="well">
 	<h1>Recipes</h1>
-	<select ng-model="selectedGrouping" ng-options="key for key in groupKeys" ng-change="updateRecipeGrouping()"></select>
+	<select class="pull-right form-control" ng-model="selectedGrouping" ng-options="key for key in groupKeys" ng-change="updateRecipeGrouping()"></select>
 </section>
 
 <section id="rl-content">
@@ -13,7 +11,7 @@
 				<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 				<p class="recipe-title">{{recipe.recipeName}}</p>
 			</a>
-			<div class="recipe-rating" rd-rating rating="{{recipe.meta.rating}}"></div>
+			<div class="recipe-rating" rd-rating ratingvalue="{{recipe.meta.rating}}">
 		</div>
 		<hr/>
 	</div>

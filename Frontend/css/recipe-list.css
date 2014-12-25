@@ -1,17 +1,10 @@
 #rl-header {
 	padding: 10px;
 	overflow: hidden;
-	border: 1px solid red;
 }
 
 #rl-header h1 {
 	float: left;
-}
-
-#rl-header select {
-	float: right;
-	height: 25px;
-	width: 190px;
 }
 
 #rl-content {
