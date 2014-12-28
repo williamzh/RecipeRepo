@@ -2,7 +2,7 @@ var request = require('request');
 require('sugar');
 var configManager = require('./config-manager.js');
 
-exports = module.exports = (function recipeController() {
+exports = module.exports = (function recipeStore() {
 
 	var host = configManager.getConfigValue('elasticSearchUrl');
 
@@ -50,7 +50,7 @@ exports = module.exports = (function recipeController() {
 
 	function getAllRecipes(successCallback, errorCallback, options) {
 		var config = {
-			url: 'http://{1}:9200/reciperepo/_search'.assign(host),
+			url: 'http://{1}:9200/reciperepo/recipe/_search'.assign(host),
 			method: 'GET'
 		};
 

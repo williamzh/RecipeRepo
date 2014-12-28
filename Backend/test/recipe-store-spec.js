@@ -53,7 +53,7 @@ describe('Provided a RecipeStore', function() {
 	describe('when getting all recipes', function() {
 		it('should return all existing recipes', function(done) {
 			nock(elasticSearchUrl)
-				.get('/reciperepo/_search')
+				.get('/reciperepo/recipe/_search')
 				.reply(200, {
 					"hits": {
 				    	"total": 1,
@@ -73,7 +73,7 @@ describe('Provided a RecipeStore', function() {
 
 		it('should return empty array if there are no recipes', function(done) {
 			nock(elasticSearchUrl)
-				.get('/reciperepo/_search')
+				.get('/reciperepo/recipe/_search')
 				.reply(200, {
 				   "hits": {
 				    	"total": 0,
@@ -91,7 +91,7 @@ describe('Provided a RecipeStore', function() {
 		describe('with grouping', function() {
 			beforeEach(function() {
 				nock(elasticSearchUrl)
-				.get('/reciperepo/_search')
+				.get('/reciperepo/recipe/_search')
 				.reply(200, {
 					"hits": {
 				    	"total": 1,
