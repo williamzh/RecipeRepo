@@ -1,6 +1,7 @@
 var request = require('request');
 require('sugar');
 var configManager = require('./config-manager');
+var recipeStore = require('./recipe-store');
 
 exports = module.exports = (function metainfoStore() {
 
@@ -35,11 +36,11 @@ exports = module.exports = (function metainfoStore() {
 			var config = {
 				url: 'http://{1}:9200/reciperepo/meta/keys'.assign(host),
 				method: 'POST',
-				body: JSON.stringify(keys)
+				body: JSON.stringify({ keys: keys })
 			};
 
 			request(config, function(error, response, data) {
-				if(!error && response.statusCode == 201) {
+				if(!error && response.statusCode == 200) {
 					successCallback('Key successfully added.');
 				}
 				else {
@@ -58,11 +59,9 @@ exports = module.exports = (function metainfoStore() {
 		request(config, function(error, response, data) {
 			if(!error && response.statusCode == 200) {
 				var parsedData = JSON.parse(data);
-				var recipes = parsedData.hits.hits.map(function(hit) {
-					return hit._source.keys;
-				});
-				
-				successCallback(recipes);
+				var keys = parsedData._source.keys;
+
+				successCallback(keys);
 				return;
 			}
 			else {
@@ -71,8 +70,17 @@ exports = module.exports = (function metainfoStore() {
 		});
 	}
 
+	function getValuesForKey(key, successCallback, errorCallback) {
+		recipeStore.getAll(function(groupedRecipes) {
+			successCallback(Object.keys(groupedRecipes));
+		}, errorCallback, {
+			groupBy: key
+		});
+	}
+
 	return {
-		getAll: getAllKeys,
-		add: addKey
+		getAllKeys: getAllKeys,
+		addKey: addKey,
+		getValuesForKey: getValuesForKey
 	}
 })();

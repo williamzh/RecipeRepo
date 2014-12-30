@@ -16,7 +16,7 @@ describe('Provided a MetainfoStore', function() {
 
 	describe('when adding a metainfo key', function() {
 		it('should return error if no key is provided', function(done) {
-			metainfoStore.add(undefined, undefined, function(error) {
+			metainfoStore.addKey(undefined, undefined, function(error) {
 				assert(error.length);
 				done();
 			});
@@ -27,7 +27,7 @@ describe('Provided a MetainfoStore', function() {
 				.get('/reciperepo/meta/keys')
 				.reply(404);
 
-			metainfoStore.add('newKey', undefined, function(error) {
+			metainfoStore.addKey('newKey', undefined, function(error) {
 				assert(error.length);
 				done();
 			});
@@ -42,7 +42,7 @@ describe('Provided a MetainfoStore', function() {
 					}
 				});
 
-			metainfoStore.add('key1', undefined, function(error) {
+			metainfoStore.addKey('key1', undefined, function(error) {
 				assert(error.length);
 				done();
 			});
@@ -59,9 +59,9 @@ describe('Provided a MetainfoStore', function() {
 
 			nock(elasticSearchUrl)
 				.post('/reciperepo/meta/keys')
-				.reply(201);
+				.reply(200);
 
-			metainfoStore.add('key2', function(result) {
+			metainfoStore.addKey('key2', function(result) {
 				assert(result.length);
 				done();
 			});
