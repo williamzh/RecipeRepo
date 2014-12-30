@@ -1,6 +1,8 @@
 var recipeRepoApp = angular.module('recipeRepoApp', [
 	'ngRoute',
-	'ui.bootstrap'
+	'ui.bootstrap',
+	'recipeRepoDirectives',
+	'recipeRepoServices'
 ]);
 
 recipeRepoApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -27,3 +29,6 @@ recipeRepoApp.config(['$routeProvider', '$locationProvider', function($routeProv
 
 	//$locationProvider.html5Mode(true);
 }]);
+
+var recipeRepoDirectives = angular.module('recipeRepoDirectives', []);
+var recipeRepoServices = angular.module('recipeRepoServices', []);

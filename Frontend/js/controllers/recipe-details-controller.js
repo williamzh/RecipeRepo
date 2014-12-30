@@ -1,4 +1,4 @@
-angular.module('recipeRepoApp').controller('RecipeDetailsCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
+recipeRepoApp.controller('RecipeDetailsCtrl', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
 
 	$http.get('http://localhost:8001/api/recipes/' + $routeParams.recipeId).then(function(result) {
 		var recipe = result.data;

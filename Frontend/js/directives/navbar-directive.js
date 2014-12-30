@@ -1,4 +1,4 @@
-recipeRepoApp.directive('rdNavbar', ['$window', function($window) {
+recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 	return {
     	restrict: 'A',
     	scope: {},

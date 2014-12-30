@@ -1,4 +1,4 @@
-recipeRepoApp.directive('rdRating', function() {
+recipeRepoDirectives.directive('rdRating', function() {
   return {
     restrict: 'A',
     scope: {
