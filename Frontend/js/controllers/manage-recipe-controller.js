@@ -1,22 +1,18 @@
-recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$http', 'log', function($scope, $http, log) {
+recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', 'apiClient', function($scope, apiClient) {
 
    init();
 
    function init() {
-      $scope.selectedCuisine = "";
-      $http.get('http://localhost:8001/api/meta/values/cuisine').then(function(response) {
-         $scope.cuisines = response.data;
-         log.debug('HTTP GET cuisines: ' + response.data);
-      }, log.error);
-
-      $scope.selectedCategory = "";
-      $http.get('http://localhost:8001/api/meta/values/category').then(function(response) {
-         $scope.categories = response.data;
-         log.debug('HTTP GET categories: ' + response.data);
-      }, log.error);
-
       $scope.ingredients = [];
       $scope.method = [];
+
+      $scope.selectedCuisine = "";
+      $scope.selectedCategory = "";
+
+      apiClient.requestMany(apiClient.getMetainfoValues('cuisine'), apiClient.getMetainfoValues('category')).then(function(results) {
+         $scope.cuisines = results[0];
+         $scope.categories = results[1];
+      });
    }
 
 	$scope.addIngredient = function() {
@@ -48,11 +44,8 @@ recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$http', 'log', function
 	};
 
 	$scope.hasError = function(field) {
-    	//if(validation){
-    		var isInvalid = $scope.recipeForm[field].$invalid;
-      		return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
-    	//}
-    	//return ($scope.recipeForm[field].$dirty && $scope.recipeForm[field].$invalid) || ($scope.submitted && $scope.recipeForm[field].$invalid);
+ 		var isInvalid = $scope.recipeForm[field].$invalid;
+		return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
 	};
 
 	// function formatData(formData) {

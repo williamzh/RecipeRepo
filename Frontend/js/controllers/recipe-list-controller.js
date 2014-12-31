@@ -1,22 +1,15 @@
-recipeRepoApp.controller('RecipeListCtrl', ['$scope', '$http', function($scope, $http) {
-	$http.get('http://localhost:8001/api/recipes?groupBy=category')
-		.success(function(result) {
-			$scope.categories = result;
+recipeRepoApp.controller('RecipeListCtrl', ['$scope', '$q', 'apiClient', function($scope, $q, apiClient) {
 
-			$scope.groupKeys = ['cuisine', 'course', 'meal', 'category'];
-			$scope.selectedGrouping = $scope.groupKeys[0];
+	apiClient.requestMany(apiClient.getRecipes('category'), apiClient.getMetainfoKeys()).then(function(results) {
+		$scope.categories = results[0];
 
-			$scope.updateRecipeGrouping = function() {
-				$http.get('http://localhost:8001/api/recipes?groupBy=' + $scope.selectedGrouping)
-					.success(function(result) {
-						$scope.categories = result;
-					})
-					.error(function(error) {
-						console.error(error);
-					});
-			};
-		})
-		.error(function(error) {
-			console.error(error);
-		});	
+		$scope.groupKeys = results[1];
+		$scope.selectedGrouping = $scope.groupKeys[0];
+	});
+
+	$scope.updateRecipeGrouping = function() {
+		apiClient.getRecipes($scope.selectedGrouping).then(function(categories) {
+			$scope.categories = categories;
+		});
+	};
 }]);
