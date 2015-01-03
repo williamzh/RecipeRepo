@@ -42,7 +42,11 @@ exports = module.exports = (function recipeStore() {
 				}));
 			}
 			else if(options.sortBy) {
-				successCallback(recipes);
+				var key = options.sortBy;
+				var sortedRecipes = recipes.sortBy(function(r) { 
+					return r.meta[key]; 
+				}, true);
+				successCallback(sortedRecipes);
 			}
 			else {
 				errorCallback('Failed to group recipes. Invalid options.');

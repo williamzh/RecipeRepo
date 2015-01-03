@@ -1,4 +1,7 @@
 {
+	"meta": {
+		"keys": ["cuisine", "course", "category", "rating"]
+	},
 	"recipes": [{
 		"id": "1",
 		"recipeName": "Pasta Bolognese",
