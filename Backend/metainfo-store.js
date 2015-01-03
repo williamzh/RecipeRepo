@@ -1,11 +1,10 @@
-var request = require('request');
 require('sugar');
-var configManager = require('./config-manager');
+var EsClient = require('./es-client');
 var recipeStore = require('./recipe-store');
 
 exports = module.exports = (function metainfoStore() {
 
-	var host = configManager.getConfigValue('elasticSearchUrl');
+	var client = new EsClient('meta');
 
 	function addKey(key, successCallback, errorCallback) {
 		if(!key) {
@@ -13,60 +12,25 @@ exports = module.exports = (function metainfoStore() {
 			return;
 		}
 
-		var config = {
-			url: 'http://{1}:9200/reciperepo/meta/keys'.assign(host),
-			method: 'GET'
-		};
-
-		request(config, function(error, response, data) {
-			if(response.statusCode !== 200) {
-				errorCallback('Failed to add key. ' + error);
-				return;
-			}
-			
-			var keys = JSON.parse(data)._source.keys || [];
-
-			if(keys.indexOf(key) > -1) {
-				errorCallback('Key ' + key + ' already exists.');
-				return;
-			}
+		client.get('keys').then(function(keysObj) {
+			var keys = keysObj.keys || [];
 
 			keys.push(key);
 
-			var config = {
-				url: 'http://{1}:9200/reciperepo/meta/keys'.assign(host),
-				method: 'POST',
-				body: JSON.stringify({ keys: keys })
-			};
-
-			request(config, function(error, response, data) {
-				if(!error && response.statusCode == 200) {
-					successCallback('Key successfully added.');
-				}
-				else {
-					errorCallback('Failed to add key. ' + error);
-				}
+			return client.create(keys).then(function(successMsg) {
+				successCallback(successMsg);
 			});
+
+		}, function(errorMsg) {
+			errorCallback(errorMsg);
 		});
 	}
 
 	function getAllKeys(successCallback, errorCallback) {
-		var config = {
-			url: 'http://{1}:9200/reciperepo/meta/keys'.assign(host),
-			method: 'GET'
-		};
-
-		request(config, function(error, response, data) {
-			if(!error && response.statusCode == 200) {
-				var parsedData = JSON.parse(data);
-				var keys = parsedData._source.keys;
-
-				successCallback(keys);
-				return;
-			}
-			else {
-				errorCallback(error);
-			}
+		client.get('keys').then(function(keysObj) {
+			successCallback(keysObj.keys);
+		}, function(errorMsg) {
+			errorCallback(errorMsg);
 		});
 	}
 
