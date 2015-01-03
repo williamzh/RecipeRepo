@@ -1,0 +1,307 @@
+{
+	"recipes": [{
+		"id": "1",
+		"recipeName": "Pasta Bolognese",
+		"description": "En god pasta med morot och selleri",
+		"imagePath": "/img/bolognese.jpg",
+		"servingSize": 4,
+		"isFavorite": true,
+		"ingredients": [
+		  {
+		     "name": "köttfärs",
+		     "quantity": "500",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "krossade tomater",
+		     "quantity": "400",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "morötter",
+		     "quantity": "2-3",
+		     "unit": "st"
+		  },
+		  {
+		     "name": "vitlök",
+		     "quantity": "2",
+		     "unit": "klyftor"
+		  }
+		],
+		"method": [
+		  "Hacka löken och riv grönsakerna.",
+		  "Fräs ca 5 min i olivolja, tillsätt sedan färsen och bryn den.",
+		  "Tillsätt pressad vitlök samt de krossade tomaterna och tomatpurén.",
+		  "Lägg i buljongen och krydda med salt och peppar.",
+		  "Låt puttra i minst 20 min.",
+		  "Tillsätt basilika och oregano, smaka av.",
+		  "Koka upp pastan och rör ner den i såsen.",
+		  "Låt småputtra i ca 5 min till, servera."
+		],
+		"meta": {
+		  "cuisine": "Italian",
+		  "course": "Main",
+		  "category": "Pasta",
+		  "rating": 4.5
+		}
+	},
+	{
+		"id": "2",
+		"recipeName": "Panerad fisk med potatismos och ärter",
+		"description": "Klassisk vardagsrätt",
+		"imagePath": "/img/fried_fish.jpg",
+		"servingSize": 4,
+		"isFavorite": true,
+		"ingredients": [
+		  {
+		     "name": "fiskfilé, t.ex. Pangasius eller rödspätta",
+		     "quantity": "400",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "vetemjöl",
+		     "quantity": "1/2",
+		     "unit": "dl"
+		  },
+		  {
+		     "name": "ströbröd",
+		     "quantity": "1",
+		     "unit": "dl"
+		  },
+		  {
+		     "name": "ägg",
+		     "quantity": "1",
+		     "unit": "st"
+		  },
+		  {
+		     "name": "salt",
+		     "quantity": "1/4",
+		     "unit": "tsk"
+		  },
+		  {
+		     "name": "svartpeppar",
+		     "quantity": "1",
+		     "unit": "nypa"
+		  },
+		  {
+		     "name": "gröna ärter",
+		     "quantity": "3",
+		     "unit": "dl"
+		  }
+		],
+		"method": [
+		  "Lägg vetemjöl, ströbröd och ägg på varsin tallrik. Salt och peppar kan blandas med ströbrödet.",
+		  "Vänd sedan fiskfiléerna i mjöl, ägg och till sist ströbröd.",
+		  "Hetta upp en stekpanna med smör, och stek tills fisken har fått färg.",
+		  "Tillaga potatismoset och ärterna under tiden.",
+		  "Servera med en citronklyfta."
+		],
+		"meta": {
+		  "cuisine": "Swedish",
+		  "course": "Main",
+		  "category": "Fish",
+		  "rating": 4
+		}
+	},
+	{
+		"id": "3",
+		"recipeName": "Stekt ris med köttfärs och grönsaker",
+		"description": "God och snabblagad vardagsrätt",
+		"imagePath": "/img/fried_rice.jpg",
+		"servingSize": 4,
+		"isFavorite": false,
+		"ingredients": [
+		  {
+		     "name": "köttfärs",
+		     "quantity": "200",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "ris",
+		     "quantity": "300",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "gul lök",
+		     "quantity": "1",
+		     "unit": "st"
+		  },
+		  {
+		     "name": "ägg",
+		     "quantity": "2",
+		     "unit": "st"
+		  },
+		  {
+		     "name": "grönsaksmix (t.ex. morötter, blomkål, brytbönor)",
+		     "quantity": "200",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "soja",
+		     "quantity": "3-4",
+		     "unit": "skvätt"
+		  }
+		],
+		"method": [
+		  "Koka riset.",
+		  "Förkoka grönsakerna så att de blir halvklara",
+		  "Hacka löken och fräs tillsammans med köttfärsen.",
+		  "Lägg i riset och grönsakerna, smaksätt med soja och rör om.",
+		  "Vispa upp äggen och rör ned.",
+		  "Fräs i ett par minuter, servera."
+		],
+		"meta": {
+		  "cuisine": "Chinese",
+		  "course": "Main",
+		  "category": "Rice, couscous, bulgur",
+		  "rating": 4.5
+		}
+	},
+	{
+		"id": "4",
+	   	"recipeName": "Lasagne",
+		"description": "Klassisk rätt",
+		"imagePath": "/img/lasagne.jpg",
+		"servingSize": 4,
+		"isFavorite": true,
+		"ingredients": [
+		  {
+		     "name": "köttfärs",
+		     "quantity": "200",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "ris",
+		     "quantity": "300",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "gul lök",
+		     "quantity": "1",
+		     "unit": "st"
+		  },
+		  {
+		     "name": "ägg",
+		     "quantity": "2",
+		     "unit": "st"
+		  },
+		  {
+		     "name": "grönsaksmix (t.ex. morötter, blomkål, brytbönor)",
+		     "quantity": "200",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "soja",
+		     "quantity": "3-4",
+		     "unit": "skvätt"
+		  }
+		],
+		"method": [
+		  "Koka riset.",
+		  "Förkoka grönsakerna så att de blir halvklara",
+		  "Hacka löken och fräs tillsammans med köttfärsen.",
+		  "Lägg i riset och grönsakerna, smaksätt med soja och rör om.",
+		  "Vispa upp äggen och rör ned.",
+		  "Fräs i ett par minuter, servera."
+		],
+		"meta": {
+		  "cuisine": "Italian",
+		  "course": "Main",
+		  "category": "Pasta",
+		  "rating": 3
+		}
+	}, {
+		"id": "5",
+	   	"recipeName": "Pasta med kyckling och svamp",
+		"description": "Pasta med en krämig sås med kyckling, svamp och grädde.",
+		"imagePath": "/img/pasta-kyckling-svamp.jpg",
+		"servingSize": 4,
+		"isFavorite": true,
+		"ingredients": [
+		  {
+		     "name": "pasta (t.ex. penne)",
+		     "quantity": "350",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "kycklingfilé",
+		     "quantity": "300",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "svamp (helst mustig, t.ex. kantarell)",
+		     "quantity": "250",
+		     "unit": "g"
+		  },
+		  {
+		     "name": "purjolök (liten)",
+		     "quantity": "1/2",
+		     "unit": "st"
+		  },
+		  {
+		     "name": "gul lök (liten)",
+		     "quantity": "1",
+		     "unit": "st"
+		  },
+		  {
+		     "name": "vitlök",
+		     "quantity": "2",
+		     "unit": "klyftor"
+		  },
+		  {
+		     "name": "vetemjöl",
+		     "quantity": "2",
+		     "unit": "msk"
+		  },
+		  {
+		     "name": "mjölk",
+		     "quantity": "2",
+		     "unit": "dl"
+		  },
+		  {
+		     "name": "grädde",
+		     "quantity": "3",
+		     "unit": "dl"
+		  },
+		  {
+		     "name": "soja (helst ljus)",
+		     "quantity": "3",
+		     "unit": "tsk"
+		  },
+		  {
+		     "name": "vinäger",
+		     "quantity": "1/2 - 1",
+		     "unit": "msk"
+		  },
+		  {
+		     "name": "persilja och basilika",
+		     "quantity": "1/2",
+		     "unit": "dl"
+		  },
+		  {
+		     "name": "riven parmesanost",
+		     "quantity": "1",
+		     "unit": "dl"
+		  }
+		],
+		"method": [
+			"Hacka den gula löken, strimla purjolöken och skiva svamparna. Skär kycklingfilén i skivor.",
+			"Sätt på vatten till pastan.",
+			"Fräs lök, pressad vitlök och svamp på hög varme i någon minut. Pressa gärna ur lite vatten ur svampen före så att det inte kokar.",
+			"Sänk värmen, och rör ner vetemjöl.",
+			"Tillsätt mjölk och grädde, låt koka i ett par minuter. Rör om då och då.",
+			"Lägg i pastan i det kokande vattnet.",
+			"Bryn kycklingen i olivolja, smaksätt med salt och peppar.",
+			"Häll över kycklingen i såsen, och rör om.",
+			"Häll i örtkryddor, soja och vinäger. smaksätt med ytterligare salt och peppar.",
+			"När pastan har kokat al dente, rör ned den i såsen och blanda.",
+			"Låt småputtra i ett par minuter, servera sedan med riven parmesanost."
+		],
+		"meta": {
+		  "cuisine": "Swedish",
+		  "course": "Main",
+		  "category": "Pasta",
+		  "rating": 5
+		}
+	}]
+}
