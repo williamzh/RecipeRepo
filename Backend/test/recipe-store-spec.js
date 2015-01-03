@@ -6,22 +6,35 @@ describe('Provided a RecipeStore', function() {
 	
 	var elasticSearchUrl = 'http://localhost:9200';
 
+	before(function() {
+		nock.disableNetConnect();
+	});
+
 	describe('when adding a recipe', function() {
 		it('should return error if recipe is not defined', function(done) {
+			nock(elasticSearchUrl)
+				.get('/reciperepo/recipe/_search')
+				.reply(200, {
+			    	"hits": {
+			    		"hits": []
+			    	}
+				});
+
 			recipeStore.add(undefined, undefined, function (error) {
 				assert.equal(error, 'Recipe must be supplied.');
 				done();
 			});
 		});
 
-		it('should return error if recipe ID is not defined', function(done) {
-			recipeStore.add({ recipeId: undefined }, undefined, function (error) {
-				assert.equal(error, 'Recipe ID must be supplied.');
-				done();
-			});
-		});
-
 		it('should return error if recipe already exists', function(done) {
+			nock(elasticSearchUrl)
+				.get('/reciperepo/recipe/_search')
+				.reply(200, {
+			    	"hits": {
+			    		"hits": []
+			    	}
+				});
+
 			nock(elasticSearchUrl)
 				.get('/reciperepo/recipe/1')
 				.reply(200, {
@@ -36,6 +49,14 @@ describe('Provided a RecipeStore', function() {
 
 		it('should add the recipe otherwise', function(done) {
 			nock(elasticSearchUrl)
+				.get('/reciperepo/recipe/_search')
+				.reply(200, {
+			    	"hits": {
+			    		"hits": []
+			    	}
+				});
+
+			nock(elasticSearchUrl)
 				.get('/reciperepo/recipe/1')
 				.reply(404);
 
@@ -48,6 +69,62 @@ describe('Provided a RecipeStore', function() {
 				done();
 			});
 		});
+
+		// describe('when generating IDs', function() {
+		// 	it('should generate new sequential ID', function(done) {
+		// 		nock(elasticSearchUrl)
+		// 			.get('/reciperepo/recipe/_search')
+		// 			.reply(200, {
+		// 				"hits": {
+		// 			    	"hits": [
+		// 			    		{ "_source": { "recipeId": '1', } }, 
+		// 			    		{ "_source": { "recipeId": '2', } },
+		// 			    		{ "_source": { "recipeId": '3', } }
+		// 		    		]
+		// 	    		}
+		// 			});
+
+		// 		nock(elasticSearchUrl)
+		// 			.get('/reciperepo/recipe/4')
+		// 			.reply(404);
+
+		// 		var expectedPost = nock(elasticSearchUrl)
+		// 			.put('/reciperepo/recipe/4')
+		// 			.reply(201);
+
+		// 		recipeStore.add({}, function(result) {
+		// 			assert(expectedPost.isDone());
+		// 			done();
+		// 		});
+		// 	});
+
+		// 	it('should not increment ID if previous IDs has been freed up', function(done) {
+		// 		nock(elasticSearchUrl)
+		// 			.get('/reciperepo/recipe/_search')
+		// 			.reply(200, {
+		// 				"hits": {
+		// 			    	"hits": [
+		// 			    		{ "_source": { "recipeId": '1', } }, 
+		// 			    		{ "_source": { "recipeId": '3', } }
+		// 		    		]
+		// 	    		}
+		// 			});
+
+		// 		nock(elasticSearchUrl)
+		// 			.get('/reciperepo/recipe/2')
+		// 			.reply(404);
+
+		// 		var expectedPost = nock(elasticSearchUrl)
+		// 			.put('/reciperepo/recipe/2')
+		// 			.reply(201);
+
+		// 		recipeStore.add({}, function(result) {
+		// 			assert(expectedPost.isDone());
+		// 			done();
+		// 		});
+		// 	});
+		// });
+	
 	});
 
 	describe('when getting all recipes', function() {
@@ -56,7 +133,6 @@ describe('Provided a RecipeStore', function() {
 				.get('/reciperepo/recipe/_search')
 				.reply(200, {
 					"hits": {
-				    	"total": 1,
 				    	"hits": [{
 				            "_source": { "recipeId": '1' }
 				        }, {
@@ -76,8 +152,6 @@ describe('Provided a RecipeStore', function() {
 				.get('/reciperepo/recipe/_search')
 				.reply(200, {
 				   "hits": {
-				    	"total": 0,
-				    	"max_score": null,
 				    	"hits": []
 					}
 				});
@@ -94,7 +168,6 @@ describe('Provided a RecipeStore', function() {
 				.get('/reciperepo/recipe/_search')
 				.reply(200, {
 					"hits": {
-				    	"total": 1,
 				    	"hits": [{
 				            "_source": { 
 				            	"recipeId": '1',
