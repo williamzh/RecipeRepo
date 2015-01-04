@@ -1,110 +1,103 @@
 var EsClient = require('./es-client');
 require('sugar');
 
-exports = module.exports = (function recipeStore() {
+function RecipeStore(client) {
+	this.client = client || new EsClient('recipe');
+}
 
-	var client = new EsClient('recipe');
+RecipeStore.prototype.add = function(recipe, successCallback, errorCallback) {
+	if(!recipe) {
+		errorCallback('Recipe must be supplied.');
+		return;
+	}
 
-	function addRecipe(recipe, successCallback, errorCallback) {
-		if(!recipe) {
-			errorCallback('Recipe must be supplied.');
+	this.client.create(recipe).then(function(successMsg) {
+		successCallback(successMsg);
+	}, function(errorMsg) {
+		errorCallback(errorMsg);
+	});
+};
+
+RecipeStore.prototype.getAll = function(successCallback, errorCallback, options) {
+	this.client.getAll().then(function(recipes) {
+		if(recipes.length == 0) {
+			successCallback(recipes);
 			return;
 		}
 
-		client.create(recipe).then(function(successMsg) {
-			successCallback(successMsg);
-		}, function(errorMsg) {
-			errorCallback(errorMsg);
-		});
-	}
+		if(!options) {
+			successCallback(recipes);
+			return;
+		}
 
-	function getAllRecipes(successCallback, errorCallback, options) {
-		client.getAll().then(function(recipes) {
-			if(recipes.length == 0) {
-				successCallback(recipes);
+		if(options.groupBy) {
+			var key = options.groupBy;
+			if(!(key in recipes[0].meta)) {
+				errorCallback('Failed to get grouped recipes. Key "' + key + '" is invalid.');
 				return;
 			}
 
-			if(!options) {
-				successCallback(recipes);
-				return;
-			}
-
-			if(options.groupBy) {
-				var key = options.groupBy;
-				if(!(key in recipes[0].meta)) {
-					errorCallback('Failed to get grouped recipes. Key "' + key + '" is invalid.');
-					return;
-				}
-
-				successCallback(recipes.groupBy(function(r) {
-					return r.meta[key];
-				}));
-			}
-			else if(options.sortBy) {
-				var key = options.sortBy;
-				var sortedRecipes = recipes.sortBy(function(r) { 
-					return r.meta[key]; 
-				}, true);
-				successCallback(sortedRecipes);
-			}
-			else {
-				errorCallback('Failed to group recipes. Invalid options.');
-			}
-		}, function(errorMsg) {
-			errorCallback(errorMsg);
-		});
-	}
-
-	function getRecipe(recipeId, successCallback, errorCallback) {
-		client.get(recipeId).then(function(recipe) {
-			successCallback(recipe);
-		}, function(errorMsg) {
-			errorCallback(errorMsg);
-		});
-	}
-
-	function updateRecipe(recipeId, recipe, successCallback, errorCallback) {
-		if(!recipeId) {
-			errorCallback('Recipe ID must be supplied');
-			return;
+			successCallback(recipes.groupBy(function(r) {
+				return r.meta[key];
+			}));
 		}
-
-		if(!recipe) {
-			errorCallback('Recipe must be supplied');
-			return;
+		else if(options.sortBy) {
+			var key = options.sortBy;
+			var sortedRecipes = recipes.sortBy(function(r) { 
+				return r.meta[key]; 
+			}, true);
+			successCallback(sortedRecipes);
 		}
-
-		if(recipeId != recipe.recipeId) {
-			errorCallback('Recipe ID mismatch');
-			return;
+		else {
+			errorCallback('Failed to group recipes. Invalid options.');
 		}
+	}, function(errorMsg) {
+		errorCallback(errorMsg);
+	});
+};
 
-		client.update(recipeId, recipe).then(function(successMsg) {
-			successCallback(successMsg);
-		}, function(errorMsg) {
-			errorCallback(errorMsg);
-		});
+RecipeStore.prototype.get = function(recipeId, successCallback, errorCallback) {
+	this.client.get(recipeId).then(function(recipe) {
+		successCallback(recipe);
+	}, function(errorMsg) {
+		errorCallback(errorMsg);
+	});
+};
+
+RecipeStore.prototype.update = function(recipeId, recipe, successCallback, errorCallback) {
+	if(!recipeId) {
+		errorCallback('Recipe ID must be supplied');
+		return;
 	}
 
-	function removeRecipe(recipeId, successCallback, errorCallback) {
-		if(!recipeId) {
-			errorCallback('Recipe ID must be supplied');
-			return;
-		}
-
-		client.remove(recipeId).then(function(successMsg) {
-			successCallback(successMsg);
-		}, function(errorMsg) {
-			errorCallback(errorMsg);
-		});
+	if(!recipe) {
+		errorCallback('Recipe must be supplied');
+		return;
 	}
 
-	return {
-		getAll: getAllRecipes,
-		get: getRecipe,
-		add: addRecipe,
-		update: updateRecipe,
-		remove: removeRecipe
+	if(recipeId != recipe.id) {
+		errorCallback('Recipe ID mismatch');
+		return;
 	}
-})();
+
+	this.client.update(recipeId, recipe).then(function(successMsg) {
+		successCallback(successMsg);
+	}, function(errorMsg) {
+		errorCallback(errorMsg);
+	});
+};
+
+RecipeStore.prototype.remove = function(recipeId, successCallback, errorCallback) {
+	if(!recipeId) {
+		errorCallback('Recipe ID must be supplied');
+		return;
+	}
+
+	this.client.remove(recipeId).then(function(successMsg) {
+		successCallback(successMsg);
+	}, function(errorMsg) {
+		errorCallback(errorMsg);
+	});
+};
+
+module.exports = RecipeStore;

@@ -1,50 +1,46 @@
-require('sugar');
 var EsClient = require('./es-client');
-var recipeStore = require('./recipe-store');
+var RecipeStore = require('./recipe-store');
 
-exports = module.exports = (function metainfoStore() {
+function MetainfoStore(client, recipeStore) {
+	this.client = client || new EsClient('meta');
+	this.recipeStore = recipeStore || new RecipeStore();
+}
 
-	var client = new EsClient('meta');
+MetainfoStore.prototype.addKey = function(key, successCallback, errorCallback) {
+	if(!key) {
+		errorCallback('Key must be supplied.');
+		return;
+	}
 
-	function addKey(key, successCallback, errorCallback) {
-		if(!key) {
-			errorCallback('Key must be supplied.');
-			return;
-		}
+	var client = this.client;
+	this.client.get('keys').then(function(keysObj) {
+		keysObj = keysObj || { keys: [] };
 
-		client.get('keys').then(function(keysObj) {
-			var keys = keysObj.keys || [];
+		keysObj.keys.push(key);
 
-			keys.push(key);
-
-			return client.create(keys).then(function(successMsg) {
-				successCallback(successMsg);
-			});
-
-		}, function(errorMsg) {
-			errorCallback(errorMsg);
+		return client.create(keysObj).then(function(successMsg) {
+			successCallback(successMsg);
 		});
-	}
 
-	function getAllKeys(successCallback, errorCallback) {
-		client.get('keys').then(function(keysObj) {
-			successCallback(keysObj.keys);
-		}, function(errorMsg) {
-			errorCallback(errorMsg);
-		});
-	}
+	}, function(errorMsg) {
+		errorCallback(errorMsg);
+	});
+};
 
-	function getValuesForKey(key, successCallback, errorCallback) {
-		recipeStore.getAll(function(groupedRecipes) {
-			successCallback(Object.keys(groupedRecipes));
-		}, errorCallback, {
-			groupBy: key
-		});
-	}
+MetainfoStore.prototype.getAllKeys = function(successCallback, errorCallback) {
+	this.client.get('keys').then(function(keysObj) {
+		successCallback(keysObj.keys);
+	}, function(errorMsg) {
+		errorCallback(errorMsg);
+	});
+};
 
-	return {
-		getAllKeys: getAllKeys,
-		addKey: addKey,
-		getValuesForKey: getValuesForKey
-	}
-})();
+MetainfoStore.prototype.getValuesForKey = function(key, successCallback, errorCallback) {
+	this.recipeStore.getAll(function(groupedRecipes) {
+		successCallback(Object.keys(groupedRecipes));
+	}, errorCallback, {
+		groupBy: key
+	});
+};
+
+module.exports = MetainfoStore;
