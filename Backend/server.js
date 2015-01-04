@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var recipeStore = require('./recipe-store');
-var metainfoStore = require('./metainfo-store');
+var recipeStore = new (require('./recipe-store'));
+var metainfoStore = new (require('./metainfo-store'));
 
 var app = express();
 

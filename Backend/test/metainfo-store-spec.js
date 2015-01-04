@@ -1,68 +1,52 @@
 var assert = require('assert');
-var nock = require('nock');
-var proxyquire = require('proxyquire');
+var sinon = require('sinon');
+var q = require('q');
+var EsClient = require('../es-client');
+var MetainfoStore = require('../metainfo-store');
 
 describe('Provided a MetainfoStore', function() {
-	var metainfoStore;
 	var elasticSearchUrl = 'http://local:9200';
+	var deferred, esClient, metainfoStore;
 
 	beforeEach(function() {
-		metainfoStore = proxyquire('../metainfo-store', {
-			'./config-manager': {
-				getConfigValue: function(configKey) { return 'local' }
-			}
-		});
+		deferred = q.defer();
+		esClient = new EsClient('foo');
+		metainfoStore = new MetainfoStore(esClient);
 	});
 
 	describe('when adding a metainfo key', function() {
+		var createStub, createDeffered;
+
+		beforeEach(function() {
+			sinon.stub(esClient, 'get').returns(deferred.promise);
+
+			createDeffered = q.defer();
+			createStub = sinon.stub(esClient, 'create').returns(createDeffered.promise);
+		});
+
 		it('should return error if no key is provided', function(done) {
 			metainfoStore.addKey(undefined, undefined, function(error) {
-				assert(error.length);
+				assert.equal(error, 'Key must be supplied.');
 				done();
 			});
 		});
 
-		it('should return error if ElasticSearch does not reply with HTTP 200', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/meta/keys')
-				.reply(404);
+		it('should add key if no previous keys exist', function(done) {
+			deferred.resolve(undefined);
+			createDeffered.resolve('Item created');
 
-			metainfoStore.addKey('newKey', undefined, function(error) {
-				assert(error.length);
+			metainfoStore.addKey('newKey', function(error) {
+				sinon.assert.calledWith(createStub, { keys: ['newKey'] });
 				done();
 			});
 		});
 
-		it('should return error if key already exists', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/meta/keys')
-				.reply(200, {
-					"_source": {
-				    	"keys": ['key1']
-					}
-				});
+		it('should append key if previous keys exist', function(done) {
+			deferred.resolve({ keys: ['oldKey1', 'oldKey2'] });
+			createDeffered.resolve('Item created');
 
-			metainfoStore.addKey('key1', undefined, function(error) {
-				assert(error.length);
-				done();
-			});
-		});
-
-		it('should add the key otherwise', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/meta/keys')
-				.reply(200, {
-					"_source": {
-				    	"keys": ['key1']
-					}
-				});
-
-			nock(elasticSearchUrl)
-				.post('/reciperepo/meta/keys')
-				.reply(200);
-
-			metainfoStore.addKey('key2', function(result) {
-				assert(result.length);
+			metainfoStore.addKey('newKey', function(error) {
+				sinon.assert.calledWith(createStub, { keys: ['oldKey1', 'oldKey2', 'newKey'] });
 				done();
 			});
 		});

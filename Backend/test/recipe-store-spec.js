@@ -1,160 +1,51 @@
 var assert = require('assert');
-var nock = require('nock');
-var recipeStore = require('../recipe-store');
+var sinon = require('sinon');
+var q = require('q');
+var EsClient = require('../es-client');
+var RecipeStore = require('../recipe-store');
 
 describe('Provided a RecipeStore', function() {
-	
 	var elasticSearchUrl = 'http://localhost:9200';
+	var deferred, esClient, recipeStore;
 
-	before(function() {
-		nock.disableNetConnect();
+	beforeEach(function() {
+		deferred = q.defer();
+		esClient = new EsClient('foo');
+		recipeStore = new RecipeStore(esClient);
 	});
 
 	describe('when adding a recipe', function() {
-		it('should return error if recipe is not defined', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/_search')
-				.reply(200, {
-			    	"hits": {
-			    		"hits": []
-			    	}
-				});
+		var clientStub;
 
+		beforeEach(function() {
+			clientStub = sinon.stub(esClient, 'create').returns(deferred.promise);
+		});
+
+		it('should return error if recipe is not defined', function(done) {
 			recipeStore.add(undefined, undefined, function (error) {
 				assert.equal(error, 'Recipe must be supplied.');
 				done();
 			});
 		});
 
-		it('should return error if recipe already exists', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/_search')
-				.reply(200, {
-			    	"hits": {
-			    		"hits": []
-			    	}
-				});
-
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/1')
-				.reply(200, {
-				   "_source": { "recipeId": '1' }
-				});
-
-			recipeStore.add({ recipeId: '1' }, undefined, function(error) {
-				assert.equal(error, 'Recipe with ID 1 already exists.');
-				done();
-			});
-		});
-
 		it('should add the recipe otherwise', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/_search')
-				.reply(200, {
-			    	"hits": {
-			    		"hits": []
-			    	}
-				});
-
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/1')
-				.reply(404);
-
-			nock(elasticSearchUrl)
-				.put('/reciperepo/recipe/1')
-				.reply(201);
+			deferred.resolve('Item created');
 
 			recipeStore.add({ recipeId: 1 }, function(result) {
-				assert.equal(result, 'Recipe successfully added.');
+				sinon.assert.calledWith(clientStub, { recipeId: 1 });
+				assert.equal(result, 'Item created');
 				done();
 			});
-		});
-
-		// describe('when generating IDs', function() {
-		// 	it('should generate new sequential ID', function(done) {
-		// 		nock(elasticSearchUrl)
-		// 			.get('/reciperepo/recipe/_search')
-		// 			.reply(200, {
-		// 				"hits": {
-		// 			    	"hits": [
-		// 			    		{ "_source": { "recipeId": '1', } }, 
-		// 			    		{ "_source": { "recipeId": '2', } },
-		// 			    		{ "_source": { "recipeId": '3', } }
-		// 		    		]
-		// 	    		}
-		// 			});
-
-		// 		nock(elasticSearchUrl)
-		// 			.get('/reciperepo/recipe/4')
-		// 			.reply(404);
-
-		// 		var expectedPost = nock(elasticSearchUrl)
-		// 			.put('/reciperepo/recipe/4')
-		// 			.reply(201);
-
-		// 		recipeStore.add({}, function(result) {
-		// 			assert(expectedPost.isDone());
-		// 			done();
-		// 		});
-		// 	});
-
-		// 	it('should not increment ID if previous IDs has been freed up', function(done) {
-		// 		nock(elasticSearchUrl)
-		// 			.get('/reciperepo/recipe/_search')
-		// 			.reply(200, {
-		// 				"hits": {
-		// 			    	"hits": [
-		// 			    		{ "_source": { "recipeId": '1', } }, 
-		// 			    		{ "_source": { "recipeId": '3', } }
-		// 		    		]
-		// 	    		}
-		// 			});
-
-		// 		nock(elasticSearchUrl)
-		// 			.get('/reciperepo/recipe/2')
-		// 			.reply(404);
-
-		// 		var expectedPost = nock(elasticSearchUrl)
-		// 			.put('/reciperepo/recipe/2')
-		// 			.reply(201);
-
-		// 		recipeStore.add({}, function(result) {
-		// 			assert(expectedPost.isDone());
-		// 			done();
-		// 		});
-		// 	});
-		// });
-	
+		});	
 	});
 
 	describe('when getting all recipes', function() {
-		it('should return all existing recipes', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/_search')
-				.reply(200, {
-					"hits": {
-				    	"hits": [{
-				            "_source": { "recipeId": '1' }
-				        }, {
-				            "_source": { "recipeId": '2' }
-				        }]
-					}
-				});
-
-			recipeStore.getAll(function(hits) {
-				assert.equal(hits.length, 2);
-				done();
-			});
+		beforeEach(function() {
+			sinon.stub(esClient, 'getAll').returns(deferred.promise);
 		});
 
 		it('should return empty array if there are no recipes', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/_search')
-				.reply(200, {
-				   "hits": {
-				    	"hits": []
-					}
-				});
+			deferred.resolve([]);
 
 			recipeStore.getAll(function(hits) {
 				assert.equal(hits.length, 0);
@@ -162,87 +53,82 @@ describe('Provided a RecipeStore', function() {
 			});
 		});
 
-		describe('with grouping', function() {
-			beforeEach(function() {
-				nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/_search')
-				.reply(200, {
-					"hits": {
-				    	"hits": [{
-				            "_source": { 
-				            	"recipeId": '1',
-				            	"meta": {
-				            		"cuisine": "Swedish"
-				            	}
-				            }
-				        }, {
-				            "_source": { 
-				            	"recipeId": '2',
-				            	"meta": {
-				            		"cuisine": "Italian"
-				            	}
-				            }
-				        }, {
-				            "_source": { 
-				            	"recipeId": '2',
-				            	"meta": {
-				            		"cuisine": "Swedish"
-				            	}
-				            }
-				        }]
-					}
-				});
-			});
+		it('should return all recipes if no options are provided', function(done) {
+			deferred.resolve([
+				{ id: 1 },
+				{ id: 2 }
+			]);
 
-			it('should return error if key is invalid', function(done) {
+			recipeStore.getAll(function(hits) {
+				assert.equal(hits.length, 2);
+				done();
+			});
+		});
+
+		describe('with options', function() {
+			it('should return error if option is invalid', function(done) {
+				deferred.resolve([
+					{ id: 1 },
+					{ id: 2 }
+				]);
+
 				recipeStore.getAll(undefined, function(error) {
-					assert.equal(error, 'Failed to get grouped recipes. Key "category" is invalid.');
+					assert.equal(error, 'Failed to group recipes. Invalid options.');
 					done();
-				}, { groupBy: 'category' })
+				}, { nonExistentOption: 'so_fail' })
 			});
 
-			it('should group recipes if key is valid', function(done) {
+			it('should group recipes if group key is valid', function(done) {
+				deferred.resolve([
+					{ id: 1, meta: { cuisine: 'Swedish' } },
+					{ id: 2, meta: { cuisine: 'Swedish' } },
+					{ id: 3, meta: { cuisine: 'Chinese' } },
+				]);
+
 				recipeStore.getAll(function(result) {
 					assert.equal(result['Swedish'].length, 2);
-					assert.equal(result['Italian'].length, 1);
+					assert.equal(result['Chinese'].length, 1);
 					done();
 				}, function(error) {}, { groupBy: 'cuisine' })
+			});
+
+			it('should sort recipes if sort key is valid', function(done) {
+				deferred.resolve([
+					{ id: 1, meta: { rating: 3 } },
+					{ id: 2, meta: { rating: 5 } },
+					{ id: 3, meta: { rating: 4.5 } },
+				]);
+
+				recipeStore.getAll(function(result) {
+					assert.equal(result[0].id, 2);
+					assert.equal(result[1].id, 3);
+					assert.equal(result[2].id, 1);
+					done();
+				}, function(error) {}, { sortBy: 'rating' })
 			});
 		});
 	});
 
 	describe('when getting recipe by ID', function() {
-		it('should return recipe if it exists', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/1')
-				.reply(200, {
-				   "_source": { "recipeId": '1' }
-				});
-
-			recipeStore.get('1', function(recipe) {
-				assert.equal(recipe.recipeId, '1');
-				done();
-			});
+		beforeEach(function() {
+			sinon.stub(esClient, 'get').returns(deferred.promise);
 		});
 
-		it("should return null if recipe doesn't exist", function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/1')
-				.reply(404);
+		it('should return recipe if it exists', function(done) {
+			deferred.resolve({ id: 1 });
 
 			recipeStore.get('1', function(recipe) {
-				assert.equal(recipe, null);
+				assert.equal(recipe.id, 1);
 				done();
 			});
 		});
 	});
 
 	describe('when updating an existing recipe', function() {
-		it("should return error if recipe IDs don't match", function(done) {
-			recipeStore.update('1', { recipeId: '2' }, undefined, function(error) {
-				assert.equal(error, 'Recipe ID mismatch');
-				done();
-			});
+		var clientStub;
+
+		beforeEach(function() {
+			clientStub = sinon.stub(esClient, 'update').returns(deferred.promise);
 		});
 
 		it('should return error if recipe ID is missing', function(done) {
@@ -259,40 +145,32 @@ describe('Provided a RecipeStore', function() {
 			});
 		});
 
-		it("should return error if recipe doesn't exist", function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/1')
-				.reply(404);
-
-			recipeStore.update('1', { recipeId: '1' }, undefined, function(error) {
-				assert.equal(error, 'Recipe with ID 1 does not exist');
+		it("should return error if recipe IDs don't match", function(done) {
+			recipeStore.update('1', { id: '2' }, undefined, function(error) {
+				assert.equal(error, 'Recipe ID mismatch');
 				done();
 			});
 		});
 
-		it('should update an existing recipe correctly', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/1')
-				.reply(200, {
-				   "_source": { "recipeId": '1', "name": 'Spaghetti Bolognese' }
-				});
+		it('should update the recipe otherwise', function(done) {
+			deferred.resolve('Item updated');
 
-			var expectedPut = nock(elasticSearchUrl)
-				.put('/reciperepo/recipe/1', { 
-					recipeId: '1', 
-					name: 'Spaghetti Carbonara' 
-				})
-				.reply(200);
-
-			recipeStore.update('1', { recipeId: '1', name: 'Spaghetti Carbonara' }, function(result) {
-				assert(expectedPut.isDone());
-				assert.equal(result, 'Recipe successfully udpated');
+			var updatedRecipe = { id: '1', name: 'Spaghetti Carbonara' };
+			recipeStore.update('1', updatedRecipe, function(result) {
+				sinon.assert.calledWith(clientStub, '1', updatedRecipe);
+				assert.equal(result, 'Item updated');
 				done();
 			});
 		});
 	});
 	
 	describe('when removing a recipe', function() {
+		var clientStub;
+
+		beforeEach(function() {
+			clientStub = sinon.stub(esClient, 'remove').returns(deferred.promise);
+		});
+
 		it('should return error if no recipe ID is provided', function(done) {
 			recipeStore.remove(undefined, undefined, function(error) {
 				assert.equal(error, 'Recipe ID must be supplied');
@@ -300,31 +178,12 @@ describe('Provided a RecipeStore', function() {
 			});
 		});
 
-		it('should return error if recipe does not exist', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/1')
-				.reply(404);
-
-			recipeStore.remove('1', undefined, function(error) {
-				assert.equal(error, "Recipe with ID 1 doesn't exist");
-				done();
-			});
-		});
-
-		it('should remove recipe otherwise', function(done) {
-			nock(elasticSearchUrl)
-				.get('/reciperepo/recipe/1')
-				.reply(200, {
-					"_source": { "recipeId": '1' }
-				});
-
-			var expectedDelete = nock(elasticSearchUrl)
-				.delete('/reciperepo/recipe/1')
-				.reply(200);
+		it('should remove the recipe otherwise', function(done) {
+			deferred.resolve('Item removed');
 
 			recipeStore.remove('1', function(result) {
-				assert(expectedDelete.isDone());
-				assert.equal(result, 'Recipe successfully removed');
+				sinon.assert.calledWith(clientStub, '1');
+				assert.equal(result, 'Item removed');
 				done();
 			});
 		});

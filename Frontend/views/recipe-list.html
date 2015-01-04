@@ -7,7 +7,7 @@
 	<div class="recipe-category" ng-repeat="(category, recipes) in categories">
 		<h2>{{category}}</h2>
 		<div class="recipe-wrapper" ng-repeat="recipe in recipes">
-			<a href="#/recipes/{{recipe.recipeId}}">
+			<a href="#/recipes/{{recipe.id}}">
 				<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 				<p class="recipe-title">{{recipe.recipeName}}</p>
 			</a>

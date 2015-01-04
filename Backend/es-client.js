@@ -7,7 +7,7 @@ function EsClient(type) {
 	this.baseUrl = 'http://{1}:9200/reciperepo/{2}/'.assign(host, type);
 }
 
-EsClient.prototype.create = function(item) {
+EsClient.prototype.create = function(item, id) {
 	var deferred = q.defer();
 
 	var baseUrl = this.baseUrl;
@@ -18,15 +18,18 @@ EsClient.prototype.create = function(item) {
 	request(config, function(error, response, data) {
 		if(response.statusCode == 200) {
 			var parsedData = JSON.parse(data);
-			var ids = parsedData.hits.hits.map(function(item) { return parseInt(item._id); });
 
-			var id = 1;
-			while(ids.indexOf(id) > -1) {
-				id++;
-			}
-			
-			if(item.hasOwnProperty('id')) {
-				item.id = id;
+			if(!id) {
+				var ids = parsedData.hits.hits.map(function(item) { return parseInt(item._id); });
+
+				var id = 1;
+				while(ids.indexOf(id) > -1) {
+					id++;
+				}
+				
+				if(item.hasOwnProperty('id')) {
+					item.id = id;
+				}
 			}
 			
 			var postConfig = {
