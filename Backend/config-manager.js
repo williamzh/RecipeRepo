@@ -1,11 +1,9 @@
-exports = module.exports = (function configManager() {
-   	var config = require('./config/config.json');
+function ConfigManager() {
+	this.config = require('./config/config.json');
+}
 
-   	function getConfigValue(key) {
-   		return config[key];
-   	}
+ConfigManager.prototype.getConfigValue = function(key) {
+	return this.config[key];
+};
 
-   	return {
-   		getConfigValue: getConfigValue
-   	};
-})();
+module.exports = ConfigManager;
