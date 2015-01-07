@@ -5,9 +5,7 @@ recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', 'apiClient', function($s
    function init() {
       $scope.ingredients = [];
       $scope.method = [];
-
-      $scope.selectedCuisine = "";
-      $scope.selectedCategory = "";
+      $scope.showSuccessAlert = false;
 
       apiClient.requestMany(apiClient.getMetainfoValues('cuisine'), apiClient.getMetainfoValues('category')).then(function(results) {
          $scope.cuisines = results[0];
@@ -35,10 +33,9 @@ recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', 'apiClient', function($s
 	$scope.onSubmit = function(isValid) {
 		console.log("Is valid: " + isValid);
 		if(isValid) {
-			// $http.post('http://localhost:8001/api/recipes/').then(function(result) {
-			// 	console.log(result);
-			// }, function() {
-			// 	// Show error - emit to main ctrl?
+			var recipe = formatData($scope.recipeForm);
+			// apiClient.addRecipe(recipe).then(function() {
+			// 	$scope.showSuccessAlert = true;
 			// });
 		}
 	};
@@ -48,53 +45,29 @@ recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', 'apiClient', function($s
 		return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
 	};
 
-	// function formatData(formData) {
-	// 	return {
-	// 		"recipeId": "1",
- //               "recipeName": "Pasta Bolognese",
- //               "description": "En god pasta med morot och selleri",
- //               "imagePath": "/img/bolognese.jpg",
- //               "servingSize": 4,
- //               "isFavorite": true,
- //               "ingredients": [
- //                  {
- //                     "name": "köttfärs",
- //                     "quantity": "500",
- //                     "unit": "g"
- //                  },
- //                  {
- //                     "name": "krossade tomater",
- //                     "quantity": "400",
- //                     "unit": "g"
- //                  },
- //                  {
- //                     "name": "morötter",
- //                     "quantity": "2-3",
- //                     "unit": "st"
- //                  },
- //                  {
- //                     "name": "vitlök",
- //                     "quantity": "2",
- //                     "unit": "klyftor"
- //                  }
- //               ],
- //               "method": [
- //                  "Hacka löken och riv grönsakerna.",
- //                  "Fräs ca 5 min i olivolja, tillsätt sedan färsen och bryn den.",
- //                  "Tillsätt pressad vitlök samt de krossade tomaterna och tomatpurén.",
- //                  "Lägg i buljongen och krydda med salt och peppar.",
- //                  "Låt puttra i minst 20 min.",
- //                  "Tillsätt basilika och oregano, smaka av.",
- //                  "Koka upp pastan och rör ner den i såsen.",
- //                  "Låt småputtra i ca 5 min till, servera."
- //               ],
- //               "meta": {
- //                  "cuisine": "Italian",
- //                  "course": "Main",
- //                  "meal": "Dinner",
- //                  "category": "Pasta",
- //                  "rating": 4.5
- //               }
-	// 	};
-	// }
+	function formatData(formData) {
+		return {
+			recipeName: formData.name.$modelValue,
+			description: formData.description.$modelValue,
+			imagePath: formData.imagePath.$modelValue,
+			servingSize: formData.servings.$modelValue,
+			isFavorite: formData.isFavorite.$modelValue,
+			ingredients: $scope.ingredients.map(function(ing) { 
+				return {
+					name: ing.name,
+					quantity: ing.quantity,
+					unit: ing.unit
+				};
+			}),
+			method: $scope.method.map(function(step) {
+				return step.value;
+			}),
+			meta: {
+			  cuisine: formData.cuisine.$modelValue,
+			  //course: "Main",
+			  category: formData.category.$modelValue,
+			  rating: formData.rating.$modelValue
+			}
+		};
+	}
 }]);
