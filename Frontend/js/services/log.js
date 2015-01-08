@@ -16,6 +16,13 @@ recipeRepoServices.service('log', ['$log', function($log) {
 		}
 	};
 
+	this.errorFormat = function(template) {
+		// Convert arguments to array
+		var args = Array.prototype.slice.call(arguments, 1);
+
+		this.error(template.assign.apply(template, args));
+	};
+
 	this.debug = function(message) {
 		$log.debug(message);
 	};

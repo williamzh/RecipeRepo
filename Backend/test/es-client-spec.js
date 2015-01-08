@@ -175,12 +175,12 @@ describe('Provided an EsClient', function() {
 					}
 				});
 
-			var expectedPost = nock(esUrl)
+			var expectedPut = nock(esUrl)
 				.put('/reciperepo/foo/1')
-				.reply(200);
+				.reply(200, {});
 
 			esClient.update(1, {}).then(function(successMsg) {
-				assert(expectedPost.isDone());
+				assert(expectedPut.isDone());
 				done();
 			});
 		});

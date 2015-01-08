@@ -4,7 +4,10 @@ recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
     	scope: {},
 		controller: ['$scope', function($scope) {
 			// TODO: inject authentication service
-			$scope.isAuthenticated = true;	
+			$scope.isAuthenticated = true;
+			$scope.onSearchClick = function() {
+				console.log('Searching...' + $scope.searchValue);
+			}
 		}],
 		link: function(scope, elem, attrs) {
 			elem.find('.back-btn').on('click', function() {

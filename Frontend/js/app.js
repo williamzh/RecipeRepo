@@ -19,7 +19,11 @@ recipeRepoApp.config(['$routeProvider', '$locationProvider', function($routeProv
 			templateUrl: 'views/recipe-details.html', 
 			controller: 'RecipeDetailsCtrl'
 		}).
-		when('/admin', {
+		when('/admin/create/', {
+			templateUrl: 'views/manage-recipe.html',
+			controller: 'ManageRecipeCtrl'
+		}).
+		when('/admin/edit/:recipeId', {
 			templateUrl: 'views/manage-recipe.html',
 			controller: 'ManageRecipeCtrl'
 		}).

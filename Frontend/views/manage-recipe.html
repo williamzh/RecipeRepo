@@ -1,42 +1,44 @@
-<h1 class="page-heading">Create recipe</h1>
+<h1 class="page-heading">{{mode == 'create' ? 'Create recipe' : 'Edit recipe'}}</h1>
 
-<alert ng-show="showSuccessAlert" type="success" close><i class="fa fa-check icon-lg"></i>&nbsp;Recipe successfully created.</alert>
+<alert ng-repeat="(alertMode, alert) in alerts" ng-show="activeAlert == alertMode" type="{{alert.type}}" close="onAlertClose()">
+	<i class="fa icon-lg" ng-class="alert.type == 'danger' ? 'fa-exclamation' : 'fa-check'"></i>&nbsp;{{alert.msg}}
+</alert>
 
 <section id="edit-form" class="row"> 
 	<div class="col-md-6">
 		<form name="recipeForm" ng-submit="onSubmit(recipeForm.$valid)" novalidate>
 			<div class="form-group" ng-class="{ 'has-error': hasError('name') }">
 				<label for="recipe-name">Recipe name</label>
-				<input type="text" id="recipe-name" class="form-control" name="name" ng-model="name" required />
-				<span class="control-label" ng-show="hasError('name')">Recipe name is required.</span>
+				<input type="text" id="recipe-name" class="form-control narrow" name="name" ng-model="name" required />
+				<p class="control-label error-label" ng-show="hasError('name')">Recipe name is required.</p>
 			</div>
 
 			<div class="form-group">
 				<label for="recipe-desc">Description</label>
-				<textarea id="recipe-desc" class="form-control" name="description" ng-model="description"></textarea>
+				<textarea id="recipe-desc" class="form-control narrow" name="description" ng-model="description"></textarea>
 			</div>
 
 			<div class="form-group" ng-class="{ 'has-error': hasError('cuisine') }">
 				<label for="recipe-cuisine">Cuisine</label>
-				<input type="text" id="recipe-cuisine" name="cuisine" ng-model="cuisine" typeahead="c for c in cuisines | filter:$viewValue | limitTo:8" class="form-control" required>
-				<span class="control-label" ng-show="hasError('cuisine')">Cuisine is required.</span>
+				<input type="text" id="recipe-cuisine" name="cuisine" ng-model="cuisine" typeahead="c for c in cuisines | filter:$viewValue | limitTo:8" class="form-control narrow" required>
+				<p class="control-label error-label" ng-show="hasError('cuisine')">Cuisine is required.</p>
 			</div>
 
 			<div class="form-group" ng-class="{ 'has-error': hasError('category') }">
 				<label for="recipe-category">Category</label>
-				<input type="text" id="recipe-category" name="category" ng-model="category" typeahead="c for c in categories | filter:$viewValue | limitTo:8" class="form-control" required>
-				<span class="control-label" ng-show="hasError('category')">Category is required.</span>
+				<input type="text" id="recipe-category" name="category" ng-model="category" typeahead="c for c in categories | filter:$viewValue | limitTo:8" class="form-control narrow" required>
+				<p class="control-label error-label" ng-show="hasError('category')">Category is required.</p>
 			</div>
 
 			<div class="form-group">
 				<label for="recipe-img">Image path</label>
-				<input type="text" id="recipe-img" class="form-control" name="imagePath" ng-model="imagePath" />
+				<input type="text" id="recipe-img" class="form-control narrow" name="imagePath" ng-model="imagePath" />
 			</div>
 
 			<div class="form-group" ng-class="{ 'has-error': hasError('servings') }">
 				<label for="recipe-servings">Servings</label>
-				<input type="number" id="recipe-servings" class="form-control" name="servings" ng-model="servings" min="1" max="4" step="1" ng-init="servings = 1" required>
-				<span class="control-label" ng-show="hasError('servings')">Number of servings must be a number between 1 and 4.</span>
+				<input type="number" id="recipe-servings" class="form-control narrow" name="servings" ng-model="servings" min="1" max="4" step="1" ng-init="servings = 1" required>
+				<p class="control-label error-label" ng-show="hasError('servings')">Number of servings must be a number between 1 and 4.</p>
 			</div>
 
 			<div class="checkbox">
@@ -46,7 +48,7 @@
 				</label>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group" ng-class="{ 'has-error': hasError('ingredients', 'collectionRequired') }">
 				<label>Ingredients</label>
 				<table class="table">
 					<thead>
@@ -67,9 +69,10 @@
 					</tbody>
 				</table>
 				<button type="button" class="btn btn-default btn-sm" ng-click="addIngredient()"><i class="fa fa-plus"></i> Add ingredient</button>
+				<p class="control-label error-label" ng-show="hasError('ingredients', 'collectionRequired')">At least one ingredient is required.</p>
 			</div>
 
-			<div class="form-group">
+			<div class="form-group" ng-class="{ 'has-error': hasError('method', 'collectionRequired') }">
 				<label>Method</label>
 				<table class="table">
 					<thead>
@@ -88,12 +91,13 @@
 					</tbody>
 				</table>
 				<button type="button" class="btn btn-default btn-sm" ng-click="addStep()"><i class="fa fa-plus"></i> Add method step</button>
+				<p class="control-label error-label" ng-show="hasError('method', 'collectionRequired')">At least one step is required.</p>
 			</div>
 
 			<div class="form-group" ng-class="{ 'has-error': hasError('rating') }">
 				<label for="recipe-rating">Rating</label>
-				<input type="number" id="recipe-rating" class="form-control" name="rating" ng-model="rating" min="1" max="5" step="0.5" ng-init="rating = 1" required>
-				<span class="control-label" ng-show="hasError('rating')">Rating must be a number between 1 and 5.</span>
+				<input type="number" id="recipe-rating" class="form-control narrow" name="rating" ng-model="rating" min="1" max="5" step="0.5" ng-init="rating = 1" required>
+				<p class="control-label error-label" ng-show="hasError('rating')">Rating must be a number between 1 and 5.</p>
 			</div>
 
 			<input type="submit" class="btn btn-primary" value="Create" ng-click="submitted = true" />

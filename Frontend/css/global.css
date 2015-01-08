@@ -49,11 +49,23 @@ ol {
 	cursor: pointer;
 }
 
-body .form-control {
-	width: 250px;
-} 
+body .form-control.narrow {
+	width: 300px;
+}
+
+body .form-control.x-narrow {
+	width: 200px;
+}
 
 /* Common classes */
+
+body .form-control.searchbox {
+	width: 250px;
+}
+
+.error-label {
+	padding-top: 5px;
+}
 
 .fa.icon-lg {
 	font-size: 1.5em;

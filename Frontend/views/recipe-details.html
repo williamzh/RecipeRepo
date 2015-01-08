@@ -1,8 +1,10 @@
 <section id="rd-banner">
-	<img src="{{recipe.imagePath}}">
-	<!-- <img src="http://placehold.it/980x400"> -->
+	<div class="top-image" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
 	<div class="headline">
 		<h1>{{recipe.recipeName}}</h1>
+	</div>
+	<div ng-if="isAuthenticated" class="edit-controls">
+		<a class="btn btn-default btn-sm" ng-href="#/admin/edit/{{recipe.id}}"><i class="fa fa-pencil"></i></a>
 	</div>
 	<div class="serving-info">{{recipe.servingSize}} portioner</div>
 </section>

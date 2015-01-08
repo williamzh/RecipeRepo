@@ -2,6 +2,7 @@ recipeRepoApp.controller('RecipeDetailsCtrl', ['$scope', '$routeParams', 'apiCli
 
 	apiClient.getRecipe($routeParams.recipeId).then(function(recipe) {
 		$scope.recipe = recipe;
+		$scope.isAuthenticated = true;
 	});
 
 	$scope.onFavoriteClick = function(e) {

@@ -35,12 +35,13 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 	};
 
 	function updateRecipe(recipe) {
-		var url = baseUrl + '/recipes/' + recipe.recipeId;
+		var url = baseUrl + '/recipes/' + recipe.id;
 
 		return $http.post(url, { recipe: recipe }).then(function (response) {
 			return response;
 		}, function(errorObj) {
-			onError(errorObj, 'updateRecipe');
+			var errMsg = onError(errorObj, 'updateRecipe');
+			throw new Error(errMsg);
 		});
 	};
 
@@ -73,6 +74,7 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 	function onError(httpError, methodName) {
 		var errorMessage = (typeof httpError.data === 'object') ? httpError.data.error : httpError.data;
 		log.error('API call ' + methodName + '() failed with HTTP status ' + httpError.status + ": " + errorMessage);
+		return errorMessage;
 	}
 
 	return {

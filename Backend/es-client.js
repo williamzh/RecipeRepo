@@ -48,10 +48,8 @@ EsClient.prototype.create = function(item, id) {
 						id++;
 					}
 					
-					if(item.hasOwnProperty('id')) {
-						item.id = id;
-					}
-					
+					item.id = id;
+
 					createItem(item, id);
 				}
 			});
@@ -116,6 +114,7 @@ EsClient.prototype.update = function(id, item) {
 		else {
 			request
 				.put(baseUrl + id)
+				.send(item)
 				.end(function(err, res) {
 					if(err || res.error) {
 						var error = err || res.error.message;

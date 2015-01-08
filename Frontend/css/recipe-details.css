@@ -1,7 +1,13 @@
 /* =============== Banner =============== */
 #rd-banner {
 	position: relative;
-	height: 400px;
+}
+
+#rd-banner .top-image {
+    height: 350px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
 }
 
 #rd-banner .headline {
@@ -20,10 +26,19 @@
 	margin: 10px 0;
 }
 
+#rd-banner .edit-controls {
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	/*padding: 10px;*/
+	/*background-color: rgba(238, 233, 233, .7);*/
+	/*border-radius: 10px;*/
+}
+
 #rd-banner .serving-info {
 	position: absolute;
 	right: 15px;
-	top: 345px;
+	top: 297px;
 	padding: 10px;
 	background-color: rgba(238, 233, 233, .7);
 	border-radius: 10px;
