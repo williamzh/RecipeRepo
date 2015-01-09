@@ -25,3 +25,13 @@
 .searchbox:focus {
     width: 400px;
 }
+
+.searchbox + ul .search-result {
+	padding-top: 7px;
+	padding-bottom: 7px;
+	border-bottom: 1px solid #EEE;
+}
+
+.searchbox + ul .active .search-result {
+	color: #F7F7F7;
+}

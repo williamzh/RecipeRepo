@@ -1,6 +1,6 @@
 <section id="rl-header" class="well">
 	<h1>Recipes</h1>
-	<select class="pull-right form-control x-narrow" ng-model="selectedGrouping" ng-options="key for key in groupKeys" ng-change="updateRecipeGrouping()"></select>
+	<select class="pull-right form-control x-narrow" ng-model="selectedGrouping" ng-options="key.display for key in groupKeys" ng-change="updateRecipeGrouping()"></select>
 </section>
 
 <alert ng-show="showErrorAlert" type="danger">

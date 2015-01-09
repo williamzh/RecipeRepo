@@ -7,9 +7,8 @@
 	    </ul>
 	    <ul class="navbar-form navbar-center">
 	    	<li>
-				<input type="text" class="form-control searchbox" ng-model="searchValue" placeholder="Search recipe" typeahead="h for h in search($viewValue) | limitTo:10" 
-					typeahead-loading="searchInProgress" typeahead-min-length="2" typeahead-on-select="onSearchSelect($item, $model, $label)">
-    			<!-- <i ng-show="searchInProgress" class="fa fa-spinner"></i> -->
+				<input type="text" class="form-control searchbox" ng-model="searchValue" placeholder="Search recipe" typeahead="hit as hit.recipeName for hit in search($viewValue)" 
+					typeahead-min-length="2" typeahead-on-select="onSearchSelect($item, $model, $label); searchValue = '';" typeahead-template-url="searchTpl.html">
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
@@ -24,3 +23,10 @@
 		</ul>
 	</div>
 </nav>
+
+ <script type="text/ng-template" id="searchTpl.html">
+	<a class="search-result" tabindex="-1">
+		<div bind-html-unsafe="match.label | typeaheadHighlight:query"></div>
+		<div><small bind-html-unsafe="match.model.description | typeaheadHighlight:query"></small></div>
+	</a>
+</script>

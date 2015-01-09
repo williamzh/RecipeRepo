@@ -7,18 +7,12 @@ recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 
 			$scope.search = function(searchValue) {
 				return apiClient.searchRecipes(searchValue).then(function(hits) {
-					$scope.hits = hits;
-					return hits.map(function(hit) {
-						return hit.recipeName;
-					});
+					return hits;
 				});
 			};
 
 			$scope.onSearchSelect = function($item, $model, $label) {
-				var selectedHit = $scope.hits.find(function(h) {
-					return h.recipeName == $item;
-				});
-				$location.path('/recipes/' + selectedHit.id);
+				$location.path('/recipes/' + $item.id);
 			};
 		}],
 		link: function(scope, elem, attrs) {

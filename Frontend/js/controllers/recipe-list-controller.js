@@ -4,7 +4,10 @@ recipeRepoApp.controller('RecipeListCtrl', ['$scope', '$q', 'apiClient', functio
 		$scope.categories = results[0];
 
 		$scope.groupKeys = results[1].map(function(key) {
-			return key.capitalize();
+			return {
+				display: key.capitalize(),
+				value: key
+			};
 		});
 		$scope.selectedGrouping = $scope.groupKeys[0];
 	}, function() {
@@ -12,7 +15,7 @@ recipeRepoApp.controller('RecipeListCtrl', ['$scope', '$q', 'apiClient', functio
 	});
 
 	$scope.updateRecipeGrouping = function() {
-		apiClient.getRecipes($scope.selectedGrouping).then(function(categories) {
+		apiClient.getRecipes($scope.selectedGrouping.value).then(function(categories) {
 			$scope.categories = categories;
 		});
 	};

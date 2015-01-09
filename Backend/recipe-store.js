@@ -106,7 +106,7 @@ RecipeStore.prototype.search = function(query, successCallback, errorCallback) {
 		return;
 	}
 
-	this.client.search(query, ["recipeName^2", "description", "ingredients.name", "method"]).then(function(hits) {
+	this.client.search(query, ["recipeName^2", "description", "meta.category"]).then(function(hits) {
 		successCallback(hits);
 	}, function(errorMsg) {
 		errorCallback(errorMsg);
