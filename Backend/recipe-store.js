@@ -100,4 +100,17 @@ RecipeStore.prototype.remove = function(recipeId, successCallback, errorCallback
 	});
 };
 
+RecipeStore.prototype.search = function(query, successCallback, errorCallback) {
+	if(!query) {
+		errorCallback('Query must be specified.');
+		return;
+	}
+
+	this.client.search(query, ["recipeName^2", "description", "ingredients.name", "method"]).then(function(hits) {
+		successCallback(hits);
+	}, function(errorMsg) {
+		errorCallback(errorMsg);
+	});
+};
+
 module.exports = RecipeStore;
