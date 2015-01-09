@@ -1,0 +1,27 @@
+.top-navigation {
+	padding-right: 15px;
+	font-size: 20px;
+}
+
+.navbar-inner {
+	text-align: center;
+}
+
+.navbar-center {
+	margin-left: 0;
+	margin-right: 0;
+	float: none;
+	display: inline-block;
+}
+
+.top-navigation .searchbox {
+	width: 250px;
+	-webkit-transition: width 0.4s ease-in-out;
+    -moz-transition:width 0.4s ease-in-out;
+    -o-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+.searchbox:focus {
+    width: 400px;
+}

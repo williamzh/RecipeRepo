@@ -1,0 +1,11 @@
+body .form-control.narrow {
+	width: 300px;
+}
+
+body .form-control.x-narrow {
+	width: 200px;
+}
+
+.error-label {
+	padding-top: 5px;
+}

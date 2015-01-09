@@ -1,4 +1,4 @@
-/* User agent overrides, global styles */
+/* http://stackoverflow.com/questions/12973508/page-specific-sass-files-and-duplication */
 body {
 	color: #444;
 	font: 15px Century Gothic, sans-serif;
@@ -49,28 +49,7 @@ footer {
 	height: 50px;
 }
 
+/* Restore link hover pointer */
 .nav, .pagination, .carousel, .panel-title a { 
 	cursor: pointer;
-}
-
-/* Common classes */
-body .form-control.narrow {
-	width: 300px;
-}
-
-body .form-control.x-narrow {
-	width: 200px;
-}
-
-body .form-control.searchbox {
-	width: 250px;
-}
-
-.error-label {
-	padding-top: 5px;
-}
-
-.top-navigation {
-	padding-right: 15px;
-	font-size: 20px;
 }
