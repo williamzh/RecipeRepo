@@ -45,6 +45,7 @@ recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClie
 			if($scope.mode == 'create') {
 				apiClient.addRecipe(recipe).then(function() {
 					$scope.activeAlert = 'created';
+					// TODO: auto scroll to top? http://stackoverflow.com/questions/17284005/scrollto-function-in-angularjs
 				}, function() {
 					$scope.activeAlert = 'error';
 				});

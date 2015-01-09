@@ -45,10 +45,15 @@ ol {
 	margin: 0;
 }
 
+footer {
+	height: 50px;
+}
+
 .nav, .pagination, .carousel, .panel-title a { 
 	cursor: pointer;
 }
 
+/* Common classes */
 body .form-control.narrow {
 	width: 300px;
 }
@@ -56,8 +61,6 @@ body .form-control.narrow {
 body .form-control.x-narrow {
 	width: 200px;
 }
-
-/* Common classes */
 
 body .form-control.searchbox {
 	width: 250px;
