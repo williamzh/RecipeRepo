@@ -7,8 +7,9 @@
 	    </ul>
 	    <ul class="navbar-form navbar-center">
 	    	<li>
-				<input type="text" class="form-control searchbox" ng-model="searchValue" placeholder="Search">
-				<button type="submit" class="btn btn-default" ng-click="onSearchClick()"><i class="fa fa-search"></i></button>
+				<input type="text" class="form-control searchbox" ng-model="searchValue" placeholder="Search recipe" typeahead="h for h in search($viewValue) | limitTo:10" 
+					typeahead-loading="searchInProgress" typeahead-min-length="2" typeahead-on-select="onSearchSelect($item, $model, $label)">
+    			<!-- <i ng-show="searchInProgress" class="fa fa-spinner"></i> -->
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">

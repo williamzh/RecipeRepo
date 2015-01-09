@@ -156,4 +156,35 @@ EsClient.prototype.remove = function(id) {
 	return deferred.promise;
 };
 
+EsClient.prototype.search = function(query, fields) {
+	var deferred = q.defer();
+
+	request
+		.post(this.baseUrl + '_search')
+		.send({
+			query: {
+		        multi_match: {
+		        	query: query,
+		        	type : "phrase_prefix",
+		        	fields: fields,
+		        	max_expansions: 50
+		    	}
+	    	}
+	    })
+		.end(function(err, res) {
+			if(err || res.error) {
+				var error = err || res.error.message;
+				deferred.reject('Search with query ' + query + ' failed: ' + error);
+			}
+			else {
+				var hits = res.body.hits.hits.map(function(hit) {
+					return hit._source;
+				});
+				deferred.resolve(hits);
+			}
+		});
+
+	return deferred.promise;
+};
+
 module.exports = EsClient;

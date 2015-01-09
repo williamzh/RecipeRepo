@@ -42,6 +42,14 @@ app.post('/api/recipes', function(req, res) {
 	});
 });
 
+app.post('/api/recipes/search', function(req, res) {
+	recipeStore.search(req.body.query, function(data) {
+		success(res, data);
+	}, function(err) {
+		error(res, err);
+	});
+});
+
 app.post('/api/recipes/:id', function(req, res) {
 	recipeStore.update(req.params.id, req.body.recipe, function(data) {
 		success(res, data);
