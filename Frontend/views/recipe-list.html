@@ -3,6 +3,10 @@
 	<select class="pull-right form-control x-narrow" ng-model="selectedGrouping" ng-options="key for key in groupKeys" ng-change="updateRecipeGrouping()"></select>
 </section>
 
+<alert ng-show="showErrorAlert" type="danger">
+	<i class="fa fa-exclamation danger"></i>&nbsp;An unexpected error has occured, please try again later.
+</alert>
+
 <section id="rl-content">
 	<div class="recipe-category" ng-repeat="(category, recipes) in categories">
 		<h2>{{category}}</h2>

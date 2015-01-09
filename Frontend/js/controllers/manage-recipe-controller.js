@@ -81,10 +81,6 @@ recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClie
  		return isInvalid && $scope.submitted;
 	};
 
-	$scope.onAlertClose = function() {
-		$scope.activeAlert = null;
-	};
-
 	function fillData(recipe) {
 		$scope.name = recipe.recipeName;
 		$scope.description = recipe.description;

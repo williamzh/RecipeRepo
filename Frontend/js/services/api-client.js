@@ -10,7 +10,8 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		return $http.get(url).then(function (response) {
 			return response.data;
 		}, function(errorObj) {
-			onError(errorObj, 'getRecipes');
+			var errMsg = onError(errorObj, 'getRecipes');
+			throw new Error(errMsg);
 		});
 	};
 
@@ -20,7 +21,8 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		return $http.get(url).then(function (response) {
 			return response.data;
 		}, function(errorObj) {
-			onError(errorObj, 'getRecipe');
+			var errMsg = onError(errorObj, 'getRecipe');
+			throw new Error(errMsg);
 		});
 	};
 
@@ -30,7 +32,8 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		return $http.post(url, { recipe: recipe }).then(function (response) {
 			return response;
 		}, function(errorObj) {
-			onError(errorObj, 'addRecipe');
+			var errMsg = onError(errorObj, 'addRecipe');
+			throw new Error(errMsg);
 		});
 	};
 
@@ -51,7 +54,8 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		return $http.get(url).then(function (response) {
 			return response.data;
 		}, function(errorObj) {
-			onError(errorObj, 'getMetainfoKeys');
+			var errMsg = onError(errorObj, 'getMetainfoKeys');
+			throw new Error(errMsg);
 		});
 	};
 
@@ -61,7 +65,8 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		return $http.get(url).then(function (response) {
 			return response.data;
 		}, function(errorObj) {
-			onError(errorObj, 'getMetainfoValues');
+			var errMsg = onError(errorObj, 'getMetainfoValues');
+			throw new Error(errMsg);
 		});
 	};
 

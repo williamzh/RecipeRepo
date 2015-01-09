@@ -1,34 +1,40 @@
-<section id="rd-banner">
-	<div class="top-image" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
-	<div class="headline">
-		<h1>{{recipe.recipeName}}</h1>
-	</div>
-	<div ng-if="isAuthenticated" class="edit-controls">
-		<a class="btn btn-default btn-sm" ng-href="#/admin/edit/{{recipe.id}}"><i class="fa fa-pencil"></i></a>
-	</div>
-	<div class="serving-info">{{recipe.servingSize}} portioner</div>
-</section>
+<alert ng-show="hasError" type="danger">
+	<i class="fa fa-exclamation danger"></i>&nbsp;An unexpected error has occured, please try again later.
+</alert>
 
-<section id="rd-favorite">
-	<span class="favorite-icon-wrapper" ng-click="onFavoriteClick($event)">
-		<span class="favorite-icon" ng-class="{ filled: recipe.isFavorite === true, unfilled: recipe.isFavorite === false }"></span>
-	</span>
-</section>
+<div ng-if="hasError == false">
+	<section id="rd-banner">
+		<div class="top-image" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
+		<div class="headline">
+			<h1>{{recipe.recipeName}}</h1>
+		</div>
+		<div ng-if="isAuthenticated" class="edit-controls">
+			<a class="btn btn-default btn-sm" ng-href="#/admin/edit/{{recipe.id}}"><i class="fa fa-pencil"></i></a>
+		</div>
+		<div class="serving-info">{{recipe.servingSize}} portioner</div>
+	</section>
 
-<section id="rd-ingredients">
-	<h3>Ingredients</h3>
-	<ul>
-		<li ng-repeat="ing in recipe.ingredients">
-			{{ing.quantity + ' ' + ing.unit + ' ' + ing.name}}
-		</li>
-	</ul>
-</section>
+	<section id="rd-favorite">
+		<span class="favorite-icon-wrapper" ng-click="onFavoriteClick($event)">
+			<span class="favorite-icon" ng-class="{ filled: recipe.isFavorite === true, unfilled: recipe.isFavorite === false }"></span>
+		</span>
+	</section>
 
-<section id="rd-method">
-	<h3>Method</h3>
-	<ol>
-		<li ng-repeat="step in recipe.method">
-			{{step}}
-		</li>
-	</ol>
-</section>
+	<section id="rd-ingredients">
+		<h3>Ingredients</h3>
+		<ul>
+			<li ng-repeat="ing in recipe.ingredients">
+				{{ing.quantity + ' ' + ing.unit + ' ' + ing.name}}
+			</li>
+		</ul>
+	</section>
+
+	<section id="rd-method">
+		<h3>Method</h3>
+		<ol>
+			<li ng-repeat="step in recipe.method">
+				{{step}}
+			</li>
+		</ol>
+	</section>
+</div>
