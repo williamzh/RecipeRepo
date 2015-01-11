@@ -1,48 +1,38 @@
 /* http://stackoverflow.com/questions/12973508/page-specific-sass-files-and-duplication */
 body {
-	color: #444;
+	color: #666;
 	font: 15px Century Gothic, sans-serif;
 }
 
 body a, a:visited  {
-	color: #444;
+	color: #666;
 	text-decoration: none;
+	background-color: #FFF;
 }
 
-body a:visited {
-	color: #444;
+body a:hover {
+	color: #555;
 }
 
 h1, h2, h3, h4, p {
 	margin: 0;
 }
 
-h1 { 
-	font-size: 1.6em;
+h1 {
+	font-size: 32px;
 }
 
-h1.page-heading {
-	border-bottom: 1px solid #EEE;
-	margin: 30px 0 20px 0;
-	padding-bottom: 15px;
+h2 {
+	font-size: 26px;
 }
 
-h2 { 
-	font-size: 1.3em;
+h3 {
+	font-size: 20px;
 }
 
-h3 { 
-	font-size: 1.1em;
-}
-
-ul {
-	margin: 0;
-	padding: 0;
+ul.no-prefix {
 	list-style-type: none;
-}
-
-ol {
-	margin: 0;
+	padding-left: 20px;
 }
 
 footer {
@@ -52,4 +42,27 @@ footer {
 /* Restore link hover pointer */
 .nav, .pagination, .carousel, .panel-title a { 
 	cursor: pointer;
+}
+
+hr.heading-divider {
+	border-top: 1px solid #EBEDDC;
+	margin-top: 15px;
+}
+
+.heading-pill {
+	background-color: #EBEDDC;
+	padding: 5px 7px;
+	color: #6E7A59;
+}
+
+.heading-pill small {
+	font-size: 70%;
+}
+
+input.no-glow {
+	outline: none;
+	border-color: #CCC !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
 }

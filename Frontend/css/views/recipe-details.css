@@ -1,6 +1,12 @@
+.recipe-details-wrapper section {
+	padding-left: 0;
+	padding-right: 0;
+}
+
 /* =============== Banner =============== */
 #rd-banner {
 	position: relative;
+	box-shadow: 0px 15px 40px -20px #222;
 }
 
 #rd-banner .top-image {
@@ -22,7 +28,7 @@
 	border-radius: 10px;
 }
 
-#rd-banner .headline h1 {
+#rd-banner .headline h2 {
 	margin: 10px 0;
 }
 
@@ -31,7 +37,7 @@
 	right: 15px;
 	top: 15px;
 	/*padding: 10px;*/
-	/*background-color: rgba(238, 233, 233, .7);*/
+	/*background-color: rgba(255, 255, 255, .7);*/
 	/*border-radius: 10px;*/
 }
 
@@ -48,6 +54,7 @@
 
 #rd-favorite {
 	position: relative;
+	margin-bottom: 15px;
 }
 
 #rd-favorite .favorite-icon-wrapper {
@@ -60,8 +67,10 @@
 	width: 36px;
 	height: 36px;
 	border-radius: 100px;
-	background-color: rgba(216, 216, 216, .7);
+	background-color: #FFF;
+	border: 1px solid #FFA400;
 	text-align: center;
+	z-index: 1000;
 }
 
 #rd-favorite .favorite-icon {
@@ -83,19 +92,13 @@
 }
 
 /* =============== Ingredients =============== */
-
 #rd-ingredients {
-	border: 2px solid orange;
-	padding: 10px 10px 0 10px;
-}
-
-#rd-ingredients ul {
-	padding: 0 20px;
+	padding-top: 15px;
 }
 
 #rd-ingredients li {
-	padding: 10px 0;
-	border-bottom: 1px dotted #AAA;
+	padding: 7px 0;
+	border-bottom: 1px solid #EBEDDC;
 }
 
 #rd-ingredients li:last-child {
@@ -103,12 +106,10 @@
 }
 
 /* =============== Method =============== */
-
 #rd-method {
-	border: 2px solid yellow;
-	padding: 10px;
+	padding-top: 15px;
 }
 
 #rd-method li {
-	padding: 8px 0;
+	padding: 7px 0;
 }

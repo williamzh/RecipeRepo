@@ -1,5 +1,4 @@
 #rl-header {
-	padding: 10px;
 	overflow: hidden;
 }
 
@@ -7,34 +6,30 @@
 	float: left;
 }
 
-#rl-content {
-	padding: 0 10px;
-}
-
-#rl-content .recipe-category h2 {
-	margin: 5px 0 10px 0;
-}
-
 #rl-content .recipe-wrapper {
+	position: relative;
+	margin: 15px 5px;
 	display: inline-block;
-	width: 250px;
+	width: 240px;
 	height: 180px;
-	margin: 0 10px;
 	vertical-align: top;
+	padding-bottom: 5px;
+	border: 1px solid #EEE;
 }
 
 #rl-content .recipe-wrapper .recipe-image {
-	background-image: url("http://placehold.it/245x100");
-	background-size: 245px 100px;
-	width: 245px;
+	background-size: cover;
+	background-color: #EEE;
 	height: 100px;
 }
 
 #rl-content .recipe-wrapper .recipe-title {
-	margin: 0 3px;
+	margin: 5px 8px;
 }
 
 #rl-content .recipe-wrapper .recipe-rating {
-	margin: 0 3px;
-	color: orange;
+	position: absolute;
+	margin-left: 8px;
+	bottom: 5px;
+	color: #FFA400;
 }

@@ -1,4 +1,5 @@
 <h1 class="page-heading">{{mode == 'create' ? 'Create recipe' : 'Edit recipe'}}</h1>
+<hr class="heading-divider" />
 
 <alert ng-repeat="(alertMode, alert) in alerts" ng-show="activeAlert == alertMode" type="{{alert.type}}" close="activeAlert = null">
 	<i class="fa" ng-class="alert.type == 'danger' ? 'fa-exclamation' : 'fa-check'"></i>&nbsp;{{alert.msg}}

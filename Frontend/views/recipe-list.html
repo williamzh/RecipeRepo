@@ -1,7 +1,8 @@
-<section id="rl-header" class="well">
+<section id="rl-header">
 	<h1>Recipes</h1>
 	<select class="pull-right form-control x-narrow" ng-model="selectedGrouping" ng-options="key.display for key in groupKeys" ng-change="updateRecipeGrouping()"></select>
 </section>
+<hr class="heading-divider" />
 
 <alert ng-show="showErrorAlert" type="danger">
 	<i class="fa fa-exclamation danger"></i>&nbsp;An unexpected error has occured, please try again later.
@@ -9,7 +10,7 @@
 
 <section id="rl-content">
 	<div class="recipe-category" ng-repeat="(category, recipes) in categories">
-		<h2>{{category}}</h2>
+		<h3><div class="heading-pill text-uppercase">{{category}}</div></h3>
 		<div class="recipe-wrapper" ng-repeat="recipe in recipes">
 			<a href="#/recipes/{{recipe.id}}">
 				<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
@@ -17,29 +18,5 @@
 			</a>
 			<div class="recipe-rating" rd-rating ratingvalue="{{recipe.meta.rating}}">
 		</div>
-		<hr/>
 	</div>
 </section>
-
-<!-- <div class="row text-center">
-
-	<div class="col-md-12">
-		<ul class="pagination">
-			<li><a href="#">&laquo;</a>
-			</li>
-			<li class="active"><a href="#">1</a>
-			</li>
-			<li><a href="#">2</a>
-			</li>
-			<li><a href="#">3</a>
-			</li>
-			<li><a href="#">4</a>
-			</li>
-			<li><a href="#">5</a>
-			</li>
-			<li><a href="#">&raquo;</a>
-			</li>
-		</ul>
-	</div>
-
-</div> -->

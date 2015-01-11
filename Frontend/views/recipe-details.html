@@ -2,39 +2,43 @@
 	<i class="fa fa-exclamation danger"></i>&nbsp;An unexpected error has occured, please try again later.
 </alert>
 
-<div ng-if="hasError == false">
-	<section id="rd-banner">
-		<div class="top-image" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
-		<div class="headline">
-			<h1>{{recipe.recipeName}}</h1>
-		</div>
-		<div ng-if="isAuthenticated" class="edit-controls">
-			<a class="btn btn-default btn-sm" ng-href="#/admin/edit/{{recipe.id}}"><i class="fa fa-pencil"></i></a>
-		</div>
-		<div class="serving-info">{{recipe.servingSize}} portioner</div>
-	</section>
+<div class="recipe-details-wrapper" ng-if="hasError == false">
+	<div class="row">
+		<section id="rd-banner" class="col-lg-12">
+			<div class="top-image" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
+			<div class="headline">
+				<h2>{{recipe.recipeName}}</h2>
+			</div>
+			<div ng-if="isAuthenticated" class="edit-controls">
+				<a class="btn btn-default btn-sm" ng-href="#/admin/edit/{{recipe.id}}"><i class="fa fa-pencil"></i></a>
+			</div>
+			<div class="serving-info">{{recipe.servingSize}} portioner</div>
+		</section>
+	</div>
+	<div class="row">
+		<section id="rd-favorite" class="col-lg-12">
+			<span class="favorite-icon-wrapper" ng-click="onFavoriteClick($event)">
+				<span class="favorite-icon" ng-class="{ filled: recipe.isFavorite === true, unfilled: recipe.isFavorite === false }"></span>
+			</span>
+		</section>
+	</div>
+	<div class="row">
+		<section id="rd-ingredients" class="col-lg-6">
+			<h3><div class="heading-pill">{{recipe.ingredients.length}} <small class="text-uppercase">ingredients</small></div></h3>
+			<ul class="no-prefix">
+				<li ng-repeat="ing in recipe.ingredients">
+					<i>{{ing.quantity + ' ' + ing.unit}}</i> {{ing.name}}
+				</li>
+			</ul>
+		</section>
 
-	<section id="rd-favorite">
-		<span class="favorite-icon-wrapper" ng-click="onFavoriteClick($event)">
-			<span class="favorite-icon" ng-class="{ filled: recipe.isFavorite === true, unfilled: recipe.isFavorite === false }"></span>
-		</span>
-	</section>
-
-	<section id="rd-ingredients">
-		<h3>Ingredients</h3>
-		<ul>
-			<li ng-repeat="ing in recipe.ingredients">
-				{{ing.quantity + ' ' + ing.unit + ' ' + ing.name}}
-			</li>
-		</ul>
-	</section>
-
-	<section id="rd-method">
-		<h3>Method</h3>
-		<ol>
-			<li ng-repeat="step in recipe.method">
-				{{step}}
-			</li>
-		</ol>
-	</section>
+		<section id="rd-method" class="col-lg-6">
+			<h3><div class="heading-pill">{{recipe.method.length}} <small class="text-uppercase">steps</small></div></h3>
+			<ol>
+				<li ng-repeat="step in recipe.method">
+					{{step}}
+				</li>
+			</ol>
+		</section>
+	</div>
 </div>
