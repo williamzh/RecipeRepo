@@ -7,11 +7,10 @@ body {
 body a, a:visited  {
 	color: #666;
 	text-decoration: none;
-	background-color: #FFF;
 }
 
 body a:hover {
-	color: #555;
+	text-decoration: none;
 }
 
 h1, h2, h3, h4, p {
@@ -65,4 +64,8 @@ input.no-glow {
 	-webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
 	box-shadow: none !important;
+}
+
+.fa-star, .fa-star-half-full, .fa-star-o {
+	color: #FFA400;
 }

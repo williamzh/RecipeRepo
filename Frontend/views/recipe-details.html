@@ -18,7 +18,7 @@
 	<div class="row">
 		<section id="rd-favorite" class="col-lg-12">
 			<span class="favorite-icon-wrapper" ng-click="onFavoriteClick($event)">
-				<span class="favorite-icon" ng-class="{ filled: recipe.isFavorite === true, unfilled: recipe.isFavorite === false }"></span>
+				<span class="favorite-icon fa" ng-class="{ 'fa-heart': recipe.isFavorite === true, 'fa-heart-o': recipe.isFavorite === false }"></span>
 			</span>
 		</section>
 	</div>
@@ -27,7 +27,7 @@
 			<h3><div class="heading-pill">{{recipe.ingredients.length}} <small class="text-uppercase">ingredients</small></div></h3>
 			<ul class="no-prefix">
 				<li ng-repeat="ing in recipe.ingredients">
-					<i>{{ing.quantity + ' ' + ing.unit}}</i> {{ing.name}}
+					<i>{{ing.quantity}}</i> {{ing.unit}} {{ing.name}}
 				</li>
 			</ul>
 		</section>
@@ -39,6 +39,19 @@
 					{{step}}
 				</li>
 			</ol>
+		</section>
+	</div>
+	<div class="row">
+		<section id="rd-meta" class="col-lg-12">
+			<h3><div class="heading-pill"><i class="fa fa-info"></i> <small class="text-uppercase">info</small></div></h3>
+			<div class="col-sm-6">
+				{{recipe.description}}
+			</div>
+			<div class="col-sm-6">
+				<p><i>Category:</i> {{recipe.meta.category}}</p>
+				<p><i>Cuisine:</i> {{recipe.meta.cuisine}}</p>
+				<p><i>Rating:</i> <span rd-rating ratingvalue="{{recipe.meta.rating}}"></span></p>
+			</div>
 		</section>
 	</div>
 </div>

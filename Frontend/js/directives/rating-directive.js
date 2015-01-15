@@ -17,6 +17,7 @@ recipeRepoDirectives.directive('rdRating', function() {
     		}
     		else if(hasHalfStar) {
     			starClasses.push('star-half-full');
+                hasHalfStar = false;    // Only 1 half star is allowed
     		}
     		else {
     			starClasses.push('star-o');

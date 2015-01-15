@@ -26,6 +26,7 @@
 	top: 120px;
 	background-color: rgba(238, 233, 233, .7);
 	border-radius: 10px;
+	padding: 5px;
 }
 
 #rd-banner .headline h2 {
@@ -54,7 +55,7 @@
 
 #rd-favorite {
 	position: relative;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 }
 
 #rd-favorite .favorite-icon-wrapper {
@@ -74,21 +75,20 @@
 }
 
 #rd-favorite .favorite-icon {
-	width: 24px;
+	width: 21px;
 	height: 24px;
 	background-size: 24px;
 	background-repeat: no-repeat;
 	display: inline-block;
-	margin-top: 9px;
+	margin-top: 8px;
 	cursor: pointer;
+	color: #EE5AA0;
+	font-size: 22px;
 }
 
-#rd-favorite .favorite-icon.filled {
-	background-image: url(/img/heart_filled.png);
-}
-
-#rd-favorite .favorite-icon.unfilled {
-	background-image: url(/img/heart_unfilled.png);
+/* =============== Meta =============== */
+#rd-meta > div {
+	padding-top: 7px;
 }
 
 /* =============== Ingredients =============== */

@@ -6,12 +6,8 @@
 	padding-bottom: 5px;
 }
 
-.top-navigation li.active {
+.top-navigation li > a.nav-icon:hover, .top-navigation li > a.nav-icon:focus {
 	background-color: #FFF;
-}
-
-.top-navigation a.nav-icon:hover {
-	background-color: #EBEDDC;
 }
 
 .navbar-inner {
