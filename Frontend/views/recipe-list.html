@@ -9,14 +9,16 @@
 </alert>
 
 <section id="rl-content">
-	<div class="recipe-category" ng-repeat="(category, recipes) in categories">
+	<div class="recipe-category row" ng-repeat="(category, recipes) in categories">
 		<h3><div class="heading-pill text-uppercase">{{category}}</div></h3>
-		<div class="recipe-wrapper" ng-repeat="recipe in recipes">
-			<a href="#/recipes/{{recipe.id}}">
-				<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
-				<p class="recipe-title">{{recipe.recipeName}}</p>
-			</a>
-			<div class="recipe-rating" rd-rating ratingvalue="{{recipe.meta.rating}}">
+		<div class="col-xs-6 col-sm-4 col-md-3" ng-repeat="recipe in recipes">
+			<div class="recipe-wrapper">
+				<a href="#/recipes/{{recipe.id}}">
+					<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
+					<p class="recipe-title">{{recipe.recipeName}}</p>
+				</a>
+				<div class="recipe-rating" rd-rating ratingvalue="{{recipe.meta.rating}}">
+			</div>
 		</div>
 	</div>
 </section>

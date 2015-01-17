@@ -6,14 +6,17 @@
 	float: left;
 }
 
+#rl-content .recipe-category h3 {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+#rl-content .recipe-category > div {
+	padding: 15px;
+}
+
 #rl-content .recipe-wrapper {
-	position: relative;
-	margin: 15px 5px;
-	display: inline-block;
-	width: 240px;
-	height: 180px;
-	vertical-align: top;
-	padding-bottom: 5px;
+	height: 175px;
 	border: 1px solid #EEE;
 }
 
@@ -30,5 +33,5 @@
 #rl-content .recipe-wrapper .recipe-rating {
 	position: absolute;
 	margin-left: 8px;
-	bottom: 5px;
+	bottom: 20px;
 }
