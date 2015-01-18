@@ -4,7 +4,7 @@
 
 <div class="recipe-details-wrapper" ng-if="hasError == false">
 	<div class="row">
-		<section id="rd-banner" class="col-lg-12">
+		<section id="rd-banner">
 			<div class="top-image" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
 			<div class="headline">
 				<h2>{{recipe.recipeName}}</h2>
@@ -16,7 +16,7 @@
 		</section>
 	</div>
 	<div class="row">
-		<section id="rd-favorite" class="col-lg-12">
+		<section id="rd-favorite">
 			<span class="favorite-icon-wrapper" ng-click="onFavoriteClick($event)">
 				<span class="favorite-icon fa" ng-class="{ 'fa-heart': recipe.isFavorite === true, 'fa-heart-o': recipe.isFavorite === false }"></span>
 			</span>
@@ -42,7 +42,7 @@
 		</section>
 	</div>
 	<div class="row">
-		<section id="rd-meta" class="col-lg-12">
+		<section id="rd-meta" class="col-xs-12">
 			<h3><div class="heading-pill"><i class="fa fa-info"></i> <small class="text-uppercase">info</small></div></h3>
 			<div class="col-sm-6">
 				{{recipe.description}}

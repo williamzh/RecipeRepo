@@ -20,6 +20,6 @@ recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 		    	$window.history.back();
 		 	});
 		 },
-    	templateUrl: 'partials/_navbar.html'
+    	templateUrl: '/app/partials/_navbar.html'
 	};
 }]);

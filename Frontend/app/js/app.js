@@ -8,23 +8,23 @@ var recipeRepoApp = angular.module('recipeRepoApp', [
 recipeRepoApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 	$routeProvider.
 		when('/', { 
-			templateUrl: 'views/start.html', 
+			templateUrl: '/app/views/start.html', 
 			controller: 'HomeCtrl'
 		}).
 		when('/recipes', { 
-			templateUrl: 'views/recipe-list.html', 
+			templateUrl: '/app/views/recipe-list.html', 
 			controller: 'RecipeListCtrl' 
 		}).
 		when('/recipes/:recipeId', { 
-			templateUrl: 'views/recipe-details.html', 
+			templateUrl: '/app/views/recipe-details.html', 
 			controller: 'RecipeDetailsCtrl'
 		}).
 		when('/admin/create/', {
-			templateUrl: 'views/manage-recipe.html',
+			templateUrl: '/app/views/manage-recipe.html',
 			controller: 'ManageRecipeCtrl'
 		}).
 		when('/admin/edit/:recipeId', {
-			templateUrl: 'views/manage-recipe.html',
+			templateUrl: '/app/views/manage-recipe.html',
 			controller: 'ManageRecipeCtrl'
 		}).
 		otherwise({

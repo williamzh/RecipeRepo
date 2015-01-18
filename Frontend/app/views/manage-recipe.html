@@ -6,7 +6,7 @@
 </alert>
 
 <section id="edit-form" class="row"> 
-	<div class="col-md-6">
+	<div class="col-sm-10 col-lg-8">
 		<form name="recipeForm" ng-submit="onSubmit(recipeForm.$valid)" novalidate>
 			<div class="form-group" ng-class="{ 'has-error': hasError('name') }">
 				<label for="recipe-name">Recipe name</label>
@@ -62,14 +62,14 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="ing in ingredients">
-							<td class="col-xs-7"> <input type="text" class="form-control" ng-model="ing.name" /></td>
-							<td class="col-xs-2"><input type="text" class="form-control" ng-model="ing.quantity" /></td>
-							<td class="col-xs-2"><input type="text" class="form-control" ng-model="ing.unit" /></td>
-							<td class="col-xs-1"><button type="button" class="btn btn-default btn-sm" ng-click="removeIngredient($index)"><i class="fa fa-remove"></i></button></td>
+							<td> <input type="text" class="form-control" ng-model="ing.name" /></td>
+							<td><input type="text" class="form-control" ng-model="ing.quantity" /></td>
+							<td><input type="text" class="form-control" ng-model="ing.unit" /></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRowBelow($index, ingredients)"><i class="fa fa-plus"></i></button></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, ingredients)"><i class="fa fa-remove"></i></button></td>
 						</tr>
 					</tbody>
 				</table>
-				<button type="button" class="btn btn-default btn-sm" ng-click="addIngredient()"><i class="fa fa-plus"></i> Add ingredient</button>
 				<p class="control-label error-label" ng-show="hasError('ingredients', 'collectionRequired')">At least one ingredient is required.</p>
 			</div>
 
@@ -87,11 +87,11 @@
 						<tr ng-repeat="step in method">
 							<td>{{$index + 1}}</td>
 							<td><textarea class="form-control" ng-model="step.value"></textarea></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeStep($index)"><i class="fa fa-remove"></i></button></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRowBelow($index, method)"><i class="fa fa-plus"></i></button></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, method)"><i class="fa fa-remove"></i></button></td>
 						</tr>
 					</tbody>
 				</table>
-				<button type="button" class="btn btn-default btn-sm" ng-click="addStep()"><i class="fa fa-plus"></i> Add method step</button>
 				<p class="control-label error-label" ng-show="hasError('method', 'collectionRequired')">At least one step is required.</p>
 			</div>
 

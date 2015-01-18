@@ -1,7 +1,8 @@
-recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClient', 'log', function($scope, $routeParams, apiClient, log) {
+recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClient', 'validatorExtensions', 'log', 
+	function($scope, $routeParams, apiClient, validatorExtensions, log) {
 
-	$scope.ingredients = [];
-	$scope.method = [];
+	$scope.ingredients = [{}];
+	$scope.method = [{}];
 	$scope.mode = 'create';
 
 	$scope.alerts = {
@@ -22,21 +23,12 @@ recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClie
 		}
 	});
 
-	$scope.addIngredient = function() {
-		$scope.ingredients.push({});
+	$scope.removeRow = function(index, model) {
+		model.splice(index, 1);
 	};
 
-	$scope.removeIngredient = function(index) {
-		$scope.ingredients.splice(index, 1);
-	};
-
-	$scope.addStep = function() {
-		// Workaround. We use objects to get correct binding for string arrays: https://github.com/angular/angular.js/issues/1267
-		$scope.method.push({});
-	};
-
-	$scope.removeStep = function(index) {
-		$scope.method.splice(index, 1);
+	$scope.insertRowBelow = function(index, model) {
+		model.splice(index + 1, 0, {});
 	};
 
 	$scope.onSubmit = function(isValid) {
@@ -73,10 +65,11 @@ recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClie
 			return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
 		}
 
- 		switch(customRule) {
- 			case 'collectionRequired':
- 				isInvalid = $scope[field].length <= 0;
- 		}
+ 		// switch(customRule) {
+ 		// 	case 'collectionRequired':	
+ 		// 		isInvalid = validatorExtensions.validateArray($scope[field]);
+ 		// 		break;
+ 		// }
 
  		return isInvalid && $scope.submitted;
 	};
