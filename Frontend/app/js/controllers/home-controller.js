@@ -1,3 +1,3 @@
-angular.module('recipeRepoApp').controller('HomeCtrl', ['$scope', function($scope) {
+recipeRepoControllers.controller('HomeCtrl', ['$scope', function($scope) {
 	
 }]);

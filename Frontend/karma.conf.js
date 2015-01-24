@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
         'app/lib/angular.min.js',
         'app/lib/angular-mocks.js',
+        'app/lib/sugar.min.js',
         'app/js/**/*.js',
         'test/**/*.js'
     ],

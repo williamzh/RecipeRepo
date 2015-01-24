@@ -1,4 +1,4 @@
-recipeRepoApp.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClient', 'validatorExtensions', 'log', 
+recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClient', 'validatorExtensions', 'log', 
 	function($scope, $routeParams, apiClient, validatorExtensions, log) {
 
 	$scope.ingredients = [{}];

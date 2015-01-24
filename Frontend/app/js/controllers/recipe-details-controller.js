@@ -1,4 +1,4 @@
-recipeRepoApp.controller('RecipeDetailsCtrl', ['$scope', '$routeParams', 'apiClient', function($scope, $routeParams, apiClient) {
+recipeRepoControllers.controller('RecipeDetailsCtrl', ['$scope', '$routeParams', 'apiClient', function($scope, $routeParams, apiClient) {
 
 	apiClient.getRecipe($routeParams.recipeId).then(function(recipe) {
 		$scope.recipe = recipe;
