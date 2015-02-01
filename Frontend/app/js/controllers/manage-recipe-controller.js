@@ -1,5 +1,5 @@
-recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClient', 'validatorExtensions', 'log', 
-	function($scope, $routeParams, apiClient, validatorExtensions, log) {
+recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClient', 'log', 
+	function($scope, $routeParams, apiClient, log) {
 
 	$scope.ingredients = [{}];
 	$scope.method = [{}];
@@ -32,49 +32,34 @@ recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 
 	};
 
 	$scope.onSubmit = function(isValid) {
-		// if(isValid) {
-		// 	var recipe = formatData();
-		// 	if($scope.mode == 'create') {
-		// 		apiClient.addRecipe(recipe).then(function() {
-		// 			$scope.activeAlert = 'created';
-		// 			// TODO: auto scroll to top? http://stackoverflow.com/questions/17284005/scrollto-function-in-angularjs
-		// 		}, function() {
-		// 			$scope.activeAlert = 'error';
-		// 		});
-		// 	}
-		// 	else if($scope.mode == 'edit') {
-		// 		var updatedRecipe = formatData();
-		// 		updatedRecipe.id = $routeParams.recipeId;
+		if(isValid) {
+			var recipe = formatData();
+			if($scope.mode == 'create') {
+				apiClient.addRecipe(recipe).then(function() {
+					$scope.activeAlert = 'created';
+				}, function() {
+					$scope.activeAlert = 'error';
+				});
+			}
+			else if($scope.mode == 'edit') {
+				var updatedRecipe = formatData();
+				updatedRecipe.id = $routeParams.recipeId;
 
-		// 		apiClient.updateRecipe(updatedRecipe).then(function() {
-		// 			$scope.activeAlert = 'updated';
-		// 		}, function() {
-		// 			$scope.activeAlert = 'error';
-		// 		});
-		// 	}
-		// 	else {
-		// 		log.errorFormat('Failed to create or update recipe. Unknown mode {1}.', $scope.mode);
-		// 	}
-		// }
+				apiClient.updateRecipe(updatedRecipe).then(function() {
+					$scope.activeAlert = 'updated';
+				}, function() {
+					$scope.activeAlert = 'error';
+				});
+			}
+			else {
+				log.errorFormat('Failed to create or update recipe. Unknown mode {1}.', $scope.mode);
+			}
+		}
 	};
 
-	$scope.hasError = function(field, customRule) {
-		console.log(field);
-		
-		var isInvalid = true;
-		if(!customRule) {
-			isInvalid = $scope.recipeForm[field].$invalid;
-			return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
-		}
-
-		
- 		switch(customRule) {
- 			case 'collectionRequired':	
- 				isInvalid = true; //validatorExtensions.validateArray($scope[field]);
- 				break;
- 		}
-
- 		return isInvalid && $scope.submitted;
+	$scope.hasError = function(field) {
+		var isInvalid = $scope.recipeForm[field].$invalid;
+		return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
 	};
 
 	function fillData(recipe) {

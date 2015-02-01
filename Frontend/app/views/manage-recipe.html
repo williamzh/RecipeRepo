@@ -49,7 +49,6 @@
 				</label>
 			</div>
 
-			<!-- <div class="form-group" ng-class="{ 'has-error': hasError('ingredients', 'collectionRequired') }"> -->
 			<div class="form-group">
 				<label>Ingredients</label>
 				<table class="table">
@@ -63,15 +62,14 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="ing in ingredients">
-							<td> <input type="text" class="form-control" ng-model="ing.name" /></td>
+							<td><input type="text" class="form-control" ng-model="ing.name"/></td>
 							<td><input type="text" class="form-control" ng-model="ing.quantity" /></td>
 							<td><input type="text" class="form-control" ng-model="ing.unit" /></td>
 							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRowBelow($index, ingredients)"><i class="fa fa-plus"></i></button></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, ingredients)"><i class="fa fa-remove"></i></button></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, ingredients)" ng-if="$index > 0"><i class="fa fa-remove"></i></button></td>
 						</tr>
 					</tbody>
 				</table>
-				<!-- <p class="control-label error-label" ng-show="hasError('ingredients', 'collectionRequired')">At least one ingredient is required.</p> -->
 			</div>
 
 			<div class="form-group">
@@ -89,11 +87,10 @@
 							<td>{{$index + 1}}</td>
 							<td><textarea class="form-control" ng-model="step.value"></textarea></td>
 							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRowBelow($index, method)"><i class="fa fa-plus"></i></button></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, method)"><i class="fa fa-remove"></i></button></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, method)" ng-if="$index > 0"><i class="fa fa-remove"></i></button></td>
 						</tr>
 					</tbody>
 				</table>
-				<p class="control-label error-label" ng-show="hasError('method', 'collectionRequired')">At least one step is required.</p>
 			</div>
 
 			<div class="form-group" ng-class="{ 'has-error': hasError('rating') }">
@@ -102,7 +99,7 @@
 				<p class="control-label error-label" ng-show="hasError('rating')">Rating must be a number between 1 and 5.</p>
 			</div>
 
-			<input type="submit" class="btn btn-primary" value="Submit" rd-scroll target="top" ng-click="submitted = true" />
+			<input type="submit" class="btn btn-primary" value="Submit" rd-scroll scroll-target="top" ng-click="submitted = true" />
 		</form>
 	</div>
 </section>
