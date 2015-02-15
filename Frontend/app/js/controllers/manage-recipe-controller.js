@@ -84,9 +84,11 @@ recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 
 			isFavorite: $scope.isFavorite || false,
 			ingredients: $scope.ingredients.map(function(ing) { 
 				return {
+					// Remap to exclude angular properties
 					name: ing.name,
 					quantity: ing.quantity,
-					unit: ing.unit
+					unit: ing.unit,
+					component: ing.component
 				};
 			}),
 			method: $scope.method.map(function(step) {

@@ -1,7 +1,7 @@
 recipeRepoControllers.controller('RecipeDetailsCtrl', ['$scope', '$routeParams', 'apiClient', function($scope, $routeParams, apiClient) {
 
 	apiClient.getRecipe($routeParams.recipeId).then(function(recipe) {
-		$scope.recipe = recipe;
+		$scope.recipe = appendGroupIngredients(recipe);
 		$scope.isAuthenticated = true;
 		$scope.hasError = false;
 	}, function() {
@@ -16,4 +16,12 @@ recipeRepoControllers.controller('RecipeDetailsCtrl', ['$scope', '$routeParams',
 			$scope.recipe.isFavorite = recipe.isFavorite;
 		});
 	};
+
+	function appendGroupIngredients(recipe) {
+		recipe.groupedIngredients = recipe.ingredients.groupBy(function(ing) {
+			return ing.component;
+		});
+
+		return recipe;
+	}
 }]);

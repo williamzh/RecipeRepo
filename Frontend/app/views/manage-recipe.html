@@ -54,9 +54,11 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th class="col-xs-7">Name</th>
-							<th class="col-xs-2">Quantity</th>
+							<th class="col-xs-5">Name</th>
+							<th class="col-xs-1">Quantity</th>
 							<th class="col-xs-2">Unit</th>
+							<th class="col xs-2">Component</th>
+							<th class="col-xs-1"></th>
 							<th class="col-xs-1"></th>
 						</tr>
 					</thead>
@@ -65,6 +67,7 @@
 							<td><input type="text" class="form-control" ng-model="ing.name"/></td>
 							<td><input type="text" class="form-control" ng-model="ing.quantity" /></td>
 							<td><input type="text" class="form-control" ng-model="ing.unit" /></td>
+							<td><input type="text" class="form-control" ng-model="ing.component" /></td>
 							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRowBelow($index, ingredients)"><i class="fa fa-plus"></i></button></td>
 							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, ingredients)" ng-if="$index > 0"><i class="fa fa-remove"></i></button></td>
 						</tr>

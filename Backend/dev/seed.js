@@ -7,7 +7,14 @@ var client = new elasticsearch.Client({
 var data = require('./data.json');
 
 // Meta info
-client.create({
+client.delete({
+    index: 'reciperepo',
+    type: 'meta'
+}, function (error, response) {
+    // ...
+});
+
+client.index({
     index: 'reciperepo',
     type: 'meta',
     id: 'keys',
@@ -28,7 +35,7 @@ for(var i = 0; i < recipes.length; i++) {
     var recipe = recipes[i];
     recipe.id = i + 1;
 
-    client.create({
+    client.index({
         index: 'reciperepo',
         type: 'recipe',
         id: recipe.id,

@@ -25,9 +25,14 @@
 	<div class="row">
 		<section id="rd-ingredients" class="col-lg-6">
 			<h3><div class="heading-pill">{{recipe.ingredients.length}} <small class="text-uppercase">ingredients</small></div></h3>
-			<ul class="no-prefix">
-				<li ng-repeat="ing in recipe.ingredients">
-					<i>{{ing.quantity}}</i> {{ing.unit}} {{ing.name}}
+			<ul>
+				<li ng-repeat="(grpKey, grpVal) in recipe.groupedIngredients">
+					<p ng-if='grpKey !== "undefined"' class="component-header text-uppercase"><small>{{grpKey}}</small></p>
+					<ul>
+						<li ng-repeat="ing in grpVal">
+							<i>{{ing.quantity}}</i> {{ing.unit}} {{ing.name}}
+						</li>
+					</ul>
 				</li>
 			</ul>
 		</section>
