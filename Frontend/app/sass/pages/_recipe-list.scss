@@ -1,0 +1,43 @@
+#rl-header {
+	overflow: hidden;
+	
+	h1 {
+		float: left;
+	}
+
+	.form-control.x-narrow {
+		width: 200px;
+	}
+}
+
+#rl-content {
+	.recipe-category h3 {
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+
+	.recipe-category > div {
+		padding: 15px;
+	}
+
+	.recipe-wrapper {
+		height: 175px;
+		border: 1px solid #EEE;
+	}
+
+	.recipe-wrapper .recipe-image {
+		background-size: cover;
+		background-color: #EEE;
+		height: 100px;
+	}
+
+	.recipe-wrapper .recipe-title {
+		margin: 5px 8px;
+	}
+
+	.recipe-wrapper .recipe-rating {
+		position: absolute;
+		margin-left: 8px;
+		bottom: 20px;
+	}
+}

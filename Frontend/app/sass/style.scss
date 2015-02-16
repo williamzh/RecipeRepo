@@ -1,0 +1,32 @@
+@import "base/_custom-bootstrap.scss";
+
+@import "base/_typography.scss";
+
+@import "layout/_header.scss";
+
+@import "pages/_recipe-list.scss";
+@import "pages/_recipe-details.scss";
+@import "pages/_manage-recipe.scss";
+
+// Restore link hover pointer
+.nav, .pagination, .carousel, .panel-title a { 
+	cursor: pointer;
+}
+
+footer {
+	height: 50px;
+}
+
+.heading-pill {
+	background-color: #EBEDDC;
+	padding: 5px 7px;
+	color: #6E7A59;
+}
+
+.heading-pill small {
+	font-size: 70%;
+}
+
+.fa-star, .fa-star-half-full, .fa-star-o {
+	color: #FFA400;
+}
