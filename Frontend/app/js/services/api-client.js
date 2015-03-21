@@ -1,5 +1,5 @@
 recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $q, log) {
-	var baseUrl = 'http://localhost:8001/api';
+	var baseUrl = 'http://192.168.1.95:8001/api';
 
 	function getRecipes(groupBy) {
 		var url = baseUrl + '/recipes';
