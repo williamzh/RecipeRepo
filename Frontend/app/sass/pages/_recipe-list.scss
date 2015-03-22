@@ -20,24 +20,14 @@
 		padding: 15px;
 	}
 
-	.recipe-wrapper {
-		height: 175px;
-		border: 1px solid #EEE;
+	.read-more {
+		text-align: center;
+		padding-top: 25%;
+		height: 100%;
+		font-size: $font-size-h2;
+		background-color: $brand-primary;
+		color: $gray-light;
 	}
 
-	.recipe-wrapper .recipe-image {
-		background-size: cover;
-		background-color: #EEE;
-		height: 100px;
-	}
-
-	.recipe-wrapper .recipe-title {
-		margin: 5px 8px;
-	}
-
-	.recipe-wrapper .recipe-rating {
-		position: absolute;
-		margin-left: 8px;
-		bottom: 20px;
-	}
+	@include recipe-item();
 }

@@ -1,12 +1,15 @@
-@import "base/_custom-bootstrap.scss";
+@import "base/_custom-bootstrap";
 
-@import "base/_typography.scss";
+@import "base/_typography";
 
-@import "layout/_header.scss";
+@import "helpers/mixins";
 
-@import "pages/_recipe-list.scss";
-@import "pages/_recipe-details.scss";
-@import "pages/_manage-recipe.scss";
+@import "layout/_header";
+
+@import "pages/_recipe-list";
+@import "pages/_recipe-sublist";
+@import "pages/_recipe-details";
+@import "pages/_manage-recipe";
 
 // Restore link hover pointer
 .nav, .pagination, .carousel, .panel-title a { 
@@ -18,7 +21,7 @@ footer {
 }
 
 .heading-pill {
-	background-color: #EBEDDC;
+	background-color: $brand-primary;
 	padding: 5px 7px;
 	color: #6E7A59;
 }
