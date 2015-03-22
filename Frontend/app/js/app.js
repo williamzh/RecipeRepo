@@ -16,7 +16,11 @@ recipeRepoApp.config(['$routeProvider', '$locationProvider', function($routeProv
 			templateUrl: '/app/views/recipe-list.html', 
 			controller: 'RecipeListCtrl' 
 		}).
-		when('/recipes/:recipeId', { 
+		when('/recipes/:category', { 
+			templateUrl: '/app/views/recipe-sublist.html', 
+			controller: 'RecipeSublistCtrl' 
+		}).
+		when('/recipes/:category/:recipeId', { 
 			templateUrl: '/app/views/recipe-details.html', 
 			controller: 'RecipeDetailsCtrl'
 		}).

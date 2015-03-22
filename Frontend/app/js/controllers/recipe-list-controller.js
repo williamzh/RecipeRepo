@@ -1,5 +1,4 @@
-recipeRepoControllers.controller('RecipeListCtrl', ['$scope', '$q', 'apiClient', function($scope, $q, apiClient) {
-
+recipeRepoControllers.controller('RecipeListCtrl', ['$scope', 'apiClient', function($scope, apiClient) {
 	apiClient.requestMany(apiClient.getRecipes('category'), apiClient.getMetainfoKeys()).then(function(results) {
 		$scope.categories = results[0];
 
