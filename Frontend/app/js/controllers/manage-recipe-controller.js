@@ -1,9 +1,9 @@
 recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 'apiClient', 'log', 
 	function($scope, $routeParams, apiClient, log) {
 
-	$scope.ingredients = [{}];
-	$scope.method = [{}];
 	$scope.mode = 'create';
+	
+	initEmptyRecipe();
 
 	$scope.alerts = {
 		'created': { type: 'success', msg: 'Recipe successfully created.' },
@@ -40,6 +40,11 @@ recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 
 				}, function() {
 					$scope.activeAlert = 'error';
 				});
+
+				// Reset form
+				$scope.recipeForm.$setPristine();
+				$scope.submitted = false;
+				initEmptyRecipe();
 			}
 			else if($scope.mode == 'edit') {
 				var updatedRecipe = formatData();
@@ -62,27 +67,34 @@ recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 
 		return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
 	};
 
+	function initEmptyRecipe() {
+		$scope.currentRecipe = {
+			ingredients: [{}],
+			method: [{}]
+		};
+	}
+
 	function fillData(recipe) {
-		$scope.name = recipe.recipeName;
-		$scope.description = recipe.description;
-		$scope.imagePath = recipe.imagePath;
-		$scope.servings = recipe.servingSize;
-		$scope.isFavorite = recipe.isFavorite;
-		$scope.ingredients = recipe.ingredients;
-		$scope.method = recipe.method.map(function(step) { return { value: step } });
-		$scope.cuisine = recipe.meta.cuisine;
-		$scope.category = recipe.meta.category;
-		$scope.rating = recipe.meta.rating;
+		$scope.currentRecipe.name = recipe.recipeName;
+		$scope.currentRecipe.description = recipe.description;
+		$scope.currentRecipe.imagePath = recipe.imagePath;
+		$scope.currentRecipe.servings = recipe.servingSize;
+		$scope.currentRecipe.isFavorite = recipe.isFavorite;
+		$scope.currentRecipe.ingredients = recipe.ingredients;
+		$scope.currentRecipe.method = recipe.method.map(function(step) { return { value: step } });
+		$scope.currentRecipe.cuisine = recipe.meta.cuisine;
+		$scope.currentRecipe.category = recipe.meta.category;
+		$scope.currentRecipe.rating = recipe.meta.rating;
 	}
 
 	function formatData() {
 		return {
-			recipeName: $scope.name,
-			description: $scope.description,
-			imagePath: $scope.imagePath,
-			servingSize: $scope.servings,
-			isFavorite: $scope.isFavorite || false,
-			ingredients: $scope.ingredients.map(function(ing) { 
+			recipeName: $scope.currentRecipe.name,
+			description: $scope.currentRecipe.description || '',
+			imagePath: $scope.currentRecipe.imagePath || '',
+			servingSize: $scope.currentRecipe.servings,
+			isFavorite: $scope.currentRecipe.isFavorite || false,
+			ingredients: $scope.currentRecipe.ingredients.map(function(ing) { 
 				return {
 					// Remap to exclude angular properties
 					name: ing.name,
@@ -91,14 +103,14 @@ recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 
 					component: ing.component
 				};
 			}),
-			method: $scope.method.map(function(step) {
+			method: $scope.currentRecipe.method.map(function(step) {
 				return step.value;
 			}),
 			meta: {
-			  cuisine: $scope.cuisine,
+			  cuisine: $scope.currentRecipe.cuisine,
 			  //course: "Main",
-			  category: $scope.category,
-			  rating: $scope.rating
+			  category: $scope.currentRecipe.category,
+			  rating: $scope.currentRecipe.rating
 			}
 		};
 	}
