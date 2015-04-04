@@ -90,8 +90,8 @@ app.get('/api/meta/values/:key', function(req, res) {
 	});
 });
 
-app.listen(process.env.port || 8001, function() {
-	console.log('Listening on port %d', process.env.port || 8001);
+app.listen(process.env.PORT, function() {
+	console.log('Listening on port %d', process.env.PORT);
 });
 
 function success(res, result) {
