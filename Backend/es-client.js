@@ -2,17 +2,27 @@ var request = require('superagent');
 var q = require('q');
 require('sugar');
 var ConfigManager = require('./config-manager.js');
+var IdGenerator = require('./utils/id-generator.js');
 
-function EsClient(type, configManager) {
+function EsClient(type, configManager, idGenerator) {
 	this.configManager = configManager || new ConfigManager();
+	this.idGenerator = idGenerator || new IdGenerator();
 
 	var host = this.configManager.getConfigValue('elasticSearchUrl');
 	this.baseUrl = 'http://{1}:9200/reciperepo/{2}/'.assign(host, type);
 }
 
+/**
+ * Creates a new item (document) in the current type. If an ID is provided, it will be used
+ * to index the new document. Otherwise, a unique ID will be generated automatically.
+ * @param {Object} The new item to index.
+ * @param {Number} (optional) A numeric ID used to index the new item.
+ * @returns {Promise} A promise that returns a success/error message.
+ */
 EsClient.prototype.create = function(item, id) {
 	var deferred = q.defer();
 	var baseUrl = this.baseUrl;
+	var self = this;
 
 	var createItem = function(item, id) {
 		request
@@ -43,14 +53,9 @@ EsClient.prototype.create = function(item, id) {
 				else {
 					var ids = res.body.hits.hits.map(function(item) { return parseInt(item._id); });
 
-					var id = 1;
-					while(ids.indexOf(id) > -1) {
-						id++;
-					}
-					
-					item.id = id;
+					item.id = self.idGenerator.generateId(ids);
 
-					createItem(item, id);
+					createItem(item, item.id);
 				}
 			});
 	}
@@ -58,6 +63,11 @@ EsClient.prototype.create = function(item, id) {
 	return deferred.promise;
 };
 
+/**
+ * Retrieves all documents for the current type. The documents will be stripped of any
+ * ElasticSearch meta data.
+ * @returns {Promise} A promise that returns an array of all documents.
+ */
 EsClient.prototype.getAll = function() {
 	var deferred = q.defer();
 
@@ -80,6 +90,12 @@ EsClient.prototype.getAll = function() {
 	return deferred.promise;
 };
 
+/**
+ * Retrieves the document that matches the supplied ID (without ElasticSearch meta data).
+ * @param {Number} The ID of the document to retrieve.
+ * @returns {Promise} A promise that returns a matching document, or null of no
+ * match was found.
+ */
 EsClient.prototype.get = function(id) {
 	var deferred = q.defer();
 
@@ -103,6 +119,12 @@ EsClient.prototype.get = function(id) {
 	return deferred.promise;
 };
 
+/**
+ * Updates an existing document that matches the supplied ID. 
+ * @param {Number} The ID of the document to update.
+ * @param {Object} The new document.
+ * @returns {Promise} A promise that returns a success/error message.
+ */
 EsClient.prototype.update = function(id, item) {
 	var deferred = q.defer();
 
@@ -130,6 +152,11 @@ EsClient.prototype.update = function(id, item) {
 	return deferred.promise;
 };
 
+/**
+ * Removes an existing document that matches the supplied ID. 
+ * @param {Number} The ID of the document to remove.
+ * @returns {Promise} A promise that returns a success/error message.
+ */
 EsClient.prototype.remove = function(id) {
 	var deferred = q.defer();
 
@@ -156,6 +183,12 @@ EsClient.prototype.remove = function(id) {
 	return deferred.promise;
 };
 
+/**
+ * Performs a free text search with the supplied query and fields. 
+ * @param {String} The search query.
+ * @param {Array} An array of field names that should be used in the search.
+ * @returns {Promise} A promise that returns an array of search results (documents).
+ */
 EsClient.prototype.search = function(query, fields) {
 	var deferred = q.defer();
 

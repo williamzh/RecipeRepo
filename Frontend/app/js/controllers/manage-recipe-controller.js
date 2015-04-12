@@ -94,6 +94,7 @@ recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 
 			imagePath: $scope.currentRecipe.imagePath || '',
 			servingSize: $scope.currentRecipe.servings,
 			isFavorite: $scope.currentRecipe.isFavorite || false,
+			rating: $scope.currentRecipe.rating,
 			ingredients: $scope.currentRecipe.ingredients.map(function(ing) { 
 				return {
 					// Remap to exclude angular properties
@@ -108,9 +109,7 @@ recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 
 			}),
 			meta: {
 			  cuisine: $scope.currentRecipe.cuisine,
-			  //course: "Main",
 			  category: $scope.currentRecipe.category,
-			  rating: $scope.currentRecipe.rating
 			}
 		};
 	}

@@ -8,11 +8,11 @@ var app = express();
 app.use(bodyParser.json());
 
 app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header("Access-Control-Allow-Headers", 'Content-Type');
-  next();
- });
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+	res.header("Access-Control-Allow-Headers", 'X-Requested-With,Content-Type');
+	next();
+});
 
 app.get('/api/recipes', function(req, res) {
 	var options = req.query.groupBy ? { 'groupBy': req.query.groupBy } :
@@ -66,32 +66,33 @@ app.delete('/api/recipes/:id', function(req, res) {
 	});
 });
 
-app.get('/api/meta/keys', function(req, res) {
-	metainfoStore.getAllKeys(function(data) {
+app.get('/api/meta', function(req, res) {
+	metainfoStore.getAllMetaData(function(data) {
 		success(res, data);
 	}, function(err) {
 		error(res, err);
 	});
 });
 
-app.post('/api/meta/keys/:key', function(req, res) {
-	metainfoStore.addKey(req.params.key, function(data) {
+app.post('/api/meta/:id', function(req, res) {
+	metainfoStore.addMetaData(req.params.id, function(data) {
 		success(res, data);
 	}, function(err) {
 		error(res, err);
 	});
 });
 
-app.get('/api/meta/values/:key', function(req, res) {
-	metainfoStore.getValuesForKey(req.params.key, function(data) {
-		success(res, data);
-	}, function(err) {
-		error(res, err);
-	});
-});
+// app.get('/api/meta/values/:key', function(req, res) {
+// 	metainfoStore.getValuesForKey(req.params.key, function(data) {
+// 		success(res, data);
+// 	}, function(err) {
+// 		error(res, err);
+// 	});
+// });
 
-app.listen(process.env.PORT, function() {
-	console.log('Listening on port %d', process.env.PORT);
+var port = process.env.PORT || 8001;
+app.listen(port, function() {
+	console.log('Listening on port %d', port);
 });
 
 function success(res, result) {
