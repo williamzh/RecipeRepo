@@ -11,9 +11,12 @@ recipeRepoControllers.controller('ManageRecipeCtrl', ['$scope', '$routeParams', 
 		'error': { type: 'danger', msg: 'Oh snap, an unexpected error occured. Please contact [responsible person here].' }
 	};
 
-	apiClient.requestMany(apiClient.getMetainfoValues('cuisine'), apiClient.getMetainfoValues('category')).then(function(results) {
-		$scope.cuisines = results[0];
-		$scope.categories = results[1];
+	apiClient.getMetaData().then(function(metaData) {
+		var cuisineMeta = metaData['cuisine'];
+		$scope.cuisines = cuisineMeta ? cuisineMeta.values : [];
+		
+		var categoryMeta = metaData['category'];
+		$scope.categories = categoryMeta ? categoryMeta.values : [];
 
 		if($routeParams.recipeId) {
 			$scope.mode = 'edit';

@@ -1,3 +1,3 @@
 var Config = {
-	appServerUrl: "recipeserver.local"
+	appServerUrl: "recipereposerver.dev.local"
 };

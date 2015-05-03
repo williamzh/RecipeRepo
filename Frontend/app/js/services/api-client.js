@@ -64,6 +64,18 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		});
 	}
 
+	function setMetaData(id, value) {
+		var url = baseUrl + '/meta/' + id;
+
+		return $http.post(url, { value: value }).then(function(response) {
+			return response;
+		})
+		.catch(function(errorObj) {
+			var errMsg = onError(errorObj, 'setMetaData');
+			throw new Error(errMsg);
+		});
+	};
+
 	function getMetaData() {
 		var url = baseUrl + '/meta';
 
@@ -106,8 +118,7 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		addRecipe: addRecipe,
 		updateRecipe: updateRecipe,
 		searchRecipes: searchRecipes,
-		getMetainfoKeys: getMetainfoKeys,
-		getMetainfoValues: getMetainfoValues,
+		getMetaData: getMetaData,
 		requestMany: requestMany
 	};
 }]);

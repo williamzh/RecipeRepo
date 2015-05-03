@@ -15,7 +15,7 @@ describe('Provided a MetainfoStore', function() {
 		metainfoStore = new MetainfoStore(esClient, idGenerator);
 	});
 
-	describe('when adding new meta data', function() {
+	describe('when setting meta data', function() {
 		var getStub, getDeferred, createStub, createDeferred;
 
 		beforeEach(function() {
@@ -29,53 +29,66 @@ describe('Provided a MetainfoStore', function() {
 		});
 
 		it('should return error if no id is provided', function(done) {
-			metainfoStore.addMetaData(undefined, 'foo', undefined, function(error) {
-				assert.equal(error, 'Id and value must be provided.');
+			metainfoStore.setMetaData(undefined, 'foo', undefined, function(result) {
+				assert.deepEqual(result, 'Id and value must be provided.');
 				done();
 			});
 		});
 
 		it('should return error if no value is provided', function(done) {
-			metainfoStore.addMetaData('key', undefined, undefined, function(error) {
-				assert.equal(error, 'Id and value must be provided.');
+			metainfoStore.setMetaData('key', undefined, undefined, function(result) {
+				assert.deepEqual(result, 'Id and value must be provided.');
 				done();
 			});
 		});
 
+		describe('if value is not camel cased', function() {
+			beforeEach(function() {
+				// Simulate non-existent meta data
+				getDeferred.resolve(null);
+				createDeferred.resolve('Item created');
+			});
+
+			it('should camel case values with special characters', function(done) {
+				var expectedCreateArgs = {
+					id: 'cuisine',
+					values: ['gratinsPies']
+				};
+
+				metainfoStore.setMetaData('cuisine', 'Gratins, pies', function(error) {
+					assert(createStub.calledWith(expectedCreateArgs, 'cuisine'));
+					done();
+				});
+			});
+		});
+
+
 		describe('if meta data already exists', function() {
 			var existingMetaData = {
 				id: 'cuisine',
-				values: {
-					1: {
-						name: 'Swedish'
-					},
-					2: {
-						name: 'Chinese'
-					}
-				}
+				values: ['swedish', 'chinese']
 			};
 
-			it('should append new value to existing meta data object', function(done) {
+			beforeEach(function() {
 				getDeferred.resolve(existingMetaData);
+			});
 
+			it('should not do anything if same value exists', function(done) {
+				metainfoStore.setMetaData('cuisine', 'swedish', function(result) {
+					assert(!createStub.called);
+					done();
+				});
+			});
+
+			it('should append new value if same value doesn\'t exist', function(done) {
 				createDeferred.resolve('Item created');
 
 				var expectedCreateArgs = {
 					id: 'cuisine',
-					values: {
-						1: {
-							name: 'Swedish'
-						},
-						2: {
-							name: 'Chinese'
-						},
-						3: {
-							name: 'Italian'
-						}
-					}
+					values: ['swedish', 'chinese', 'italian']
 				};
 
-				metainfoStore.addMetaData('cuisine', 'Italian', function(successMsg) {
+				metainfoStore.setMetaData('cuisine', 'italian', function(result) {
 					assert(createStub.calledWith(expectedCreateArgs, 'cuisine'));
 					done();
 				});
@@ -90,14 +103,10 @@ describe('Provided a MetainfoStore', function() {
 
 				var expectedCreateArgs = {
 					id: 'cuisine',
-					values: {
-						1: {
-							name: 'Swedish'
-						}
-					}
+					values: ['swedish']
 				};
 
-				metainfoStore.addMetaData('cuisine', 'Swedish', function(error) {
+				metainfoStore.setMetaData('cuisine', 'swedish', function(error) {
 					assert(createStub.calledWith(expectedCreateArgs, 'cuisine'));
 					done();
 				});

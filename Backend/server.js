@@ -75,20 +75,12 @@ app.get('/api/meta', function(req, res) {
 });
 
 app.post('/api/meta/:id', function(req, res) {
-	metainfoStore.addMetaData(req.params.id, function(data) {
+	metainfoStore.setMetaData(req.params.id, req.body.value, function(data) {
 		success(res, data);
 	}, function(err) {
 		error(res, err);
 	});
 });
-
-// app.get('/api/meta/values/:key', function(req, res) {
-// 	metainfoStore.getValuesForKey(req.params.key, function(data) {
-// 		success(res, data);
-// 	}, function(err) {
-// 		error(res, err);
-// 	});
-// });
 
 var port = process.env.PORT || 8001;
 app.listen(port, function() {
