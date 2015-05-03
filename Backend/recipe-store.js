@@ -13,9 +13,11 @@ RecipeStore.prototype.add = function(recipe, successCallback, errorCallback) {
 
 	this.client.create(recipe).then(function(successMsg) {
 		successCallback(successMsg);
-	}, function(errorMsg) {
+	})
+	.catch(function(errorMsg) {
 		errorCallback(errorMsg);
-	});
+	})
+	.done();
 };
 
 RecipeStore.prototype.getAll = function(successCallback, errorCallback, options) {
@@ -51,17 +53,21 @@ RecipeStore.prototype.getAll = function(successCallback, errorCallback, options)
 		else {
 			errorCallback('Failed to group recipes. Invalid options.');
 		}
-	}, function(errorMsg) {
+	})
+	.catch(function(errorMsg) {
 		errorCallback(errorMsg);
-	});
+	})
+	.done();
 };
 
 RecipeStore.prototype.get = function(recipeId, successCallback, errorCallback) {
 	this.client.get(recipeId).then(function(recipe) {
 		successCallback(recipe);
-	}, function(errorMsg) {
+	})
+	.catch(function(errorMsg) {
 		errorCallback(errorMsg);
-	});
+	})
+	.done();
 };
 
 RecipeStore.prototype.update = function(recipeId, recipe, successCallback, errorCallback) {
@@ -82,9 +88,11 @@ RecipeStore.prototype.update = function(recipeId, recipe, successCallback, error
 
 	this.client.update(recipeId, recipe).then(function(successMsg) {
 		successCallback(successMsg);
-	}, function(errorMsg) {
+	})
+	.catch(function(errorMsg) {
 		errorCallback(errorMsg);
-	});
+	})
+	.done();
 };
 
 RecipeStore.prototype.remove = function(recipeId, successCallback, errorCallback) {
@@ -95,9 +103,11 @@ RecipeStore.prototype.remove = function(recipeId, successCallback, errorCallback
 
 	this.client.remove(recipeId).then(function(successMsg) {
 		successCallback(successMsg);
-	}, function(errorMsg) {
+	})
+	.catch(function(errorMsg) {
 		errorCallback(errorMsg);
-	});
+	})
+	.done();
 };
 
 RecipeStore.prototype.search = function(query, successCallback, errorCallback) {
@@ -108,9 +118,11 @@ RecipeStore.prototype.search = function(query, successCallback, errorCallback) {
 
 	this.client.search(query, ["recipeName^2", "description", "meta.category"]).then(function(hits) {
 		successCallback(hits);
-	}, function(errorMsg) {
+	})
+	.catch(function(errorMsg) {
 		errorCallback(errorMsg);
-	});
+	})
+	.done();
 };
 
 module.exports = RecipeStore;

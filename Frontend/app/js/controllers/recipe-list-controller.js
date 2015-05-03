@@ -1,17 +1,27 @@
 recipeRepoControllers.controller('RecipeListCtrl', ['$scope', 'apiClient', function($scope, apiClient) {
-	apiClient.requestMany(apiClient.getRecipes('category'), apiClient.getMetainfoKeys()).then(function(results) {
-		$scope.categories = results[0];
+	apiClient.requestMany(apiClient.getRecipes('category'), apiClient.getMetaData())
+		.then(function(results) {
+			$scope.categories = results[0];
 
-		$scope.groupKeys = results[1].map(function(key) {
-			return {
-				display: key.capitalize(),
-				value: key
-			};
+			var keysObj = results[1]['category'];
+			if(!keysObj) {
+				$scope.groupKeys = [];
+			}
+			else {
+				var keys = Object.keys(keysObj.values);
+				$scope.groupKeys = keys.map(function(key) {
+					return {
+						display: key.capitalize(),
+						value: key
+					};
+				});
+			}
+			
+			$scope.selectedGrouping = $scope.groupKeys[0];
+		})
+		.catch(function() {
+			$scope.showErrorAlert = true;
 		});
-		$scope.selectedGrouping = $scope.groupKeys[0];
-	}, function() {
-		$scope.showErrorAlert = true;
-	});
 
 	$scope.updateRecipeGrouping = function() {
 		apiClient.getRecipes($scope.selectedGrouping.value).then(function(categories) {

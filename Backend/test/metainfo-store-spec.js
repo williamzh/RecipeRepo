@@ -2,52 +2,114 @@ var assert = require('assert');
 var sinon = require('sinon');
 var q = require('q');
 var EsClient = require('../es-client');
+var IdGenerator = require('../utils/id-generator.js');
 var MetainfoStore = require('../metainfo-store');
 
 describe('Provided a MetainfoStore', function() {
 	var elasticSearchUrl = 'http://local:9200';
-	var deferred, esClient, metainfoStore;
+	var esClient, metainfoStore;
 
 	beforeEach(function() {
-		deferred = q.defer();
 		esClient = new EsClient('foo');
-		metainfoStore = new MetainfoStore(esClient);
+		idGenerator = new IdGenerator();
+		metainfoStore = new MetainfoStore(esClient, idGenerator);
 	});
 
-	describe('when adding a metainfo key', function() {
-		var createStub, createDeffered;
+	describe('when setting meta data', function() {
+		var getStub, getDeferred, createStub, createDeferred;
 
 		beforeEach(function() {
-			sinon.stub(esClient, 'get').returns(deferred.promise);
+			// Mock promise for get()
+			getDeferred = q.defer();
+			getStub = sinon.stub(esClient, 'get').returns(getDeferred.promise);
 
-			createDeffered = q.defer();
-			createStub = sinon.stub(esClient, 'create').returns(createDeffered.promise);
+			// Mock promise for create()
+			createDeferred = q.defer();
+			createStub = sinon.stub(esClient, 'create').returns(createDeferred.promise);
 		});
 
-		it('should return error if no key is provided', function(done) {
-			metainfoStore.addKey(undefined, undefined, function(error) {
-				assert.equal(error, 'Key must be supplied.');
+		it('should return error if no id is provided', function(done) {
+			metainfoStore.setMetaData(undefined, 'foo', undefined, function(result) {
+				assert.deepEqual(result, 'Id and value must be provided.');
 				done();
 			});
 		});
 
-		it('should add key if no previous keys exist', function(done) {
-			deferred.resolve(undefined);
-			createDeffered.resolve('Item created');
-
-			metainfoStore.addKey('newKey', function(error) {
-				sinon.assert.calledWith(createStub, { keys: ['newKey'] });
+		it('should return error if no value is provided', function(done) {
+			metainfoStore.setMetaData('key', undefined, undefined, function(result) {
+				assert.deepEqual(result, 'Id and value must be provided.');
 				done();
 			});
 		});
 
-		it('should append key if previous keys exist', function(done) {
-			deferred.resolve({ keys: ['oldKey1', 'oldKey2'] });
-			createDeffered.resolve('Item created');
+		describe('if value is not camel cased', function() {
+			beforeEach(function() {
+				// Simulate non-existent meta data
+				getDeferred.resolve(null);
+				createDeferred.resolve('Item created');
+			});
 
-			metainfoStore.addKey('newKey', function(error) {
-				sinon.assert.calledWith(createStub, { keys: ['oldKey1', 'oldKey2', 'newKey'] });
-				done();
+			it('should camel case values with special characters', function(done) {
+				var expectedCreateArgs = {
+					id: 'cuisine',
+					values: ['gratinsPies']
+				};
+
+				metainfoStore.setMetaData('cuisine', 'Gratins, pies', function(error) {
+					assert(createStub.calledWith(expectedCreateArgs, 'cuisine'));
+					done();
+				});
+			});
+		});
+
+
+		describe('if meta data already exists', function() {
+			var existingMetaData = {
+				id: 'cuisine',
+				values: ['swedish', 'chinese']
+			};
+
+			beforeEach(function() {
+				getDeferred.resolve(existingMetaData);
+			});
+
+			it('should not do anything if same value exists', function(done) {
+				metainfoStore.setMetaData('cuisine', 'swedish', function(result) {
+					assert(!createStub.called);
+					done();
+				});
+			});
+
+			it('should append new value if same value doesn\'t exist', function(done) {
+				createDeferred.resolve('Item created');
+
+				var expectedCreateArgs = {
+					id: 'cuisine',
+					values: ['swedish', 'chinese', 'italian']
+				};
+
+				metainfoStore.setMetaData('cuisine', 'italian', function(result) {
+					assert(createStub.calledWith(expectedCreateArgs, 'cuisine'));
+					done();
+				});
+			});
+		});
+
+		describe('if meta data does not exist', function() {
+			it('should create new meta data object', function(done) {
+				getDeferred.resolve(null);
+
+				createDeferred.resolve('Item created');
+
+				var expectedCreateArgs = {
+					id: 'cuisine',
+					values: ['swedish']
+				};
+
+				metainfoStore.setMetaData('cuisine', 'swedish', function(error) {
+					assert(createStub.calledWith(expectedCreateArgs, 'cuisine'));
+					done();
+				});
 			});
 		});
 	});

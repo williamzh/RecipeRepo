@@ -2,10 +2,11 @@ var assert = require('assert');
 var sinon = require('sinon');
 var nock = require('nock');
 var ConfigManager = require('../config-manager');
+var IdGenerator = require('../utils/id-generator');
 var EsClient = require('../es-client');
 
 describe('Provided an EsClient', function() {
-	var esClient, esUrl;
+	var esClient, esUrl, idGenerator;
 
 	before(function() {
 		esUrl = 'http://local:9200';
@@ -16,7 +17,9 @@ describe('Provided an EsClient', function() {
 		var configManager = new ConfigManager();
 		sinon.stub(configManager, 'getConfigValue').returns('local');
 
-		esClient = new EsClient('foo', configManager);	
+		idGenerator = new IdGenerator();
+
+		esClient = new EsClient('foo', configManager, idGenerator);	
 	});
 
 	afterEach(function() {
@@ -36,37 +39,37 @@ describe('Provided an EsClient', function() {
 		});
 
 		it('should not attempt to auto-generate ID if ID is provided', function(done) {
-			var notExpectedGet = nock(esUrl)
-				.get('/reciperepo/foo/_search')
-				.reply(200);
-			
 			nock(esUrl)
 				.post('/reciperepo/foo/1')
 				.reply(200);
 
+			sinon.spy(idGenerator, 'generateId');
+
 			esClient.create({}, '1').then(function(successMsg) {
-				assert(!notExpectedGet.isDone());
+				assert(!idGenerator.generateId.called);
 				done();
 			});
 		});
 
 		it('should attempt to auto-generate ID if ID is not provided', function(done) {
-			var expectedGet = nock(esUrl)
+			nock(esUrl)
+				.post('/reciperepo/foo/2')
+				.reply(200);
+
+			nock(esUrl)
 				.get('/reciperepo/foo/_search')
 				.reply(200, {
 					"hits": {
 						"hits": [
-							{ "_source": { "id": 1 } }
+							{ "_id": 1 }
 						]
 					}
 				});
-			
-			nock(esUrl)
-				.post('/reciperepo/foo/1')
-				.reply(200);
+
+			var idSpy = sinon.spy(idGenerator, 'generateId');
 
 			esClient.create({}).then(function(successMsg) {
-				assert(expectedGet.isDone());
+				assert(idSpy.calledWith([1]));
 				done();
 			});
 		});

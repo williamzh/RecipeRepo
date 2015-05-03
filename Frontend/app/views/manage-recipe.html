@@ -21,13 +21,13 @@
 
 			<div class="form-group" ng-class="{ 'has-error': hasError('cuisine') }">
 				<label for="recipe-cuisine">Cuisine</label>
-				<input type="text" id="recipe-cuisine" name="cuisine" ng-model="currentRecipe.cuisine" typeahead="c for c in cuisines | filter:$viewValue | limitTo:8" class="form-control narrow" required>
+				<input type="text" id="recipe-cuisine" name="cuisine" ng-model="currentRecipe.cuisine" typeahead="c for c in cuisines | filter:$viewValue | limitTo:8" class="form-control narrow" required ng-blur="onCuisineBlur()">
 				<p class="control-label error-label" ng-show="hasError('cuisine')">Cuisine is required.</p>
 			</div>
 
 			<div class="form-group" ng-class="{ 'has-error': hasError('category') }">
 				<label for="recipe-category">Category</label>
-				<input type="text" id="recipe-category" name="category" ng-model="currentRecipe.category" typeahead="c for c in categories | filter:$viewValue | limitTo:8" class="form-control narrow" required>
+				<input type="text" id="recipe-category" name="category" ng-model="currentRecipe.category" typeahead="c for c in categories | filter:$viewValue | limitTo:8" class="form-control narrow" required ng-blur="onCategoryBlur()">
 				<p class="control-label error-label" ng-show="hasError('category')">Category is required.</p>
 			</div>
 

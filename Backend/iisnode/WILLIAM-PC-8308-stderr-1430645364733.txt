@@ -1,0 +1,12 @@
+Application has thrown an uncaught exception and is terminated:
+TypeError: Object Failed to get all items: Error: connect ECONNREFUSED has no method 'json'
+    at error (D:\GitRepos\RecipeRepo\Backend\server.js:103:6)
+    at D:\GitRepos\RecipeRepo\Backend\server.js:25:3
+    at D:\GitRepos\RecipeRepo\Backend\recipe-store.js:58:3
+    at _rejected (D:\GitRepos\RecipeRepo\Backend\node_modules\q\q.js:804:24)
+    at D:\GitRepos\RecipeRepo\Backend\node_modules\q\q.js:830:30
+    at Promise.when (D:\GitRepos\RecipeRepo\Backend\node_modules\q\q.js:1064:31)
+    at Promise.promise.promiseDispatch (D:\GitRepos\RecipeRepo\Backend\node_modules\q\q.js:748:41)
+    at D:\GitRepos\RecipeRepo\Backend\node_modules\q\q.js:564:44
+    at flush (D:\GitRepos\RecipeRepo\Backend\node_modules\q\q.js:110:17)
+    at process._tickCallback (node.js:419:13)
