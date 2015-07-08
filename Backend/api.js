@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var recipeStore = new (require('./store/recipe-store'));
-//var metainfoStore = new (require('./store/metainfo-store'));
+var metainfoStore = new (require('./store/metainfo-store'));
 
 var app = express();
 
@@ -68,13 +68,14 @@ app.delete('/api/recipes/:id', function(req, res) {
 		});
 });
 
-// app.get('/api/meta', function(req, res) {
-// 	metainfoStore.getAllMetaData(function(data) {
-// 		success(res, data);
-// 	}, function(err) {
-// 		error(res, err);
-// 	});
-// });
+app.get('/api/meta/:type', function(req, res) {
+	metainfoStore.getAll(req.params.type)
+		.then(function(items) {
+			success(res, items);
+		}, function(err) {
+			error(res, err);
+		});
+});
 
 // app.post('/api/meta/:id', function(req, res) {
 // 	metainfoStore.setMetaData(req.params.id, req.body.value, function(data) {

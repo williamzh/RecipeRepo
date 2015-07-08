@@ -1,69 +1,77 @@
-var EsClient = require('./es-client');
-var RecipeStore = require('./recipe-store');
+var FakeMetaClient = require('../dev/fake-meta-client');
 var q = require('q');
-var camelCase = require('camel-case');
 
-function MetainfoStore(client, recipeStore) {
-	this.client = client || new EsClient('meta');
-	this.recipeStore = recipeStore || new RecipeStore();
+function MetainfoStore(client) {
+	this.client = client || new FakeMetaClient();
 }
 
-MetainfoStore.prototype.setMetaData = function(id, value, successCallback, errorCallback) {
-	if(!id || !value) {
-		errorCallback('Id and value must be provided.');
-		return;
+MetainfoStore.prototype.add = function(type, name) {
+	if(!type || !name) {
+		var def = q.defer();
+		def.reject('Type and name be supplied.');
+		return def.promise;
 	}
 
-	value = camelCase(value);
-	
-	var client = this.client;
-	var idGenerator = this.idGenerator;
-	client.get(id)
-		.then(function(metaData) {
-			if(metaData) {
-				// Don't do anything if value already exists
-				if(metaData.values.indexOf(value) > -1) {
-					successCallback('Value ' + value + ' already exists. Nothing updated.');
-					var deferred = q.defer();
-					return deferred.promise;
-				}
-
-				// If meta data exists, append the value
-				metaData.values.push(value);
-			}
-			else {
-				// Otherwise create a new meta data object with the value
-				metaData = {
-					id: id,
-					values: [value]
-				};
-			}
-
-			return client.create(metaData, id)
-				.then(function(successMsg) {
-					successCallback(successMsg);
-				})
-				.catch(function(errorMsg) {
-					errorCallback(errorMsg);
-				})
-				.done();
-		});
-};
-
-MetainfoStore.prototype.getAllMetaData = function(successCallback, errorCallback) {
-	this.client.getAll().then(function(metaData) {
-		// Convert array to object		
-		var metaDataObj = {};
-		metaData.each(function(md) {
-			metaDataObj[md.id] = md.values;
-		});
-
-		successCallback(metaDataObj);
+	return this.client.create(type, name).then(function(successMsg) {
+		// TODO: log
+		return successMsg;
 	})
 	.catch(function(errorMsg) {
-		errorCallback(errorMsg);
+		return errorMsg;
+	});
+};
+
+MetainfoStore.prototype.getAll = function(type) {
+	return this.client.getAll(type).then(function(items) {
+		// TODO: log
+		return items;
 	})
-	.done();
+	.catch(function(errorMsg) {
+		return errorMsg;
+	});
+};
+
+MetainfoStore.prototype.get = function(type, id) {
+	return this.client.get(type, id).then(function(item) {
+		// TODO: log
+		return item;
+	})
+	.catch(function(errorMsg) {
+		return errorMsg;
+	});
+};
+
+MetainfoStore.prototype.update = function(type, id, name) {
+	var def = q.defer();
+
+	if(!type || !id || !name) {
+		def.reject('Type, ID and name must be supplied');
+		return def.promise;
+	}
+
+	return this.client.update(type, id, name).then(function(successMsg) {
+		// TODO: log
+		return successMsg;
+	})
+	.catch(function(errorMsg) {
+		return errorMsg;
+	});
+};
+
+MetainfoStore.prototype.remove = function(type, id) {
+	if(!type || !id) {
+		var def = q.defer();
+		def.reject('Type and ID must be supplied');
+		return def.promise;
+	}
+
+	return this.client.remove(type, id).then(function(successMsg) {
+		// TODO: log
+		return successMsg;
+	})
+	.catch(function(errorMsg) {
+		return errorMsg;
+	});
 };
 
 module.exports = MetainfoStore;

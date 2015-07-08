@@ -11,8 +11,11 @@ FakeMetaClient.prototype.create = function(type, name) {
 
 FakeMetaClient.prototype.getAll = function(type) {
 	var metaObj = data.meta[type];
-	var metaArray = Object.keys(metaObj).map(function(typeKey) {
-		return metaObj[typeKey];
+	var metaArray = Object.keys(metaObj).map(function(id) {
+		return {
+			id: id,
+			name: metaObj[id].name
+		};
 	});
 
 	var deferred = q.defer();

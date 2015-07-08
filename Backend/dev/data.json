@@ -1,6 +1,35 @@
 {
 	"meta": {
-		"keys": ["cuisine", "course", "category", "rating"]
+		"cuisine": {
+			"1": {
+				"name": "italian"
+			},
+			"2": {
+				"name": "swedish"
+			},
+			"3": {
+				"name": "chinese"
+			}
+		},
+		"course": {
+			"1": {
+				"name": "main"
+			}
+		},
+		"category": {
+			"1": {
+				"name": "pasta"
+			},
+			"2": {
+				"name": "meat"
+			},
+			"3": {
+				"name": "fish"
+			},
+			"4": {
+				"name": "rice-grains"
+			}
+		}
 	},
 	"recipes": [{
 		"id": "1",
@@ -9,6 +38,7 @@
 		"imagePath": "/img/bolognese.jpg",
 		"servingSize": 4,
 		"isFavorite": true,
+		"rating": 4.5,
 		"ingredients": [
 		  {
 		     "name": "köttfärs",
@@ -42,10 +72,9 @@
 		  "Låt småputtra i ca 5 min till, servera."
 		],
 		"meta": {
-		  "cuisine": "Italian",
-		  "course": "Main",
-		  "category": "Pasta",
-		  "rating": 4.5
+		  "cuisine": "1",
+		  "course": "1",
+		  "category": "1"
 		}
 	},
 	{
@@ -55,6 +84,7 @@
 		"imagePath": "/img/fried_fish.jpg",
 		"servingSize": 4,
 		"isFavorite": true,
+		"rating": 4,
 		"ingredients": [
 		  {
 		     "name": "fiskfilé, t.ex. Pangasius eller rödspätta",
@@ -100,10 +130,9 @@
 		  "Servera med en citronklyfta."
 		],
 		"meta": {
-		  "cuisine": "Swedish",
-		  "course": "Main",
-		  "category": "Fish",
-		  "rating": 4
+		  "cuisine": "2",
+		  "course": "1",
+		  "category": "3"
 		}
 	},
 	{
@@ -113,6 +142,7 @@
 		"imagePath": "/img/fried_rice.jpg",
 		"servingSize": 4,
 		"isFavorite": false,
+		"rating": 4.5,
 		"ingredients": [
 		  {
 		     "name": "köttfärs",
@@ -154,10 +184,9 @@
 		  "Fräs i ett par minuter, servera."
 		],
 		"meta": {
-		  "cuisine": "Chinese",
-		  "course": "Main",
-		  "category": "Rice, couscous, bulgur",
-		  "rating": 4.5
+		  "cuisine": "3",
+		  "course": "1",
+		  "category": "4"
 		}
 	},
 	{
@@ -167,6 +196,7 @@
 		"imagePath": "/img/lasagne.jpg",
 		"servingSize": 4,
 		"isFavorite": true,
+		"rating": 3,
 		"ingredients": [
 		  {
 		     "name": "köttfärs",
@@ -208,10 +238,9 @@
 		  "Fräs i ett par minuter, servera."
 		],
 		"meta": {
-		  "cuisine": "Italian",
-		  "course": "Main",
-		  "category": "Pasta",
-		  "rating": 3
+		  "cuisine": "1",
+		  "course": "1",
+		  "category": "1"
 		}
 	}, {
 		"id": "5",
@@ -220,6 +249,7 @@
 		"imagePath": "/img/pasta-kyckling-svamp.jpg",
 		"servingSize": 4,
 		"isFavorite": true,
+		"rating": 5,
 		"ingredients": [
 		  {
 		     "name": "pasta (t.ex. penne)",
@@ -301,10 +331,9 @@
 			"Låt småputtra i ett par minuter, servera sedan med riven parmesanost."
 		],
 		"meta": {
-		  "cuisine": "Swedish",
-		  "course": "Main",
-		  "category": "Pasta",
-		  "rating": 5
+		  "cuisine": "2",
+		  "course": "1",
+		  "category": "1"
 		}
 	}]
 }
