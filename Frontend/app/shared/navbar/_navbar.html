@@ -1,16 +1,8 @@
 <nav class="top-navigation navbar">
 	<div class="navbar-inner">
 		<ul class="nav navbar-nav navbar-left">
-	    	<li><a class="nav-icon back-btn"><i class="fa fa-chevron-left"></i></a></li>
-	    	<li><a class="nav-icon" href="#"><i class="fa fa-home"></i></a></li>
-	    	<li><a class="nav-icon" href="#/recipes"><i class="fa fa-th"></i></a></li>
+	    	<li>Icon here</li>
 	    </ul>
-	    <!-- <ul class="nav navbar-form navbar-center">
-	    	<li>
-				<input type="text" class="form-control searchbox no-glow" ng-model="searchValue" placeholder="Search recipe" typeahead="hit as hit.recipeName for hit in search($viewValue)" 
-					typeahead-min-length="2" typeahead-on-select="onSearchSelect($item, $model, $label); searchValue = '';" typeahead-template-url="searchTpl.html">
-			</li>
-		</ul> -->
 		<ul class="nav navbar-nav navbar-right">
 			<li class="dropdown" dropdown>
 				<a class="dropdown-toggle nav-icon" dropdown-toggle><i class="fa fa-user"></i> <span class="caret"></span></a>
@@ -23,10 +15,3 @@
 		</ul>
 	</div>
 </nav>
-
- <script type="text/ng-template" id="searchTpl.html">
-	<a class="search-result" tabindex="-1">
-		<div bind-html-unsafe="match.label | typeaheadHighlight:query"></div>
-		<div><small bind-html-unsafe="match.model.description | typeaheadHighlight:query"></small></div>
-	</a>
-</script>

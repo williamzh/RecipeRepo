@@ -5,7 +5,7 @@ recipeRepoApp.config(['$stateProvider', '$urlRouterProvider', function($statePro
 		state('home', {
 			url: '/' ,
 			templateUrl: 'app/components/home/home.html', 
-			controller: 'homeCtrl'
+			controller: 'homeController'
 		});
 		// state('/recipes', { 
 		// 	templateUrl: '/app/views/recipe-list.html', 

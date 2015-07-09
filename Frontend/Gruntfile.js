@@ -52,10 +52,10 @@ module.exports = function(grunt) {
 				files: 'assets/**/*.scss',
 				tasks: ['sass']
 			},
-			js: {
-				files: 'app/**/*.js',
-				tasks: ['uglify']
-			}
+			// js: {
+			// 	files: 'app/**/*.js',
+			// 	tasks: ['uglify']
+			// }
 		}
 	});
 

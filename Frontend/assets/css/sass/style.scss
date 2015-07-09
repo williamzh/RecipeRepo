@@ -7,8 +7,6 @@
 @import "layout/_header";
 
 @import "pages/_home";
-@import "pages/_recipe-list";
-@import "pages/_recipe-sublist";
 @import "pages/_recipe-details";
 @import "pages/_manage-recipe";
 
@@ -29,8 +27,4 @@ footer {
 
 .heading-pill small {
 	font-size: 70%;
-}
-
-.fa-star, .fa-star-half-full, .fa-star-o {
-	color: #FFA400;
 }

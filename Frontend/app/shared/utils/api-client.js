@@ -1,18 +1,16 @@
 recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $q, log) {
 	var baseUrl = 'http://{1}/api'.assign(Config.appServerUrl);
 
-	function getRecipes(groupBy) {
+	function getRecipes() {
 		var url = baseUrl + '/recipes';
-		if(groupBy) {
-			url += '?groupBy=' + groupBy;
-		}
-
+		
 		return $http.get(url).then(function (response) {
 			return response.data;
 		})
 		.catch(function(errorObj) {
 			var errMsg = onError(errorObj, 'getRecipes');
-			throw new Error(errMsg);
+			log.error(errMsg);
+			return errMsg;
 		});
 	};
 
