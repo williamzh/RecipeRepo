@@ -19,6 +19,22 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		copy: {
+			main: {
+				files: [
+					{ 
+						expand: true, 
+						src: [
+							'assets/css/fonts/**'
+						],
+						dest: 'dist/fonts',
+						flatten: true,
+						filter: 'isFile'
+					}
+				],
+			},
+		},
+		clean: ["dist/**/*"],
 		sass: {
 		    dist: {
 				options: {
@@ -44,9 +60,11 @@ module.exports = function(grunt) {
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('default', ['watch']);
-	grunt.registerTask('build', ['uglify', 'sass']);
+	grunt.registerTask('build', ['clean', 'uglify', 'sass', 'copy']);
 };

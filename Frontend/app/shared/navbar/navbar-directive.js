@@ -5,12 +5,6 @@ recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 			// TODO: inject authentication service
 			$scope.isAuthenticated = true;
 
-			$scope.search = function(searchValue) {
-				return apiClient.searchRecipes(searchValue).then(function(hits) {
-					return hits;
-				});
-			};
-
 			$scope.onSearchSelect = function($item, $model, $label) {
 				$location.path('/recipes/' + $item.id);
 			};
