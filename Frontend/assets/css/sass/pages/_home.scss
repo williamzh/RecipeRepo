@@ -56,6 +56,40 @@
 	}
 }
 
+.tab-group {
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	-webkit-transform: translate(-50%, 0);
+	-ms-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
+	
+	ul {
+		margin-bottom: 0;
+	}
+
+	li {
+		display: inline-block;
+		padding: 10px 15px;
+		margin: 0 5px;
+
+		a {
+			color: #CCC;
+			font-weight: 600;
+			font-size: $font-size-h6;
+			text-transform: uppercase;
+		}
+
+		&.active {
+			border-bottom: 4px solid $brand-primary-highlight;
+
+			a {
+				color: #FFF;
+			}
+		}
+	}
+}
+
 .centered-content {
 	max-width: 900px;
 	margin-left: auto;

@@ -1,4 +1,4 @@
-<div class="home-wrapper" ng-init="getTopRecipes()">
+<div class="home-wrapper">
 	<div class="row">
 		<div class="banner">
 			<div class="banner-figure" ng-style="{ 'background-image': 'url(/assets/img/mat.jpg)' }"/>
@@ -8,22 +8,12 @@
 					<button type="button" class="search-box-add"><i class="fa fa-cutlery"></i> Add recipe</button>
 				</form>
 			</div>
-		</div>
+			<rd-tab-group></rd-tab-group>
+		</div>	
 	</div>
 	<div class="row">
 		<div class="centered-content">
-			<div class="col-sm-6 col-md-4" ng-repeat="recipe in recipes">
-				<div class="recipe-wrapper">
-					<a href="#/recipes/{{recipe.id}}">
-						<div class="recipe-heading">
-							<h4>{{recipe.recipeName}}</h4>
-							<p class="preamble">{{recipe.description}}</p>
-						</div>
-						<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
-					</a>			
-					<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
-				</div>
-			</div>
+			<div ui-view></div>
 		</div>
 	</div>
 </div>

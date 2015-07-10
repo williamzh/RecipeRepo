@@ -1,0 +1,14 @@
+<div ng-init="getTopRecipes()">
+	<div class="col-sm-6 col-md-4" ng-repeat="recipe in recipes">
+		<div class="recipe-wrapper">
+			<a href="#/recipes/{{recipe.id}}">
+				<div class="recipe-heading">
+					<h4>{{recipe.recipeName}}</h4>
+					<p class="preamble">{{recipe.description}}</p>
+				</div>
+				<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
+			</a>			
+			<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
+		</div>
+	</div>
+</div>
