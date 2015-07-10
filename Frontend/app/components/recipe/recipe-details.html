@@ -1,0 +1,75 @@
+<div ng-controller="recipeDetailsController" class="centered-content" ng-init="getRecipe()">
+	<alert ng-show="hasError" type="danger">
+		<i class="fa fa-exclamation danger"></i>&nbsp;An unexpected error has occured, please try again later.
+	</alert>
+
+	<div class="recipe-details-wrapper" ng-show="hasError == false">
+		<a class="back">
+			<i class="fa fa-arrow-left"></i>
+			Back
+		</a>
+
+		<div class="row">
+			<div class="banner">
+				<div class="banner-figure" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
+				<div class="headline">
+					<h2>{{recipe.recipeName}}</h2>
+					<ul class="recipe-toolbar">
+						<li class="favorite" ng-click="onFavoriteClick($event)">
+							<a href="#"><i class="fa" ng-class="recipe.isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
+						</li>
+						<li class="edit">
+							<a ui-sref="manage({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o"></i></a>
+						</li>
+					</ul>
+				</div>
+				<!-- <div class="serving-info">{{recipe.servingSize}} portioner</div> -->
+				<div class="recipe-meta">
+					<ul>
+						<li>{{recipe.servingSize}} portioner</li>
+						<li>{{recipe.meta.cuisine}}</li>
+						<li>{{recipe.meta.course}}</li>
+						<li>{{recipe.meta.category}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<article id="rd-ingredients" class="col-lg-6">
+				<h3><div class="list-heading">{{recipe.ingredients.length}} <small>ingredients</small></div></h3>
+				<ul class="component-list">
+					<li ng-repeat="(grpKey, grpVal) in recipe.groupedIngredients">
+						<p ng-if='grpKey !== "undefined"' class="component-header text-uppercase"><small>{{grpKey}}</small></p>
+						<ul class="ingredient-list">
+							<li ng-repeat="ing in grpVal">
+								<i>{{ing.quantity}}</i> {{ing.unit}} {{ing.name}}
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</article>
+
+			<article id="rd-method" class="col-lg-6">
+				<h3><div class="list-heading">{{recipe.method.length}} <small>steps</small></div></h3>
+				<ol class="method-list">
+					<li ng-repeat="step in recipe.method">
+						{{step}}
+					</li>
+				</ol>
+			</article>
+		</div>
+		<!-- <div class="row">
+			<section id="rd-meta" class="col-xs-12">
+				<h3><div class="heading-pill"><i class="fa fa-info"></i> <small class="text-uppercase">info</small></div></h3>
+				<div class="col-sm-6">
+					{{recipe.description}}
+				</div>
+				<div class="col-sm-6">
+					<p><i>Category:</i> {{recipe.meta.category}}</p>
+					<p><i>Cuisine:</i> {{recipe.meta.cuisine}}</p>
+					<p><i>Rating:</i> <span rd-rating ratingvalue="{{recipe.meta.rating}}"></span></p>
+				</div>
+			</section>
+		</div> -->
+	</div>
+</div>

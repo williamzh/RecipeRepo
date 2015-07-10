@@ -1,12 +1,14 @@
-recipeRepoControllers.controller('RecipeDetailsCtrl', ['$scope', '$routeParams', 'apiClient', function($scope, $routeParams, apiClient) {
+recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', 'apiClient', function($scope, $stateParams, apiClient) {
 
-	apiClient.getRecipe($routeParams.recipeId).then(function(recipe) {
-		$scope.recipe = appendGroupIngredients(recipe);
-		$scope.isAuthenticated = true;
-		$scope.hasError = false;
-	}, function() {
-		$scope.hasError = true;
-	});
+	$scope.getRecipe = function() {
+		apiClient.getRecipe($stateParams.recipeId).then(function(recipe) {
+			$scope.recipe = appendGroupIngredients(recipe);
+			$scope.isAuthenticated = true;
+			$scope.hasError = false;
+		}, function() {
+			$scope.hasError = true;
+		});
+	};
 
 	$scope.onFavoriteClick = function(e) {
 		var recipe = angular.copy($scope.recipe);

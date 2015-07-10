@@ -2,6 +2,7 @@ recipeRepoApp.config(['$stateProvider', '$urlRouterProvider', function($statePro
 	$urlRouterProvider.otherwise("/");
 
 	$stateProvider.
+		// Home
 		state('home', {
 			abstract: true,
 			url: '/' ,
@@ -16,25 +17,22 @@ recipeRepoApp.config(['$stateProvider', '$urlRouterProvider', function($statePro
 				query: null
 			},
 			templateUrl: 'app/components/home/_search.html'
+		}).
+		state('home.favorites', {
+			templateUrl: 'app/components/home/_favorites.html'
+		}).
+		// Recipe
+		state('recipe', { 
+			url: '/recipe/:recipeId',
+			templateUrl: '/app/components/recipe/recipe-details.html'
+		}).
+		// Manage
+		state('manage', {
+			url: '/manage',
+			templateUrl: '/app/components/manage/manage-recipe.html'
+		}).
+		state('manage/edit', {
+			url: '/manage/:recipeId',
+			templateUrl: '/app/components/manage/manage-recipe.html'
 		});
-		// state('/recipes', { 
-		// 	templateUrl: '/app/views/recipe-list.html', 
-		// 	controller: 'RecipeListCtrl' 
-		// }).
-		// state('/recipes/:category', { 
-		// 	templateUrl: '/app/views/recipe-sublist.html', 
-		// 	controller: 'RecipeSublistCtrl' 
-		// }).
-		// state('/recipes/:category/:recipeId', { 
-		// 	templateUrl: '/app/views/recipe-details.html', 
-		// 	controller: 'RecipeDetailsCtrl'
-		// }).
-		// state('/admin/create/', {
-		// 	templateUrl: '/app/views/manage-recipe.html',
-		// 	controller: 'ManageRecipeCtrl'
-		// }).
-		// state('/admin/edit/:recipeId', {
-		// 	templateUrl: '/app/views/manage-recipe.html',
-		// 	controller: 'ManageRecipeCtrl'
-		// });
 }]);

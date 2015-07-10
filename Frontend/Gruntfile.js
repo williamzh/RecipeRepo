@@ -24,12 +24,16 @@ module.exports = function(grunt) {
 				files: [
 					{ 
 						expand: true, 
-						src: [
-							'assets/css/fonts/**'
-						],
+						src: ['assets/css/fonts/**'],
 						dest: 'dist/fonts',
 						flatten: true,
 						filter: 'isFile'
+					},
+					{
+						expand: true,
+						src: ['assets/img/**/*'],
+						dest: 'dist/img',
+						flatten: true
 					}
 				],
 			},
