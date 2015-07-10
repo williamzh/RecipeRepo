@@ -2,6 +2,10 @@ body {
 	font-weight: 100;
 }
 
+.faded {
+	color: $gray-light;
+}
+
 h1, h2, h3, h4, p {
 	margin: 0;
 }

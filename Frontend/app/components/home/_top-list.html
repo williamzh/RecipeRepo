@@ -1,4 +1,4 @@
-<div ng-init="getTopRecipes()">
+<div id="top-list" ng-controller="topListController" ng-init="getTopRecipes()">
 	<div class="col-sm-6 col-md-4" ng-repeat="recipe in recipes">
 		<div class="recipe-wrapper">
 			<a href="#/recipes/{{recipe.id}}">

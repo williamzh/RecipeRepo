@@ -53,6 +53,10 @@
 		background-color: transparent;
 		border: none;
 		opacity: 0.8;
+
+		span {
+			padding-left: 8px;
+		}
 	}
 }
 
@@ -70,10 +74,11 @@
 
 	li {
 		display: inline-block;
-		padding: 10px 15px;
-		margin: 0 5px;
+		margin: 10px 10px 0 10px;
 
 		a {
+			display: inline-block;
+			padding: 10px;
 			color: #CCC;
 			font-weight: 600;
 			font-size: $font-size-h6;
@@ -96,40 +101,84 @@
 	margin-right: auto;
 }
 
-.recipe-wrapper {
-	position: relative;
-	height: 300px;
-	max-width: 350px;
-	border: 1px solid #EEE;
-	margin-top: 15px;
-	margin-bottom: 15px;
+#top-list {
+	padding: 15px;
 
-	.recipe-heading {
-		padding: 15px;
+	.recipe-wrapper {
+		position: relative;
+		height: 300px;
+		max-width: 350px;
+		border: 1px solid $gray-lighter;
+		margin-top: 15px;
+		margin-bottom: 15px;
 
-		h4 {
-			margin-bottom: 15px;
+		.recipe-heading {
+			padding: 15px;
+
+			h4 {
+				margin-bottom: 15px;
+			}
+
+			.preamble {
+				color: $gray-light;
+				width: 200px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 		}
 
-		.preamble {
+		.recipe-image {
+			background-size: cover;
+			background-color: #EEE;
+			height: 150px;
+		}
+
+		.recipe-rating {
+			position: absolute;
+			right: 15px;
+			bottom: 20px;
 			color: $gray-light;
-			width: 200px;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
 		}
 	}
+}
 
-	.recipe-image {
-		background-size: cover;
-		background-color: #EEE;
-		height: 150px;
+#search-result {
+	padding: 15px;
+
+	h2 {
+		@include center;
 	}
 
-	.recipe-rating {
-		position: absolute;
-		right: 15px;
-		bottom: 20px;
-		color: $gray-light;
+	.search-hit-item {
+		position: relative;
+		border: 1px solid $gray-lighter;
+		margin: 15px;
+		height: 100px;
+
+		a {
+			padding: 15px;
+		}
+
+		.search-hit-image {
+			float: left;
+			height: 100%;
+			width: 120px;
+		}
+
+		.search-hit-content {
+			height: 100%;
+
+			p {
+				margin-top: 5px;
+			}
+		}
+
+		.search-hit-meta {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 15px;
+		}
 	}
 }

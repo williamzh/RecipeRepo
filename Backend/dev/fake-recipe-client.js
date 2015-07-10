@@ -35,7 +35,7 @@ FakeRecipeClient.prototype.remove = function(id) {
 
 FakeRecipeClient.prototype.search = function(query) {
 	// Crude search based on recipe name only
-	var hits = data.recipes.find(function(r) {
+	var hits = data.recipes.findAll(function(r) {
 		return r.recipeName.toLowerCase().indexOf(query.toLowerCase()) > -1;
 	});
 

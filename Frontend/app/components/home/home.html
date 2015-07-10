@@ -1,11 +1,11 @@
-<div class="home-wrapper">
+<div class="home-wrapper" ng-controller="homeController">
 	<div class="row">
 		<div class="banner">
 			<div class="banner-figure" ng-style="{ 'background-image': 'url(/assets/img/mat.jpg)' }"/>
 			<div class="search-box">
-				<form ng-submit="search()">
+				<form ng-submit="forwardSearch()">
 					<input type="text" class="search-box-field" placeholder="Find a recipe" ng-model="searchQuery"/>
-					<button type="button" class="search-box-add"><i class="fa fa-cutlery"></i> Add recipe</button>
+					<button type="button" class="search-box-add"><i class="fa fa-file-text-o"></i><span>Add recipe</span></button>
 				</form>
 			</div>
 			<rd-tab-group></rd-tab-group>
