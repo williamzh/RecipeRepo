@@ -4363,7 +4363,7 @@ tbody.collapse.in {
 }
 .nav > li > a:hover, .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eeeeee;
+  color: #1FC793;
 }
 .nav > li.disabled > a {
   color: #aaaaaa;
@@ -4375,7 +4375,6 @@ tbody.collapse.in {
   cursor: not-allowed;
 }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-  background-color: #eeeeee;
   border-color: #555555;
 }
 .nav .nav-divider {
@@ -7135,13 +7134,36 @@ h1, h2, h3, h4, p {
 }
 
 .top-navigation {
-  background-color: #252627;
+  background-color: #222222;
   margin-bottom: 0;
   border-radius: 0;
 }
+.top-navigation a {
+  color: #3BB595 !important;
+}
+.top-navigation a:hover, .top-navigation a:focus {
+  background-color: #222222 !important;
+  color: #1FC793 !important;
+}
 .top-navigation .navbar-inner {
-  color: #3BB595;
   text-align: center;
+}
+@media (min-width: 767px) {
+  .top-navigation .navbar-inner .navbar-left {
+    margin-left: 15%;
+  }
+}
+.top-navigation .navbar-inner .navbar-left a.logo {
+  font-size: 21px;
+}
+.top-navigation .navbar-inner .navbar-right {
+  margin-right: 15px;
+}
+.top-navigation .navbar-inner .navbar-right .avatar {
+  color: #aaaaaa;
+}
+.top-navigation .navbar-inner .navbar-right .dropdown-menu {
+  background-color: #222222;
 }
 
 .search-box {
@@ -7295,6 +7317,7 @@ h1, h2, h3, h4, p {
   border: 1px solid #eeeeee;
   margin: 15px;
   height: 100px;
+  border-radius: 5px;
 }
 #search-result .search-hit-item a {
   padding: 15px;
@@ -7441,6 +7464,9 @@ h1, h2, h3, h4, p {
   font-weight: 600;
   color: #aaaaaa;
   text-transform: uppercase;
+}
+.manage-recipe-wrapper #recipe-form .table button:focus {
+  background-color: #FFF;
 }
 .manage-recipe-wrapper #recipe-form .table th {
   font-weight: 100;
