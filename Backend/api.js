@@ -68,8 +68,8 @@ app.delete('/api/recipes/:id', function(req, res) {
 		});
 });
 
-app.get('/api/meta/:type', function(req, res) {
-	metainfoStore.getAll(req.params.type)
+app.get('/api/meta', function(req, res) {
+	metainfoStore.getAll()
 		.then(function(items) {
 			success(res, items);
 		}, function(err) {

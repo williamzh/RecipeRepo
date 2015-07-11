@@ -4,16 +4,20 @@
 	</alert>
 
 	<div class="recipe-details-wrapper" ng-show="hasError == false">
-		<a class="back">
-			<i class="fa fa-arrow-left"></i>
-			Back
-		</a>
-
 		<div class="row">
 			<div class="banner">
+				<span class="recipe-details-back" rd-back-link></span>
 				<div class="banner-figure" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
 				<div class="headline">
 					<h2>{{recipe.recipeName}}</h2>
+					<ul class="recipe-meta">
+						<li>{{recipe.servingSize}} portioner</li>
+					</ul>
+					<ul class="recipe-meta">
+						<li>{{recipe.meta.cuisine}}</li>
+						<li>{{recipe.meta.category}}</li>
+						<li>{{recipe.meta.course}}</li>
+					</ul>
 					<ul class="recipe-toolbar">
 						<li class="favorite" ng-click="onFavoriteClick($event)">
 							<a href="#"><i class="fa" ng-class="recipe.isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
@@ -21,15 +25,6 @@
 						<li class="edit">
 							<a ui-sref="manage({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o"></i></a>
 						</li>
-					</ul>
-				</div>
-				<!-- <div class="serving-info">{{recipe.servingSize}} portioner</div> -->
-				<div class="recipe-meta">
-					<ul>
-						<li>{{recipe.servingSize}} portioner</li>
-						<li>{{recipe.meta.cuisine}}</li>
-						<li>{{recipe.meta.course}}</li>
-						<li>{{recipe.meta.category}}</li>
 					</ul>
 				</div>
 			</div>
@@ -58,18 +53,5 @@
 				</ol>
 			</article>
 		</div>
-		<!-- <div class="row">
-			<section id="rd-meta" class="col-xs-12">
-				<h3><div class="heading-pill"><i class="fa fa-info"></i> <small class="text-uppercase">info</small></div></h3>
-				<div class="col-sm-6">
-					{{recipe.description}}
-				</div>
-				<div class="col-sm-6">
-					<p><i>Category:</i> {{recipe.meta.category}}</p>
-					<p><i>Cuisine:</i> {{recipe.meta.cuisine}}</p>
-					<p><i>Rating:</i> <span rd-rating ratingvalue="{{recipe.meta.rating}}"></span></p>
-				</div>
-			</section>
-		</div> -->
 	</div>
 </div>

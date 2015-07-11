@@ -9,8 +9,8 @@ FakeMetaClient.prototype.create = function(type, name) {
 	return deferred.promise;
 };
 
-FakeMetaClient.prototype.getAll = function(type) {
-	var metaObj = data.meta[type];
+FakeMetaClient.prototype.getAll = function() {
+	var metaObj = data.meta;
 	
 	var deferred = q.defer();
 	deferred.resolve(metaObj);

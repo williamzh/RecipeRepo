@@ -21,8 +21,8 @@ MetainfoStore.prototype.add = function(type, name) {
 	});
 };
 
-MetainfoStore.prototype.getAll = function(type) {
-	return this.client.getAll(type).then(function(items) {
+MetainfoStore.prototype.getAll = function() {
+	return this.client.getAll().then(function(items) {
 		// TODO: log
 		return items;
 	})

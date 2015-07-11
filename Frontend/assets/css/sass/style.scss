@@ -17,6 +17,21 @@
 	cursor: pointer;
 }
 
+a.back {
+	color: $brand-primary;
+	cursor: pointer;
+	font-size: $font-size-large;
+
+	&:hover {
+		color: $brand-primary-highlight;
+		text-decoration: underline;
+	}
+
+	i {
+		margin-right: 5px;
+	}
+}
+
 footer {
 	height: 50px;
 }

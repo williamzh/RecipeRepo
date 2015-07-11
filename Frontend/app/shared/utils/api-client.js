@@ -74,7 +74,7 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		});
 	};
 
-	function getMetaData() {
+	function getMetainfo() {
 		var url = baseUrl + '/meta';
 
 		return $http.get(url).then(function (response) {
@@ -116,7 +116,7 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		addRecipe: addRecipe,
 		updateRecipe: updateRecipe,
 		searchRecipes: searchRecipes,
-		getMetaData: getMetaData,
+		getMetainfo: getMetainfo,
 		requestMany: requestMany
 	};
 }]);
