@@ -9,7 +9,6 @@
 	max-height: 150px;
 	background-color: $brand-primary;
 	opacity: 0.8;
-	color: #FFF;
 	border-radius: 5px;
 
 	.search-box-field {
@@ -21,6 +20,7 @@
 		border: none;
 		font-size: $font-size-h2;
 		padding-left: 25px;
+		color: #FFF;
 	}
 
 	.search-box-add {
@@ -29,7 +29,8 @@
 		left: 20px;
 		background-color: transparent;
 		border: none;
-		opacity: 0.8;
+		opacity: 0.9;
+		color: #FFF;
 
 		span {
 			padding-left: 8px;

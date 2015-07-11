@@ -5,7 +5,7 @@
 			<div class="search-box">
 				<form ng-submit="forwardSearch()">
 					<input type="text" class="search-box-field" placeholder="Find a recipe" ng-model="searchQuery"/>
-					<button type="button" class="search-box-add"><i class="fa fa-file-text-o"></i><span>Add recipe</span></button>
+					<a ui-sref="manage" class="search-box-add"><i class="fa fa-file-text-o"></i><span>Add recipe</span></a>
 				</form>
 			</div>
 			<rd-tab-group></rd-tab-group>

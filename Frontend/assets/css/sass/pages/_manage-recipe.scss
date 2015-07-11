@@ -1,11 +1,39 @@
-body .form-control.narrow {
-	width: 300px;
-}
+.manage-recipe-wrapper {
+	@include centered-container(600px);
 
-.error-label {
-	padding-top: 5px;
-}
+	h1 {
+		border-bottom: 1px solid $brand-primary;
+		margin-top: 15px;
+		padding-bottom: 15px;
+	}
 
-#edit-form table td {
-	vertical-align: middle;
+	#recipe-form {
+		.form-control {
+			max-width: 300px;
+		}
+
+		.error-label {
+			padding-top: 5px;
+		}
+
+		fieldset {
+			margin: 30px 0;
+	  		padding: 15px 0;
+	  		border-bottom: 1px solid $gray-lighter;
+
+	  		legend {
+	  			padding-top: 15px;
+	  			margin-bottom: 0;
+	  			border: none;
+	  			font-size: $font-size-h6;
+	  			font-weight: 600;
+	  			color: $gray-light;
+	  			text-transform: uppercase;
+	  		}
+		}
+
+		.table th {
+			font-weight: 100;
+		}
+	}
 }

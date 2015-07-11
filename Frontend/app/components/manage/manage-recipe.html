@@ -1,56 +1,69 @@
-<h1 class="page-heading">{{mode == 'create' ? 'Create recipe' : 'Edit recipe'}}</h1>
-<hr class="heading-divider" />
+<div class="manage-recipe-wrapper" ng-controller="manageRecipeController" ng-init="init()">
+	<span class="" rd-back-link target-state-eval="previousState" target-params="{ recipeId: recipeId }"></span>
 
-<alert ng-repeat="(alertMode, alert) in alerts" ng-show="activeAlert == alertMode" type="{{alert.type}}" close="activeAlert = null">
-	<i class="fa" ng-class="alert.type == 'danger' ? 'fa-exclamation' : 'fa-check'"></i>&nbsp;{{alert.msg}}
-</alert>
+	<h1>{{inEditMode ? 'Edit recipe' : 'Create recipe'}}</h1>
 
-<section id="edit-form" class="row"> 
-	<div class="col-sm-10 col-md-8 col-lg-6">
-		<form name="recipeForm" ng-submit="onSubmit(recipeForm.$valid)" novalidate>
+	<alert ng-show="showError" type="danger">
+		<i class="fa fa-exclamation danger"></i> An unexpected error has occured, please try again later.
+	</alert>
+
+	<alert ng-show="recipeCreated" type="success">
+		<i class="fa fa-check"></i> Recipe successfully created.
+	</alert>
+
+	<alert ng-show="recipeUpdated" type="success">
+		<i class="fa fa-check"></i> Recipe successfully updated.
+	</alert>
+
+	<form id="recipe-form" name="recipeForm" ng-submit="onSubmit(recipeForm.$valid)" novalidate>
+		<fieldset class="basic">
+			<legend>Details</legend>
+
 			<div class="form-group" ng-class="{ 'has-error': hasError('name') }">
 				<label for="recipe-name">Recipe name</label>
-				<input type="text" id="recipe-name" class="form-control narrow" name="name" ng-model="currentRecipe.name" required />
+				<input type="text" id="recipe-name" class="form-control" name="name" ng-model="currentRecipe.name" required />
 				<p class="control-label error-label" ng-show="hasError('name')">Recipe name is required.</p>
 			</div>
-
 			<div class="form-group">
 				<label for="recipe-desc">Description</label>
-				<textarea id="recipe-desc" class="form-control narrow" name="description" ng-model="currentRecipe.description"></textarea>
+				<textarea id="recipe-desc" class="form-control" name="description" ng-model="currentRecipe.description"></textarea>
 			</div>
-
-			<div class="form-group" ng-class="{ 'has-error': hasError('cuisine') }">
-				<label for="recipe-cuisine">Cuisine</label>
-				<input type="text" id="recipe-cuisine" name="cuisine" ng-model="currentRecipe.cuisine" typeahead="c for c in cuisines | filter:$viewValue | limitTo:8" class="form-control narrow" required ng-blur="onCuisineBlur()">
-				<p class="control-label error-label" ng-show="hasError('cuisine')">Cuisine is required.</p>
-			</div>
-
-			<div class="form-group" ng-class="{ 'has-error': hasError('category') }">
-				<label for="recipe-category">Category</label>
-				<input type="text" id="recipe-category" name="category" ng-model="currentRecipe.category" typeahead="c for c in categories | filter:$viewValue | limitTo:8" class="form-control narrow" required ng-blur="onCategoryBlur()">
-				<p class="control-label error-label" ng-show="hasError('category')">Category is required.</p>
-			</div>
-
 			<div class="form-group">
 				<label for="recipe-img">Image path</label>
-				<input type="text" id="recipe-img" class="form-control narrow" name="imagePath" ng-model="currentRecipe.imagePath" />
+				<input type="text" id="recipe-img" class="form-control" name="imagePath" ng-model="currentRecipe.imagePath" />
 			</div>
-
 			<div class="form-group" ng-class="{ 'has-error': hasError('servings') }">
 				<label for="recipe-servings">Servings</label>
-				<input type="number" id="recipe-servings" class="form-control narrow" name="servings" ng-model="currentRecipe.servings" min="1" max="6" step="1" ng-init="servings = 1" required>
+				<input type="number" id="recipe-servings" class="form-control" name="servings" ng-model="currentRecipe.servings" min="1" max="6" step="1" ng-init="servings = 1" required>
 				<p class="control-label error-label" ng-show="hasError('servings')">Number of servings must be a number between 1 and 6.</p>
 			</div>
-
+			<div class="form-group" ng-class="{ 'has-error': hasError('cuisine') }">
+				<label for="recipe-cuisine">Cuisine</label>
+				<input type="text" id="recipe-cuisine" name="cuisine" ng-model="currentRecipe.cuisine" typeahead="c for c in cuisines | filter:$viewValue | limitTo:8" class="form-control" required ng-blur="onCuisineBlur()">
+				<p class="control-label error-label" ng-show="hasError('cuisine')">Cuisine is required.</p>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error': hasError('category') }">
+				<label for="recipe-category">Category</label>
+				<input type="text" id="recipe-category" name="category" ng-model="currentRecipe.category" typeahead="c for c in categories | filter:$viewValue | limitTo:8" class="form-control" required ng-blur="onCategoryBlur()">
+				<p class="control-label error-label" ng-show="hasError('category')">Category is required.</p>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error': hasError('rating') }">
+				<label for="recipe-rating">Rating</label>
+				<input type="number" id="recipe-rating" class="form-control" name="rating" ng-model="currentRecipe.rating" min="1" max="5" step="0.5" ng-init="rating = 1" required>
+				<p class="control-label error-label" ng-show="hasError('rating')">Rating must be a number between 1 and 5.</p>
+			</div>
 			<div class="checkbox">
 				<label for="is-favorite">
 					<input type="checkbox" id="is-favorite" name="isFavorite" ng-model="currentRecipe.isFavorite" />
-					Mark as favorite
+					Favorite
 				</label>
 			</div>
+		</fieldset>
+
+		<fieldset class="ingredients">
+			<legend>Ingredients</legend>
 
 			<div class="form-group">
-				<label>Ingredients</label>
 				<table class="table">
 					<thead>
 						<tr>
@@ -74,9 +87,12 @@
 					</tbody>
 				</table>
 			</div>
+		</fieldset>
+
+		<fieldset class="method">
+			<legend>Method</legend>
 
 			<div class="form-group">
-				<label>Method</label>
 				<table class="table">
 					<thead>
 						<tr>
@@ -95,14 +111,8 @@
 					</tbody>
 				</table>
 			</div>
+		</fieldset>
 
-			<div class="form-group" ng-class="{ 'has-error': hasError('rating') }">
-				<label for="recipe-rating">Rating</label>
-				<input type="number" id="recipe-rating" class="form-control narrow" name="rating" ng-model="currentRecipe.rating" min="1" max="5" step="0.5" ng-init="rating = 1" required>
-				<p class="control-label error-label" ng-show="hasError('rating')">Rating must be a number between 1 and 5.</p>
-			</div>
-
-			<input type="submit" class="btn btn-primary" value="Submit" rd-scroll scroll-target="top" ng-click="submitted = true" />
-		</form>
-	</div>
-</section>
+		<input type="submit" class="btn btn-primary" value="Submit" rd-scroll scroll-target="top" ng-click="submitted = true" />
+	</form>
+</div>

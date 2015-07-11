@@ -86,18 +86,6 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		});
 	};
 
-	// function getMetainfoValues(key) {
-	// 	var url = baseUrl + '/meta/values/' + key;
-
-	// 	return $http.get(url).then(function (response) {
-	// 		return response.data;
-	// 	})
-	// 	.catch(function(errorObj) {
-	// 		var errMsg = onError(errorObj, 'getMetainfoValues');
-	// 		throw new Error(errMsg);
-	// 	});
-	// };
-
 	function requestMany() {
 		return $q.all(arguments).then(function(results) {
 			return results;
@@ -116,7 +104,6 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		addRecipe: addRecipe,
 		updateRecipe: updateRecipe,
 		searchRecipes: searchRecipes,
-		getMetainfo: getMetainfo,
-		requestMany: requestMany
+		getMetainfo: getMetainfo
 	};
 }]);

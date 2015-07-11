@@ -6,7 +6,7 @@
 	<div class="recipe-details-wrapper" ng-show="hasError == false">
 		<div class="row">
 			<div class="banner">
-				<span class="recipe-details-back" rd-back-link></span>
+				<span class="recipe-details-back" rd-back-link target-state="home.topList"></span>
 				<div class="banner-figure" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
 				<div class="headline">
 					<h2>{{recipe.recipeName}}</h2>
@@ -23,7 +23,7 @@
 							<a href="#"><i class="fa" ng-class="recipe.isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
 						</li>
 						<li class="edit">
-							<a ui-sref="manage({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o"></i></a>
+							<a ui-sref="manage/edit({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o"></i></a>
 						</li>
 					</ul>
 				</div>
