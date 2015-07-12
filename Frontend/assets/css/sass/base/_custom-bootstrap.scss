@@ -13,7 +13,7 @@
 @import "../vendors/bootstrap/code";
 @import "../vendors/bootstrap/grid";
 @import "../vendors/bootstrap/tables";
-@import "bootstrap/forms";
+@import "../vendors/bootstrap/forms";
 @import "../vendors/bootstrap/buttons";
 
 // Components
@@ -40,7 +40,7 @@
 @import "../vendors/bootstrap/close";
 
 // Components w/ JavaScript
-@import "../vendors/bootstrap/modals";
+@import "bootstrap/modals";
 @import "../vendors/bootstrap/tooltip";
 @import "../vendors/bootstrap/popovers";
 @import "../vendors/bootstrap/carousel";

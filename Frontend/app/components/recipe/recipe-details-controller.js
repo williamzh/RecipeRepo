@@ -1,4 +1,4 @@
-recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$q', '$stateParams', 'apiClient', function($scope, $q, $stateParams, apiClient) {
+recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$q', '$stateParams', '$state', 'apiClient', function($scope, $q, $stateParams, $state, apiClient) {
 
 	$scope.getRecipe = function() {
 		$q.all([apiClient.getRecipe($stateParams.recipeId), apiClient.getMetainfo()])
@@ -22,6 +22,16 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$q', '$s
 		apiClient.updateRecipe(recipe).then(function(response) {
 			$scope.recipe.isFavorite = recipe.isFavorite;
 		});
+	};
+
+	$scope.removeRecipe = function() {
+		apiClient.removeRecipe($scope.recipe.id)
+			.then(function() {
+				$state.go('home.topList');
+			})
+			.catch(function() {
+				$scope.hasError = true;
+			});
 	};
 
 	function formatRecipe(recipe, metainfo) {

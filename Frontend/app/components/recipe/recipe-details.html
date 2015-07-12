@@ -25,6 +25,9 @@
 						<li class="edit">
 							<a ui-sref="manage/edit({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o"></i></a>
 						</li>
+						<li class="delete">
+							<a href="#" data-toggle="modal" data-target="#confirm-delete-modal"><i class="fa fa-trash-o"></i></a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -54,4 +57,10 @@
 			</article>
 		</div>
 	</div>
+
+	<rd-modal target-id="confirm-delete-modal" modal-header="Confirm delete" action-label="Remove" on-action="removeRecipe()">
+		<p>Are you sure you wan't to permanently remove this recipe?</p>
+		<br/>
+		<p>Note that this cannot be undone.</p>
+	</rd-modal>
 </div>

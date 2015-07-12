@@ -13,6 +13,13 @@
 	margin-right: auto;
 }
 
+@mixin plain-input {
+	outline: none;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
 @mixin placeholder-color($color) {
 	::-webkit-input-placeholder { /* WebKit browsers */
 		color: $color;
@@ -30,10 +37,4 @@
 		color: $color;
 		opacity: 0.6;
 	}
-}
-
-@mixin no-glow() {
-	outline: none;
-	box-shadow: none !important;
-	border: none !important;
 }

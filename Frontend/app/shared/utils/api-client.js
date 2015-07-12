@@ -50,6 +50,18 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		});
 	};
 
+	function removeRecipe(recipeId) {
+		var url = baseUrl + '/recipes/' + recipeId;
+
+		return $http.delete(url).then(function (response) {
+			return response;
+		})
+		.catch(function(errorObj) {
+			var errMsg = onError(errorObj, 'removeRecipe');
+			throw new Error(errMsg);
+		});
+	};
+
 	function searchRecipes(query) {
 		var url = baseUrl + '/recipes/search';
 
@@ -103,6 +115,7 @@ recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $
 		getRecipe: getRecipe,
 		addRecipe: addRecipe,
 		updateRecipe: updateRecipe,
+		removeRecipe: removeRecipe,
 		searchRecipes: searchRecipes,
 		getMetainfo: getMetainfo
 	};
