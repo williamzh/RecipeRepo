@@ -60,18 +60,13 @@
 		font-size: 70%;
 	}
 
-	.recipe-container {
-		@include centered-container(1000px);
-
+	#rd-ingredients {
 		padding-top: 15px;
+
 		ul {
 			list-style-type: none;
 			padding-left: 20px;
 		}
-	}
-
-	#rd-ingredients {
-		@extend .recipe-container;
 
 		.component-list {
 			padding-top: 10px;
@@ -97,7 +92,7 @@
 	}
 
 	#rd-method {
-		@extend .recipe-container;
+		padding-top: 15px;
 
 		.method-list {
 			padding-top: 10px;

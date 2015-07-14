@@ -1,122 +1,63 @@
-recipeRepoServices.factory('apiClient', ['$http', '$q', 'log', function($http, $q, log) {
+recipeRepoServices.service('apiClient', ['$http', '$q', 'log', function($http, $q, log) {
 	var baseUrl = 'http://{1}/api'.assign(Config.appServerUrl);
 
-	function getRecipes() {
-		var url = baseUrl + '/recipes';
-		
-		return $http.get(url).then(function (response) {
-			return response.data;
-		})
-		.catch(function(errorObj) {
-			var errMsg = onError(errorObj, 'getRecipes');
-			log.error(errMsg);
-			return errMsg;
-		});
+	var onSuccess = function (action, response) {
+        log.debug(action + ': Successfully received response from API.');
+        return response.data;
+    };
+
+    var onError = function (action, error) {
+        var errorMessage = error;
+        if (error.data) {
+            errorMessage = error.data.message || error.data;
+        }
+
+        log.error(action + ': an error occured (' + error.status + ' ' + error.statusText + '): ' + errorMessage);
+        return $q.reject({
+            statusCode: error.status || -1,
+            message: errorMessage
+        });
+    };
+
+	this.getRecipes = function() {
+		return $http.get(baseUrl + '/recipes')
+			.then(function (response) {	return onSuccess('getRecipes', response); })
+			.catch(function(error) { return onError('getRecipes', error) });
 	};
 
-	function getRecipe(id) {
-		var url = baseUrl + '/recipes/' + id;
-
-		return $http.get(url).then(function (response) {
-			return response.data;
-		})
-		.catch(function(errorObj) {
-			var errMsg = onError(errorObj, 'getRecipe');
-			throw new Error(errMsg);
-		});
+	this.getRecipe = function(id) {
+		return $http.get(baseUrl + '/recipes/' + id)
+			.then(function (response) {	return onSuccess('getRecipe', response); })
+			.catch(function(error) { return onError('getRecipe', error) });
 	};
 
-	function addRecipe(recipe) {
-		var url = baseUrl + '/recipes';
-
-		return $http.post(url, { recipe: recipe }).then(function (response) {
-			return response;
-		})
-		.catch(function(errorObj) {
-			var errMsg = onError(errorObj, 'addRecipe');
-			throw new Error(errMsg);
-		});
+	this.addRecipe = function(recipe) {
+		return $http.post(baseUrl + '/recipes', { recipe: recipe })
+			.then(function (response) {	return onSuccess('addRecipe', response); })
+			.catch(function(error) { return onError('addRecipe', error) });
 	};
 
-	function updateRecipe(recipe) {
-		var url = baseUrl + '/recipes/' + recipe.id;
-
-		return $http.post(url, { recipe: recipe }).then(function (response) {
-			return response;
-		})
-		.catch(function(errorObj) {
-			var errMsg = onError(errorObj, 'updateRecipe');
-			throw new Error(errMsg);
-		});
+	this.updateRecipe = function(recipe) {
+		return $http.post(baseUrl + '/recipes/' + recipe.id, { recipe: recipe })
+			.then(function (response) {	return onSuccess('updateRecipe', response); })
+			.catch(function(error) { return onError('updateRecipe', error) });
 	};
 
-	function removeRecipe(recipeId) {
-		var url = baseUrl + '/recipes/' + recipeId;
-
-		return $http.delete(url).then(function (response) {
-			return response;
-		})
-		.catch(function(errorObj) {
-			var errMsg = onError(errorObj, 'removeRecipe');
-			throw new Error(errMsg);
-		});
+	this.removeRecipe = function(recipeId) {
+		return $http.delete(baseUrl + '/recipes/' + recipeId)
+			.then(function (response) {	return onSuccess('removeRecipe', response); })
+			.catch(function(error) { return onError('removeRecipe', error) });
 	};
 
-	function searchRecipes(query) {
-		var url = baseUrl + '/recipes/search';
-
-		return $http.post(url, { query: query }).then(function (response) {
-			return response.data;
-		})
-		.catch(function(errorObj) {
-			var errMsg = onError(errorObj, 'searchRecipes');
-			throw new Error(errMsg);
-		});
+	this.searchRecipes = function(query) {
+		return $http.post(baseUrl + '/recipes/search', { query: query })
+			.then(function (response) {	return onSuccess('searchRecipes', response); })
+			.catch(function(error) { return onError('searchRecipes', error) });
 	}
 
-	function setMetaData(id, value) {
-		var url = baseUrl + '/meta/' + id;
-
-		return $http.post(url, { value: value }).then(function(response) {
-			return response;
-		})
-		.catch(function(errorObj) {
-			var errMsg = onError(errorObj, 'setMetaData');
-			throw new Error(errMsg);
-		});
-	};
-
-	function getMetainfo() {
-		var url = baseUrl + '/meta';
-
-		return $http.get(url).then(function (response) {
-			return response.data;
-		})
-		.catch(function(errorObj) {
-			var errMsg = onError(errorObj, 'getMetainfoKeys');
-			throw new Error(errMsg);
-		});
-	};
-
-	function requestMany() {
-		return $q.all(arguments).then(function(results) {
-			return results;
-		});
-	}
-
-	function onError(httpError, methodName) {
-		var errorMessage = (typeof httpError.data === 'object') ? httpError.data.error : httpError.data;
-		log.error('API call ' + methodName + '() failed with HTTP status ' + httpError.status + ": " + errorMessage);
-		return errorMessage;
-	}
-
-	return {
-		getRecipes: getRecipes,
-		getRecipe: getRecipe,
-		addRecipe: addRecipe,
-		updateRecipe: updateRecipe,
-		removeRecipe: removeRecipe,
-		searchRecipes: searchRecipes,
-		getMetainfo: getMetainfo
+	this.getMetainfo = function() {
+		return $http.get(baseUrl + '/meta')
+			.then(function (response) {	return onSuccess('getMetainfo', response); })
+			.catch(function(error) { return onError('getMetainfo', error) });
 	};
 }]);

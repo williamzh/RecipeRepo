@@ -1,7 +1,7 @@
 <div id="top-list" ng-controller="favoritesController" ng-init="getFavoriteRecipes()">
 	<div class="col-sm-6 col-md-4" ng-repeat="recipe in recipes">
 		<div class="recipe-wrapper">
-			<a ui-sref="recipe({ recipeId: recipe.id })">
+			<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
 				<div class="recipe-heading">
 					<h4>{{recipe.recipeName}}</h4>
 					<p class="preamble">{{recipe.description}}</p>

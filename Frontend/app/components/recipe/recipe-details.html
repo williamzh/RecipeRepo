@@ -1,4 +1,4 @@
-<div ng-controller="recipeDetailsController" class="centered-content" ng-init="getRecipe()">
+<div ng-controller="recipeDetailsController" ng-init="getRecipe()">
 	<alert ng-show="hasError" type="danger">
 		<i class="fa fa-exclamation danger"></i>&nbsp;An unexpected error has occured, please try again later.
 	</alert>
@@ -33,28 +33,30 @@
 			</div>
 		</div>
 		<div class="row">
-			<article id="rd-ingredients" class="col-lg-6">
-				<h3><div class="list-heading">{{recipe.ingredients.length}} <small>ingredients</small></div></h3>
-				<ul class="component-list">
-					<li ng-repeat="(grpKey, grpVal) in recipe.groupedIngredients">
-						<p ng-if='grpKey !== "undefined"' class="component-header text-uppercase"><small>{{grpKey}}</small></p>
-						<ul class="ingredient-list">
-							<li ng-repeat="ing in grpVal">
-								<i>{{ing.quantity}}</i> {{ing.unit}} {{ing.name}}
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</article>
+			<div class="col-lg-10 col-lg-offset-1">
+				<article id="rd-ingredients" class="col-lg-6">
+					<h3><div class="list-heading">{{recipe.ingredients.length}} <small>ingredients</small></div></h3>
+					<ul class="component-list">
+						<li ng-repeat="(grpKey, grpVal) in recipe.groupedIngredients">
+							<p ng-if='grpKey !== "undefined"' class="component-header text-uppercase"><small>{{grpKey}}</small></p>
+							<ul class="ingredient-list">
+								<li ng-repeat="ing in grpVal">
+									<i>{{ing.quantity}}</i> {{ing.unit}} {{ing.name}}
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</article>
 
-			<article id="rd-method" class="col-lg-6">
-				<h3><div class="list-heading">{{recipe.method.length}} <small>steps</small></div></h3>
-				<ol class="method-list">
-					<li ng-repeat="step in recipe.method">
-						{{step}}
-					</li>
-				</ol>
-			</article>
+				<article id="rd-method" class="col-lg-6">
+					<h3><div class="list-heading">{{recipe.method.length}} <small>steps</small></div></h3>
+					<ol class="method-list">
+						<li ng-repeat="step in recipe.method">
+							{{step}}
+						</li>
+					</ol>
+				</article>
+			</div>
 		</div>
 	</div>
 

@@ -4,7 +4,7 @@
 
 	<div class="search-hits">
 		<div class="search-hit-item" ng-repeat="recipe in hits">
-			<a ui-sref="recipe({ recipeId: recipe.id })">
+			<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
 				<div class="search-hit-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 				<div class="search-hit-content">
 					<h4>{{recipe.recipeName}}</h4>
