@@ -1,6 +1,6 @@
 <div ng-controller="recipeDetailsController" ng-init="getRecipe()">
 	<alert ng-show="hasError" type="danger">
-		<i class="fa fa-exclamation danger"></i>&nbsp;An unexpected error has occured, please try again later.
+		<i class="fa fa-exclamation danger"></i> <rd-translate key="global/generalErrorMessage"></rd-translate>
 	</alert>
 
 	<div class="recipe-details-wrapper" ng-show="hasError == false">
@@ -11,7 +11,7 @@
 				<div class="headline">
 					<h2>{{recipe.recipeName}}</h2>
 					<ul class="recipe-meta">
-						<li>{{recipe.servingSize}} portioner</li>
+						<li>{{recipe.servingSize}} <rd-translate key="global/servings"></li>
 					</ul>
 					<ul class="recipe-meta">
 						<li>{{recipe.meta.cuisine}}</li>
@@ -35,7 +35,7 @@
 		<div class="row">
 			<div class="col-lg-10 col-lg-offset-1">
 				<article id="rd-ingredients" class="col-lg-6">
-					<h3><div class="list-heading">{{recipe.ingredients.length}} <small>ingredients</small></div></h3>
+					<h3><div class="list-heading">{{recipe.ingredients.length}} <small><rd-translate key="recipeDetails/ingredientsHeading"></rd-translate></small></div></h3>
 					<ul class="component-list">
 						<li ng-repeat="(grpKey, grpVal) in recipe.groupedIngredients">
 							<p ng-if='grpKey !== "undefined"' class="component-header text-uppercase"><small>{{grpKey}}</small></p>
@@ -49,7 +49,7 @@
 				</article>
 
 				<article id="rd-method" class="col-lg-6">
-					<h3><div class="list-heading">{{recipe.method.length}} <small>steps</small></div></h3>
+					<h3><div class="list-heading">{{recipe.method.length}} <small><rd-translate key="recipeDetails/methodHeading"></rd-translate></small></div></h3>
 					<ol class="method-list">
 						<li ng-repeat="step in recipe.method">
 							{{step}}
@@ -60,9 +60,7 @@
 		</div>
 	</div>
 
-	<rd-modal target-id="confirm-delete-modal" modal-header="Confirm delete" action-label="Remove" on-action="removeRecipe()">
-		<p>Are you sure you wan't to permanently remove this recipe?</p>
-		<br/>
-		<p>Note that this cannot be undone.</p>
+	<rd-modal target-id="confirm-delete-modal" modal-header="{{modalHeading}}" action-label="{{modalAction}}" on-action="removeRecipe()">
+		<p><rd-translate key="recipeDetails/confirmRemoveMessage"></rd-translate></p>
 	</rd-modal>
 </div>

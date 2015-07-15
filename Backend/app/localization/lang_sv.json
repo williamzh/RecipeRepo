@@ -1,0 +1,59 @@
+{
+	"lang": "sv",
+	"values": {
+		"global": {
+			"servings": "portioner",
+			"cancelLabel": "Avbryt",
+			"backLabel": "Tillbaka",
+			"generalErrorMessage": "Ett oväntat fel har tyvärr inträffat, var god försök senare."
+		},
+		"metaTags": {
+			"swedish": "Svenskt",
+			"italian": "Italienskt",
+			"chinese": "Kinesiskt",
+			"fish": "Fisk",
+			"rice-grains": "Ris",
+			"pasta": "Pasta",
+			"main": "Huvudrätt"
+		},
+		"navigation": {
+
+		},
+		"home": {
+			"findRecipePlaceholder": "Hitta ett recept",
+			"addRecipeButton": "Lägg till nytt recept",
+			"featuredTab": "Populära",
+			"searchTab": "Sök",
+			"noSearchQueryMessage": "Vänligen ange en sökfråga",
+			"noSearchHitsMessage": "Vi hittade tyvärr inget som matchade",
+			"favoritesTab": "Favoriter"
+		},
+		"recipeDetails": {
+			"ingredientsHeading": "Ingredienser",
+			"methodHeading": "Steg",
+			"confirmRemoveHeading": "Bekräfta borttagning",
+			"confirmRemoveMessage": "Är du säker på att du vill ta bort detta recept permanent?",
+			"confirmRemoveButton": "Ta bort"
+		},
+		"manage": {
+			"createRecipeHeading": "Lägg till recept",
+			"editRecipeHeading": "Redigera recept",
+			"detailsSubHeading": "Detaljer",
+			"ingredientsSubHeading": "Ingredienser",
+			"methodSubHeading": "Gör så här",
+			"recipeNameLabel": "Namn",
+			"cuisineLabel": "Kök",
+			"imageLabel": "Bild",
+			"categoryLabel": "Kategori",
+			"servingsLabel": "Antal portioner",
+			"ratingLabel": "Betyg",
+			"descriptionLabel": "Beskrivning",
+			"favoriteLabel": "Favoritrecept",
+			"ingredientQuantityCaption": "Mängd",
+			"ingredientUnitCaption": "Enhet",
+			"ingredientNameCaption": "Namn",
+			"ingredientComponentCaption": "Komponent",
+			"submitButton": "Bekräfta"
+		}
+	}
+}

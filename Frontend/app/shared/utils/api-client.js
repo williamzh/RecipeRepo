@@ -60,4 +60,10 @@ recipeRepoServices.service('apiClient', ['$http', '$q', 'log', function($http, $
 			.then(function (response) {	return onSuccess('getMetainfo', response); })
 			.catch(function(error) { return onError('getMetainfo', error) });
 	};
+
+	this.getTranslations = function() {
+		return $http.get(baseUrl + '/translations')
+			.then(function (response) {	return onSuccess('translations', response); })
+			.catch(function(error) { return onError('translations', error) });
+	};
 }]);

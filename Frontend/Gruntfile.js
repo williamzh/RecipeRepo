@@ -13,6 +13,7 @@ module.exports = function(grunt) {
 						'bower_components/angular/angular.js',
 						'bower_components/angular-mocks/angular-mocks.js',
 						'bower_components/angular-ui-router/release/angular-ui-router.js',
+						'bower_components/ngstorage/ngStorage.js',
 						'assets/lib/*.js'
 					],
 					'dist/js/app.min.js': ['app/**/*.js']

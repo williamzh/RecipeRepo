@@ -1,5 +1,5 @@
 function ConfigManager() {
-	this.config = require('./config/config.json');
+	this.config = require('./config.json');
 }
 
 ConfigManager.prototype.getConfigValue = function(key) {

@@ -16,6 +16,6 @@ recipeRepoDirectives.directive('rdBackLink', ['$window', '$state', function($win
                 $state.go(scope.targetState, scope.targetParams);
             });
         },
-        template: '<a class="back"><i class="fa fa-chevron-left"></i> Back</a>'
+        template: '<a class="back"><i class="fa fa-chevron-left"></i> <rd-translate key="global/backLabel"></rd-translate></a>'
     }
 }]);

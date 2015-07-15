@@ -1,7 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var recipeStore = new (require('./store/recipe-store'));
-var metainfoStore = new (require('./store/metainfo-store'));
+var recipeStore = new (require('./data/recipe-store'));
+var metainfoStore = new (require('./data/metainfo-store'));
+var translationStore = new (require('./localization/translation-store'));
 
 var app = express();
 
@@ -75,6 +76,14 @@ app.get('/api/meta', function(req, res) {
 		}, function(err) {
 			error(res, err);
 		});
+});
+
+app.get('/api/lang', function(req, res) {
+	// Get all languages
+});
+
+app.get('/api/translations', function(req, res) {
+	success(res, translationStore.loadTranslations());
 });
 
 // app.post('/api/meta/:id', function(req, res) {

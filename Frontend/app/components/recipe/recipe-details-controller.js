@@ -1,4 +1,7 @@
-recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$q', '$stateParams', '$state', 'apiClient', function($scope, $q, $stateParams, $state, apiClient) {
+recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$q', '$stateParams', '$state', 'apiClient', 'localizationService', function($scope, $q, $stateParams, $state, apiClient, localizationService) {
+
+	$scope.modalHeading = localizationService.translate('recipeDetails', 'confirmRemoveHeading');
+	$scope.modalAction = localizationService.translate('recipeDetails', 'confirmRemoveButton');
 
 	$scope.getRecipe = function() {
 		$q.all([apiClient.getRecipe($stateParams.recipeId), apiClient.getMetainfo()])
@@ -42,7 +45,7 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$q', '$s
 		for(var metaKey in recipe.meta) {
 			var metaId = recipe.meta[metaKey];
 			var metaName = metainfo[metaKey][metaId].name;
-			recipe.meta[metaKey] = metaName;	// TODO: translate
+			recipe.meta[metaKey] = localizationService.translate('metaTags', metaName);
 		}
 
 		return recipe;
