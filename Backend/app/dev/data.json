@@ -1,35 +1,8 @@
 {
 	"meta": {
-		"cuisine": {
-			"1": {
-				"name": "italian"
-			},
-			"2": {
-				"name": "swedish"
-			},
-			"3": {
-				"name": "chinese"
-			}
-		},
-		"course": {
-			"1": {
-				"name": "main"
-			}
-		},
-		"category": {
-			"1": {
-				"name": "pasta"
-			},
-			"2": {
-				"name": "meat"
-			},
-			"3": {
-				"name": "fish"
-			},
-			"4": {
-				"name": "rice-grains"
-			}
-		}
+		"cuisines": ["italian", "swedish", "chinese"],
+		"courses": ["main"],
+		"categories": ["pasta", "meat", "fish", "rice-grains"]
 	},
 	"recipes": [{
 		"id": "1",
@@ -72,9 +45,9 @@
 		  "Låt småputtra i ca 5 min till, servera."
 		],
 		"meta": {
-		  "cuisine": "1",
-		  "course": "1",
-		  "category": "1"
+		  "cuisine": "italian",
+		  "course": "main",
+		  "category": "pasta"
 		}
 	},
 	{
@@ -130,9 +103,9 @@
 		  "Servera med en citronklyfta."
 		],
 		"meta": {
-		  "cuisine": "2",
-		  "course": "1",
-		  "category": "3"
+		  "cuisine": "swedish",
+		  "course": "main",
+		  "category": "fish"
 		}
 	},
 	{
@@ -184,9 +157,9 @@
 		  "Fräs i ett par minuter, servera."
 		],
 		"meta": {
-		  "cuisine": "3",
-		  "course": "1",
-		  "category": "4"
+		  "cuisine": "chinese",
+		  "course": "main",
+		  "category": "rice-grains"
 		}
 	},
 	{
@@ -238,9 +211,9 @@
 		  "Fräs i ett par minuter, servera."
 		],
 		"meta": {
-		  "cuisine": "1",
-		  "course": "1",
-		  "category": "1"
+		  "cuisine": "italian",
+		  "course": "main",
+		  "category": "pasta"
 		}
 	}, {
 		"id": "5",
@@ -331,9 +304,9 @@
 			"Låt småputtra i ett par minuter, servera sedan med riven parmesanost."
 		],
 		"meta": {
-		  "cuisine": "2",
-		  "course": "1",
-		  "category": "1"
+		  "cuisine": "swedish",
+		  "course": "main",
+		  "category": "pasta"
 		}
 	}]
 }

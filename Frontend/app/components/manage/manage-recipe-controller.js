@@ -1,11 +1,9 @@
-recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$stateParams', 'apiClient', 'log', function($scope, $q, $stateParams, apiClient, log) {
+recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$stateParams', 'apiClient', 'localizationService', 'log', function($scope, $q, $stateParams, apiClient, localizationService, log) {
 	$scope.recipeId = $stateParams.recipeId;
 	$scope.inEditMode = $stateParams.recipeId != undefined;
 	$scope.currentRecipe = {
-		ingredients: [{}],
-		method: [{}]
+		meta: {}
 	};
-	$scope.previousState = $scope.inEditMode ? 'recipe' : 'home.topList';
 	
 	$scope.init = function() {
 		var initPromises = [apiClient.getMetainfo()];
@@ -16,41 +14,46 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 
 		$q.all(initPromises)
 			.then(function(responses) {
-				var metainfo = responses[0];
+				var metaInfo = responses[0];
 				var recipe = responses[1];
 
 				if(recipe) {
-					$scope.recipe = fillData(recipe);
+					$scope.currentRecipe = recipe;
 				}
-
-				// var cuisineMeta = metainfo['cuisine'];
-				// $scope.cuisines = cuisineMeta ? cuisineMeta.values : [];
 				
-				// var categoryMeta = metainfo['category'];
-				// $scope.categories = categoryMeta ? categoryMeta.values : [];
+				$scope.cuisines = metaInfo.cuisines;
+				$scope.currentRecipe.meta.cuisine = $scope.cuisines[0];
+
+				$scope.categories = metaInfo.categories;
+				$scope.currentRecipe.meta.category = $scope.categories[0];
+
+				$scope.courses = metaInfo.courses;
+				$scope.currentRecipe.meta.course = $scope.courses[0];
 			})
 			.catch(function() {
 				$scope.hasError = true;
 			});
 	}
 
+	$scope.getMetaLabel = function(value) {
+		return localizationService.translate('metaTags', value);
+	};
+
 	$scope.removeRow = function(index, model) {
 		model.splice(index, 1);
 	};
 
-	$scope.insertRowBelow = function(index, model) {
-		model.splice(index + 1, 0, {});
+	$scope.insertRow = function(index, model, initValue) {
+		model.splice(index + 1, 0, initValue);
 	};
 
-	$scope.onSubmit = function(isValid) {
-		if(!isValid) {
+	$scope.onSubmit = function() {
+		if(recipeForm.$invalid) {
 			return;
 		}
 
 		if(!$scope.inEditMode) {
-			var recipe = formatData();
-			
-			apiClient.addRecipe(recipe)
+			apiClient.addRecipe($scope.currentRecipe)
 				.then(function() {
 					$scope.recipeCreated = true;
 				})
@@ -66,10 +69,7 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 				});
 		}
 		else {
-			var updatedRecipe = formatData();
-			updatedRecipe.id = $scope.recipeId;
-
-			apiClient.updateRecipe(updatedRecipe)
+			apiClient.updateRecipe($scope.currentRecipe)
 				.then(function() {
 					$scope.recipeUpdated = true;
 				})
@@ -83,44 +83,4 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 		var isInvalid = $scope.recipeForm[field].$invalid;
 		return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
 	};
-
-	function fillData(recipe) {
-		$scope.currentRecipe.name = recipe.recipeName;
-		$scope.currentRecipe.description = recipe.description;
-		$scope.currentRecipe.imagePath = recipe.imagePath;
-		$scope.currentRecipe.servings = recipe.servingSize;
-		$scope.currentRecipe.isFavorite = recipe.isFavorite;
-		$scope.currentRecipe.rating = recipe.rating;
-		$scope.currentRecipe.ingredients = recipe.ingredients;
-		$scope.currentRecipe.method = recipe.method.map(function(step) { return { value: step } });
-		$scope.currentRecipe.cuisine = recipe.meta.cuisine;
-		$scope.currentRecipe.category = recipe.meta.category;
-	}
-
-	function formatData() {
-		return {
-			recipeName: $scope.currentRecipe.name,
-			description: $scope.currentRecipe.description || '',
-			imagePath: $scope.currentRecipe.imagePath || '',
-			servingSize: $scope.currentRecipe.servings,
-			isFavorite: $scope.currentRecipe.isFavorite || false,
-			rating: $scope.currentRecipe.rating,
-			ingredients: $scope.currentRecipe.ingredients.map(function(ing) { 
-				return {
-					// Remap to exclude angular properties
-					name: ing.name,
-					quantity: ing.quantity,
-					unit: ing.unit,
-					component: ing.component
-				};
-			}),
-			method: $scope.currentRecipe.method.map(function(step) {
-				return step.value;
-			}),
-			meta: {
-			  cuisine: $scope.currentRecipe.cuisine,
-			  category: $scope.currentRecipe.category,
-			}
-		};
-	}
 }]);

@@ -20,6 +20,14 @@ form {
 		}
 	}
 
+	label, .checkbox label {
+		font-weight: 400;
+	}
+
+	.form-control {
+		max-width: 450px;
+	}
+
 	.error-label {
 		padding-top: 5px;
 	}

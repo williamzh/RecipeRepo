@@ -1,15 +1,12 @@
-recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$q', '$stateParams', '$state', 'apiClient', 'localizationService', function($scope, $q, $stateParams, $state, apiClient, localizationService) {
+recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', 'apiClient', 'localizationService', function($scope, $stateParams, $state, apiClient, localizationService) {
 
 	$scope.modalHeading = localizationService.translate('recipeDetails', 'confirmRemoveHeading');
 	$scope.modalAction = localizationService.translate('recipeDetails', 'confirmRemoveButton');
 
 	$scope.getRecipe = function() {
-		$q.all([apiClient.getRecipe($stateParams.recipeId), apiClient.getMetainfo()])
-			.then(function(responses) {
-				var recipe = responses[0];
-				var metainfo = responses[1];
-
-				$scope.recipe = formatRecipe(recipe, metainfo);
+		apiClient.getRecipe($stateParams.recipeId)
+			.then(function(recipe) {
+				$scope.recipe = formatRecipe(recipe);
 				$scope.isAuthenticated = true;
 				$scope.hasError = false;
 			})
@@ -37,15 +34,14 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$q', '$s
 			});
 	};
 
-	function formatRecipe(recipe, metainfo) {
+	function formatRecipe(recipe) {
 		recipe.groupedIngredients = recipe.ingredients.groupBy(function(ing) {
 			return ing.component;
 		});
 
-		for(var metaKey in recipe.meta) {
-			var metaId = recipe.meta[metaKey];
-			var metaName = metainfo[metaKey][metaId].name;
-			recipe.meta[metaKey] = localizationService.translate('metaTags', metaName);
+		for(var metaType in recipe.meta) {
+			var metaValue = recipe.meta[metaType];
+			recipe.meta[metaValue] = localizationService.translate('metaTags', metaValue);
 		}
 
 		return recipe;

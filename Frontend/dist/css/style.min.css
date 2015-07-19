@@ -5512,6 +5512,7 @@ a.thumbnail.active {
 
 .alert {
   padding: 15px;
+  margin-top: 20px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -6513,7 +6514,7 @@ button.close {
 @media (min-width: 768px) {
   .modal-dialog {
     width: 600px;
-    margin: 20% auto;
+    margin: 15% auto;
   }
 
   .modal-content {
@@ -7405,6 +7406,12 @@ form input[type="color"]:focus {
   -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
+form label, form .checkbox label {
+  font-weight: 400;
+}
+form .form-control {
+  max-width: 450px;
+}
 form .error-label {
   padding-top: 5px;
 }
@@ -7684,9 +7691,6 @@ form .error-label {
   border-bottom: 1px solid #3BB595;
   margin-top: 15px;
   padding-bottom: 15px;
-}
-.manage-recipe-wrapper #recipe-form .form-control {
-  max-width: 300px;
 }
 .manage-recipe-wrapper #recipe-form fieldset {
   margin: 30px 0;

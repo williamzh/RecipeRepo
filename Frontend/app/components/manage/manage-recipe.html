@@ -1,64 +1,73 @@
 <div class="manage-recipe-wrapper" ng-controller="manageRecipeController" ng-init="init()">
-	<span class="" rd-back-link target-state-eval="previousState" target-params="{ recipeId: recipeId }"></span>
+	<rd-back-link ng-if="!inEditMode" target-state="home.topList"></rd-back-link>
+	<rd-back-link ng-if="inEditMode" target-state="recipe" target-params="{ recipeId: recipeId }"></rd-back-link>
 
-	<h1>{{inEditMode ? 'Edit recipe' : 'Create recipe'}}</h1>
+	<h1>
+		<rd-translate ng-if="!inEditMode" key="manage/createRecipeHeading"></rd-translate>
+		<rd-translate ng-if="inEditMode" key="manage/editRecipeHeading"></rd-translate>
+	</h1>
 
-	<alert ng-show="showError" type="danger">
-		<i class="fa fa-exclamation danger"></i> An unexpected error has occured, please try again later.
-	</alert>
+	<div ng-show="showError" class="alert alert-danger alert-dismissable">
+	 	<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+		<i class="fa fa-exclamation"></i> <rd-translate key="global/generalErrorMessage"/>
+	</div>
 
-	<alert ng-show="recipeCreated" type="success">
-		<i class="fa fa-check"></i> Recipe successfully created.
-	</alert>
+	<div ng-show="recipeCreated" class="alert alert-success alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+		<i class="fa fa-check"></i> <rd-translate key="manage/creationSuccessMessage"/>
+	</div>
 
-	<alert ng-show="recipeUpdated" type="success">
-		<i class="fa fa-check"></i> Recipe successfully updated.
-	</alert>
+	<div ng-show="recipeUpdated" class="alert alert-success alert-dismissable">
+		<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+		<i class="fa fa-check"></i> <rd-translate key="manage/updateSuccessMessage"/>
+	</div>
 
-	<form id="recipe-form" name="recipeForm" ng-submit="onSubmit(recipeForm.$valid)" novalidate>
+	<form id="recipe-form" name="recipeForm" ng-submit="onSubmit()" novalidate>
 		<fieldset class="basic">
-			<legend>Details</legend>
+			<legend><rd-translate key="manage/detailsSubHeading"/></legend>
 			<div class="row">
 				<div class="col-sm-6">
-					<div class="form-group" ng-class="{ 'has-error': hasError('name') }">
-						<label for="recipe-name">Recipe name</label>
-						<input type="text" id="recipe-name" class="form-control" name="name" ng-model="currentRecipe.name" required />
-						<p class="control-label error-label" ng-show="hasError('name')">Recipe name is required.</p>
+					<div class="form-group" ng-class="{ 'has-error': hasError('recipeName') }">
+						<label for="recipe-name"><rd-translate key="manage/recipeNameLabel"/></label>
+						<input type="text" id="recipe-name" class="form-control" name="recipeName" ng-model="currentRecipe.recipeName" required />
+						<p class="control-label error-label" ng-show="hasError('recipeName')">Recipe name is required.</p>
 					</div>
 					<div class="form-group">
-						<label for="recipe-img">Image path</label>
+						<label for="recipe-img"><rd-translate key="manage/imageLabel"/></label>
 						<input type="text" id="recipe-img" class="form-control" name="imagePath" ng-model="currentRecipe.imagePath" />
 					</div>
-					<div class="form-group" ng-class="{ 'has-error': hasError('servings') }">
-						<label for="recipe-servings">Servings</label>
-						<input type="number" id="recipe-servings" class="form-control" name="servings" ng-model="currentRecipe.servings" min="1" max="6" step="1" ng-init="servings = 1" required>
-						<p class="control-label error-label" ng-show="hasError('servings')">Number of servings must be a number between 1 and 6.</p>
+					<div class="form-group" ng-class="{ 'has-error': hasError('servingSize') }">
+						<label for="recipe-servings"><rd-translate key="manage/servingsLabel"/></label>
+						<input type="number" id="recipe-servings" class="form-control" name="servingSize" ng-model="currentRecipe.servingSize" min="1" max="6" step="1" ng-init="servings = 1" required>
+						<p class="control-label error-label" ng-show="hasError('servingSize')">Number of servings must be a number between 1 and 6.</p>
 					</div>
 					<div class="form-group">
-						<label for="recipe-desc">Description</label>
+						<label for="recipe-desc"><rd-translate key="manage/descriptionLabel"/></label>
 						<textarea id="recipe-desc" class="form-control" name="description" ng-model="currentRecipe.description"></textarea>
 					</div>
 				</div>
 				<div class="col-sm-6">
-					<div class="form-group" ng-class="{ 'has-error': hasError('cuisine') }">
-						<label for="recipe-cuisine">Cuisine</label>
-						<input type="text" id="recipe-cuisine" name="cuisine" ng-model="currentRecipe.cuisine" typeahead="c for c in cuisines | filter:$viewValue | limitTo:8" class="form-control" required ng-blur="onCuisineBlur()">
-						<p class="control-label error-label" ng-show="hasError('cuisine')">Cuisine is required.</p>
+					<div class="form-group">
+						<label for="recipe-cuisine"><rd-translate key="manage/cuisineLabel"/></label>
+						<select id="recipe-cuisine" name="cuisine" ng-model="currentRecipe.meta.cuisine" ng-options="getMetaLabel(c) for c in cuisines" class="form-control"></select>
 					</div>
-					<div class="form-group" ng-class="{ 'has-error': hasError('category') }">
-						<label for="recipe-category">Category</label>
-						<input type="text" id="recipe-category" name="category" ng-model="currentRecipe.category" typeahead="c for c in categories | filter:$viewValue | limitTo:8" class="form-control" required ng-blur="onCategoryBlur()">
-						<p class="control-label error-label" ng-show="hasError('category')">Category is required.</p>
+					<div class="form-group">
+						<label for="recipe-category"><rd-translate key="manage/categoryLabel"/></label>
+						<select id="recipe-category" name="category" ng-model="currentRecipe.meta.category" ng-options="getMetaLabel(c) for c in categories" class="form-control"></select>
+					</div>
+					<div class="form-group">
+						<label for="recipe-course"><rd-translate key="manage/courseLabel"/></label>
+						<select id="recipe-course" name="category" ng-model="currentRecipe.meta.course" ng-options="getMetaLabel(c) for c in courses" class="form-control"></select>
 					</div>
 					<div class="form-group" ng-class="{ 'has-error': hasError('rating') }">
-						<label for="recipe-rating">Rating</label>
+						<label for="recipe-rating"><rd-translate key="manage/ratingLabel"/></label>
 						<input type="number" id="recipe-rating" class="form-control" name="rating" ng-model="currentRecipe.rating" min="1" max="5" step="0.5" ng-init="rating = 1" required>
 						<p class="control-label error-label" ng-show="hasError('rating')">Rating must be a number between 1 and 5.</p>
 					</div>
 					<div class="checkbox">
 						<label for="is-favorite">
 							<input type="checkbox" id="is-favorite" name="isFavorite" ng-model="currentRecipe.isFavorite" />
-							Favorite
+							<rd-translate key="manage/favoriteLabel"/>
 						</label>
 					</div>
 				</div>
@@ -66,27 +75,27 @@
 		</fieldset>
 
 		<fieldset class="ingredients">
-			<legend>Ingredients</legend>
+			<legend><rd-translate key="manage/ingredientsSubHeading"></rd-translate></legend>
 
 			<div class="form-group">
 				<table class="table">
 					<thead>
 						<tr>
-							<th class="col-xs-1">Quantity</th>
-							<th class="col-xs-2">Unit</th>
-							<th class="col-xs-5">Name</th>
-							<th class="col xs-2">Component</th>
+							<th class="col-xs-1"><rd-translate key="manage/ingredientQuantityCaption"/></th>
+							<th class="col-xs-2"><rd-translate key="manage/ingredientUnitCaption"/></th>
+							<th class="col-xs-5"><rd-translate key="manage/ingredientNameCaption"/></th>
+							<th class="col xs-2"><rd-translate key="manage/ingredientComponentCaption"/></th>
 							<th class="col-xs-1"></th>
 							<th class="col-xs-1"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="ing in currentRecipe.ingredients">
+						<tr ng-repeat="ing in currentRecipe.ingredients track by $index">
 							<td><input type="text" class="form-control" ng-model="ing.quantity" /></td>
 							<td><input type="text" class="form-control" ng-model="ing.unit" /></td>
 							<td><input type="text" class="form-control" ng-model="ing.name"/></td>
 							<td><input type="text" class="form-control" ng-model="ing.component" /></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRowBelow($index, currentRecipe.ingredients)"><i class="fa fa-plus"></i></button></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRow($index, currentRecipe.ingredients, {})"><i class="fa fa-plus"></i></button></td>
 							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, currentRecipe.ingredients)" ng-if="$index > 0"><i class="fa fa-remove"></i></button></td>
 						</tr>
 					</tbody>
@@ -95,7 +104,7 @@
 		</fieldset>
 
 		<fieldset class="method">
-			<legend>Method</legend>
+			<legend><rd-translate key="manage/methodSubHeading"></rd-translate></legend>
 
 			<div class="form-group">
 				<table class="table">
@@ -107,10 +116,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="step in currentRecipe.method">
+						<tr ng-repeat="step in currentRecipe.method track by $index">
 							<td>{{$index + 1}}.</td>
-							<td><textarea class="form-control" ng-model="step.value"></textarea></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRowBelow($index, currentRecipe.method)"><i class="fa fa-plus"></i></button></td>
+							<td><textarea class="form-control" ng-model="currentRecipe.method[$index]"></textarea></td>
+							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRow($index, currentRecipe.method, '')"><i class="fa fa-plus"></i></button></td>
 							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, currentRecipe.method)" ng-if="$index > 0"><i class="fa fa-remove"></i></button></td>
 						</tr>
 					</tbody>
@@ -118,6 +127,6 @@
 			</div>
 		</fieldset>
 
-		<input type="submit" class="btn btn-primary" value="Submit" rd-scroll scroll-target="top" ng-click="submitted = true" />
+		<button type="submit" class="btn btn-primary" rd-scroll scroll-target="top" ng-click="submitted = true"><rd-translate key="manage/submitButton"/></button>
 	</form>
 </div>

@@ -12,6 +12,7 @@
 			"italian": "Italienskt",
 			"chinese": "Kinesiskt",
 			"fish": "Fisk",
+			"meat": "Kött och fågel",
 			"rice-grains": "Ris",
 			"pasta": "Pasta",
 			"main": "Huvudrätt"
@@ -21,7 +22,7 @@
 		},
 		"home": {
 			"findRecipePlaceholder": "Hitta ett recept",
-			"addRecipeButton": "Lägg till nytt recept",
+			"addRecipeButton": "Nytt recept",
 			"featuredTab": "Populära",
 			"searchTab": "Sök",
 			"noSearchQueryMessage": "Vänligen ange en sökfråga",
@@ -45,6 +46,7 @@
 			"cuisineLabel": "Kök",
 			"imageLabel": "Bild",
 			"categoryLabel": "Kategori",
+			"courseLabel": "Typ av rätt",
 			"servingsLabel": "Antal portioner",
 			"ratingLabel": "Betyg",
 			"descriptionLabel": "Beskrivning",
@@ -53,7 +55,9 @@
 			"ingredientUnitCaption": "Enhet",
 			"ingredientNameCaption": "Namn",
 			"ingredientComponentCaption": "Komponent",
-			"submitButton": "Bekräfta"
+			"submitButton": "Bekräfta",
+			"creationSuccessMessage": "Receptet har lagts till.",
+			"updateSuccessMessage": "Receptet har uppdaterats."
 		}
 	}
 }
