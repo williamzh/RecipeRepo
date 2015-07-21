@@ -7528,7 +7528,7 @@ form .error-label {
 }
 #top-list .recipe-wrapper .recipe-heading .preamble {
   color: #999999;
-  width: 200px;
+  width: 250px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -7659,8 +7659,9 @@ form .error-label {
   padding-top: 10px;
 }
 .recipe-details-wrapper #rd-ingredients .component-list .component-header {
-  font-weight: bold;
+  font-weight: 400;
   margin-top: 5px;
+  margin-left: -5px;
 }
 .recipe-details-wrapper #rd-ingredients .component-list li:last-child {
   border-bottom: none;

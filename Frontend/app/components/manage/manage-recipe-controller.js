@@ -48,17 +48,19 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 	};
 
 	$scope.onSubmit = function() {
+		$scope.showError = false;
+
 		if(recipeForm.$invalid) {
 			return;
 		}
 
 		if(!$scope.inEditMode) {
+			$scope.recipeCreated = false;
+
 			apiClient.addRecipe($scope.currentRecipe)
 				.then(function() {
 					$scope.recipeCreated = true;
-				})
-				.catch(function() {
-					$scope.showError = true;
+
 					// Reset form
 					$scope.recipeForm.$setPristine();
 					$scope.submitted = false;
@@ -66,12 +68,18 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 						ingredients: [{}],
 						method: [{}]
 					};
+				})
+				.catch(function() {
+					$scope.showError = true;
 				});
 		}
 		else {
+			$scope.recipeUpdated = false;
+
 			apiClient.updateRecipe($scope.currentRecipe)
 				.then(function() {
 					$scope.recipeUpdated = true;
+					$scope.submitted = false;
 				})
 				.catch(function() {
 					$scope.showError = true;

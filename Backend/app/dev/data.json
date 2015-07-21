@@ -67,27 +67,32 @@
 		  {
 		     "name": "vetemjöl",
 		     "quantity": "1/2",
-		     "unit": "dl"
+		     "unit": "dl",
+		     "component": "panering"
 		  },
 		  {
 		     "name": "ströbröd",
 		     "quantity": "1",
-		     "unit": "dl"
+		     "unit": "dl",
+		     "component": "panering"
 		  },
 		  {
 		     "name": "ägg",
 		     "quantity": "1",
-		     "unit": "st"
+		     "unit": "st",
+		     "component": "panering"
 		  },
 		  {
 		     "name": "salt",
 		     "quantity": "1/4",
-		     "unit": "tsk"
+		     "unit": "tsk",
+		     "component": "panering"
 		  },
 		  {
 		     "name": "svartpeppar",
 		     "quantity": "1",
-		     "unit": "nypa"
+		     "unit": "nypa",
+		     "component": "panering"
 		  },
 		  {
 		     "name": "gröna ärter",
@@ -307,6 +312,104 @@
 		  "cuisine": "swedish",
 		  "course": "main",
 		  "category": "pasta"
+		}
+	}, {
+		"id": "6",
+		"recipeName": "Pannbiff med skysås och potatisklyftor",
+		"description": "",
+		"imagePath": "",
+		"servingSize": 4,
+		"isFavorite": true,
+		"rating": 4.5,
+		"ingredients": [
+		  {
+		     "name": "blandfärs",
+		     "quantity": "500",
+		     "unit": "g",
+		     "component": "biffar"
+		  },
+		  {
+		     "name": "ägg",
+		     "quantity": "1",
+		     "unit": "st",
+		     "component": "biffar"
+		  },
+		  {
+		     "name": "ströbröd",
+		     "quantity": "1",
+		     "unit": "dl",
+		     "component": "biffar"
+		  },
+		  {
+		     "name": "mjölk",
+		     "quantity": "1",
+		     "unit": "dl",
+		     "component": "biffar"
+		  },
+		  {
+		     "name": "vatten",
+		     "quantity": "1",
+		     "unit": "dl",
+		     "component": "biffar"
+		  },
+		  {
+		     "name": "salt",
+		     "quantity": "1",
+		     "unit": "tsk",
+		     "component": "biffar"
+		  },
+		  {
+		     "name": "peppar",
+		     "quantity": "2",
+		     "unit": "krm",
+		     "component": "biffar"
+		  },
+		  {
+		     "name": "buljongtärning",
+		     "quantity": "1/3",
+		     "unit": "",
+		     "component": "skysås"
+		  },
+		  {
+		     "name": "soja",
+		     "quantity": "1",
+		     "unit": "tsk",
+		     "component": "skysås"
+		  },
+		  {
+		     "name": "vatten",
+		     "quantity": "2",
+		     "unit": "dl",
+		     "component": "skysås"
+		  },
+		  {
+		     "name": "potatisklyftor (frysta)",
+		     "quantity": "400",
+		     "unit": "g",
+		     "component": "tillbehör"
+		  },
+		  {
+		     "name": "broccoli (frysta)",
+		     "quantity": "250",
+		     "unit": "g",
+		     "component": "tillbehör"
+		  }
+		],
+		"method": [
+		  "Lägg färsen i en stor bunke, tillsätt ägg och ströbröd. Salta och peppra. Tillsätt sedan mjölk och vatten.",
+		  "Blanda samman allting med händerna, det ska bli en förhållandevis lös smet.",
+		  "Forma biffarna som stora köttbullar och platta sedan till dem. Lägg dem på en skärbräda som spolats med kallt vatten, detta förhindrar att de klibbar fast.",
+		  "Sätt på ugnen och tillaga potatisklyftorna.",
+		  "Hetta upp en stekpanna med smör, stek sedan biffarna tills de får vacker färg på båda sidor (ca 4-5 min på varje sida).",
+		  "Börja koka broccolin under tiden.",
+		  "När biffarna är färdiga, lyft över dem på en tallrik. Blanda ner vatten, buljon och soja i stekpannan.",
+		  "Låt såsen koka upp under omrörning. Om den känns för lös, blanda ut lite vetemjöl med vatten och red ut det i såsen.",
+		  "Servera tillsammans med kokt broccoli."
+		],
+		"meta": {
+		  "cuisine": "swedish",
+		  "course": "main",
+		  "category": "meat"
 		}
 	}]
 }

@@ -7,20 +7,11 @@
 		<rd-translate ng-if="inEditMode" key="manage/editRecipeHeading"></rd-translate>
 	</h1>
 
-	<div ng-show="showError" class="alert alert-danger alert-dismissable">
-	 	<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-		<i class="fa fa-exclamation"></i> <rd-translate key="global/generalErrorMessage"/>
-	</div>
+	<rd-alert type="danger" message-key="global/generalErrorMessage" observe="showError === true"></rd-alert>
 
-	<div ng-show="recipeCreated" class="alert alert-success alert-dismissable">
-		<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-		<i class="fa fa-check"></i> <rd-translate key="manage/creationSuccessMessage"/>
-	</div>
+	<rd-alert type="success" message-key="global/creationSuccessMessage" observe="recipeCreated === true"></rd-alert>
 
-	<div ng-show="recipeUpdated" class="alert alert-success alert-dismissable">
-		<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-		<i class="fa fa-check"></i> <rd-translate key="manage/updateSuccessMessage"/>
-	</div>
+	<rd-alert type="success" message-key="global/updateSuccessMessage" observe="recipeUpdated === true"></rd-alert>
 
 	<form id="recipe-form" name="recipeForm" ng-submit="onSubmit()" novalidate>
 		<fieldset class="basic">

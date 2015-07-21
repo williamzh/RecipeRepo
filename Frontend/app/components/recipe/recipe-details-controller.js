@@ -41,7 +41,7 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 
 		for(var metaType in recipe.meta) {
 			var metaValue = recipe.meta[metaType];
-			recipe.meta[metaValue] = localizationService.translate('metaTags', metaValue);
+			recipe.meta[metaType] = localizationService.translate('metaTags', metaValue);
 		}
 
 		return recipe;

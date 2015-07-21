@@ -41,7 +41,7 @@
 							<p ng-if='grpKey !== "undefined"' class="component-header text-uppercase"><small>{{grpKey}}</small></p>
 							<ul class="ingredient-list">
 								<li ng-repeat="ing in grpVal">
-									<i>{{ing.quantity}}</i> {{ing.unit}} {{ing.name}}
+									{{ing.quantity}} {{ing.unit}} {{ing.name}}
 								</li>
 							</ul>
 						</li>
