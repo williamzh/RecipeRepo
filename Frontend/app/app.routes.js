@@ -8,11 +8,14 @@ recipeRepoApp.config(['$stateProvider', '$urlRouterProvider', function($statePro
 			url: '/' ,
 			templateUrl: 'app/components/home/home.html'
 		}).
-		state('home.topList', {		// Default nested state
+		state('home.start', {		// Default nested state
 			url: '',	// Match parent URL
-			templateUrl: 'app/components/home/_top-list.html'
+			templateUrl: 'app/components/home/_start.html'
 		}).
 		state('home.search', {
+			resolve: {
+				searchQueryProvider: 'searchQueryProvider'
+			},
 			params: {
 				query: null
 			},

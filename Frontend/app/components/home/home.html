@@ -3,12 +3,18 @@
 		<div class="banner">
 			<div class="banner-figure blur" ng-style="{ 'background-image': 'url(/assets/img/mat.jpg)' }"/>
 			<div class="search-box">
-				<form ng-submit="forwardSearch()">
-					<input type="text" autofocus class="search-box-field" rd-translate key="home/findRecipePlaceholder" attr="placeholder" ng-model="searchQuery"/>
+				<form ng-submit="search()">
+					<input type="text" id="recipe-search" autofocus class="search-box-field" rd-translate key="home/findRecipePlaceholder" attr="placeholder" ng-model="searchQuery"/>
 					<a ui-sref="manage" class="search-box-add"><i class="fa fa-file-text-o"></i><span><rd-translate key="home/addRecipeButton"></rd-translate></span></a>
 				</form>
 			</div>
-			<rd-tab-group></rd-tab-group>
+			<div class="tab-group">
+				<ul>
+					<li ui-sref-active="active"><a ui-sref="home.start"><rd-translate key="home/featuredTab"></rd-translate></a></li>
+					<li ui-sref-active="active"><a ui-sref="home.search"><rd-translate key="home/searchTab"></rd-translate></a></li>
+					<li ui-sref-active="active"><a ui-sref="home.favorites"><rd-translate key="home/favoritesTab"></rd-translate></a></li>
+				</ul>
+			</div>
 		</div>	
 	</div>
 	<div class="row">

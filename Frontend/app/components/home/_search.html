@@ -1,6 +1,6 @@
-<div id="search-result" ng-controller="searchController" ng-init="search()">
+<div id="search-result" ng-controller="searchController">
 	<h2 ng-if="!searchQuery" class="faded"><rd-translate key="home/noSearchQueryMessage"></rd-translate></h2>
-	<h2 ng-if="hits.length == 0" class="faded"><rd-translate key="home/noSearchQueryMessage"></rd-translate> <i>{{searchQuery}}</i>.</h2>
+	<h2 ng-if="hits.length == 0" class="faded"><rd-translate key="home/noSearchHitsMessage"></rd-translate> <i>{{searchQuery}}</i>.</h2>
 
 	<div class="search-hits">
 		<div class="search-hit-item" ng-repeat="recipe in hits">

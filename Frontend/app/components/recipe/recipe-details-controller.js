@@ -27,7 +27,7 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 	$scope.removeRecipe = function() {
 		apiClient.removeRecipe($scope.recipe.id)
 			.then(function() {
-				$state.go('home.topList');
+				$state.go('home.start');
 			})
 			.catch(function() {
 				$scope.hasError = true;

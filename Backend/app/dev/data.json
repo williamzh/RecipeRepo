@@ -48,7 +48,9 @@
 		  "cuisine": "italian",
 		  "course": "main",
 		  "category": "pasta"
-		}
+		},
+		"creationDate": "2015-07-02",
+		"lastEditDate": "2015-07-12"
 	},
 	{
 		"id": "2",
@@ -111,7 +113,9 @@
 		  "cuisine": "swedish",
 		  "course": "main",
 		  "category": "fish"
-		}
+		},
+		"creationDate": "2015-06-13",
+		"lastEditDate": "2015-07-22"
 	},
 	{
 		"id": "3",
@@ -165,7 +169,9 @@
 		  "cuisine": "chinese",
 		  "course": "main",
 		  "category": "rice-grains"
-		}
+		},
+		"creationDate": "2015-05-09",
+		"lastEditDate": "2015-06-17"
 	},
 	{
 		"id": "4",
@@ -219,7 +225,9 @@
 		  "cuisine": "italian",
 		  "course": "main",
 		  "category": "pasta"
-		}
+		},
+		"creationDate": "2015-05-05",
+		"lastEditDate": "2015-05-05"
 	}, {
 		"id": "5",
 	   	"recipeName": "Pasta med kyckling och svamp",
@@ -312,7 +320,9 @@
 		  "cuisine": "swedish",
 		  "course": "main",
 		  "category": "pasta"
-		}
+		},
+		"creationDate": "2015-07-18",
+		"lastEditDate": "2015-07-19"
 	}, {
 		"id": "6",
 		"recipeName": "Pannbiff med skysås och potatisklyftor",
@@ -410,6 +420,8 @@
 		  "cuisine": "swedish",
 		  "course": "main",
 		  "category": "meat"
-		}
+		},
+		"creationDate": "2015-07-22",
+		"lastEditDate": "2015-07-22"
 	}]
 }

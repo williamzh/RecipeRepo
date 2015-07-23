@@ -1,4 +1,4 @@
-recipeRepoControllers.controller('topListController', ['$scope', '$state', 'apiClient', function($scope, $state, apiClient) {
+recipeRepoControllers.controller('startController', ['$scope', '$state', 'apiClient', function($scope, $state, apiClient) {
 	$scope.getTopRecipes = function() {
 		apiClient.getRecipes()
 			.then(function(recipes) {

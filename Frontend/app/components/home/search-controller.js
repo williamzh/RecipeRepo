@@ -1,11 +1,7 @@
-recipeRepoControllers.controller('searchController', ['$scope', '$stateParams', 'apiClient', function($scope, $stateParams, apiClient) {
-	$scope.searchQuery = $stateParams.query;
+recipeRepoControllers.controller('searchController', ['$scope', 'searchQueryProvider', 'apiClient', function($scope, searchQueryProvider, apiClient) {
+	$scope.searchQuery = searchQueryProvider.getValue();
 
-	$scope.search = function() {
-		if(!$scope.searchQuery) {
-			return;
-		}
-
+	if($scope.searchQuery) {
 		apiClient.searchRecipes($scope.searchQuery)
 			.then(function(hits) {
 				$scope.hits = hits;
@@ -13,5 +9,5 @@ recipeRepoControllers.controller('searchController', ['$scope', '$stateParams', 
 			.catch(function() {
 				// TODO: show error
 			});
-	};
+	}
 }]);
