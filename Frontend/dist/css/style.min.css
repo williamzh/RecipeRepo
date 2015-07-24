@@ -1564,11 +1564,11 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 h6, .h6 {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 p {
@@ -7425,7 +7425,7 @@ form .error-label {
   transform: translate(-50%, -50%);
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 80%;
   max-width: 500px;
   height: 100%;
   max-height: 150px;
@@ -7506,47 +7506,61 @@ form .error-label {
   color: #FFF;
 }
 
-#top-list {
+.recipe-wrapper {
+  position: relative;
+  height: 285px;
+  max-width: 350px;
+  border: 1px solid #eeeeee;
+  margin: 15px auto;
+}
+.recipe-wrapper .recipe-heading {
+  padding: 15px;
+}
+.recipe-wrapper .recipe-heading h5 {
+  margin: 5px 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.recipe-wrapper .recipe-heading .preamble {
+  min-height: 20px;
+  color: #999999;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.recipe-wrapper .recipe-image {
+  background-size: cover;
+  background-color: #EEE;
+  height: 60%;
+}
+.recipe-wrapper .recipe-footer {
+  height: 35px;
+  color: #999999;
+}
+.recipe-wrapper .recipe-footer .recipe-rating {
+  padding: 10px;
+  float: right;
+  font-size: 12px;
+}
+
+#start {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 15px;
 }
-#top-list .recipe-wrapper {
-  position: relative;
-  height: 300px;
-  max-width: 350px;
-  border: 1px solid #eeeeee;
-  margin-top: 15px;
+#start .section-area {
+  margin: 15px 30px;
+}
+#start .section-area h3 {
+  padding-bottom: 20px;
   margin-bottom: 15px;
-}
-#top-list .recipe-wrapper .recipe-heading {
-  padding: 15px;
-}
-#top-list .recipe-wrapper .recipe-heading h4 {
-  margin-bottom: 15px;
-}
-#top-list .recipe-wrapper .recipe-heading .preamble {
-  color: #999999;
-  width: 250px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#top-list .recipe-wrapper .recipe-image {
-  background-size: cover;
-  background-color: #EEE;
-  height: 150px;
-}
-#top-list .recipe-wrapper .recipe-rating {
-  position: absolute;
-  right: 15px;
-  bottom: 20px;
-  color: #999999;
+  border-bottom: 1px solid #a7e2d3;
 }
 
 #search-result {
-  max-width: 900px;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   padding: 15px;
@@ -7593,6 +7607,13 @@ form .error-label {
   color: #999999;
 }
 
+#favorites {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 15px;
+}
+
 .recipe-details-wrapper .recipe-details-back {
   position: absolute;
   left: 15px;
@@ -7624,7 +7645,7 @@ form .error-label {
   display: inline-block;
   color: #eeeeee;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 14px;
   text-transform: uppercase;
 }
 .recipe-details-wrapper .headline .recipe-toolbar {
@@ -7702,7 +7723,7 @@ form .error-label {
   padding-top: 15px;
   margin-bottom: 0;
   border: none;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   color: #999999;
   text-transform: uppercase;

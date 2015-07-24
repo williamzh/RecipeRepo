@@ -3,7 +3,7 @@
 	@include placeholder-color(#FFF);
 	margin-left: auto;
 	margin-right: auto;
-	width: 100%;
+	width: 80%;
 	max-width: 500px;
 	height: 100%;
 	max-height: 150px;
@@ -58,7 +58,7 @@
 			padding: 10px;
 			color: #CCC;
 			font-weight: 600;
-			font-size: $font-size-h6;
+			font-size: $font-size-small;
 			text-transform: uppercase;
 		}
 
@@ -72,51 +72,67 @@
 	}
 }
 
-#top-list {
+.recipe-wrapper {
+	position: relative;
+	height: 285px;
+	max-width: 350px;
+	border: 1px solid $gray-lighter;
+	margin: 15px auto;
+
+	.recipe-heading {
+		padding: 15px;
+
+		h5 {
+			margin: 5px 0;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    overflow: hidden;
+		}
+
+		.preamble {
+			min-height: 20px;
+			color: $gray-light;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+
+	.recipe-image {
+		background-size: cover;
+		background-color: #EEE;
+		height: 60%;
+	}
+
+	.recipe-footer {
+		height: 35px;
+		color: $gray-light;
+
+		.recipe-rating {
+			padding: 10px;
+			float: right;
+			font-size: $font-size-small;
+		}
+	}
+}
+
+#start {
 	@include centered-container(1200px);
 	padding: 15px;
 
-	.recipe-wrapper {
-		position: relative;
-		height: 300px;
-		max-width: 350px;
-		border: 1px solid $gray-lighter;
-		margin-top: 15px;
-		margin-bottom: 15px;
+	.section-area {
+		margin: 15px 30px;
 
-		.recipe-heading {
-			padding: 15px;
-
-			h4 {
-				margin-bottom: 15px;
-			}
-
-			.preamble {
-				color: $gray-light;
-				width: 250px;
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
-			}
-		}
-
-		.recipe-image {
-			background-size: cover;
-			background-color: #EEE;
-			height: 150px;
-		}
-
-		.recipe-rating {
-			position: absolute;
-			right: 15px;
-			bottom: 20px;
-			color: $gray-light;
+		h3 {
+			padding-bottom: 20px;
+			margin-bottom: 15px;
+			border-bottom: 1px solid lighten($brand-primary, 30%);
 		}
 	}
 }
 
 #search-result {
-	@include centered-container(900px);
+	@include centered-container(1200px);
 	padding: 15px;
 
 	h2 {
@@ -161,4 +177,9 @@
 			color: $gray-light;
 		}
 	}
+}
+
+#favorites {
+	@include centered-container(1200px);
+	padding: 15px;
 }

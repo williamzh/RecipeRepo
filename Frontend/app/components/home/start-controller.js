@@ -1,11 +1,36 @@
 recipeRepoControllers.controller('startController', ['$scope', '$state', 'apiClient', function($scope, $state, apiClient) {
-	$scope.getTopRecipes = function() {
+	$scope.createSections = function() {
 		apiClient.getRecipes()
 			.then(function(recipes) {
-				$scope.recipes = recipes.to(5);
+				$scope.startSections = generateSections(recipes);
 			})
 			.catch(function() {
 				// TODO: show error
 			});
 	};
+
+	function generateSections(recipes) {
+		var historySection = {
+			name: 'history',
+			items: recipes.sortBy(function(r) {
+				return Date.create(r.lastEditDate);		// TODO: change to last view date
+			}, true).to(4)
+		};
+
+		var latestSection = {
+			name: 'latest',
+			items: recipes.sortBy(function(r) {
+				return Date.create(r.creationDate);
+			}, true).to(4)
+		};
+
+		var topRatedSection = {
+			name: 'topRated',
+			items: recipes.sortBy(function(r) {
+				return Date.create(r.rating);
+			}, true).to(4)
+		};
+
+		return [historySection, latestSection, topRatedSection];
+	}
 }]);

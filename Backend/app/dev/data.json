@@ -1,8 +1,8 @@
 {
 	"meta": {
 		"cuisines": ["italian", "swedish", "chinese"],
-		"courses": ["main"],
-		"categories": ["pasta", "meat", "fish", "rice-grains"]
+		"courses": ["main", "side", "dessert"],
+		"categories": ["pasta", "meat", "fish", "rice-grains", "gratins-pies", "sauces"]
 	},
 	"recipes": [{
 		"id": "1",
@@ -423,5 +423,393 @@
 		},
 		"creationDate": "2015-07-22",
 		"lastEditDate": "2015-07-22"
-	}]
+	}, {
+		"id": "7",
+        "recipeName": "Ugnsgratinerad falukorv",
+        "servingSize": 4,
+        "rating": 4,
+        "isFavorite": false,
+        "ingredients": [
+            {
+                "name": "falukorv",
+                "quantity": "400",
+                "unit": "g"
+            },
+            {
+                "name": "gul lök",
+                "quantity": "0.5",
+                "unit": "st"
+            },
+            {
+                "name": "senap",
+                "quantity": "2",
+                "unit": "msk"
+            },
+            {
+                "name": "krossade tomater",
+                "quantity": "200",
+                "unit": "g"
+            },
+            {
+                "name": "riven ost",
+                "quantity": "1",
+                "unit": "dl"
+            }
+        ],
+        "method": [
+            "Sätt ugnen på 200 grader.",
+            "Skala och skär löken och stek hastigt i lite olja.",
+            "Skär skåror i korven och lägg i en ugnsform. Stick ner löken i skårorna, bred över senap och häll på de krossade tomaterna. Strö över riven ost.",
+            "Gratinera korven i ca 25 min tills osten har fått fin färg. Servera med stuvade makaroner eller potatismos."
+        ],
+        "meta": {
+            "cuisine": "swedish",
+            "category": "gratins-pies",
+            "course": "main"
+        },
+        "creationDate": "2014-01-02",
+		"lastEditDate": "2014-03-25"
+    },
+    {
+    	"id": "8",
+        "recipeName": "Panerad fläskfilé med parmesanost",
+        "description": "Serveras med ris och champinjonsås.",
+        "imagePath": "app/img/fried_fish.jpg",
+        "servingSize": 3.5,
+        "rating": 4,
+        "isFavorite": false,
+        "ingredients": [
+            {
+                "name": "fläskfilé",
+                "quantity": "600",
+                "unit": "g"
+            },
+            {
+                "name": "ägg",
+                "quantity": "1",
+                "unit": "st"
+            },
+            {
+                "name": "riven parmesanost",
+                "quantity": "20",
+                "unit": "g"
+            },
+            {
+                "name": "ströbröd",
+                "quantity": "3",
+                "unit": "msk"
+            },
+            {
+                "name": "vetemjöl",
+                "quantity": "0,75",
+                "unit": "dl"
+            },
+            {
+                "name": "salt",
+                "quantity": "0,5",
+                "unit": "tsk"
+            },
+            {
+                "name": "svartpeppar",
+                "quantity": "1",
+                "unit": "krm"
+            },
+            {
+                "name": "rapsolja",
+                "quantity": "1",
+                "unit": "msk"
+            }
+        ],
+        "method": [
+            "Skär fläskfilén i 1 cm tjocka skivor.",
+            "Blanda riven parmesanost med ströbröd, salt och peppar på ett fat.",
+            "Häll upp vetemjöl på ett annat fat. Vispa ägget och lägg det på ett tredje fat.",
+            "Vänd fläskfilébitarna i mjöl, ägg och till sist ströbrödblandningen.",
+            "Stek bitarna i en panna med upphettad olja. De är klara när de är gyllenebruna.",
+            "Servera fläskfilén med ris och sås, samt en sallad."
+        ],
+        "meta": {
+            "cuisine": "swedish",
+            "category": "meat",
+            "course": "main"
+        },
+        "creationDate": "2015-02-28",
+		"lastEditDate": "2015-03-01"
+    },
+    {
+    	"id": "9",
+        "recipeName": "Fransk fiskgratäng",
+        "description": "",
+        "imagePath": "",
+        "servingSize": 4,
+        "rating": 4.5,
+        "isFavorite": false,
+        "ingredients": [
+            {
+                "name": "fryst vit fisk (t.ex. Pangasius)",
+                "quantity": "400",
+                "unit": "g"
+            },
+            {
+                "name": "ströbröd",
+                "quantity": "1",
+                "unit": "dl"
+            },
+            {
+                "name": "salt",
+                "quantity": "1",
+                "unit": "krm"
+            },
+            {
+                "name": "salladskrydda",
+                "quantity": "2",
+                "unit": "tsk"
+            },
+            {
+                "name": "persilja",
+                "quantity": "1",
+                "unit": "msk"
+            },
+            {
+                "name": "vitlöksklyfta",
+                "quantity": "1",
+                "unit": "st"
+            },
+            {
+                "name": "senap",
+                "quantity": "1",
+                "unit": "msk"
+            },
+            {
+                "name": "smör",
+                "quantity": "50",
+                "unit": "g"
+            },
+            {
+                "name": "vatten",
+                "quantity": "0.5",
+                "unit": "dl"
+            }
+        ],
+        "method": [
+            "Sätt ugnen på 200 grader.",
+            "Blanda samman ströbröd, kryddor och senap i en bunke.",
+            "Smält smöret i en kastrull, fräs vitlöken snabbt. Se till att den inte bränns.",
+            "Rör ner ströbrödsblandningen och tillsätt vatten. Rör om och låt koka upp.",
+            "Lägg fiskblocken i en ugnsform och bred över blandningen.",
+            "Gratinera i ca 50-55 min (eller 30-35 om fisken är tinad). Servera med potatismos och haricots verts."
+        ],
+        "meta": {
+            "cuisine": "swedish",
+            "category": "fish",
+            "course": "main"
+        },
+        "creationDate": "2014-12-04",
+		"lastEditDate": "2015-12-11"
+    },
+    {
+    	"id": "10",
+        "recipeName": "Stuvade makaroner",
+        "description": "",
+        "imagePath": "",
+        "servingSize": 6,
+        "rating": 3,
+        "isFavorite": false,
+        "ingredients": [
+            {
+                "name": "makaroner",
+                "quantity": "4",
+                "unit": "dl"
+            },
+            {
+                "name": "mjölk",
+                "quantity": "4",
+                "unit": "dl"
+            },
+            {
+                "name": "vetemjöl",
+                "quantity": "2.5",
+                "unit": "msk"
+            },
+            {
+                "name": "smör",
+                "quantity": "2",
+                "unit": "msk"
+            },
+            {
+                "name": "muskotnöt",
+                "quantity": "2",
+                "unit": "krm"
+            },
+            {
+                "name": "salt",
+                "quantity": "2",
+                "unit": "krm"
+            },
+            {
+                "name": "vitpeppar",
+                "quantity": "1",
+                "unit": "krm"
+            }
+        ],
+        "method": [
+            "Koka makaronerna enligt paketet.",
+            "Smält smöret i en kastrull och rör ihop med mjölet. Tillsätt mjölken under omrörning. Låt koka i ca 5 min.",
+            "Tillsätt kryddorna, smaka ev. av med mer salt och peppar.",
+            "Häll såsen över de kokta makaronerna, rör om ordentligt och låt stå i någon minut."
+        ],
+        "meta": {
+            "cuisine": "swedish",
+            "category": "pasta",
+            "course": "side"
+        },
+        "creationDate": "2014-10-27",
+		"lastEditDate": "2014-10-28"
+    },
+    {
+    	"id": "11",
+        "recipeName": "Pasta med ost- och skinksås",
+        "description": "Enkel och lättlagad vardagsrätt.",
+        "servingSize": 4,
+        "rating": 3.5,
+        "isFavorite": false,
+        "ingredients": [
+            {
+                "name": "pasta (t.ex. fusili)",
+                "quantity": "350",
+                "unit": "g"
+            },
+            {
+                "name": "skinka",
+                "quantity": "200",
+                "unit": "g"
+            },
+            {
+                "name": "gul lök",
+                "quantity": "0,5",
+                "unit": "st"
+            },
+            {
+                "name": "vitlök",
+                "quantity": "1",
+                "unit": "st"
+            },
+            {
+                "name": "vetemjöl",
+                "quantity": "3",
+                "unit": "msk"
+            },
+            {
+                "name": "mjölk",
+                "quantity": "5",
+                "unit": "dl"
+            },
+            {
+                "name": "grädde",
+                "quantity": "0,5",
+                "unit": "dl"
+            },
+            {
+                "name": "riven ost",
+                "quantity": "1,5",
+                "unit": "dl"
+            },
+            {
+                "name": "salt",
+                "quantity": "0,5",
+                "unit": "tsk"
+            },
+            {
+                "name": "peppar",
+                "quantity": "0,25",
+                "unit": "tsk"
+            },
+            {
+                "name": "basilika",
+                "quantity": "0,5 - 1",
+                "unit": "msk"
+            }
+        ],
+        "method": [
+            "Strimla skinkan, hacka löken och fräs i någon minut. Pressa vitlöken och fräs tills skinkan har fått färg.",
+            "Vispa ner mjölet i lite av mjölken, rör sedan ned i skinkan tillsammans med resten av mjölken.",
+            "Tillsätt grädden och kryddorna, och låt koka upp.",
+            "Rör ned osten och låt sjuda i ca 5 min."
+        ],
+        "meta": {
+            "cuisine": "swedish",
+            "category": "pasta",
+            "course": "main"
+        },
+        "creationDate": "2015-04-15",
+		"lastEditDate": "2015-04-19"
+    },
+    {
+    	"id": 12,
+        "recipeName": "Champinjonsås",
+        "description": "Klassisk champinjonsås med grädde och svamp",
+        "servingSize": 4,
+        "rating": 3.5,
+        "isFavorite": false,
+        "ingredients": [
+            {
+                "name": "färska champinjoner",
+                "quantity": "250",
+                "unit": "g"
+            },
+            {
+                "name": "scholottenlök",
+                "quantity": "1-2",
+                "unit": "st"
+            },
+            {
+                "name": "smör",
+                "quantity": "50",
+                "unit": "g"
+            },
+            {
+                "name": "vetemjöl",
+                "quantity": "2",
+                "unit": "msk"
+            },
+            {
+                "name": "mjölk",
+                "quantity": "3",
+                "unit": "dl"
+            },
+            {
+                "name": "grädde",
+                "quantity": "2",
+                "unit": "dl"
+            },
+            {
+                "name": "salt",
+                "quantity": "2",
+                "unit": "krm"
+            },
+            {
+                "name": "vitpeppar",
+                "quantity": "1",
+                "unit": "krm"
+            },
+            {
+                "name": "ljus soja",
+                "quantity": "1",
+                "unit": "msk"
+            }
+        ],
+        "method": [
+            "Skiva svampen och finhacka löken. Fräs i smör tills det mesta av vätskan har ångat bort.",
+            "Strö över mjöl, tillsätt mjölken och rör om. Låt koka upp.",
+            "Tillsätt grädden och rör om. Smaksätt med salt, peppar och soja.",
+            "Småkoka i minst 5 minuter, rör om då och då."
+        ],
+        "meta": {
+            "cuisine": "swedish",
+            "category": "sauces",
+            "course": "side"
+        },
+        "creationDate": "2015-01-10",
+		"lastEditDate": "2015-05-31"
+    }]
 }

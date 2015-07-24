@@ -1,14 +1,21 @@
-<div id="top-list" ng-controller="startController" ng-init="getTopRecipes()">
-	<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="recipe in recipes">
-		<div class="recipe-wrapper">
-			<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
-				<div class="recipe-heading">
-					<h4>{{recipe.recipeName}}</h4>
-					<p class="preamble">{{recipe.description}}</p>
-				</div>
-				<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
-			</a>			
-			<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
+<div id="start" ng-controller="startController" ng-init="createSections()">
+
+<div class="row" ng-repeat="section in startSections">
+	<div class="section-area">
+		<h3><rd-translate key="home/{{section.name}}"></rd-translate></h3>
+		<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="recipe in section.items">
+			<div class="recipe-wrapper">
+				<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
+					<div class="recipe-heading">
+						<h5>{{recipe.recipeName}}</h5>
+						<p class="preamble">{{recipe.description}}</p>
+					</div>
+					<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
+					<div class="recipe-footer">
+						<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
+					</div>
+				</a>			
+			</div>
 		</div>
 	</div>
 </div>
