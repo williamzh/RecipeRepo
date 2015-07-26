@@ -47,10 +47,10 @@
 		"meta": {
 		  "cuisine": "italian",
 		  "course": "main",
-		  "category": "pasta"
-		},
-		"creationDate": "2015-07-02",
-		"lastEditDate": "2015-07-12"
+		  "category": "pasta",
+		  "created": "2015-07-02",
+		  "lastEdited": "2015-07-12"
+		}
 	},
 	{
 		"id": "2",
@@ -112,10 +112,10 @@
 		"meta": {
 		  "cuisine": "swedish",
 		  "course": "main",
-		  "category": "fish"
-		},
-		"creationDate": "2015-06-13",
-		"lastEditDate": "2015-07-22"
+		  "category": "fish",
+		  "created": "2015-06-13",
+		  "lastEdited": "2015-07-22"
+		}
 	},
 	{
 		"id": "3",
@@ -168,10 +168,10 @@
 		"meta": {
 		  "cuisine": "chinese",
 		  "course": "main",
-		  "category": "rice-grains"
-		},
-		"creationDate": "2015-05-09",
-		"lastEditDate": "2015-06-17"
+		  "category": "rice-grains",
+		  "created": "2015-05-09",
+		  "lastEdited": "2015-06-17"
+		}
 	},
 	{
 		"id": "4",
@@ -224,10 +224,10 @@
 		"meta": {
 		  "cuisine": "italian",
 		  "course": "main",
-		  "category": "pasta"
-		},
-		"creationDate": "2015-05-05",
-		"lastEditDate": "2015-05-05"
+		  "category": "pasta",
+		  "created": "2015-05-05",
+		  "lastEdited": "2015-05-05"
+		}
 	}, {
 		"id": "5",
 	   	"recipeName": "Pasta med kyckling och svamp",
@@ -319,10 +319,10 @@
 		"meta": {
 		  "cuisine": "swedish",
 		  "course": "main",
-		  "category": "pasta"
-		},
-		"creationDate": "2015-07-18",
-		"lastEditDate": "2015-07-19"
+		  "category": "pasta",
+		  "created": "2015-05-05",
+		  "lastEdited": "2015-05-05"
+		}
 	}, {
 		"id": "6",
 		"recipeName": "Pannbiff med skysås och potatisklyftor",
@@ -419,10 +419,10 @@
 		"meta": {
 		  "cuisine": "swedish",
 		  "course": "main",
-		  "category": "meat"
-		},
-		"creationDate": "2015-07-22",
-		"lastEditDate": "2015-07-22"
+		  "category": "meat",
+		  "created": "2015-07-22",
+		  "lastEdited": "2015-07-22"
+		}
 	}, {
 		"id": "7",
         "recipeName": "Ugnsgratinerad falukorv",
@@ -465,10 +465,10 @@
         "meta": {
             "cuisine": "swedish",
             "category": "gratins-pies",
-            "course": "main"
-        },
-        "creationDate": "2014-01-02",
-		"lastEditDate": "2014-03-25"
+            "course": "main",
+            "created": "2014-01-02",
+			"lastEdited": "2014-03-25"
+        }
     },
     {
     	"id": "8",
@@ -531,10 +531,10 @@
         "meta": {
             "cuisine": "swedish",
             "category": "meat",
-            "course": "main"
-        },
-        "creationDate": "2015-02-28",
-		"lastEditDate": "2015-03-01"
+            "course": "main",
+            "created": "2015-02-28",
+			"lastEdited": "2015-03-01"
+        }
     },
     {
     	"id": "9",
@@ -602,10 +602,10 @@
         "meta": {
             "cuisine": "swedish",
             "category": "fish",
-            "course": "main"
-        },
-        "creationDate": "2014-12-04",
-		"lastEditDate": "2015-12-11"
+            "course": "main",
+            "created": "2014-12-04",
+			"lastEdited": "2015-12-11"
+        }
     },
     {
     	"id": "10",
@@ -661,10 +661,10 @@
         "meta": {
             "cuisine": "swedish",
             "category": "pasta",
-            "course": "side"
-        },
-        "creationDate": "2014-10-27",
-		"lastEditDate": "2014-10-28"
+            "course": "side",
+            "created": "2014-10-27",
+			"lastEdited": "2014-10-28"
+        }
     },
     {
     	"id": "11",
@@ -739,10 +739,10 @@
         "meta": {
             "cuisine": "swedish",
             "category": "pasta",
-            "course": "main"
-        },
-        "creationDate": "2015-04-15",
-		"lastEditDate": "2015-04-19"
+            "course": "main",
+            "created": "2015-04-15",
+			"lastEdited": "2015-04-19"
+        }
     },
     {
     	"id": 12,
@@ -807,9 +807,9 @@
         "meta": {
             "cuisine": "swedish",
             "category": "sauces",
-            "course": "side"
-        },
-        "creationDate": "2015-01-10",
-		"lastEditDate": "2015-05-31"
+            "course": "side",
+            "created": "2015-01-10",
+			"lastEdited": "2015-05-31"
+        }
     }]
 }

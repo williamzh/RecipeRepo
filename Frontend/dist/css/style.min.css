@@ -7576,7 +7576,8 @@ form .error-label {
 #search-result .search-hit-item {
   position: relative;
   border: 1px solid #eeeeee;
-  margin: 15px;
+  margin: 15px auto;
+  max-width: 70%;
   height: 100px;
   border-radius: 5px;
 }
@@ -7605,6 +7606,7 @@ form .error-label {
   right: 0;
   padding: 15px;
   color: #999999;
+  font-size: 12px;
 }
 
 #favorites {
@@ -7645,7 +7647,7 @@ form .error-label {
   display: inline-block;
   color: #eeeeee;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 12px;
   text-transform: uppercase;
 }
 .recipe-details-wrapper .headline .recipe-toolbar {

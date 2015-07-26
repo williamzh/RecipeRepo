@@ -13,14 +13,14 @@ recipeRepoControllers.controller('startController', ['$scope', '$state', 'apiCli
 		var historySection = {
 			name: 'history',
 			items: recipes.sortBy(function(r) {
-				return Date.create(r.lastEditDate);		// TODO: change to last view date
+				return Date.create(r.meta.lastViewed);
 			}, true).to(4)
 		};
 
 		var latestSection = {
 			name: 'latest',
 			items: recipes.sortBy(function(r) {
-				return Date.create(r.creationDate);
+				return Date.create(r.created);
 			}, true).to(4)
 		};
 

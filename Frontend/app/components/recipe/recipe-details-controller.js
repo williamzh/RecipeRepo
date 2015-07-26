@@ -3,9 +3,12 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 	$scope.modalHeading = localizationService.translate('recipeDetails', 'confirmRemoveHeading');
 	$scope.modalAction = localizationService.translate('recipeDetails', 'confirmRemoveButton');
 
-	$scope.getRecipe = function() {
+	$scope.initialize = function() {
 		apiClient.getRecipe($stateParams.recipeId)
 			.then(function(recipe) {
+				recipe.meta.lastViewed = Date.create();
+				apiClient.updateRecipe(recipe);
+
 				$scope.recipe = formatRecipe(recipe);
 				$scope.isAuthenticated = true;
 				$scope.hasError = false;
@@ -39,10 +42,9 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 			return ing.component;
 		});
 
-		for(var metaType in recipe.meta) {
-			var metaValue = recipe.meta[metaType];
-			recipe.meta[metaType] = localizationService.translate('metaTags', metaValue);
-		}
+		recipe.meta.cuisine = localizationService.translate('metaTags', recipe.meta.cuisine);
+		recipe.meta.category = localizationService.translate('metaTags', recipe.meta.category);
+		recipe.meta.course = localizationService.translate('metaTags', recipe.meta.course);
 
 		return recipe;
 	}

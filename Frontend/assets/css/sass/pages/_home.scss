@@ -142,7 +142,8 @@
 	.search-hit-item {
 		position: relative;
 		border: 1px solid $gray-lighter;
-		margin: 15px;
+		margin: 15px auto;
+		max-width: 70%;
 		height: 100px;
 		border-radius: 5px;
 
@@ -175,6 +176,7 @@
 			right: 0;
 			padding: 15px;
 			color: $gray-light;
+			font-size: $font-size-small;
 		}
 	}
 }
