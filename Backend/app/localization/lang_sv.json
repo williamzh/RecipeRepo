@@ -15,7 +15,11 @@
 			"meat": "Kött",
 			"rice-grains": "Ris",
 			"pasta": "Pasta",
-			"main": "Huvudrätt"
+			"gratins-pies": "Gratänger och pajer",
+			"sauces": "Såser",
+			"main": "Huvudrätt",
+			"side": "Tillbehör",
+			"dessert": "Dessert"
 		},
 		"navigation": {
 
@@ -30,6 +34,10 @@
 			"searchTab": "Sök",
 			"noSearchQueryMessage": "Vänligen ange en sökfråga",
 			"noSearchHitsMessage": "Vi hittade tyvärr inget som matchade",
+			"hitsFor": "träffar för",
+			"allCuisines": "Alla kök",
+			"allCategories": "Alla kategorier",
+			"allCourses": "Alla rätter",
 			"favoritesTab": "Favoriter"
 		},
 		"recipeDetails": {

@@ -7400,19 +7400,34 @@ form input[type="email"]:focus,
 form input[type="url"]:focus,
 form input[type="search"]:focus,
 form input[type="tel"]:focus,
-form input[type="color"]:focus {
+form input[type="color"]:focus, .fake-form select:focus,
+.fake-form textarea:focus,
+.fake-form input[type="text"]:focus,
+.fake-form input[type="password"]:focus,
+.fake-form input[type="datetime"]:focus,
+.fake-form input[type="datetime-local"]:focus,
+.fake-form input[type="date"]:focus,
+.fake-form input[type="month"]:focus,
+.fake-form input[type="time"]:focus,
+.fake-form input[type="week"]:focus,
+.fake-form input[type="number"]:focus,
+.fake-form input[type="email"]:focus,
+.fake-form input[type="url"]:focus,
+.fake-form input[type="search"]:focus,
+.fake-form input[type="tel"]:focus,
+.fake-form input[type="color"]:focus {
   outline: none;
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
-form label, form .checkbox label {
+form label, form .checkbox label, .fake-form label, .fake-form .checkbox label {
   font-weight: 400;
 }
-form .form-control {
+form .form-control, .fake-form .form-control {
   max-width: 450px;
 }
-form .error-label {
+form .error-label, .fake-form .error-label {
   padding-top: 5px;
 }
 
@@ -7556,7 +7571,7 @@ form .error-label {
 #start .section-area h3 {
   padding-bottom: 20px;
   margin-bottom: 15px;
-  border-bottom: 1px solid #a7e2d3;
+  border-bottom: 1px solid #3BB595;
 }
 
 #search-result {
@@ -7573,12 +7588,53 @@ form .error-label {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+#search-result .search-hits {
+  max-width: 70%;
+  margin: 15px auto;
+}
+#search-result .search-hits .search-heading {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #3BB595;
+  height: 45px;
+}
+#search-result .search-hits .search-heading h3 {
+  display: inline-block;
+  float: left;
+}
+#search-result .search-hits .search-heading ul {
+  float: right;
+  list-style-type: none;
+}
+#search-result .search-hits .search-heading ul li {
+  display: inline-block;
+}
+#search-result .search-hits .search-heading ul li a {
+  font-size: 16px;
+  padding: 15px 7px;
+  color: #777777;
+}
+#search-result .search-hits .search-heading ul li a:active, #search-result .search-hits .search-heading ul li a:focus {
+  color: #3BB595;
+}
+#search-result .search-hits .filter-controls {
+  clear: both;
+  padding: 15px 0;
+}
+@media (min-width: 992px) {
+  #search-result .search-hits .filter-controls {
+    display: flex;
+    justify-content: space-between;
+  }
+  #search-result .search-hits .filter-controls select {
+    max-width: 30%;
+  }
+}
 #search-result .search-hit-item {
   position: relative;
   border: 1px solid #eeeeee;
-  margin: 15px auto;
-  max-width: 70%;
   height: 100px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   border-radius: 5px;
 }
 #search-result .search-hit-item a {

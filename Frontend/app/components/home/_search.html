@@ -1,19 +1,39 @@
 <div id="search-result" ng-controller="searchController">
 	<h2 ng-if="!searchQuery" class="faded"><rd-translate key="home/noSearchQueryMessage"></rd-translate></h2>
-	<h2 ng-if="hits.length == 0" class="faded"><rd-translate key="home/noSearchHitsMessage"></rd-translate> <i>{{searchQuery}}</i>.</h2>
+	<h2 ng-if="searchQuery && !hasSearchHits" class="faded"><rd-translate key="home/noSearchHitsMessage"></rd-translate> <i>{{searchQuery}}</i></h2>
 
-	<div class="search-hits">
-		<div class="search-hit-item" ng-repeat="recipe in hits">
-			<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
-				<div class="search-hit-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
-				<div class="search-hit-content">
-					<h4>{{recipe.recipeName}}</h4>
-					<p>{{recipe.description}}</p>
-					<div class="search-hit-meta">
-						<span class="hidden-xs recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
+	<div ng-show="hasSearchHits">	<!-- Use ng-show instead of ng-if to avoid messing up scope inheritance -->
+		<div class="search-hits">
+			<div class="search-heading">
+				<h3>{{hits.length}} <rd-translate key="home/hitsFor"></rd-translate> <i>{{searchQuery}}</i></h3>
+				<ul>
+					<li><a href="" class="fa" ng-class="sortDirection == 'asc' ? 'fa-sort-alpha-asc' : 'fa-sort-alpha-desc'" ng-click="sort()"></a></li>
+					<li><a href="" class="fa fa-filter" ng-click="showFilters = !showFilters"></a></li>
+				</ul>
+			</div>
+			<div class="filter-controls" ng-show="showFilters">
+				<select ng-model="filteredCuisine" ng-options="cuisine.label for cuisine in cuisines track by cuisine.value" ng-change="filter()" class="form-control">
+					<option value="" rd-translate key="home/allCuisines"></option>
+				</select>
+				<select ng-model="filteredCategory" ng-options="category.label for category in categories track by category.value" ng-change="filter()" class="form-control">
+					<option value="" rd-translate key="home/allCategories"></option>
+				</select>
+				<select ng-model="filteredCourse" ng-options="course.label for course in courses track by course.value" ng-change="filter()" class="form-control">
+					<option value="" rd-translate key="home/allCourses"></option>
+				</select>
+			</div>
+			<div class="search-hit-item" ng-repeat="recipe in hits">
+				<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
+					<div class="search-hit-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
+					<div class="search-hit-content">
+						<h4>{{recipe.recipeName}}</h4>
+						<p>{{recipe.description}}</p>
+						<div class="search-hit-meta">
+							<span class="hidden-xs recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
+						</div>
 					</div>
-				</div>
-			</a>
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
