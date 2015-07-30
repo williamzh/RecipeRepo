@@ -3,12 +3,14 @@
 		<div class="recipe-wrapper">
 			<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
 				<div class="recipe-heading">
-					<h4>{{recipe.recipeName}}</h4>
+					<h5>{{recipe.recipeName}}</h5>
 					<p class="preamble">{{recipe.description}}</p>
 				</div>
 				<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
+				<div class="recipe-footer">
+					<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
+				</div>
 			</a>			
-			<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
 		</div>
 	</div>
 </div>

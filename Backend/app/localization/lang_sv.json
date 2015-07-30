@@ -34,7 +34,7 @@
 			"searchTab": "Sök",
 			"noSearchQueryMessage": "Vänligen ange en sökfråga",
 			"noSearchHitsMessage": "Vi hittade tyvärr inget som matchade",
-			"hitsFor": "träffar för",
+			"hits": "träffar",
 			"allCuisines": "Alla kök",
 			"allCategories": "Alla kategorier",
 			"allCourses": "Alla rätter",

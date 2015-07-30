@@ -5,7 +5,7 @@
 	<div ng-show="hasSearchHits">	<!-- Use ng-show instead of ng-if to avoid messing up scope inheritance -->
 		<div class="search-hits">
 			<div class="search-heading">
-				<h3>{{hits.length}} <rd-translate key="home/hitsFor"></rd-translate> <i>{{searchQuery}}</i></h3>
+				<h3>{{hits.length}} <rd-translate key="home/hits"></rd-translate></h3>
 				<ul>
 					<li><a href="" class="fa" ng-class="sortDirection == 'asc' ? 'fa-sort-alpha-asc' : 'fa-sort-alpha-desc'" ng-click="sort()"></a></li>
 					<li><a href="" class="fa fa-filter" ng-click="showFilters = !showFilters"></a></li>
