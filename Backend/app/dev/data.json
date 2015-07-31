@@ -1,4 +1,30 @@
 {
+	"users": {
+		"wizha": {
+			"firstName": "William",
+			"lastName": "Zhang",
+			"email": "williamzh87@gmail.com",
+			"password": "test1234",
+			"favoriteRecipes": ["1", "4", "5", "11", "12"],
+			"ownedRecipes": ["1", "2", "3", "4"]
+		},
+		"ceblo": {
+			"firstName": "Cecilia",
+			"lastName": "Blomdahl",
+			"email": "cissijb@hotmail.com",
+			"password": "test2345",
+			"favoriteRecipes": ["1", "4", "8"],
+			"ownedRecipes": ["5", "6", "7", "8"]
+		},
+		"anblo": {
+			"firstName": "Angelica",
+			"lastName": "Blomdahl",
+			"email": "angelica@test.com",
+			"password": "test3456",
+			"favoriteRecipes": ["7", "10"],
+			"ownedRecipes": ["9", "10", "11", "12"]
+		}
+	},
 	"meta": {
 		"cuisines": ["italian", "swedish", "chinese"],
 		"courses": ["main", "side", "dessert"],
@@ -10,7 +36,7 @@
 		"description": "En god pasta med morot och selleri",
 		"imagePath": "/dist/img/bolognese.jpg",
 		"servingSize": 4,
-		"isFavorite": true,
+		"isPrivate": true,
 		"rating": 4.5,
 		"ingredients": [
 		  {
@@ -58,7 +84,7 @@
 		"description": "Klassisk vardagsrätt",
 		"imagePath": "/dist/img/fried_fish.jpg",
 		"servingSize": 4,
-		"isFavorite": true,
+		"isPrivate": true,
 		"rating": 4,
 		"ingredients": [
 		  {
@@ -123,7 +149,7 @@
 		"description": "God och snabblagad vardagsrätt",
 		"imagePath": "/dist/img/fried_rice.jpg",
 		"servingSize": 4,
-		"isFavorite": false,
+		"isPrivate": false,
 		"rating": 4.5,
 		"ingredients": [
 		  {
@@ -179,7 +205,7 @@
 		"description": "Klassisk rätt",
 		"imagePath": "/dist/img/lasagne.jpg",
 		"servingSize": 4,
-		"isFavorite": true,
+		"isPrivate": true,
 		"rating": 3,
 		"ingredients": [
 		  {
@@ -234,7 +260,7 @@
 		"description": "Pasta med en krämig sås med kyckling, svamp och grädde.",
 		"imagePath": "/dist/img/pasta-kyckling-svamp.jpg",
 		"servingSize": 4,
-		"isFavorite": true,
+		"isPrivate": true,
 		"rating": 5,
 		"ingredients": [
 		  {
@@ -329,7 +355,7 @@
 		"description": "",
 		"imagePath": "",
 		"servingSize": 4,
-		"isFavorite": true,
+		"isPrivate": true,
 		"rating": 4.5,
 		"ingredients": [
 		  {
@@ -428,7 +454,7 @@
         "recipeName": "Ugnsgratinerad falukorv",
         "servingSize": 4,
         "rating": 4,
-        "isFavorite": false,
+        "isPrivate": false,
         "ingredients": [
             {
                 "name": "falukorv",
@@ -477,7 +503,7 @@
         "imagePath": "app/img/fried_fish.jpg",
         "servingSize": 3.5,
         "rating": 4,
-        "isFavorite": false,
+        "isPrivate": false,
         "ingredients": [
             {
                 "name": "fläskfilé",
@@ -543,7 +569,7 @@
         "imagePath": "",
         "servingSize": 4,
         "rating": 4.5,
-        "isFavorite": false,
+        "isPrivate": false,
         "ingredients": [
             {
                 "name": "fryst vit fisk (t.ex. Pangasius)",
@@ -614,7 +640,7 @@
         "imagePath": "",
         "servingSize": 6,
         "rating": 3,
-        "isFavorite": false,
+        "isPrivate": false,
         "ingredients": [
             {
                 "name": "makaroner",
@@ -672,7 +698,7 @@
         "description": "Enkel och lättlagad vardagsrätt.",
         "servingSize": 4,
         "rating": 3.5,
-        "isFavorite": false,
+        "isPrivate": false,
         "ingredients": [
             {
                 "name": "pasta (t.ex. fusili)",
@@ -750,7 +776,7 @@
         "description": "Klassisk champinjonsås med grädde och svamp",
         "servingSize": 4,
         "rating": 3.5,
-        "isFavorite": false,
+        "isPrivate": false,
         "ingredients": [
             {
                 "name": "färska champinjoner",

@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var recipeStore = new (require('./data/recipe-store'));
 var metainfoStore = new (require('./data/metainfo-store'));
+var userService = new (require('./auth/user-service'));
 var translationStore = new (require('./localization/translation-store'));
 
 var app = express();
@@ -84,6 +85,15 @@ app.get('/api/lang', function(req, res) {
 
 app.get('/api/translations', function(req, res) {
 	success(res, translationStore.loadTranslations());
+});
+
+app.post('/auth/login', function(req, res) {
+	userService.authenticate(req.body.userName, req.body.password)
+		.then(function(token) {
+			success(res, token);
+		}).catch(function(err) {
+			error(res, err);
+		});
 });
 
 // app.post('/api/meta/:id', function(req, res) {
