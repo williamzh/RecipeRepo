@@ -1,4 +1,4 @@
-var FakeUserClient = require('../dev/fake-user-client');
+var FakeUserClient = require('../../dev/fake-user-client');
 var q = require('q');
 require('sugar');
 var jwt = require('jsonwebtoken'); 
@@ -16,8 +16,9 @@ UserService.prototype.authenticate = function(userName, password) {
 			var token = jwt.sign(userName, 'secret', {
 				expiresInMinutes: 60
 			});
+			user.userName = userName;
 			def.resolve({
-				userName: userName,
+				user: user,
 				token: token
 			});
 		}
