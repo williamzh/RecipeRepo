@@ -7431,6 +7431,22 @@ form .error-label, .fake-form .error-label {
   padding-top: 5px;
 }
 
+.login-box {
+  margin: 0 auto;
+  padding: 15% 0;
+  max-width: 460px;
+}
+.login-box #login-form {
+  padding: 30px;
+}
+.login-box #login-form legend {
+  padding-bottom: 8px;
+}
+.login-box #login-form #login-button {
+  float: right;
+  margin-top: 15px;
+}
+
 .search-box {
   position: absolute;
   top: 50%;

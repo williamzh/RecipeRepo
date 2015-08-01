@@ -2,6 +2,11 @@ recipeRepoApp.config(['$stateProvider', '$urlRouterProvider', function($statePro
 	$urlRouterProvider.otherwise("/");
 
 	$stateProvider.
+		// Login
+		state('login', {
+			url: '/login',
+			templateUrl: 'app/components/login/login.html'
+		}).
 		// Home
 		state('home', {
 			abstract: true,

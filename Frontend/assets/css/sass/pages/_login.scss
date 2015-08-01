@@ -1,0 +1,18 @@
+.login-box {
+	margin: 0 auto;
+	padding: 15% 0;
+	max-width: 460px;
+
+	#login-form {
+		padding: 30px;
+
+		legend {
+			padding-bottom: 8px;
+		}
+
+		#login-button {
+			float: right;
+			margin-top: 15px;
+		}
+	}
+}

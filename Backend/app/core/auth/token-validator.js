@@ -3,6 +3,10 @@ var jwt = require('jsonwebtoken');
 function TokenValidator() {}
 
 TokenValidator.prototype.validate = function(req, res, next) {
+	if (req.method == 'OPTIONS') {
+		res.send(200);
+	}
+
 	var token = req.headers.authorization;
 
 	if (token) {

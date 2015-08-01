@@ -6,7 +6,7 @@ recipeRepoServices.service('localizationInitializer', ['$localStorage', 'apiClie
 				$localStorage.translations = translations;
 			})
 			.catch(function(error) {
-				throw Error('Fatal: could not get translations.');
+				// Do what?
 			});
 	};
 }]);

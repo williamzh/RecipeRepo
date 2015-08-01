@@ -1,9 +1,8 @@
 recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 	return {
     	restrict: 'AE',
-		controller: ['$scope', '$location', 'apiClient', function($scope, $location, apiClient) {
-			// TODO: inject authentication service
-			$scope.isAuthenticated = true;
+		controller: ['$scope', '$location', 'apiClient', 'userSession', function($scope, $location, apiClient, userSession) {
+			$scope.isAuthenticated = userSession.isValid();
 
 			$scope.onSearchSelect = function($item, $model, $label) {
 				$location.path('/recipes/' + $item.id);
