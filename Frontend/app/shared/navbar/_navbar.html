@@ -5,13 +5,13 @@
 	    </ul>
 		<ul ng-if="isAuthenticated" class="nav navbar-nav navbar-right">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-					<span class="avatar">John Doe</span>
+				<a href="#" class="dropdown-toggle" type="button" id="user-settings" data-toggle="dropdown">
+					<span class="avatar">{{user.firstName + ' ' + user.lastName}}</span>
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
 					<li><a href="#">Settings</a></li>
-					<li><a href="#">Log out</a></li>
+					<li><a href="#" ng-click="logout()"><rd-translate key="home/logout"></rd-translate></a></li>
 				</ul>
 			</li>
 		</ul>

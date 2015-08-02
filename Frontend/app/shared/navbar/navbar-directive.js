@@ -1,18 +1,24 @@
 recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 	return {
     	restrict: 'AE',
-		controller: ['$scope', '$location', 'apiClient', 'userSession', function($scope, $location, apiClient, userSession) {
-			$scope.isAuthenticated = userSession.isValid();
+		controller: ['$scope', '$state', 'userSession', function($scope, $state, userSession) {
+			var checkIsAuthenticated = function() {
+				$scope.isAuthenticated = userSession.isValid();
+				if($scope.isAuthenticated) {
+					$scope.user = userSession.get().user;
+				}	
+			}
 
-			$scope.onSearchSelect = function($item, $model, $label) {
-				$location.path('/recipes/' + $item.id);
+			checkIsAuthenticated();
+
+			$scope.$on('userSessionInitialized', checkIsAuthenticated);
+			$scope.$on('userSessionDisposed', checkIsAuthenticated);
+			
+			$scope.logout = function() {
+				userSession.dispose();
+				$state.go('login');
 			};
 		}],
-		link: function(scope, elem, attrs) {
-			elem.find('.back-btn').on('click', function() {
-		    	$window.history.back();
-		 	});
-		 },
     	templateUrl: '/app/shared/navbar/_navbar.html'
 	};
 }]);

@@ -1,6 +1,6 @@
-recipeRepoServices.service('userSession', ['$sessionStorage', function($sessionStorage) {
+recipeRepoServices.service('userSession', ['$rootScope', '$sessionStorage', function($rootScope, $sessionStorage) {
 	this.isValid = function() {
-        return $sessionStorage.authSession !== undefined && $sessionStorage.authSession.token !== undefined;
+        return $sessionStorage.authSession && $sessionStorage.authSession.token;
     };
 
     this.get = function() {
@@ -9,5 +9,11 @@ recipeRepoServices.service('userSession', ['$sessionStorage', function($sessionS
 
     this.initialize = function(authSession) {
         $sessionStorage.authSession = authSession;
+        $rootScope.$broadcast('userSessionInitialized');        
+    };
+
+    this.dispose = function() {        
+    	delete $sessionStorage.authSession;
+        $rootScope.$broadcast('userSessionDisposed');
     };
 }]);
