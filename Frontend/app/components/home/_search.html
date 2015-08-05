@@ -1,12 +1,12 @@
-<div id="search-result" ng-controller="searchController">
+<div id="search-result" class="page-container" ng-controller="searchController">
 	<h2 ng-if="!searchQuery" class="faded"><rd-translate key="home/noSearchQueryMessage"></rd-translate></h2>
 	<h2 ng-if="searchQuery && !hasSearchHits" class="faded"><rd-translate key="home/noSearchHitsMessage"></rd-translate> <i>{{searchQuery}}</i></h2>
 
 	<div ng-show="hasSearchHits">	<!-- Use ng-show instead of ng-if to avoid messing up scope inheritance -->
-		<div class="search-hits">
-			<div class="search-heading">
+		<div class="item-list search-hits">
+			<div class="list-heading">
 				<h3>{{hits.length}} <rd-translate key="home/hits"></rd-translate></h3>
-				<ul>
+				<ul class="search-controls">
 					<li><a href="" class="fa" ng-class="sortDirection == 'asc' ? 'fa-sort-alpha-asc' : 'fa-sort-alpha-desc'" ng-click="sort()"></a></li>
 					<li><a href="" class="fa fa-filter" ng-click="showFilters = !showFilters"></a></li>
 				</ul>
@@ -22,13 +22,13 @@
 					<option value="" rd-translate key="home/allCourses"></option>
 				</select>
 			</div>
-			<div class="search-hit-item" ng-repeat="recipe in hits">
+			<div class="list-item" ng-repeat="recipe in hits">
 				<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
-					<div class="search-hit-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
-					<div class="search-hit-content">
+					<div class="list-item-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
+					<div class="list-item-content">
 						<h4>{{recipe.recipeName}}</h4>
 						<p>{{recipe.description}}</p>
-						<div class="search-hit-meta">
+						<div class="list-item-meta">
 							<span class="hidden-xs recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
 						</div>
 					</div>

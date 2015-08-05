@@ -7,7 +7,6 @@ function AuthController(app, userService) {
 	var authRouter = express.Router();
 	app.use('/auth', authRouter);
 
-	// POST /auth/login
 	authRouter.post('/login', function(req, res) {
 		this.userService.authenticate(req.body.userName, req.body.password)
 			.then(function(token) {

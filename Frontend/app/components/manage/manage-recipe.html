@@ -1,4 +1,4 @@
-<div class="manage-recipe-wrapper" ng-controller="manageRecipeController" ng-init="init()">
+<div class="manage-recipe-wrapper page-container" ng-controller="manageRecipeController" ng-init="init()">
 	<rd-back-link ng-if="!inEditMode" target-state="home.start"></rd-back-link>
 	<rd-back-link ng-if="inEditMode" target-state="recipe" target-params="{ recipeId: recipeId }"></rd-back-link>
 

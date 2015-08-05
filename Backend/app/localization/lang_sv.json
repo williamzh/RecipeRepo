@@ -21,8 +21,16 @@
 			"side": "Tillbehör",
 			"dessert": "Dessert"
 		},
+		"login": {
+			"mainHeading": "Välkommen till ???!",
+			"userNameLabel": "Användarnamn",
+			"passwordLabel": "Lösenord",
+			"submitButton": "Logga in"
+		},
 		"navigation": {
-
+			"myRecipesLabel": "Mina recept",
+			"settingsLabel": "Inställningar",
+			"logoutLabel": "Logga ut"
 		},
 		"home": {
 			"findRecipePlaceholder": "Hitta ett recept",
@@ -48,6 +56,7 @@
 			"confirmRemoveButton": "Ta bort"
 		},
 		"manage": {
+			"myRecipesHeading": "Mina recept",
 			"createRecipeHeading": "Lägg till recept",
 			"editRecipeHeading": "Redigera recept",
 			"detailsSubHeading": "Detaljer",

@@ -5,6 +5,7 @@ function TokenValidator() {}
 TokenValidator.prototype.validate = function(req, res, next) {
 	if (req.method == 'OPTIONS') {
 		res.send(200);
+		return;
 	}
 
 	var token = req.headers.authorization;
@@ -22,7 +23,8 @@ TokenValidator.prototype.validate = function(req, res, next) {
 		});
 	} 
 	else {
-		return res.json(401, { error: 'No token found.' });
+		res.json(401, { error: 'No token found.' });
+
 	}
 };
 

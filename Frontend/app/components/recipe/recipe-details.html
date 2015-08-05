@@ -3,7 +3,7 @@
 		<i class="fa fa-exclamation danger"></i> <rd-translate key="global/generalErrorMessage"></rd-translate>
 	</alert>
 
-	<div class="recipe-details-wrapper" ng-show="hasError == false">
+	<div class="recipe-details-wrapper" ng-show="!hasError">
 		<div class="row">
 			<div class="banner">
 				<span class="recipe-details-back" rd-back-link target-state="home.start"></span>
@@ -20,12 +20,12 @@
 					</ul>
 					<ul class="recipe-toolbar">
 						<li class="favorite" ng-click="onFavoriteClick($event)">
-							<a href="#"><i class="fa" ng-class="recipe.isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
+							<a href="#"><i class="fa" ng-class="isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
 						</li>
-						<li class="edit">
+						<li ng-if="isEditable" class="edit">
 							<a ui-sref="manage/edit({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o"></i></a>
 						</li>
-						<li class="delete">
+						<li ng-if="isEditable" class="delete">
 							<a href="#" data-toggle="modal" data-target="#confirm-delete-modal"><i class="fa fa-trash-o"></i></a>
 						</li>
 					</ul>

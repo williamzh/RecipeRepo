@@ -1,4 +1,4 @@
-recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', 'apiClient', 'localizationService', function($scope, $stateParams, $state, apiClient, localizationService) {
+recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', 'userSession', 'apiClient', 'localizationService', function($scope, $stateParams, $state, userSession, apiClient, localizationService) {
 
 	$scope.modalHeading = localizationService.translate('recipeDetails', 'confirmRemoveHeading');
 	$scope.modalAction = localizationService.translate('recipeDetails', 'confirmRemoveButton');
@@ -10,8 +10,10 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 				apiClient.updateRecipe(recipe);
 
 				$scope.recipe = formatRecipe(recipe);
-				$scope.isAuthenticated = true;
-				$scope.hasError = false;
+
+				var user = userSession.get().user;
+				$scope.isFavorite = user.favoriteRecipes.indexOf($scope.recipe.id) > -1;
+				$scope.isEditable = user.ownedRecipes.indexOf($scope.recipe.id) > -1;
 			})
 			.catch(function() {
 				$scope.hasError = true;
@@ -19,10 +21,16 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 	};
 
 	$scope.onFavoriteClick = function(e) {
-		var recipe = angular.copy($scope.recipe);
-		recipe.isFavorite = !recipe.isFavorite;
+		var isFavorite = $scope.isFavorite;
+		$scope.isFavorite = !$scope.isFavorite;
+		if(isFavorite) {
+			return;
+		}
 
-		apiClient.updateRecipe(recipe).then(function(response) {
+		var user = userSession.get().user;
+		user.favoriteRecipes.push($scope.recipe.id);
+
+		apiClient.updateUser(user.userName, user).then(function(response) {
 			$scope.recipe.isFavorite = recipe.isFavorite;
 		});
 	};

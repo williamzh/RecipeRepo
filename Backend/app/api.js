@@ -15,6 +15,7 @@ app.all('*', function(req, res, next) {
 require('./controllers/auth-controller')(app);
 require('./controllers/recipe-controller')(app);
 require('./controllers/meta-controller')(app);
+require('./controllers/user-controller')(app);
 require('./controllers/lang-controller')(app);
 
 var port = process.env.PORT || 8001;

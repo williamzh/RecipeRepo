@@ -7354,6 +7354,67 @@ h1, h2, h3, h4, p {
   background-position: right;
 }
 
+.item-list {
+  margin: 15px auto;
+}
+.item-list .list-heading {
+  padding-bottom: 15px;
+  border-bottom: 1px solid #3BB595;
+  height: 45px;
+  margin-bottom: 30px;
+}
+.item-list .list-heading h3 {
+  display: inline-block;
+  float: left;
+}
+.item-list .list-item {
+  position: relative;
+  border: 1px solid #eeeeee;
+  height: 100px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.item-list .list-item a {
+  padding: 15px;
+}
+.item-list .list-item .list-item-image {
+  float: left;
+  height: 100%;
+  width: 120px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: right;
+  margin-right: 30px;
+}
+.item-list .list-item .list-item-content {
+  height: 100%;
+}
+.item-list .list-item .list-item-content p {
+  margin-top: 5px;
+  color: #999999;
+}
+.item-list .list-item .list-item-meta {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 15px;
+  color: #999999;
+  font-size: 12px;
+}
+
+.page-container {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-container-wide {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .top-navigation {
   background-color: #444444;
   margin-bottom: 0;
@@ -7576,9 +7637,6 @@ form .error-label, .fake-form .error-label {
 }
 
 #start {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
   padding: 15px;
 }
 #start .section-area {
@@ -7590,12 +7648,6 @@ form .error-label, .fake-form .error-label {
   border-bottom: 1px solid #3BB595;
 }
 
-#search-result {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 15px;
-}
 #search-result h2 {
   position: absolute;
   top: 50%;
@@ -7603,34 +7655,19 @@ form .error-label, .fake-form .error-label {
   -webkit-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  margin-top: 15px;
 }
-#search-result .search-hits {
-  max-width: 70%;
-  margin: 15px auto;
-}
-#search-result .search-hits .search-heading {
-  padding-bottom: 15px;
-  border-bottom: 1px solid #3BB595;
-  height: 45px;
-}
-#search-result .search-hits .search-heading h3 {
-  display: inline-block;
-  float: left;
-}
-#search-result .search-hits .search-heading ul {
+#search-result .search-hits .search-controls {
   float: right;
   list-style-type: none;
 }
-#search-result .search-hits .search-heading ul li {
+#search-result .search-hits .search-controls li {
   display: inline-block;
 }
-#search-result .search-hits .search-heading ul li a {
+#search-result .search-hits .search-controls li a {
   font-size: 16px;
   padding: 15px 7px;
   color: #777777;
-}
-#search-result .search-hits .search-heading ul li a:active, #search-result .search-hits .search-heading ul li a:focus {
-  color: #3BB595;
 }
 #search-result .search-hits .filter-controls {
   clear: both;
@@ -7645,46 +7682,8 @@ form .error-label, .fake-form .error-label {
     max-width: 30%;
   }
 }
-#search-result .search-hit-item {
-  position: relative;
-  border: 1px solid #eeeeee;
-  height: 100px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-}
-#search-result .search-hit-item a {
-  padding: 15px;
-}
-#search-result .search-hit-item .search-hit-image {
-  float: left;
-  height: 100%;
-  width: 120px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: right;
-  margin-right: 30px;
-}
-#search-result .search-hit-item .search-hit-content {
-  height: 100%;
-}
-#search-result .search-hit-item .search-hit-content p {
-  margin-top: 5px;
-  color: #999999;
-}
-#search-result .search-hit-item .search-hit-meta {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 15px;
-  color: #999999;
-  font-size: 12px;
-}
 
 #favorites {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
   padding: 15px;
 }
 
@@ -7778,11 +7777,6 @@ form .error-label, .fake-form .error-label {
   padding: 7px 0;
 }
 
-.manage-recipe-wrapper {
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
 .manage-recipe-wrapper h1 {
   border-bottom: 1px solid #3BB595;
   margin-top: 15px;

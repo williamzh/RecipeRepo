@@ -37,10 +37,14 @@ recipeRepoApp.config(['$stateProvider', '$urlRouterProvider', function($statePro
 		// Manage
 		state('manage', {
 			url: '/manage',
+			templateUrl: '/app/components/manage/my-recipes.html'
+		}).
+		state('manage/create', {
+			url: '/manage/create',
 			templateUrl: '/app/components/manage/manage-recipe.html'
 		}).
 		state('manage/edit', {
-			url: '/manage/:recipeId',
+			url: '/manage/edit/:recipeId',
 			templateUrl: '/app/components/manage/manage-recipe.html'
 		});
 }]);
