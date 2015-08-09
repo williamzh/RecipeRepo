@@ -5,7 +5,10 @@
 			"servings": "portioner",
 			"cancelLabel": "Avbryt",
 			"backLabel": "Tillbaka",
-			"generalErrorMessage": "Ett oväntat fel har tyvärr inträffat, var god försök senare."
+			"generalErrorMessage": "Ett oväntat fel har tyvärr inträffat, var god försök senare.",
+			"yes": "Ja",
+			"no": "Nej",
+			"dismissLabel": "Stäng"
 		},
 		"metaTags": {
 			"swedish": "Svenskt",
@@ -37,7 +40,7 @@
 			"addRecipeButton": "Nytt recept",
 			"featuredTab": "Start",
 			"history": "Senaste visade",
-			"latest": "Nyaste",
+			"latest": "Senast upplagda",
 			"topRated": "Högst betyg",
 			"searchTab": "Sök",
 			"noSearchQueryMessage": "Vänligen ange en sökfråga",
@@ -53,10 +56,15 @@
 			"methodHeading": "Steg",
 			"confirmRemoveHeading": "Bekräfta borttagning",
 			"confirmRemoveMessage": "Är du säker på att du vill ta bort detta recept permanent?",
-			"confirmRemoveButton": "Ta bort"
+			"confirmRemoveButton": "Ta bort",
+			"detailsHeading": "Detaljerad information",
+			"isPublicLabel": "Synlig för andra",
+			"createdLabel": "Skapad",
+			"lastEditedLabel": "Senast ändrad"
 		},
 		"manage": {
 			"myRecipesHeading": "Mina recept",
+			"privateLabel": "Privat",
 			"createRecipeHeading": "Lägg till recept",
 			"editRecipeHeading": "Redigera recept",
 			"detailsSubHeading": "Detaljer",
@@ -70,7 +78,7 @@
 			"servingsLabel": "Antal portioner",
 			"ratingLabel": "Betyg",
 			"descriptionLabel": "Beskrivning",
-			"favoriteLabel": "Favoritrecept",
+			"isPrivateLabel": "Favoritrecept",
 			"ingredientQuantityCaption": "Mängd",
 			"ingredientUnitCaption": "Enhet",
 			"ingredientNameCaption": "Namn",

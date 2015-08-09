@@ -42,6 +42,12 @@ footer {
 	height: 50px;
 }
 
+.plain-table {
+	& td {
+		border: none !important;
+	}
+}
+
 .blur {
 	filter: blur(5px);
 	-webkit-filter: blur(5px);

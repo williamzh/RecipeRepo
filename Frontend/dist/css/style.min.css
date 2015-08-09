@@ -7401,6 +7401,7 @@ h1, h2, h3, h4, p {
   padding: 15px;
   color: #999999;
   font-size: 12px;
+  list-style-type: none;
 }
 
 .page-container {
@@ -7657,6 +7658,9 @@ form .error-label, .fake-form .error-label {
   transform: translate(-50%, -50%);
   margin-top: 15px;
 }
+#search-result .search-hits {
+  padding-top: 15px;
+}
 #search-result .search-hits .search-controls {
   float: right;
   list-style-type: none;
@@ -7704,16 +7708,21 @@ form .error-label, .fake-form .error-label {
   color: #EEE;
   border-radius: 5px;
   min-width: 470px;
+  min-height: 180px;
 }
 .recipe-details-wrapper .headline h2 {
   max-width: 85%;
   margin-bottom: 10px;
 }
 .recipe-details-wrapper .headline .recipe-meta {
+  position: absolute;
+  bottom: 25px;
+}
+.recipe-details-wrapper .headline .recipe-meta ul {
   margin-bottom: 0;
   padding: 0;
 }
-.recipe-details-wrapper .headline .recipe-meta li {
+.recipe-details-wrapper .headline .recipe-meta ul li {
   margin: 10px 10px 0 0;
   display: inline-block;
   color: #eeeeee;
@@ -7803,6 +7812,10 @@ form .error-label, .fake-form .error-label {
   font-weight: 100;
 }
 
+.my-recipes-wrapper .list-item-meta li {
+  font-size: 13px;
+}
+
 .nav, .pagination, .carousel, .panel-title a {
   cursor: pointer;
 }
@@ -7823,6 +7836,10 @@ a.back i {
 
 footer {
   height: 50px;
+}
+
+.plain-table td {
+  border: none !important;
 }
 
 .blur {

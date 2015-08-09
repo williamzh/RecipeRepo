@@ -3,10 +3,11 @@ recipeRepoDirectives.directive('rdModal', ['$window', function($window) {
     	restrict: 'E',
     	transclude: true,
     	scope: {
+    		type: '@',
     		targetId: '@',
     		modalHeader: '@',
-    		actionLabel: '@',
-    		onAction: '&'
+    		actionLabel: '@?',
+    		onAction: '&?'
     	},
 		controller: ['$scope', function($scope) {
 			$scope.actionInvoking = false;

@@ -1,7 +1,9 @@
 <div class="my-recipes-wrapper page-container" ng-controller="myRecipesController">
 	<rd-back-link target-state="home.start"></rd-back-link>
 
-	<div class="item-list">
+	<h2 ng-if="recipes.length === 0" class="faded"><rd-translate key="manage/noMyRecipesMessage"></rd-translate></h2>
+
+	<div ng-if="recipes.length > 0" class="item-list">
 		<div class="list-heading">
 			<h3><rd-translate key="manage/myRecipesHeading"></rd-translate></h3>
 <!-- 				<ul>
@@ -10,14 +12,15 @@
 			</ul> -->
 		</div>
 		<div class="list-item" ng-repeat="recipe in recipes">
-			<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
+			<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id, referrer: 'manage' })">
 				<div class="list-item-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 				<div class="list-item-content">
 					<h4>{{recipe.recipeName}}</h4>
 					<p>{{recipe.description}}</p>
-					<div class="list-item-meta">
-						<span class="hidden-xs recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
-					</div>
+					<ul class="list-item-meta">						
+						<li class="hidden-xs creation-date">{{recipe.meta.created}}</li>
+						<li ng-if="recipe.isPrivate === true" class="hidden-xs private-flag"><i class="fa fa-eye"></i> <rd-translate key="manage/privateLabel"></rd-translate></li>
+					</ul>
 				</div>
 			</a>
 		</div>

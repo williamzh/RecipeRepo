@@ -12,6 +12,7 @@
 		color: #EEE;
 		border-radius: 5px;
 		min-width: 470px;
+		min-height: 180px;
 
 		h2 {
 			max-width: 85%;
@@ -19,16 +20,21 @@
 		}
 
 		.recipe-meta {
-			margin-bottom: 0;
-			padding: 0;
+			position: absolute;
+			bottom: 25px;
 
-			li {
-				margin: 10px 10px 0 0;
-				display: inline-block;
-				color: $gray-lighter;
-				font-weight: 500;
-				font-size: $font-size-small;
-				text-transform: uppercase;
+			ul {
+				margin-bottom: 0;
+				padding: 0;
+
+				li {
+					margin: 10px 10px 0 0;
+					display: inline-block;
+					color: $gray-lighter;
+					font-weight: 500;
+					font-size: $font-size-small;
+					text-transform: uppercase;
+				}
 			}
 		}
 
