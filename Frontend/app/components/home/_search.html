@@ -23,7 +23,7 @@
 				</select>
 			</div>
 			<div class="list-item" ng-repeat="recipe in hits">
-				<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
+				<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id, referrer: 'home.search', referrerParams: { query: searchQuery } })">
 					<div class="list-item-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 					<div class="list-item-content">
 						<h4>{{recipe.recipeName}}</h4>

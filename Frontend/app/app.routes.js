@@ -33,7 +33,8 @@ recipeRepoApp.config(['$stateProvider', '$urlRouterProvider', function($statePro
 		state('recipe', { 
 			url: '/recipe/:recipeId',
 			params: {
-				referrer: null
+				referrer: null,
+				referrerParams: null
 			},
 			templateUrl: '/app/components/recipe/recipe-details.html'
 		}).

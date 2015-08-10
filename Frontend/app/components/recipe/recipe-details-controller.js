@@ -1,5 +1,6 @@
 recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', 'userSession', 'apiClient', 'localizationService', function($scope, $stateParams, $state, userSession, apiClient, localizationService) {
 	$scope.previousState = $stateParams.referrer || 'home.start';
+	$scope.previousStateParams = $stateParams.referrerParams;
 
 	$scope.deleteModalHeading = localizationService.translate('recipeDetails', 'confirmRemoveHeading');
 	$scope.deleteModalAction = localizationService.translate('recipeDetails', 'confirmRemoveButton');

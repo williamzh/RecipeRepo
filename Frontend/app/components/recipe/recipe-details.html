@@ -6,7 +6,7 @@
 	<div class="recipe-details-wrapper" ng-show="!hasError">
 		<div class="row">
 			<div class="banner">
-				<span class="recipe-details-back" rd-back-link target-state="{{previousState}}"></span>
+				<span class="recipe-details-back" rd-back-link target-state="{{previousState}}" target-params="previousStateParams"></span>
 				<div class="banner-figure" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
 				<div class="headline">
 					<h2>{{recipe.recipeName}}</h2>
@@ -30,7 +30,7 @@
 						<li ng-if="isEditable" class="delete">
 							<a href="#" data-toggle="modal" data-target="#confirm-delete-modal"><i class="fa fa-trash-o"></i></a>
 						</li>
-						<li class="details">
+						<li ng-if="isEditable" class="details">
 							<a href="#" data-toggle="modal" data-target="#details-modal"><i class="fa fa-ellipsis-h"></i></a>
 						</li>
 					</ul>
