@@ -6,15 +6,24 @@ function UserController(app, userService, tokenValidator) {
 	this.userService = userService || new UserService();
 	this.tokenValidator = tokenValidator || new TokenValidator();
 
-	var uesrRouter = express.Router();
-	app.use('/api/user', uesrRouter);
+	var userRouter = express.Router();
+	app.use('/api/user', userRouter);
 
 	// Protect routes
-	uesrRouter.use(function(req, res, next) {
+	userRouter.use(function(req, res, next) {
 		this.tokenValidator.validate(req, res, next);	
 	});
 
-	uesrRouter.put('/:userName', function(req, res) {
+	userRouter.get('/:userName', function(req, res) {
+		this.userService.get(req.params.userName)
+			.then(function(response) {
+				res.json(200, response);
+			}).catch(function(err) {
+				res.json(500, { error: err });
+			});
+	});
+
+	userRouter.put('/:userName', function(req, res) {
 		this.userService.update(req.params.userName, req.body.user)
 			.then(function(response) {
 				res.json(200, response);
