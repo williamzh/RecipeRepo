@@ -31,4 +31,20 @@ form, .fake-form {
 	.error-label {
 		padding-top: 5px;
 	}
+
+	fieldset {
+		margin: 30px 0;
+		padding: 15px 0;
+		border-bottom: 1px solid $gray-lighter;
+
+		legend {
+			padding-top: 15px;
+			margin-bottom: 0;
+			border: none;
+			font-size: $font-size-h6;
+			font-weight: 600;
+			color: $gray-light;
+			text-transform: uppercase;
+		}
+	}
 }

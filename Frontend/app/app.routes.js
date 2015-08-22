@@ -49,7 +49,7 @@ recipeRepoApp.config(['$stateProvider', '$urlRouterProvider', function($statePro
 		state('manage/edit', {
 			url: '/manage/edit/:recipeId',
 			templateUrl: '/app/components/manage/manage-recipe.html'
-		})
+		}).
 		// Profile
 		state('profile', {
 			url: '/profile',

@@ -86,6 +86,15 @@
 			"submitButton": "Bekräfta",
 			"creationSuccessMessage": "Receptet har lagts till.",
 			"updateSuccessMessage": "Receptet har uppdaterats."
+		},
+		"profile": {
+			"profileFormHeading": "Min profil",
+			"firstNameLabel": "Förnamn",
+			"lastNameLabel": "Efternamn",
+			"userNameLabel": "Användarnamn",
+			"emailLabel": "E-post",
+			"passwordLabel": "Lösenord",
+			"submitButton": "Spara ändringar"
 		}
 	}
 }

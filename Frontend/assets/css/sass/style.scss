@@ -4,6 +4,7 @@
 
 @import "helpers/mixins";
 
+@import "components/_heading";
 @import "components/_banner";
 @import "components/_list";
 
@@ -16,6 +17,7 @@
 @import "pages/_recipe-details";
 @import "pages/_manage-recipe";
 @import "pages/_my-recipes";
+@import "pages/_profile";
 
 // Restore link hover pointer
 .nav, .pagination, .carousel, .panel-title a { 
