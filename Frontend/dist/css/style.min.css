@@ -7336,6 +7336,12 @@ h1, h2, h3, h4, p {
   margin: 0;
 }
 
+h1.page-main-heading {
+  border-bottom: 1px solid #3BB595;
+  margin-top: 15px;
+  padding-bottom: 15px;
+}
+
 .banner {
   position: relative;
   width: 100%;
@@ -7491,6 +7497,20 @@ form .form-control, .fake-form .form-control {
 }
 form .error-label, .fake-form .error-label {
   padding-top: 5px;
+}
+form fieldset, .fake-form fieldset {
+  margin: 30px 0;
+  padding: 15px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+form fieldset legend, .fake-form fieldset legend {
+  padding-top: 15px;
+  margin-bottom: 0;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #999999;
+  text-transform: uppercase;
 }
 
 .login-box {
@@ -7786,25 +7806,6 @@ form .error-label, .fake-form .error-label {
   padding: 7px 0;
 }
 
-.manage-recipe-wrapper h1 {
-  border-bottom: 1px solid #3BB595;
-  margin-top: 15px;
-  padding-bottom: 15px;
-}
-.manage-recipe-wrapper #recipe-form fieldset {
-  margin: 30px 0;
-  padding: 15px 0;
-  border-bottom: 1px solid #eeeeee;
-}
-.manage-recipe-wrapper #recipe-form fieldset legend {
-  padding-top: 15px;
-  margin-bottom: 0;
-  border: none;
-  font-size: 14px;
-  font-weight: 600;
-  color: #999999;
-  text-transform: uppercase;
-}
 .manage-recipe-wrapper #recipe-form .table button:focus {
   background-color: #FFF;
 }
@@ -7812,7 +7813,10 @@ form .error-label, .fake-form .error-label {
   font-weight: 100;
 }
 
-.my-recipes-wrapper .list-item-meta li {
+.my-recipes-wrapper #my-recipes-list {
+  margin-top: 45px;
+}
+.my-recipes-wrapper #my-recipes-list .list-item-meta li {
   font-size: 13px;
 }
 

@@ -2,7 +2,7 @@
 	<rd-back-link ng-if="!inEditMode" target-state="home.start"></rd-back-link>
 	<rd-back-link ng-if="inEditMode" target-state="recipe" target-params="{ recipeId: recipeId }"></rd-back-link>
 
-	<h1>
+	<h1 class="page-main-heading">
 		<rd-translate ng-if="!inEditMode" key="manage/createRecipeHeading"></rd-translate>
 		<rd-translate ng-if="inEditMode" key="manage/editRecipeHeading"></rd-translate>
 	</h1>
