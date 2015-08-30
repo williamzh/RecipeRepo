@@ -11,10 +11,10 @@ recipeRepoDirectives.directive('rdAlert', ['$window', function($window) {
 				$scope.visible = newValue === true;
 			});
 
-			elem.find('.close').on('click', function(e) {
-				$scope.visible = false;
-				$scope.$apply();
-			});
+			// elem.find('.close').on('click', function(e) {
+			// 	$scope.visible = false;
+			// 	$scope.$apply();
+			// });
 		 },
     	templateUrl: '/app/shared/alert/_alert.html'
 	};

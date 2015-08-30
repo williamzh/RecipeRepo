@@ -1,9 +1,9 @@
-.login-box {
+#login-wrapper {
 	margin: 0 auto;
 	padding: 15% 0;
 	max-width: 460px;
 
-	#login-form {
+	.login-box {
 		padding: 30px;
 
 		legend {
@@ -12,7 +12,6 @@
 
 		#login-button {
 			float: right;
-			margin-top: 15px;
 		}
 	}
 }

@@ -19,10 +19,10 @@
 						<label for="userName"><rd-translate key="profile/userNameLabel"/></label>
 						<input type="text" id="userName" class="form-control" name="userName" ng-model="profile.userName" disabled>
 					</div>
-					<div class="form-group" ng-class="{ 'has-error': hasError('password') }">
-						<label for="password"><rd-translate key="profile/passwordLabel"/></label>
-						<input type="password" id="password" class="form-control" name="password" ng-model="fakePassword" required>
-						<p class="control-label error-label" ng-show="hasError('password')">Password is required.</p>
+					<div class="form-group" ng-class="{ 'has-error': hasError('email') }">
+						<label for="email"><rd-translate key="profile/emailLabel"/></label>
+						<input type="email" id="email" class="form-control" name="email" ng-model="profile.email" required>
+						<p class="control-label error-label" ng-show="hasError('email')">Email is required.</p>
 					</div>
 				</div>
 				<div class="col-sm-6">
@@ -31,10 +31,10 @@
 						<input type="text" id="recipe-img" class="form-control" name="lastName" ng-model="profile.lastName" required>
 						<p class="control-label error-label" ng-show="hasError('lastName')">Lastname is required.</p>
 					</div>
-					<div class="form-group" ng-class="{ 'has-error': hasError('email') }">
-						<label for="email"><rd-translate key="profile/emailLabel"/></label>
-						<input type="email" id="email" class="form-control" name="email" ng-model="profile.email" required>
-						<p class="control-label error-label" ng-show="hasError('email')">Email is required.</p>
+					<div class="form-group" ng-class="{ 'has-error': hasError('password') }">
+						<label for="password"><rd-translate key="profile/passwordLabel"/></label>
+						<input type="password" id="password" class="form-control" name="password" ng-model="fakePassword" required>
+						<p class="control-label error-label" ng-show="hasError('password')">Password is required.</p>
 					</div>
 				</div>
 			</div>

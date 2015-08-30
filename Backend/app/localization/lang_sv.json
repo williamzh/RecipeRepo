@@ -28,7 +28,9 @@
 			"mainHeading": "Välkommen till ???!",
 			"userNameLabel": "Användarnamn",
 			"passwordLabel": "Lösenord",
-			"submitButton": "Logga in"
+			"forgotPasswordLabel": "Glömt lösenordet?",
+			"submitButton": "Logga in",
+			"loginErrorMessage": "Felaktigt användarnamn eller lösenord."
 		},
 		"navigation": {
 			"myRecipesLabel": "Mina recept",
@@ -58,7 +60,6 @@
 			"confirmRemoveMessage": "Är du säker på att du vill ta bort detta recept permanent?",
 			"confirmRemoveButton": "Ta bort",
 			"detailsHeading": "Detaljerad information",
-			"isPublicLabel": "Synlig för andra",
 			"createdLabel": "Skapad",
 			"lastEditedLabel": "Senast ändrad"
 		},
@@ -78,7 +79,7 @@
 			"servingsLabel": "Antal portioner",
 			"ratingLabel": "Betyg",
 			"descriptionLabel": "Beskrivning",
-			"isPrivateLabel": "Favoritrecept",
+			"isPrivateLabel": "Åtkomst endast för mig",
 			"ingredientQuantityCaption": "Mängd",
 			"ingredientUnitCaption": "Enhet",
 			"ingredientNameCaption": "Namn",

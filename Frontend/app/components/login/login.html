@@ -1,6 +1,6 @@
 <div id="login-wrapper" ng-controller="loginController">
 	<div class="login-box">
-		<rd-alert type="danger" message-key="global/generalErrorMessage" observe="showError === false"></rd-alert>
+		<rd-alert type="danger" message-key="login/loginErrorMessage" observe="showError === true"></rd-alert>
 
 		<form id="login-form" name="loginForm" ng-submit="onSubmit()" novalidate>
 			<fieldset>
@@ -21,9 +21,10 @@
 						</div>
 						<p class="control-label error-label" ng-show="hasError('password')">Password is required.</p>
 					</div>
+					<a href="#"><rd-translate key="login/forgotPasswordLabel"></rd-translate></a>
+			</fieldset>
 
-					<button id="login-button" type="submit" class="btn btn-primary"><rd-translate key="login/submitButton"/></button>
-			</fieldset>	
+			<button id="login-button" type="submit" class="btn btn-primary" ng-click="submitted = true"><rd-translate key="login/submitButton"/></button>
 		</form>
 	</div>
 </div>

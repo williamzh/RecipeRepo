@@ -75,8 +75,8 @@
 	<rd-modal type="info" target-id="details-modal" modal-header="{{detailsModalHeading}}">
 		<table class="table plain-table">
 			<tr>
-				<td><rd-translate key="recipeDetails/isPublicLabel"></rd-translate></td>
-				<td><rd-translate key="global/{{recipe.isPrivate ? 'no' : 'yes'}}"></rd-translate></td>
+				<td><rd-translate key="recipeDetails/ratingLabel"></rd-translate></td>
+				<td>{{recipe.rating}} / 5</td>
 			</tr>
 			<tr>
 				<td><rd-translate key="recipeDetails/createdLabel"></rd-translate></td>
