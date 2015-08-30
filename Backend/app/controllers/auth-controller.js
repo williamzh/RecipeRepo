@@ -12,7 +12,7 @@ function AuthController(app, userService) {
 			.then(function(token) {
 				res.json(200, token);
 			}).catch(function(err) {
-				res.json(500, { error: err });
+				res.json(401, { error: err });
 			});
 	});
 }

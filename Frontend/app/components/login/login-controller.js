@@ -4,7 +4,8 @@ recipeRepoControllers.controller('loginController', ['$scope', '$state', 'apiCli
 			.then(function() {
 				$state.go('home.start');
 			})
-			.catch(function() {
+			.catch(function(err) {
+				console.log(err);
 				$scope.showError = true;
 			});
 	};
