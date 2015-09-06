@@ -1,4 +1,4 @@
-#login-wrapper {
+.login-container {
 	margin: 0 auto;
 	padding: 15% 0;
 	max-width: 460px;
@@ -8,10 +8,6 @@
 
 		legend {
 			padding-bottom: 8px;
-		}
-
-		#login-button {
-			float: right;
 		}
 	}
 }

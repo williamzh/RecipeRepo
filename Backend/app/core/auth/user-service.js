@@ -16,7 +16,7 @@ UserService.prototype.authenticate = function(userName, password) {
 			var token = jwt.sign(userName, 'secret', {
 				expiresInMinutes: 60
 			});
-			user.userName = userName;
+
 			def.resolve({
 				user: user,
 				token: token
@@ -92,6 +92,21 @@ UserService.prototype.remove = function(userName) {
 	return this.client.remove(userName).then(function(successMsg) {
 		// TODO: log
 		return successMsg;
+	})
+	.catch(function(errorMsg) {
+		return errorMsg;
+	});
+};
+
+UserService.prototype.search = function(query) {
+	if(!query) {
+		var def = q.defer();
+		def.reject('Search query must be supplied');
+		return def.promise;
+	}
+
+	return this.client.search(query).then(function(hits) {
+		return hits;
 	})
 	.catch(function(errorMsg) {
 		return errorMsg;

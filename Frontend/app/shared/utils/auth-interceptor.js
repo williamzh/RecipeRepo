@@ -9,13 +9,6 @@ recipeRepoApp.factory('authInterceptor', ['$injector', '$q', 'userSession', func
 
             return config;
         },
-        response: function(response) {
-            if(typeof response.data === 'object' && response.data.token) {
-                userSession.initialize(response.data);
-            }
-
-            return response;
-        },
         responseError: function(response) {
             if (response.status === 401) {
             	// Inject manually to avoid circular dependency

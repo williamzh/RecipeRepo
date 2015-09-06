@@ -10,6 +10,12 @@
 			"no": "Nej",
 			"dismissLabel": "Stäng"
 		},
+		"validation": {
+			"firstNameRequired": "Förnamn måste anges",
+			"lastNameRequired": "Efternamn måste anges",
+			"userNameRequired": "Användarnamn måste anges",
+			"passwordRequired": "Lösenord måste anges"
+		},
 		"metaTags": {
 			"swedish": "Svenskt",
 			"italian": "Italienskt",
@@ -28,9 +34,14 @@
 			"mainHeading": "Välkommen till ???!",
 			"userNameLabel": "Användarnamn",
 			"passwordLabel": "Lösenord",
+			"registerLabel": "Inte medlem?",
 			"forgotPasswordLabel": "Glömt lösenordet?",
 			"submitButton": "Logga in",
-			"loginErrorMessage": "Felaktigt användarnamn eller lösenord."
+			"loginErrorMessage": "Felaktigt användarnamn eller lösenord.",
+			"resetPasswordHeading": "Nollställ lösenord",
+			"resetEmailLabel": "E-post",
+			"resetButton": "Skicka",
+			"resetEmailRequired": "Ogiltig e-postadress"
 		},
 		"navigation": {
 			"myRecipesLabel": "Mina recept",
@@ -79,7 +90,7 @@
 			"servingsLabel": "Antal portioner",
 			"ratingLabel": "Betyg",
 			"descriptionLabel": "Beskrivning",
-			"isPrivateLabel": "Åtkomst endast för mig",
+			"isPrivateLabel": "Dölj för andra",
 			"ingredientQuantityCaption": "Mängd",
 			"ingredientUnitCaption": "Enhet",
 			"ingredientNameCaption": "Namn",
@@ -89,13 +100,14 @@
 			"updateSuccessMessage": "Receptet har uppdaterats."
 		},
 		"profile": {
-			"profileFormHeading": "Min profil",
+			"editProfileHeading": "Min profil",
 			"firstNameLabel": "Förnamn",
 			"lastNameLabel": "Efternamn",
 			"userNameLabel": "Användarnamn",
 			"emailLabel": "E-post",
 			"passwordLabel": "Lösenord",
-			"submitButton": "Spara ändringar"
+			"editSubmitButton": "Spara ändringar",
+			"createSubmitButton": "Fortsätt"
 		}
 	}
 }

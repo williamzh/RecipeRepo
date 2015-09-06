@@ -1,0 +1,13 @@
+input[type="submit"], button, .link-btn {
+	margin-top: 15px;
+}
+
+.link-btn {
+	display: inline-block;
+}
+
+.button-group {
+	.btn-primary {
+		float: right;
+	}
+}

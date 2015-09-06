@@ -1,0 +1,51 @@
+<div ng-controller="createProfileController" ng-init="init()">
+	<h1 class="page-main-heading"><rd-translate key="profile/createProfileFormHeading"></rd-translate></h1>
+
+	<rd-alert type="danger" message-key="profile/createErrorMessage" observe="showError === true"></rd-alert>
+
+	<form id="create-profile-form" name="createProfileForm" ng-submit="createProfile()">
+		<fieldset class="personal-details">
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="form-group" ng-class="{ 'has-error': hasError('userName') }">
+						<label for="userName"><rd-translate key="profile/userNameLabel"/></label>
+						<input type="text" id="userName" class="form-control" name="userName" ng-model="profile.userName" required>
+						<p class="control-label error-label" ng-show="hasError('userName')"><rd-translate key="validation/userNameRequired"></rd-translate></p>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error': hasError('firstName') }">
+						<label for="firstName"><rd-translate key="profile/firstNameLabel"/></label>
+						<input type="text" id="firstName" class="form-control" name="firstName" ng-model="profile.firstName" required>
+						<p class="control-label error-label" ng-show="hasError('firstName')"><rd-translate key="validation/firstNameRequired"></rd-translate></p>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error': hasError('lastName') }">
+						<label for="lastName"><rd-translate key="profile/lastNameLabel"/></label>
+						<input type="text" id="recipe-img" class="form-control" name="lastName" ng-model="profile.lastName" required>
+						<p class="control-label error-label" ng-show="hasError('lastName')"><rd-translate key="validation/lastNameRequired"></rd-translate></p>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group" ng-class="{ 'has-error': hasError('email') }">
+						<label for="email"><rd-translate key="profile/emailLabel"/></label>
+						<input type="email" id="email" class="form-control" name="email" ng-model="profile.email" required>
+						<p class="control-label error-label" ng-show="hasError('email')">Email is required.</p>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error': hasError('password') }">
+						<label for="password"><rd-translate key="profile/passwordLabel"/></label>
+						<input type="password" id="password" class="form-control" name="password" ng-model="profile.password" required>
+						<p class="control-label error-label" ng-show="hasError('password')">Password is required.</p>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error': hasError('repeatPassword') }">
+						<label for="repeatPassword"><rd-translate key="profile/repeatPasswordLabel"/></label>
+						<input type="password" id="repeatPassword" class="form-control" name="repeatPassword" ng-model="repeatPassword" required>
+						<p class="control-label error-label" ng-show="hasError('repeatPassword')">Passwords do not match.</p>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+		<div class="button-group">
+			<a ui-sref="login" class="link-btn"><rd-translate key="global/cancelLabel"></rd-translate></a>
+			<button type="submit" class="btn btn-primary" rng-click="submitted = true"><rd-translate key="profile/createSubmitButton"></rd-translate></button>
+		</div>
+	</form>
+</div>

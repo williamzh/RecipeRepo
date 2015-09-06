@@ -74,6 +74,12 @@ recipeRepoServices.service('apiClient', ['$http', '$q', 'log', function($http, $
 			.catch(function(error) { return onError('getMetainfo', error) });
 	};
 
+	this.addUser = function(user) {
+		return $http.post(baseUrl + '/auth/register', { user: user })
+			.then(function (response) {	return onSuccess('addUser', response); })
+			.catch(function(error) { return onError('addUser', error) });
+	};
+
 	this.getUser = function(userName) {
 		return $http.get(apiUrl + '/user/' + userName)
 			.then(function (response) {	return onSuccess('getUser', response); })

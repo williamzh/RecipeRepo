@@ -1,4 +1,4 @@
-recipeRepoControllers.controller('profileController', ['$scope', 'userSession', 'apiClient', function($scope, userSession, apiClient) {
+recipeRepoControllers.controller('editPofileController', ['$scope', 'userSession', 'apiClient', function($scope, userSession, apiClient) {
 	$scope.init = function() {
 		var userName = userSession.get().user.userName;
 		apiClient.getUser(userName)
@@ -12,7 +12,7 @@ recipeRepoControllers.controller('profileController', ['$scope', 'userSession', 
 	};
 
 	$scope.updateProfile = function() {
-		if(profileForm.$invalid) {
+		if($scope.editProfileForm.$invalid) {
 			return;
 		}
 
@@ -23,7 +23,7 @@ recipeRepoControllers.controller('profileController', ['$scope', 'userSession', 
 				$scope.profileUpdated = true;
 
 				// Reset form
-				$scope.recipeForm.$setPristine();
+				$scope.editProfileForm.$setPristine();
 				$scope.submitted = false;
 			})
 			.catch(function() {
@@ -32,7 +32,7 @@ recipeRepoControllers.controller('profileController', ['$scope', 'userSession', 
 	};
 
 	$scope.hasError = function(field) {
-		var isInvalid = $scope.profileForm[field].$invalid;
-		return ($scope.profileForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
+		var isInvalid = $scope.editProfileForm[field].$invalid;
+		return ($scope.editProfileForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
 	};
 }]);

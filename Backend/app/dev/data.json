@@ -1,6 +1,7 @@
 {
 	"users": {
 		"wizha": {
+			"userName": "wizha",
 			"firstName": "William",
 			"lastName": "Zhang",
 			"email": "williamzh87@gmail.com",
@@ -9,6 +10,7 @@
 			"ownedRecipes": ["1", "2", "3", "4"]
 		},
 		"ceblo": {
+			"userName": "ceblo",
 			"firstName": "Cecilia",
 			"lastName": "Blomdahl",
 			"email": "cissijb@hotmail.com",
@@ -17,6 +19,7 @@
 			"ownedRecipes": ["5", "6", "7", "8"]
 		},
 		"anblo": {
+			"userName": "anblo",
 			"firstName": "Angelica",
 			"lastName": "Blomdahl",
 			"email": "angelica@test.com",

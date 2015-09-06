@@ -1,13 +1,29 @@
 recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider) {
 	$locationProvider.html5Mode(true);
 
-	$urlRouterProvider.otherwise("/");
-
 	$stateProvider.
 		// Login
 		state('login', {
 			url: '/login',
 			templateUrl: 'app/components/login/login.html'
+		}).
+		// Reset password
+		state('resetPassword', {
+			url: '/reset-password',
+			templateUrl: 'app/components/login/reset-password.html'
+		}).
+		// Register
+		state('register', {
+			abstract: true,
+			url: '/register',
+			templateUrl: 'app/components/profile/register.html'
+		}).
+		state('register.create', {
+			url: '',
+			templateUrl: 'app/components/profile/_create-profile.html'
+		}).
+		state('register.confirm', {
+			templateUrl: 'app/components/profile/_create-confirm.html'
 		}).
 		// Home
 		state('home', {
@@ -57,4 +73,6 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 			url: '/profile',
 			templateUrl: '/app/components/profile/profile.html'
 		});
+
+		//$urlRouterProvider.otherwise("/");
 }]);

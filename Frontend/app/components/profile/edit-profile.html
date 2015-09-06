@@ -1,35 +1,35 @@
-<div id="profile-wrapper" class="page-container" ng-controller="profileController" ng-init="init()">
+<div id="edit-profile-wrapper" class="page-container" ng-controller="editProfileController" ng-init="init()">
 	<rd-back-link target-state="home.start"></rd-back-link>
 
-	<h1 class="page-main-heading"><rd-translate key="profile/profileFormHeading"></rd-translate></h1>
+	<h1 class="page-main-heading"><rd-translate key="profile/editProfileHeading"></rd-translate></h1>
 
 	<rd-alert type="danger" message-key="profile/updateErrorMessage" observe="showError === true"></rd-alert>
 	<rd-alert type="success" message-key="profile/updateSuccessMessage" observe="profileUpdated === true"></rd-alert>
 
-	<form name="profileForm" ng-submit="updateProfile()">
+	<form id="edit-profile-form" name="editProfileForm" ng-submit="updateProfile()">
 		<fieldset class="personal-details">
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="form-group" ng-class="{ 'has-error': hasError('firstName') }">
 						<label for="firstName"><rd-translate key="profile/firstNameLabel"/></label>
 						<input type="text" id="firstName" class="form-control" name="firstName" ng-model="profile.firstName" required>
-						<p class="control-label error-label" ng-show="hasError('firstName')">Firstname is required.</p>
+						<p class="control-label error-label" ng-show="hasError('firstName')"><rd-translate key="validation/firstNameRequired"></rd-translate></p>
+					</div>
+					<div class="form-group" ng-class="{ 'has-error': hasError('lastName') }">
+						<label for="lastName"><rd-translate key="profile/lastNameLabel"/></label>
+						<input type="text" id="recipe-img" class="form-control" name="lastName" ng-model="profile.lastName" required>
+						<p class="control-label error-label" ng-show="hasError('lastName')"><rd-translate key="validation/lastNameRequired"></rd-translate></p>
 					</div>
 					<div class="form-group">
 						<label for="userName"><rd-translate key="profile/userNameLabel"/></label>
 						<input type="text" id="userName" class="form-control" name="userName" ng-model="profile.userName" disabled>
 					</div>
+				</div>
+				<div class="col-sm-6">
 					<div class="form-group" ng-class="{ 'has-error': hasError('email') }">
 						<label for="email"><rd-translate key="profile/emailLabel"/></label>
 						<input type="email" id="email" class="form-control" name="email" ng-model="profile.email" required>
 						<p class="control-label error-label" ng-show="hasError('email')">Email is required.</p>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group" ng-class="{ 'has-error': hasError('lastName') }">
-						<label for="lastName"><rd-translate key="profile/lastNameLabel"/></label>
-						<input type="text" id="recipe-img" class="form-control" name="lastName" ng-model="profile.lastName" required>
-						<p class="control-label error-label" ng-show="hasError('lastName')">Lastname is required.</p>
 					</div>
 					<div class="form-group" ng-class="{ 'has-error': hasError('password') }">
 						<label for="password"><rd-translate key="profile/passwordLabel"/></label>
@@ -40,6 +40,6 @@
 			</div>
 		</fieldset>
 
-		<button type="submit" class="btn btn-primary" rng-click="submitted = true"><rd-translate key="profile/submitButton"></rd-translate></button>
+		<button type="submit" class="btn btn-primary" rng-click="submitted = true"><rd-translate key="profile/editSubmitButton"></rd-translate></button>
 	</form>	
 </div>
