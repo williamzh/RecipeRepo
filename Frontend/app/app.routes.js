@@ -71,7 +71,7 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 		// Profile
 		state('profile', {
 			url: '/profile',
-			templateUrl: '/app/components/profile/profile.html'
+			templateUrl: '/app/components/profile/edit-profile.html'
 		});
 
 		//$urlRouterProvider.otherwise("/");

@@ -7,7 +7,7 @@
 			"email": "williamzh87@gmail.com",
 			"password": "test1234",
 			"favoriteRecipes": ["1", "4", "5", "11", "12"],
-			"ownedRecipes": ["1", "2", "3", "4"]
+			"ownedRecipes": ["1", "2", "3", "4", "13"]
 		},
 		"ceblo": {
 			"userName": "ceblo",
@@ -31,7 +31,7 @@
 	"meta": {
 		"cuisines": ["italian", "swedish", "chinese"],
 		"courses": ["main", "side", "dessert"],
-		"categories": ["pasta", "meat", "fish", "rice-grains", "gratins-pies", "sauces"]
+		"categories": ["pasta", "meat", "fish", "rice-grains", "gratins-pies", "sauces", "soups"]
 	},
 	"recipes": [{
 		"id": "1",
@@ -774,9 +774,10 @@
         }
     },
     {
-    	"id": 12,
+    	"id": "12",
         "recipeName": "Champinjonsås",
         "description": "Klassisk champinjonsås med grädde och svamp",
+        "imagePath": "/dist/img/bolognese.jpg",
         "servingSize": 4,
         "rating": 3.5,
         "isPrivate": false,
@@ -839,6 +840,86 @@
             "course": "side",
             "created": "2015-01-10",
 			"lastEdited": "2015-05-31"
+        }
+    }, {
+    	"id": "13",
+        "recipeName": "Blomkålssoppa",
+        "description": "Krämig och lyxig blomkålssoppa som görs extra fyllig med potatis och vispgrädde.",
+        "imagePath": "/dist/img/blomkålssoppa.jpg",
+        "servingSize": 4,
+        "rating": 5,
+        "isPrivate": false,
+        "ingredients": [
+            {
+                "name": "schalottenlökar",
+                "quantity": "2",
+                "unit": "st"
+            },
+            {
+                "name": "blomkål",
+                "quantity": "500",
+                "unit": "g"
+            },
+            {
+                "name": "potatis",
+                "quantity": "100",
+                "unit": "g"
+            },
+            {
+                "name": "vitt vin",
+                "quantity": "0.5",
+                "unit": "dl"
+            },
+            {
+                "name": "vatten",
+                "quantity": "6",
+                "unit": "dl"
+            },
+            {
+                "name": "vispgrädde",
+                "quantity": "2",
+                "unit": "dl"
+            },
+            {
+                "name": "kycklingbuljongtärning",
+                "quantity": "1",
+                "unit": "st"
+            },
+            {
+                "name": "riven parmesanost",
+                "quantity": "dl",
+                "unit": "0.5"
+            },
+            {
+                "name": "vitpeppar",
+                "quantity": "1",
+                "unit": "krm"
+            },
+            {
+                "name": "salt",
+                "quantity": "0.25",
+                "unit": "tsk"
+            },
+            {
+            	"name": "bacon",
+            	"quantity": "140",
+            	"unit": "g"
+            }
+        ],
+        "method": [
+            "Skala och skär löken i kvartar. Dela och skär blomkålen i mindre buketter. Skala och skär potatisen i centimeterstora bitar.",
+            "Fräs lök, blomkål och potatis i olja i 2-3 minuter. Tillsätt vinet och låt koka in i ca 1 minut.",
+            "Häll i vatten, grädde och buljong. Koka i ca 15 minuter tills grönsakerna är mjuka. Rör om då och då.",
+            "Medan soppan kokar, skär bacon i mindre bitar och stek tills de är knapriga.",
+            "Mixa soppan slät i en mixer. Häll tillbaka in i kastrullen, och rör ned osten och kryddorna. Smaka av med salt och ev lite svartpeppar.",
+            "Fördela soppan i skålar, och toppa med det stekta baconet."
+        ],
+        "meta": {
+            "cuisine": "swedish",
+            "category": "soups",
+            "course": "main",
+            "created": "2015-09-06",
+			"lastEdited": "2015-09-06"
         }
     }]
 }

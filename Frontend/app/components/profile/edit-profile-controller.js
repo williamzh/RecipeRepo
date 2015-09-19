@@ -1,4 +1,4 @@
-recipeRepoControllers.controller('editPofileController', ['$scope', 'userSession', 'apiClient', function($scope, userSession, apiClient) {
+recipeRepoControllers.controller('editProfileController', ['$scope', 'userSession', 'apiClient', function($scope, userSession, apiClient) {
 	$scope.init = function() {
 		var userName = userSession.get().user.userName;
 		apiClient.getUser(userName)

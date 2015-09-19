@@ -1,4 +1,4 @@
 var Config = {
 	//appServerUrl: "localhost:8001"
-	appServerUrl: 'reciperepoapi.dev.local'
+	appServerUrl: '192.168.1.95:8080'
 };
