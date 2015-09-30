@@ -1,0 +1,7 @@
+Node integration tests
+-------------------------
+To run tests:
+mocha .\integration-test\**\*.js
+
+To debug tests:
+node-debug -p 8090 _mocha .\integration-test\**\*.js --no-timeouts
