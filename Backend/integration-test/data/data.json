@@ -7,7 +7,10 @@
 			"email": "williamzh87@gmail.com",
 			"password": "test1234",
 			"favoriteRecipes": ["1", "4", "5", "11", "12"],
-			"ownedRecipes": ["1", "2", "3", "4", "13"]
+			"ownedRecipes": ["1", "2", "3", "4", "13"],
+			"settings": {
+				"language": "sv-SE"
+			}
 		},
 		"ceblo": {
 			"userName": "ceblo",
@@ -16,7 +19,10 @@
 			"email": "cissijb@hotmail.com",
 			"password": "test2345",
 			"favoriteRecipes": ["1", "4", "8"],
-			"ownedRecipes": ["5", "6", "7", "8"]
+			"ownedRecipes": ["5", "6", "7", "8"],
+			"settings": {
+				"language": "en-US"
+			}
 		},
 		"anblo": {
 			"userName": "anblo",
@@ -25,7 +31,10 @@
 			"email": "angelica@test.com",
 			"password": "test3456",
 			"favoriteRecipes": ["7", "10"],
-			"ownedRecipes": ["9", "10", "11", "12"]
+			"ownedRecipes": ["9", "10", "11", "12"],
+			"settings": {
+				"language": "sv-SE"
+			}
 		}
 	},
 	"meta": {

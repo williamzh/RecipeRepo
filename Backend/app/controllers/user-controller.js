@@ -1,5 +1,5 @@
 var express = require('express');
-var UserService = require('../core/auth/user-service');
+var UserService = require('../core/user-service');
 var TokenValidator = require('../core/auth/token-validator');
 
 function UserController(app, userService, tokenValidator) {

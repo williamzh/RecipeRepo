@@ -1,5 +1,5 @@
 var q = require('q');
-var data = require('./data.json');
+var data = require('../../integration-test/data/data.json');
 
 function FakeMetaClient() { }
 

@@ -1,3 +1,4 @@
 {
-	"elasticSearchUrl": "192.168.1.95"
+	"elasticSearchUrl": "192.168.1.95",
+	"dbConnection": "mongodb://localhost:27017/reciperepo"
 }

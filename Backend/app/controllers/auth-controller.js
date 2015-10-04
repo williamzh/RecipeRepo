@@ -1,5 +1,5 @@
 var express = require('express');
-var UserService = require('../core/auth/user-service');
+var UserService = require('../core/user-service');
 
 function AuthController(app, userService) {
 	this.userService = userService || new UserService();

@@ -1,4 +1,4 @@
-var FakeUserClient = require('../../dev/fake-user-client');
+var FakeUserClient = require('../dev/fake-user-client');
 var q = require('q');
 require('sugar');
 var jwt = require('jsonwebtoken'); 
