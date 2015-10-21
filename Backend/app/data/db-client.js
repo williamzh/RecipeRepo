@@ -15,7 +15,7 @@ DbClient.prototype.init = function() {
 	
 	mongoClient.connect(this.connectionUrl, function(err, db) {
 		if(err) {
-			deferred.reject(err);
+			deferred.reject(err.message);
 		}
 		else {
 			self.db = db;
@@ -42,7 +42,7 @@ DbClient.prototype.add = function(item, type) {
 
 	this.db.collection(type).insertOne(item, function(err, result) {
 		if(err) {
-			deferred.reject(err);
+			deferred.reject(err.message);
 		}
 		else {
 			deferred.resolve();
@@ -62,7 +62,7 @@ DbClient.prototype.getAll = function(type) {
 
 	this.db.collection(type).find().toArray(function(err, docs) {
 		if(err) {
-			deferred.reject(err);
+			deferred.reject(err.message);
 		}
 		else {
 			deferred.resolve(docs);
@@ -82,7 +82,7 @@ DbClient.prototype.get = function(id, type) {
 
 	this.db.collection(type).find({ 'id': id }).limit(1).toArray(function(err, docs) {
 		if(err) {
-			deferred.reject(err);
+			deferred.reject(err.message);
 		}
 		else {
 			deferred.resolve(docs[0]);
@@ -102,7 +102,7 @@ DbClient.prototype.update = function(id, item, type) {
 
 	this.db.collection(type).updateOne({ 'id': id }, { $set: item }, function(err, result) {
 		if(err) {
-			deferred.reject(err);
+			deferred.reject(err.message);
 		}
 		else {
 			deferred.resolve();
@@ -122,7 +122,7 @@ DbClient.prototype.remove = function(id, type) {
 
 	this.db.collection(type).deleteOne({ 'id': id }, function(err, result) {
 		if(err) {
-			deferred.reject(err);
+			deferred.reject(err.message);
 		}
 		else {
 			deferred.resolve();
@@ -142,7 +142,7 @@ DbClient.prototype.search = function(query, type, limit) {
 
 	this.db.collection(type).find({ $text: { $search: query } }).limit(limit || 50).toArray(function(err, docs) {
 		if(err) {
-			deferred.reject(err);
+			deferred.reject(err.message);
 		}
 		else {
 			deferred.resolve(docs);

@@ -45,60 +45,83 @@ describe('Given a dbClient', function() {
 				return testDb.collection('testCollection').deleteMany({});
 			});
 
-			it('should be able to insert an item', function() {
-				return dbClient.add({ id: 1 }, 'testCollection')
-					.then(function() {
-						return testDb.collection('testCollection').find({ id: 1 }).limit(1).next();
-					})
-					.then(function(doc) {
-				   		assert.equal(1, doc.id);
-					});
+			describe('Create', function() {
+				it('should be able to insert an item', function() {
+					return dbClient.add({ id: 1 }, 'testCollection')
+						.then(function() {
+							return testDb.collection('testCollection').find({ id: 1 }).limit(1).next();
+						})
+						.then(function(doc) {
+					   		assert.equal(doc.id, 1);
+						});
+				});	
+			});	
+			
+
+			describe('Read', function() {
+				it('should return empty array if no items exist', function() {
+					return dbClient.getAll('testCollection')
+						.then(function(items) {
+							assert.equal(items.length, 0);
+						});
+				});
+
+				it('should be able to get all items', function() {
+					return testDb.collection('testCollection').insertMany([{ id: 1 }, { id: 2 }])
+						.then(function(result) {
+							return dbClient.getAll('testCollection');
+						})
+						.then(function(items) {
+							assert.equal(items.length, 2);
+						});
+				});
+
+				it('should return undefined if no item with matching ID', function() {
+					return dbClient.get(2, 'testCollection')
+						.then(function(item) {
+							assert.strictEqual(item, undefined);
+						});
+				});
+
+				it('should be able to get an item by ID', function() {
+					return testDb.collection('testCollection').insertMany([{ id: 1 }, { id: 2 }])
+						.then(function(result) {
+							return dbClient.get(2, 'testCollection')
+						})
+						.then(function(item) {
+							assert.equal(item.id, 2);
+						});
+				});
 			});
 
-			it('should be able to get all items', function() {
-				return testDb.collection('testCollection').insertMany([{ id: 1 }, { id: 2 }])
-					.then(function(result) {
-						return dbClient.getAll('testCollection');
-					})
-					.then(function(items) {
-						assert.equal(2, items.length);
-					});
+			describe('Update', function() {
+				it('should be able to update an item', function() {
+					return testDb.collection('testCollection').insertMany([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }])
+						.then(function(result) {
+							return dbClient.update(1, { id: 1, name: 'fu' }, 'testCollection');
+						})
+						.then(function() {
+							return testDb.collection('testCollection').find({ id: 1 }).limit(1).next();
+						})
+						.then(function(doc) {
+					   		assert.equal(doc.name, 'fu');
+						});
+				});
 			});
 
-			it('should be able to get an item by ID', function() {
-				return testDb.collection('testCollection').insertMany([{ id: 1 }, { id: 2 }])
-					.then(function(result) {
-						return dbClient.get(2, 'testCollection')
-					})
-					.then(function(item) {
-						assert.equal(2, item.id);
-					});
-			});
-
-			it('should be able to update an item', function() {
-				return testDb.collection('testCollection').insertMany([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }])
-					.then(function(result) {
-						return dbClient.update(1, { id: 1, name: 'fu' }, 'testCollection');
-					})
-					.then(function() {
-						return testDb.collection('testCollection').find({ id: 1 }).limit(1).next();
-					})
-					.then(function(doc) {
-				   		assert.equal('fu', doc.name);
-					});
-			});
-
-			it('should be able to remove an item', function() {
-				return testDb.collection('testCollection').insertOne({ id: 1, name: 'foo' })
-					.then(function(result) {
-						return dbClient.remove(1, 'testCollection');
-					})
-					.then(function() {
-						return testDb.collection('testCollection').find({ id: 1 }).limit(1).next();
-					})
-					.then(function(doc) {
-				   		assert(!doc);
-					});
+			describe('Delete', function() {
+				it('should be able to remove an item', function() {
+					return testDb.collection('testCollection').insertOne({ id: 1, name: 'foo' })
+						.then(function(result) {
+							return dbClient.remove(1, 'testCollection');
+						})
+						.then(function() {
+							return testDb.collection('testCollection').find({ id: 1 }).limit(1).next();
+						})
+						.then(function(doc) {
+					   		assert(!doc);
+						});
+				});
 			});
 		});
 
@@ -118,36 +141,39 @@ describe('Given a dbClient', function() {
 						});
 					})
 					.then(function(indexName) { 
-						assert.equal('testSearchIndex', indexName);
+						assert.equal(indexName, 'testSearchIndex');
 					});
 			});
 
 			after(function() {
-				return testDb.collection('testCollection').dropIndex('testSearchIndex');
+				return testDb.collection('testCollection').dropIndex('testSearchIndex')
+					.then(function() {
+						return testDb.collection('testCollection').deleteMany({});
+					});
 			});
 
 			it('should be able to find items based on a single field', function() {
 				return dbClient.search('pannbiff', 'testCollection')
 					.then(function(items) {
-						assert.equal(1, items.length);
-						assert.equal('6', items[0].id);
+						assert.equal(items.length, 1);
+						assert.equal(items[0].id, '6');
 					});
 			});
 
 			it('should be able to find an item based on multiple fields', function() {
 				return dbClient.search('champinjonsås', 'testCollection')
 					.then(function(items) {
-						assert.equal(2, items.length);
-						assert.equal('8', items[0].id);
-						assert.equal('12', items[1].id);
+						assert.equal(items.length, 2);
+						assert.equal(items[0].id, '8');
+						assert.equal(items[1].id, '12');
 					});
 			});
 
 			it('should be able to find items based on nested fields', function() {
 				return dbClient.search('mustig kantarell', 'testCollection')
 					.then(function(items) {
-						assert.equal(1, items.length);
-						assert.equal('5', items[0].id);
+						assert.equal(items.length, 1);
+						assert.equal(items[0].id, '5');
 					});
 			});
 		});
