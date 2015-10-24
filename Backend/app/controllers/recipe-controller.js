@@ -1,6 +1,7 @@
 var express = require('express');
 var RecipeStore = require('../core/recipe-store');
 var TokenValidator = require('../core/auth/token-validator');
+var q = require('q');
 
 function RecipeController(app, recipeStore, tokenValidator) {
 	this.recipeStore = recipeStore || new RecipeStore();
@@ -24,6 +25,11 @@ function RecipeController(app, recipeStore, tokenValidator) {
 	});
 
 	recipeRouter.get('/:id', function(req, res) {
+		if(!req.params.id) {
+			res.json(400, { error: 'Recipe ID must be provided.' });
+			return;
+		}
+
 		this.recipeStore.get(req.params.id)
 			.then(function(recipe) {
 				res.json(200, recipe);
@@ -33,15 +39,25 @@ function RecipeController(app, recipeStore, tokenValidator) {
 	});
 
 	recipeRouter.post('/', function(req, res) {
+		if(!req.body.recipe) {
+			res.json(400, { error: 'Recipe must be provided.' });
+			return;
+		}
+
 		this.recipeStore.add(req.body.recipe)
-			.then(function(data) {
-				res.json(200, data);
+			.then(function() {
+				res.json(200);
 			}).catch(function(err) {
 				res.json(500, { error: err });
 			});
 	});
 
 	recipeRouter.post('/search', function(req, res) {
+		if(!req.body.query) {
+			res.json(400, { error: 'Search query must be provided.' });
+			return;
+		}
+
 		this.recipeStore.search(req.body.query)
 			.then(function(hits) {
 				res.json(200, hits);
@@ -51,6 +67,11 @@ function RecipeController(app, recipeStore, tokenValidator) {
 	});
 
 	recipeRouter.put('/:id', function(req, res) {
+		if(!req.params.id || !req.body.recipe) {
+			res.json(400, { error: 'Recipe ID and recipe must be provided.' });
+			return;
+		}
+
 		this.recipeStore.update(req.params.id, req.body.recipe)
 			.then(function(data) {
 				res.json(200, data);
@@ -60,6 +81,11 @@ function RecipeController(app, recipeStore, tokenValidator) {
 	});
 
 	recipeRouter.delete('/:id', function(req, res) {
+		if(!req.params.id) {
+			res.json(400, { error: 'Recipe ID must be provided.' });
+			return;
+		}
+		
 		this.recipeStore.remove(req.params.id)
 			.then(function(data) {
 				res.json(200, data);

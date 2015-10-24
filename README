@@ -1,3 +1,9 @@
+Node API
+-------------------------
+To debug:
+Using Chrome, go to http://[ApiHostAddress]/app/api.js/debug. In the local environment this would be:
+http://reciperepoapi.dev.local/app/api.js/debug/
+
 Node unit tests
 -------------------------
 To run tests:

@@ -13,8 +13,7 @@ require('./controllers/user-controller')(app);
 require('./controllers/lang-controller')(app);
 
 // Initialize app
-var dbClient = new DbClient();
-dbClient.init()
+DbClient.init()
 	.then(function() {
 		var port = process.env.PORT || 8001;
 		app.listen(port, function() {
@@ -32,6 +31,6 @@ dbClient.init()
 	});
 
 function dispose() {
-	dbClient.destroy();
+	DbClient.destroy();
 	process.exit();
 }

@@ -2,23 +2,19 @@ var MongoClient = require('mongodb').MongoClient;
 var ConfigManager = require('../config/config-manager');
 var q = require('q');
 
-function DbClient(configManager) {
-	this.configManager = configManager || new ConfigManager();
-	this.connectionUrl = this.configManager.getConfigValue('dbConnection');
-	this.db = null;
-}
+function DbClient() { }
 
-DbClient.prototype.init = function() {
+DbClient.init = function(connectionUrl) {
 	var deferred = q.defer();
 	var mongoClient = new MongoClient();
-	var self = this;
+	var connectionUrl = connectionUrl || (new ConfigManager()).getConfigValue('dbConnection');
 	
-	mongoClient.connect(this.connectionUrl, function(err, db) {
+	mongoClient.connect(connectionUrl, function(err, db) {
 		if(err) {
 			deferred.reject(err.message);
 		}
 		else {
-			self.db = db;
+			DbClient._db = db;
 			deferred.resolve();
 		}
 	});
@@ -26,21 +22,22 @@ DbClient.prototype.init = function() {
 	return deferred.promise;
 };
 
-DbClient.prototype.destroy = function() {
-	if(this.db) {
-		this.db.close();
+DbClient.destroy = function() {
+	if(DbClient._db) {
+		DbClient._db.close();
+		DbClient._db = undefined;
 	}
 };
 
 DbClient.prototype.add = function(item, type) {
 	var deferred = q.defer();
 
-	if(!this.db) {
+	if(!DbClient._db) {
 		deferred.reject('No connection has been configured. Call init() during startup to configure one.');
 		return deferred.promise;
 	}
 
-	this.db.collection(type).insertOne(item, function(err, result) {
+	DbClient._db.collection(type).insertOne(item, function(err, result) {
 		if(err) {
 			deferred.reject(err.message);
 		}
@@ -55,12 +52,12 @@ DbClient.prototype.add = function(item, type) {
 DbClient.prototype.getAll = function(type) {
 	var deferred = q.defer();
 
-	if(!this.db) {
+	if(!DbClient._db) {
 		deferred.reject('No connection has been configured. Call init() during startup to configure one.');
 		return deferred.promise;
 	}
 
-	this.db.collection(type).find().toArray(function(err, docs) {
+	DbClient._db.collection(type).find().toArray(function(err, docs) {
 		if(err) {
 			deferred.reject(err.message);
 		}
@@ -75,12 +72,12 @@ DbClient.prototype.getAll = function(type) {
 DbClient.prototype.get = function(id, type) {
 	var deferred = q.defer();
 
-	if(!this.db) {
+	if(!DbClient._db) {
 		deferred.reject('No connection has been configured. Call init() during startup to configure one.');
 		return deferred.promise;
 	}
 
-	this.db.collection(type).find({ 'id': id }).limit(1).toArray(function(err, docs) {
+	DbClient._db.collection(type).find({ 'id': id }).limit(1).toArray(function(err, docs) {
 		if(err) {
 			deferred.reject(err.message);
 		}
@@ -95,12 +92,12 @@ DbClient.prototype.get = function(id, type) {
 DbClient.prototype.update = function(id, item, type) {
 	var deferred = q.defer();
 
-	if(!this.db) {
+	if(!DbClient._db) {
 		deferred.reject('No connection has been configured. Call init() during startup to configure one.');
 		return deferred.promise;
 	}
 
-	this.db.collection(type).updateOne({ 'id': id }, { $set: item }, function(err, result) {
+	DbClient._db.collection(type).updateOne({ 'id': id }, { $set: item }, function(err, result) {
 		if(err) {
 			deferred.reject(err.message);
 		}
@@ -115,12 +112,12 @@ DbClient.prototype.update = function(id, item, type) {
 DbClient.prototype.remove = function(id, type) {
 	var deferred = q.defer();
 
-	if(!this.db) {
+	if(!DbClient._db) {
 		deferred.reject('No connection has been configured. Call init() during startup to configure one.');
 		return deferred.promise;
 	}
 
-	this.db.collection(type).deleteOne({ 'id': id }, function(err, result) {
+	DbClient._db.collection(type).deleteOne({ 'id': id }, function(err, result) {
 		if(err) {
 			deferred.reject(err.message);
 		}
@@ -135,12 +132,12 @@ DbClient.prototype.remove = function(id, type) {
 DbClient.prototype.search = function(query, type, limit) {
 	var deferred = q.defer();
 
-	if(!this.db) {
+	if(!DbClient._db) {
 		deferred.reject('No connection has been configured. Call init() during startup to configure one.');
 		return deferred.promise;
 	}
 
-	this.db.collection(type).find({ $text: { $search: query } }).limit(limit || 50).toArray(function(err, docs) {
+	DbClient._db.collection(type).find({ $text: { $search: query } }).limit(limit || 50).toArray(function(err, docs) {
 		if(err) {
 			deferred.reject(err.message);
 		}

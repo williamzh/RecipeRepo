@@ -1,43 +1,35 @@
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var sinon = require('sinon');
-var ConfigManager = require('../../app/config/config-manager');
 var DbClient = require('../../app/data/db-client');
 var data = require('./data.json');
 
-var conenctionUrl = 'mongodb://localhost:27017/integration_test';
-
 describe('Given a dbClient', function() {
 	var dbClient, testDb;
+	var conenctionUrl = 'mongodb://localhost:27017/integration_test';
 
 	before(function() {
-		var configManager = new ConfigManager();
-		sinon.stub(configManager, 'getConfigValue').returns(conenctionUrl);
-
-		dbClient = new DbClient(configManager);
+		dbClient = new DbClient();
 	});
 
 	it('should be able to establish and close a connection', function() {
-		return dbClient.init()
+		return DbClient.init(conenctionUrl)
 			.then(function() {
-				dbClient.destroy();
+				DbClient.destroy();
+				assert.equal(DbClient._db, undefined);
 			});
 	});
 
 	describe('with a valid connection', function() {
 		before(function() {
-			// Initialize test DB connection
-			return MongoClient.connect(conenctionUrl)
-				.then(function(db) {
-					testDb = db;
-					// Initialize DB client
-					return dbClient.init();
+			return DbClient.init(conenctionUrl)
+				.then(function() {
+					testDb = DbClient._db;
 				});
 		});
 
 		after(function() {
-			testDb.close();
-			dbClient.destroy();
+			DbClient.destroy();
 		});
 
 		describe('when performing basic CRUD operations', function() {

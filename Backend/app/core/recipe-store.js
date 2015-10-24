@@ -16,7 +16,7 @@ RecipeStore.prototype.add = function(recipe) {
 	}
 
 	var self = this;
-	return self.dbClient.get(recipe.id)
+	return self.dbClient.get(recipe.id, self.dbType)
 		.then(function(existingRecipe) {
 			if(existingRecipe) {
 				throw new Error('Recipe already exists.');
@@ -64,7 +64,7 @@ RecipeStore.prototype.update = function(recipeId, recipe) {
 	}
 
 	var self = this;
-	return self.dbClient.get(recipeId)
+	return self.dbClient.get(recipeId, self.dbType)
 		.then(function(existingRecipe) {
 			if(!existingRecipe) {
 				throw new Error('Recipe does not exist');
@@ -85,7 +85,7 @@ RecipeStore.prototype.remove = function(recipeId) {
 	}
 
 	var self = this;
-	return self.dbClient.get(recipeId)
+	return self.dbClient.get(recipeId, self.dbType)
 		.then(function(existingRecipe) {
 			if(!existingRecipe) {
 				throw new Error('Recipe does not exist');
