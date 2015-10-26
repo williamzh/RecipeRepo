@@ -1,6 +1,6 @@
 var express = require('express');
 var MetaStore = require('../core/metainfo-store');
-var TokenValidator = require('../core/auth/token-validator');
+var TokenValidator = require('../middleware/token-validator');
 
 function MetaController(app, metaStore, tokenValidator) {
 	this.metaStore = metaStore || new MetaStore();

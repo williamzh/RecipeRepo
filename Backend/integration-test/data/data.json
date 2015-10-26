@@ -1,42 +1,38 @@
 {
-	"users": {
-		"wizha": {
-			"userName": "wizha",
-			"firstName": "William",
-			"lastName": "Zhang",
-			"email": "williamzh87@gmail.com",
-			"password": "test1234",
-			"favoriteRecipes": ["1", "4", "5", "11", "12"],
-			"ownedRecipes": ["1", "2", "3", "4", "13"],
-			"settings": {
-				"language": "sv-SE"
-			}
-		},
-		"ceblo": {
-			"userName": "ceblo",
-			"firstName": "Cecilia",
-			"lastName": "Blomdahl",
-			"email": "cissijb@hotmail.com",
-			"password": "test2345",
-			"favoriteRecipes": ["1", "4", "8"],
-			"ownedRecipes": ["5", "6", "7", "8"],
-			"settings": {
-				"language": "en-US"
-			}
-		},
-		"anblo": {
-			"userName": "anblo",
-			"firstName": "Angelica",
-			"lastName": "Blomdahl",
-			"email": "angelica@test.com",
-			"password": "test3456",
-			"favoriteRecipes": ["7", "10"],
-			"ownedRecipes": ["9", "10", "11", "12"],
-			"settings": {
-				"language": "sv-SE"
-			}
+	"users": [{
+		"id": "wizha",
+		"firstName": "William",
+		"lastName": "Zhang",
+		"email": "williamzh87@gmail.com",
+		"password": "test1234",
+		"favoriteRecipes": ["1", "4", "5", "11", "12"],
+		"ownedRecipes": ["1", "2", "3", "4", "13"],
+		"settings": {
+			"language": "sv-SE"
 		}
-	},
+	}, {
+		"id": "ceblo",
+		"firstName": "Cecilia",
+		"lastName": "Blomdahl",
+		"email": "cissijb@hotmail.com",
+		"password": "test2345",
+		"favoriteRecipes": ["1", "4", "8"],
+		"ownedRecipes": ["5", "6", "7", "8"],
+		"settings": {
+			"language": "en-US"
+		}
+	}, {
+		"id": "anblo",
+		"firstName": "Angelica",
+		"lastName": "Blomdahl",
+		"email": "angelica@test.com",
+		"password": "test3456",
+		"favoriteRecipes": ["7", "10"],
+		"ownedRecipes": ["9", "10", "11", "12"],
+		"settings": {
+			"language": "sv-SE"
+		}
+	}],
 	"meta": {
 		"cuisines": ["italian", "swedish", "chinese"],
 		"courses": ["main", "side", "dessert"],

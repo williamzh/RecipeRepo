@@ -1,6 +1,6 @@
 var express = require('express');
 var RecipeStore = require('../core/recipe-store');
-var TokenValidator = require('../core/auth/token-validator');
+var TokenValidator = require('../middleware/token-validator');
 var q = require('q');
 
 function RecipeController(app, recipeStore, tokenValidator) {
@@ -20,7 +20,7 @@ function RecipeController(app, recipeStore, tokenValidator) {
 			.then(function(recipes) {
 				res.json(200, recipes);
 			}).catch(function(err) {
-				res.json(500, { error: err });
+				res.json(500, { error: err.message });
 			});
 	});
 
@@ -34,7 +34,7 @@ function RecipeController(app, recipeStore, tokenValidator) {
 			.then(function(recipe) {
 				res.json(200, recipe);
 			}).catch(function(err) {
-				res.json(500, { error: err });
+				res.json(500, { error: err.message });
 			});
 	});
 
@@ -48,7 +48,35 @@ function RecipeController(app, recipeStore, tokenValidator) {
 			.then(function() {
 				res.json(200);
 			}).catch(function(err) {
-				res.json(500, { error: err });
+				res.json(500, { error: err.message });
+			});
+	});
+
+	recipeRouter.put('/:id', function(req, res) {
+		if(!req.params.id || !req.body.recipe) {
+			res.json(400, { error: 'Recipe ID and recipe must be provided.' });
+			return;
+		}
+
+		this.recipeStore.update(req.params.id, req.body.recipe)
+			.then(function() {
+				res.json(200);
+			}).catch(function(err) {
+				res.json(500, { error: err.message });
+			});
+	});
+
+	recipeRouter.delete('/:id', function(req, res) {
+		if(!req.params.id) {
+			res.json(400, { error: 'Recipe ID must be provided.' });
+			return;
+		}
+
+		this.recipeStore.remove(req.params.id)
+			.then(function() {
+				res.json(200);
+			}).catch(function(err) {
+				res.json(500, { error: err.message });
 			});
 	});
 
@@ -62,35 +90,7 @@ function RecipeController(app, recipeStore, tokenValidator) {
 			.then(function(hits) {
 				res.json(200, hits);
 			}).catch(function(err) {
-				res.json(500, { error: err });
-			});
-	});
-
-	recipeRouter.put('/:id', function(req, res) {
-		if(!req.params.id || !req.body.recipe) {
-			res.json(400, { error: 'Recipe ID and recipe must be provided.' });
-			return;
-		}
-
-		this.recipeStore.update(req.params.id, req.body.recipe)
-			.then(function(data) {
-				res.json(200, data);
-			}).catch(function(err) {
-				res.json(500, { error: err });
-			});
-	});
-
-	recipeRouter.delete('/:id', function(req, res) {
-		if(!req.params.id) {
-			res.json(400, { error: 'Recipe ID must be provided.' });
-			return;
-		}
-		
-		this.recipeStore.remove(req.params.id)
-			.then(function(data) {
-				res.json(200, data);
-			}).catch(function(err) {
-				res.json(500, { error: err });
+				res.json(500, { error: err.message });
 			});
 	});
 }

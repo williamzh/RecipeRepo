@@ -1,4 +1,3 @@
-//var FakeRecipeClient = require('../dev/fake-recipe-client');
 var DbClient = require('../data/db-client');
 var q = require('q');
 require('sugar');

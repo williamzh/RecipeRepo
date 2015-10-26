@@ -3,13 +3,12 @@
   "description": "API for the RecipeRepo app",
   "author": "William Zhang <foo@test.com>",
   "dependencies": {
-    "body-parser": "~1.8.0",
-    "express": "4.6.x",
-    "jsonwebtoken": "^5.0.4",
-    "mongodb": "^2.0.43",
-    "q": "^1.1.2",
-    "sugar": "^1.4.1",
-    "superagent": "^0.21.0"
+    "body-parser": "^1.8.4",
+    "express": "^4.6.1",
+    "jsonwebtoken": "^5.4.0",
+    "mongodb": "^2.1.0-alpha",
+    "q": "^1.4.1",
+    "sugar": "^1.4.1"
   },
   "devDependencies": {
     "mocha": "^1.21.4",

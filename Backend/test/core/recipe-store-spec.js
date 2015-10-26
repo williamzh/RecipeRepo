@@ -1,8 +1,8 @@
 var assert = require('assert');
 var sinon = require('sinon');
 var q = require('q');
-var RecipeStore = require('../app/core/recipe-store');
-var DbClient = require('../app/data/db-client');
+var RecipeStore = require('../../app/core/recipe-store');
+var DbClient = require('../../app/data/db-client');
 
 describe('Given a RecipeStore', function() {
 	var recipeStore, dbClient;
