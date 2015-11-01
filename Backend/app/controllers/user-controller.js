@@ -45,20 +45,6 @@ function UserController(app, userService, tokenValidator) {
 				res.json(500, { error: err.message });
 			});
 	});
-
-	userRouter.post('/search', function(req, res) {
-		if(!req.body.query) {
-			res.json(400, { error: 'Search query must be provided.' });
-			return;
-		}
-
-		this.userService.search(req.body.query)
-			.then(function(hits) {
-				res.json(200, hits);
-			}).catch(function(err) {
-				res.json(500, { error: err.message });
-			});
-	});
 }
 
 module.exports = UserController;

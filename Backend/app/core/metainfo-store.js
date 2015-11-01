@@ -15,8 +15,9 @@ MetainfoStore.prototype.add = function(metaObj) {
 	}
 
 	var self = this;
-	return this.dbClient.get(metaObj.id, this.dbType)
-		.then(function(existingMetaObj) {
+	return this.search(metaObj.name, this.dbType)
+		.then(function(hits) {
+			var existingMetaObj = hits[0];
 			if(existingMetaObj) {
 				throw new Error('Meta object already exists.');
 			}
@@ -27,17 +28,6 @@ MetainfoStore.prototype.add = function(metaObj) {
 			return q.reject(error);
 		});
 };
-
-// MetainfoStore.prototype.getAll = function() {
-// 	return this.dbClient.getAll(this.dbType)
-// 		.then(function(metaData) {
-// 			// TODO: log
-// 			return metaData;
-// 		})
-// 		.catch(function(error) {
-// 			return q.reject(error);
-// 		});
-// };
 
 MetainfoStore.prototype.get = function(metaObjId) {
 	return this.dbClient.get(metaObjId, this.dbType)
@@ -54,11 +44,6 @@ MetainfoStore.prototype.update = function(metaObjId, metaObj) {
 
 	if(!metaObjId || !metaObj) {
 		def.reject(new Error('Meta object and meta object ID must be supplied.'));
-		return def.promise;
-	}
-
-	if(metaObjId != metaObj.id) {
-		def.reject(new Error('Meta object ID mismatch.'));
 		return def.promise;
 	}
 
@@ -91,6 +76,24 @@ MetainfoStore.prototype.remove = function(metaObjId) {
 			}
 
 			return self.dbClient.remove(metaObjId, self.dbType);
+		})
+		.catch(function(error) {
+			return q.reject(error);
+		});
+};
+
+MetainfoStore.prototype.search = function(name) {
+	if(!name) {
+		var def = q.defer();
+		def.reject(new Error('Name must be specified.'));
+		return def.promise;
+	}
+
+	return this.dbClient.searchFields([
+		{ fieldName: 'name', query: name, fuzzy: false }
+	], this.dbType)
+		.then(function(hits) {
+			return hits;
 		})
 		.catch(function(error) {
 			return q.reject(error);

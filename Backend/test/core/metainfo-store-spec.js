@@ -13,14 +13,14 @@ describe('Given a MetainfoStore', function() {
 	});
 
 	describe('when adding a meta object', function() {
-		var deferredAdd, deferredGet;
+		var deferredAdd, deferredSearch;
 
 		beforeEach(function() {
 			deferredAdd = q.defer();
 			sinon.stub(dbClient, 'add').returns(deferredAdd.promise);
 
-			deferredGet = q.defer();
-			sinon.stub(dbClient, 'get').returns(deferredGet.promise);
+			deferredSearch = q.defer();
+			sinon.stub(dbClient, 'searchFields').returns(deferredSearch.promise);
 
 			deferredAdd.resolve();
 		});
@@ -35,10 +35,10 @@ describe('Given a MetainfoStore', function() {
 				});
 		});
 
-		it('should return error meta object already exists', function() {
-			deferredGet.resolve({ id: 'cuisine' })
+		it('should return error if meta object already exists', function() {
+			deferredSearch.resolve([{ name: 'cuisine' }])
 
-			return metainfoStore.add({ id: 'cuisine' })
+			return metainfoStore.add({ name: 'cuisine' })
 				.then(function () {
 					throw new Error('Expected add() to fail');
 				})
@@ -48,41 +48,14 @@ describe('Given a MetainfoStore', function() {
 		});
 
 		it('should add the meta object otherwise', function() {
-			deferredGet.resolve(null);
+			deferredSearch.resolve([]);
 			
-			return metainfoStore.add({ id: 'cuisines' })
+			return metainfoStore.add({ name: 'cuisines' })
 				.then(function() {
-					assert(dbClient.add.calledWith(sinon.match({ id: 'cuisines' }), 'meta'));
+					assert(dbClient.add.calledWith(sinon.match({ name: 'cuisines' }), 'meta'));
 				});
 		});	
 	});
-
-	// describe('when getting all meta objects', function() {
-	// 	var deferredGetAll;
-
-	// 	beforeEach(function() {
-	// 		deferredGetAll = q.defer();
-	// 		sinon.stub(dbClient, 'getAll').returns(deferredGetAll.promise);
-	// 	});
-
-	// 	it('should return empty array if no meta objects exist', function() {
-	// 		deferredGetAll.resolve([]);
-
-	// 		return metainfoStore.getAll()
-	// 			.then(function(result) {
-	// 				assert.equal(result.length, 0);
-	// 			});
-	// 	});
-
-	// 	it('should return all meta objects otherwise', function() {
-	// 		deferredGetAll.resolve([{ id: 'cuisines' }, { id: 'categories' }]);
-
-	// 		return metainfoStore.getAll()
-	// 			.then(function(result) {
-	// 				assert.equal(result.length, 2);
-	// 			});
-	// 	});
-	// });
 
 	describe('when getting a meta object by ID', function() {
 		var deferredGet;
@@ -142,16 +115,6 @@ describe('Given a MetainfoStore', function() {
 				})
 				.catch(function(err) {
 					assert.equal(err.message, 'Meta object and meta object ID must be supplied.');
-				});
-		});
-
-		it("should return error if meta IDs don't match", function() {
-			return metainfoStore.update('cuisines', { id: 'categories' })
-				.then(function(error) {
-					throw new Error('Expected update() to fail');
-				})
-				.catch(function(err) {
-					assert.equal(err.message, 'Meta object ID mismatch.');
 				});
 		});
 
