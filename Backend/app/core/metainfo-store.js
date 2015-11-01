@@ -1,77 +1,100 @@
-var FakeMetaClient = require('../dev/fake-meta-client');
+var DbClient = require('../data/db-client');
 var q = require('q');
+require('sugar');
 
-function MetainfoStore(client) {
-	this.client = client || new FakeMetaClient();
+function MetainfoStore(dbClient) {
+	this.dbClient = dbClient || new DbClient();
+	this.dbType = 'meta';
 }
 
-MetainfoStore.prototype.add = function(type, name) {
-	if(!type || !name) {
+MetainfoStore.prototype.add = function(metaObj) {
+	if(!metaObj) {
 		var def = q.defer();
-		def.reject('Type and name be supplied.');
+		def.reject(new Error('Meta object must be supplied.'));
 		return def.promise;
 	}
 
-	return this.client.create(type, name).then(function(successMsg) {
-		// TODO: log
-		return successMsg;
-	})
-	.catch(function(errorMsg) {
-		return errorMsg;
-	});
+	var self = this;
+	return this.dbClient.get(metaObj.id, this.dbType)
+		.then(function(existingMetaObj) {
+			if(existingMetaObj) {
+				throw new Error('Meta object already exists.');
+			}
+
+			return self.dbClient.add(metaObj, self.dbType);
+		})
+		.catch(function(error) {
+			return q.reject(error);
+		});
 };
 
-MetainfoStore.prototype.getAll = function() {
-	return this.client.getAll().then(function(items) {
-		// TODO: log
-		return items;
-	})
-	.catch(function(errorMsg) {
-		return errorMsg;
-	});
+// MetainfoStore.prototype.getAll = function() {
+// 	return this.dbClient.getAll(this.dbType)
+// 		.then(function(metaData) {
+// 			// TODO: log
+// 			return metaData;
+// 		})
+// 		.catch(function(error) {
+// 			return q.reject(error);
+// 		});
+// };
+
+MetainfoStore.prototype.get = function(metaObjId) {
+	return this.dbClient.get(metaObjId, this.dbType)
+		.then(function(metaObj) {
+			return metaObj || null;
+		})
+		.catch(function(error) {
+			return q.reject(error);
+		});
 };
 
-MetainfoStore.prototype.get = function(type, id) {
-	return this.client.get(type, id).then(function(item) {
-		// TODO: log
-		return item;
-	})
-	.catch(function(errorMsg) {
-		return errorMsg;
-	});
-};
-
-MetainfoStore.prototype.update = function(type, id, name) {
+MetainfoStore.prototype.update = function(metaObjId, metaObj) {
 	var def = q.defer();
 
-	if(!type || !id || !name) {
-		def.reject('Type, ID and name must be supplied');
+	if(!metaObjId || !metaObj) {
+		def.reject(new Error('Meta object and meta object ID must be supplied.'));
 		return def.promise;
 	}
 
-	return this.client.update(type, id, name).then(function(successMsg) {
-		// TODO: log
-		return successMsg;
-	})
-	.catch(function(errorMsg) {
-		return errorMsg;
-	});
+	if(metaObjId != metaObj.id) {
+		def.reject(new Error('Meta object ID mismatch.'));
+		return def.promise;
+	}
+
+	var self = this;
+	return self.dbClient.get(metaObjId, self.dbType)
+		.then(function(existingMetaObj) {
+			if(!existingMetaObj) {
+				throw new Error('Meta object does not exist.');
+			}
+
+			return self.dbClient.update(metaObjId, metaObj, self.dbType);
+		})
+		.catch(function(error) {
+			return q.reject(error);
+		});
 };
 
-MetainfoStore.prototype.remove = function(type, id) {
-	if(!type || !id) {
+MetainfoStore.prototype.remove = function(metaObjId) {
+	if(!metaObjId) {
 		var def = q.defer();
-		def.reject('Type and ID must be supplied');
+		def.reject(new Error('Meta object ID must be supplied.'));
 		return def.promise;
 	}
 
-	return this.client.remove(type, id).then(function(successMsg) {
-		// TODO: log
-		return successMsg;
-	})
-	.catch(function(errorMsg) {
-		return errorMsg;
-	});
+	var self = this;
+	return this.dbClient.get(metaObjId, this.dbType)
+		.then(function(existingMetaObj) {
+			if(!existingMetaObj) {
+				throw new Error('Meta object does not exist.');
+			}
+
+			return self.dbClient.remove(metaObjId, self.dbType);
+		})
+		.catch(function(error) {
+			return q.reject(error);
+		});
 };
 
 module.exports = MetainfoStore;

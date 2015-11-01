@@ -28,16 +28,16 @@ RecipeStore.prototype.add = function(recipe) {
 		});
 };
 
-RecipeStore.prototype.getAll = function() {
-	return this.dbClient.getAll(this.dbType)
-		.then(function(recipes) {
-			// TODO: log
-			return recipes;
-		})
-		.catch(function(error) {
-			return q.reject(error);
-		});
-};
+// RecipeStore.prototype.getAll = function() {
+// 	return this.dbClient.getAll(this.dbType)
+// 		.then(function(recipes) {
+// 			// TODO: log
+// 			return recipes;
+// 		})
+// 		.catch(function(error) {
+// 			return q.reject(error);
+// 		});
+// };
 
 RecipeStore.prototype.get = function(recipeId) {
 	return this.dbClient.get(recipeId, this.dbType)

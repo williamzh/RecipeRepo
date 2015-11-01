@@ -1,45 +1,53 @@
 {
-	"users": [{
-		"id": "wizha",
-		"firstName": "William",
-		"lastName": "Zhang",
-		"email": "williamzh87@gmail.com",
-		"password": "test1234",
-		"favoriteRecipes": ["1", "4", "5", "11", "12"],
-		"ownedRecipes": ["1", "2", "3", "4", "13"],
-		"settings": {
-			"language": "sv-SE"
+	"users": [
+		{
+			"userName": "wizha",
+			"firstName": "William",
+			"lastName": "Zhang",
+			"email": "williamzh87@gmail.com",
+			"password": "test1234",
+			"favoriteRecipes": ["1", "4", "5", "11", "12"],
+			"ownedRecipes": ["1", "2", "3", "4", "13"],
+			"settings": {
+				"language": "sv-SE"
+			}
+		}, {
+			"userName": "ceblo",
+			"firstName": "Cecilia",
+			"lastName": "Blomdahl",
+			"email": "cissijb@hotmail.com",
+			"password": "test2345",
+			"favoriteRecipes": ["1", "4", "8"],
+			"ownedRecipes": ["5", "6", "7", "8"],
+			"settings": {
+				"language": "en-US"
+			}
+		}, {
+			"userName": "anblo",
+			"firstName": "Angelica",
+			"lastName": "Blomdahl",
+			"email": "angelica@test.com",
+			"password": "test3456",
+			"favoriteRecipes": ["7", "10"],
+			"ownedRecipes": ["9", "10", "11", "12"],
+			"settings": {
+				"language": "sv-SE"
+			}
 		}
-	}, {
-		"id": "ceblo",
-		"firstName": "Cecilia",
-		"lastName": "Blomdahl",
-		"email": "cissijb@hotmail.com",
-		"password": "test2345",
-		"favoriteRecipes": ["1", "4", "8"],
-		"ownedRecipes": ["5", "6", "7", "8"],
-		"settings": {
-			"language": "en-US"
+	],
+	"meta": [
+		{
+			"name": "cuisines",
+			"values": ["italian", "swedish", "chinese"]
+		}, {
+			"name": "courses",
+			"values": ["main", "side", "dessert"]
+		}, {
+			"name": "categories",
+			"values": ["pasta", "meat", "fish", "rice-grains", "gratins-pies", "sauces", "soups"]
 		}
-	}, {
-		"id": "anblo",
-		"firstName": "Angelica",
-		"lastName": "Blomdahl",
-		"email": "angelica@test.com",
-		"password": "test3456",
-		"favoriteRecipes": ["7", "10"],
-		"ownedRecipes": ["9", "10", "11", "12"],
-		"settings": {
-			"language": "sv-SE"
-		}
-	}],
-	"meta": {
-		"cuisines": ["italian", "swedish", "chinese"],
-		"courses": ["main", "side", "dessert"],
-		"categories": ["pasta", "meat", "fish", "rice-grains", "gratins-pies", "sauces", "soups"]
-	},
+	],
 	"recipes": [{
-		"id": "1",
 		"recipeName": "Pasta Bolognese",
 		"description": "En god pasta med morot och selleri",
 		"imagePath": "/dist/img/bolognese.jpg",
@@ -87,7 +95,6 @@
 		}
 	},
 	{
-		"id": "2",
 		"recipeName": "Panerad fisk med potatismos och ärter",
 		"description": "Klassisk vardagsrätt",
 		"imagePath": "/dist/img/fried_fish.jpg",
@@ -152,7 +159,6 @@
 		}
 	},
 	{
-		"id": "3",
 		"recipeName": "Stekt ris med köttfärs och grönsaker",
 		"description": "God och snabblagad vardagsrätt",
 		"imagePath": "/dist/img/fried_rice.jpg",
@@ -208,9 +214,8 @@
 		}
 	},
 	{
-		"id": "4",
 	   	"recipeName": "Lasagne",
-		"description": "Klassisk rätt",
+		"description": "Krämig lasagne med bolognese och bechamelsås",
 		"imagePath": "/dist/img/lasagne.jpg",
 		"servingSize": 4,
 		"isPrivate": true,
@@ -218,52 +223,103 @@
 		"ingredients": [
 		  {
 		     "name": "köttfärs",
-		     "quantity": "200",
-		     "unit": "g"
+		     "quantity": "500",
+		     "unit": "g",
+		     "component": "bolognesesås"
 		  },
 		  {
-		     "name": "ris",
-		     "quantity": "300",
-		     "unit": "g"
-		  },
-		  {
-		     "name": "gul lök",
+		     "name": "tärnad bacon",
 		     "quantity": "1",
-		     "unit": "st"
+		     "unit": "pkt",
+		     "component": "bolognesesås"
 		  },
 		  {
-		     "name": "ägg",
+		     "name": "purjolök",
+		     "quantity": "10",
+		     "unit": "cm",
+		     "component": "bolognesesås"
+		  },
+		  {
+		     "name": "vitlök",
+		     "quantity": "3",
+		     "unit": "klyftor",
+		     "component": "bolognesesås"
+		  },
+		  {
+		     "name": "små morötter",
 		     "quantity": "2",
+		     "unit": "st",
+		     "component": "bolognesesås"
+		  },
+		  {
+		     "name": "champinjoner",
+		     "quantity": "150",
+		     "unit": "g",
+		     "component": "bolognesesås"
+		  },
+		  {
+		     "name": "krossade tomater",
+		     "quantity": "500",
+		     "unit": "g",
+		     "component": "bolognesesås"
+		  },
+		  {
+		     "name": "tomatpuré",
+		     "quantity": "3",
+		     "unit": "msk",
+		     "component": "bolognesesås"
+		  },
+		  {
+		     "name": "buljongtärning",
+		     "quantity": "1",
+		     "unit": "st",
+		     "component": "bolognesesås"
+		  },
+		  {
+		     "name": "mjölk",
+		     "quantity": "0.5",
+		     "unit": "dl",
+		     "component": "bolognesesås"
+		  },
+		  {
+		     "name": "salt och peppar",
+		     "quantity": "",
+		     "unit": "",
+		     "component": "bolognesesås"
+		  },
+		  {
+		     "name": "riven ost",
+		     "quantity": "2",
+		     "unit": "dl"
+		  },
+		  {
+		     "name": "bechamelsås",
+		     "quantity": "1",
+		     "unit": "pkt"
+		  },
+		  {
+		     "name": "lasagneplattor",
+		     "quantity": "6",
 		     "unit": "st"
-		  },
-		  {
-		     "name": "grönsaksmix (t.ex. morötter, blomkål, brytbönor)",
-		     "quantity": "200",
-		     "unit": "g"
-		  },
-		  {
-		     "name": "soja",
-		     "quantity": "3-4",
-		     "unit": "skvätt"
 		  }
 		],
 		"method": [
-		  "Koka riset.",
-		  "Förkoka grönsakerna så att de blir halvklara",
-		  "Hacka löken och fräs tillsammans med köttfärsen.",
-		  "Lägg i riset och grönsakerna, smaksätt med soja och rör om.",
-		  "Vispa upp äggen och rör ned.",
-		  "Fräs i ett par minuter, servera."
+		  "Skala och riv morötterna, skiva champinjonerna och strimla purjolöken. Skala vitlöken.",
+		  "Fräs purjolöken och morötterna i lite olivolja, häll sedan i bacon och köttfärsen och stek tills de har fått färg.",
+		  "Pressa vitlöken och fräs lite till.",
+		  "Häll i de krossade tomaterna, tomatpurén och mjölken. Lägg i buljongtärningen. Låt puttra i ca 20-30 min.",
+		  "Värm upp bechamelsåsen under tiden, riv osten och sätt ugnen på 200 grader.",
+		  "När bolognesesåsen är klar, varva den med lasagneplattor och bechamelsås i en ugnsform. Avsluta med bechamelsås och riven ost.",
+		  "Gratinera i 30 minuter, eller tills osten har fått färg."
 		],
 		"meta": {
 		  "cuisine": "italian",
 		  "course": "main",
 		  "category": "pasta",
-		  "created": "2015-05-05",
+		  "created": "2015-10-27",
 		  "lastEdited": "2015-05-05"
 		}
 	}, {
-		"id": "5",
 	   	"recipeName": "Pasta med kyckling och svamp",
 		"description": "Pasta med en krämig sås med kyckling, svamp och grädde.",
 		"imagePath": "/dist/img/pasta-kyckling-svamp.jpg",
@@ -358,7 +414,6 @@
 		  "lastEdited": "2015-05-05"
 		}
 	}, {
-		"id": "6",
 		"recipeName": "Pannbiff med skysås och potatisklyftor",
 		"description": "",
 		"imagePath": "",
@@ -458,7 +513,6 @@
 		  "lastEdited": "2015-07-22"
 		}
 	}, {
-		"id": "7",
         "recipeName": "Ugnsgratinerad falukorv",
         "servingSize": 4,
         "rating": 4,
@@ -505,7 +559,6 @@
         }
     },
     {
-    	"id": "8",
         "recipeName": "Panerad fläskfilé med parmesanost",
         "description": "Serveras med ris och champinjonsås.",
         "imagePath": "app/img/fried_fish.jpg",
@@ -571,7 +624,6 @@
         }
     },
     {
-    	"id": "9",
         "recipeName": "Fransk fiskgratäng",
         "description": "",
         "imagePath": "",
@@ -642,7 +694,6 @@
         }
     },
     {
-    	"id": "10",
         "recipeName": "Stuvade makaroner",
         "description": "",
         "imagePath": "",
@@ -701,7 +752,6 @@
         }
     },
     {
-    	"id": "11",
         "recipeName": "Pasta med ost- och skinksås",
         "description": "Enkel och lättlagad vardagsrätt.",
         "servingSize": 4,
@@ -779,7 +829,6 @@
         }
     },
     {
-    	"id": "12",
         "recipeName": "Champinjonsås",
         "description": "Klassisk champinjonsås med grädde och svamp",
         "imagePath": "/dist/img/bolognese.jpg",
@@ -847,7 +896,6 @@
 			"lastEdited": "2015-05-31"
         }
     }, {
-    	"id": "13",
         "recipeName": "Blomkålssoppa",
         "description": "Krämig och lyxig blomkålssoppa som görs extra fyllig med potatis och vispgrädde.",
         "imagePath": "/dist/img/blomkålssoppa.jpg",

@@ -57,32 +57,32 @@ describe('Given a RecipeStore', function() {
 		});	
 	});
 
-	describe('when getting all recipes', function() {
-		var deferredGetAll;
+	// describe('when getting all recipes', function() {
+	// 	var deferredGetAll;
 
-		beforeEach(function() {
-			deferredGetAll = q.defer();
-			sinon.stub(dbClient, 'getAll').returns(deferredGetAll.promise);
-		});
+	// 	beforeEach(function() {
+	// 		deferredGetAll = q.defer();
+	// 		sinon.stub(dbClient, 'getAll').returns(deferredGetAll.promise);
+	// 	});
 
-		it('should return empty array if no recipes exist', function() {
-			deferredGetAll.resolve([]);
+	// 	it('should return empty array if no recipes exist', function() {
+	// 		deferredGetAll.resolve([]);
 
-			return recipeStore.getAll()
-				.then(function(result) {
-					assert.equal(result.length, 0);
-				});
-		});
+	// 		return recipeStore.getAll()
+	// 			.then(function(result) {
+	// 				assert.equal(result.length, 0);
+	// 			});
+	// 	});
 
-		it('should return all recipes otherwise', function() {
-			deferredGetAll.resolve([{ id: '1' }, { id: '2' }]);
+	// 	it('should return all recipes otherwise', function() {
+	// 		deferredGetAll.resolve([{ id: '1' }, { id: '2' }]);
 
-			return recipeStore.getAll()
-				.then(function(result) {
-					assert.equal(result.length, 2);
-				});
-		});
-	});
+	// 		return recipeStore.getAll()
+	// 			.then(function(result) {
+	// 				assert.equal(result.length, 2);
+	// 			});
+	// 	});
+	// });
 
 	describe('when getting recipe by ID', function() {
 		var deferredGet;

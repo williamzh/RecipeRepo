@@ -4,7 +4,7 @@ function TokenHandler() {}
 
 TokenHandler.prototype.issue = function(payload) {
 	return jwt.sign(payload, 'secret', {
-		expiresInMinutes: 60
+		expiresIn: 3600
 	});
 };
 

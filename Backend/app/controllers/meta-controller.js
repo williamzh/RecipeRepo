@@ -19,7 +19,21 @@ function MetaController(app, metaStore, tokenValidator) {
 			.then(function(items) {
 				res.json(200, items);
 			}, function(err) {
-				res.json(500, { error: err });
+				res.json(500, { error: err.message });
+			});
+	});
+
+	metaRouter.post('/', function(req, res) {
+		if(!req.body.metaObj) {
+			res.json(400, { error: 'Meta object must be provided.' });
+			return;
+		}
+
+		this.metaStore.add(req.body.metaObj)
+			.then(function() {
+				res.json(200);
+			}).catch(function(err) {
+				res.json(500, { error: err.message });
 			});
 	});
 }

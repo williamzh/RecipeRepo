@@ -16,13 +16,13 @@ describe('Given a UserService', function() {
 	});
 
 	describe('when authenticating a user', function() {
-		var deferredGet;
+		var deferredSearch;
 
 		beforeEach(function() {
 			sinon.stub(tokenHandler, 'issue').returns('ABCDEFGH');
 
-			deferredGet = q.defer();
-			sinon.stub(dbClient, 'get').returns(deferredGet.promise);
+			deferredSearch = q.defer();
+			sinon.stub(dbClient, 'searchFields').returns(deferredSearch.promise);
 		});
 
 		it('should return error if no username provided', function() {
@@ -46,7 +46,7 @@ describe('Given a UserService', function() {
 		});
 
 		it('should return error if user with provided username does not exist', function() {
-			deferredGet.resolve(undefined);
+			deferredSearch.resolve([]);
 
 			return userService.authenticate('A', 'password')
 				.then(function () {
@@ -58,7 +58,7 @@ describe('Given a UserService', function() {
 		});
 
 		it('should return error if passwords do not match', function() {
-			deferredGet.resolve({ id: 'A', password: 'bar' });
+			deferredSearch.resolve([{ userName: 'A', password: 'bar' }]);
 
 			return userService.authenticate('A', 'foo')
 				.then(function () {
@@ -70,25 +70,25 @@ describe('Given a UserService', function() {
 		});
 
 		it('should issue token and return session data otherwise', function() {
-			deferredGet.resolve({ id: 'A', password: 'foo' });
+			deferredSearch.resolve([{ _id: '5635e61316f396dc17effff3', userName: 'A', password: 'foo' }]);
 
 			return userService.authenticate('A', 'foo')
 				.then(function (result) {
-					assert(tokenHandler.issue.calledWith(sinon.match({ id: 'A' })));
+					assert(tokenHandler.issue.calledWith(sinon.match({ id: '5635e61316f396dc17effff3' })));
 					assert.equal(result.token, 'ABCDEFGH');
 				});
 		});
 	});
 
 	describe('when adding a user', function() {
-		var deferredAdd, deferredGet;
+		var deferredAdd, deferredSearch;
 
 		beforeEach(function() {
 			deferredAdd = q.defer();
 			sinon.stub(dbClient, 'add').returns(deferredAdd.promise);
 
-			deferredGet = q.defer();
-			sinon.stub(dbClient, 'get').returns(deferredGet.promise);
+			deferredSearch = q.defer();
+			sinon.stub(dbClient, 'searchFields').returns(deferredSearch.promise);
 
 			deferredAdd.resolve();
 		});
@@ -104,9 +104,9 @@ describe('Given a UserService', function() {
 		});
 
 		it('should return error user already exists', function() {
-			deferredGet.resolve({ id: 'A' })
+			deferredSearch.resolve([{ userName: 'A' }])
 
-			return userService.add({ id: 'A' })
+			return userService.add({ userName: 'A' })
 				.then(function () {
 					throw new Error('Expected add() to fail');
 				})
@@ -116,16 +116,16 @@ describe('Given a UserService', function() {
 		});
 
 		it('should add the user otherwise', function() {
-			deferredGet.resolve(null);
+			deferredSearch.resolve([]);
 			
-			return userService.add({ id: 'A' })
+			return userService.add({ userName: 'A' })
 				.then(function() {
-					assert(dbClient.add.calledWith(sinon.match({ id: 'A' }), 'users'));
+					assert(dbClient.add.calledWith(sinon.match({ userName: 'A' }), 'users'));
 				});
 		});
 	});
 
-	describe('when getting user by user name', function() {
+	describe('when getting user by ID', function() {
 		var deferredGet;
 
 		beforeEach(function() {
@@ -137,18 +137,18 @@ describe('Given a UserService', function() {
 		it('should return null if user does not exist', function() {
 			deferredGet.resolve(undefined);
 
-			return userService.get('A')
+			return userService.get('5635e61316f396dc17effff3')
 				.then(function(user) {
 					assert.strictEqual(user, null);
 				});
 		});
 
 		it('should return user if it exists', function() {
-			deferredGet.resolve({ id: 'A' });
+			deferredGet.resolve({ _id: '5635e61316f396dc17effff3' });
 
-			return userService.get('1')
+			return userService.get('5635e61316f396dc17effff3')
 				.then(function(user) {
-					assert.equal(user.id, 'A');
+					assert.equal(user._id, '5635e61316f396dc17effff3');
 				});
 		});
 	});
@@ -166,40 +166,30 @@ describe('Given a UserService', function() {
 			deferredUpdate.resolve();
 		});
 
-		it('should return error if username is missing', function() {
-			return userService.update(undefined, { id: 'A' })
+		it('should return error if user ID is missing', function() {
+			return userService.update(undefined, { userName: 'A' })
 				.then(function(error) {
 					throw new Error('Expected update() to fail');
 				})
 				.catch(function(err) {
-					assert.equal(err.message, 'Username and user must be supplied.');
+					assert.equal(err.message, 'User ID and user must be supplied.');
 				});
 		});
 
 		it('should return error if user is missing', function() {
-			return userService.update('A', null)
+			return userService.update('5635e61316f396dc17effff3', null)
 				.then(function(error) {
 					throw new Error('Expected update() to fail');
 				})
 				.catch(function(err) {
-					assert.equal(err.message, 'Username and user must be supplied.');
-				});
-		});
-
-		it("should return error if usernames don't match", function() {
-			return userService.update('A', { id: 'B' })
-				.then(function(error) {
-					throw new Error('Expected update() to fail');
-				})
-				.catch(function(err) {
-					assert.equal(err.message, 'Username mismatch.');
+					assert.equal(err.message, 'User ID and user must be supplied.');
 				});
 		});
 
 		it("should return error if user doesn't exist", function() {
 			deferredGet.resolve(undefined);
 
-			return userService.update('A', { id: 'A' })
+			return userService.update('5635e61316f396dc17effff3', { userName: 'A' })
 				.then(function(error) {
 					throw new Error('Expected update() to fail');
 				})
@@ -209,9 +199,9 @@ describe('Given a UserService', function() {
 		});
 
 		it('should update the user otherwise', function() {
-			deferredGet.resolve({ id: 'A' });
+			deferredGet.resolve({ _id: '5635e61316f396dc17effff3', userName: 'A' });
 
-			return userService.update('A', { id: 'A' });
+			return userService.update('5635e61316f396dc17effff3', { id: 'A' });
 		});
 	});
 	
@@ -228,20 +218,20 @@ describe('Given a UserService', function() {
 			deferredRemove.resolve();
 		});
 
-		it('should return error if user name is missing', function() {
+		it('should return error if user ID is missing', function() {
 			return userService.remove()
 				.then(function(error) {
 					throw new Error('Expected remove() to fail');
 				})
 				.catch(function(err) {
-					assert.equal(err.message, 'Username must be supplied.');
+					assert.equal(err.message, 'User ID must be supplied.');
 				});
 		});
 
 		it("should return error if user doesn't exist", function() {
 			deferredGet.resolve(undefined);
 
-			return userService.remove('A')
+			return userService.remove('5635e61316f396dc17effff3')
 				.then(function(error) {
 					throw new Error('Expected update() to fail');
 				})
@@ -251,9 +241,9 @@ describe('Given a UserService', function() {
 		});
 
 		it('should remove the user otherwise', function() {
-			deferredGet.resolve({ id: 'A' });
+			deferredGet.resolve({ _id: '5635e61316f396dc17effff3' });
 
-			return userService.remove('A');
+			return userService.remove('5635e61316f396dc17effff3');
 		});
 	});
 });

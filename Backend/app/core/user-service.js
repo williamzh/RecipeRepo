@@ -19,13 +19,14 @@ UserService.prototype.authenticate = function(userName, password) {
 	}
 	
 	var self = this;
-	return this.dbClient.get(userName, this.dbType)
-		.then(function(user) {
+	return this.search(userName)
+		.then(function(hits) {
+			var user = hits[0];
 			if(!user || user.password !== password) {
 				throw new Error('Invalid username or password.');
 			}
 
-			var token = self.tokenHandler.issue({ id: user.id });
+			var token = self.tokenHandler.issue({ id: user._id });
 			return {
 				user: user,
 				token: token
@@ -44,8 +45,9 @@ UserService.prototype.add = function(user) {
 	}
 
 	var self = this;
-	return self.dbClient.get(user.id, self.dbType)
-		.then(function(existingUser) {
+	return this.search(user.userName)
+		.then(function(hits) {
+			var existingUser = hits[0];
 			if(existingUser) {
 				throw new Error('User already exists.');
 			}
@@ -57,14 +59,14 @@ UserService.prototype.add = function(user) {
 		});
 };
 
-UserService.prototype.get = function(userName) {
-	if(!userName) {
+UserService.prototype.get = function(userId) {
+	if(!userId) {
 		var def = q.defer();
-		def.reject(new Error('Username must be supplied.'));
+		def.reject(new Error('User ID must be supplied.'));
 		return def.promise;
 	}
 
-	return this.dbClient.get(userName, this.dbType)
+	return this.dbClient.get(userId, this.dbType)
 		.then(function(user) {
 			return user || null;
 		})
@@ -73,62 +75,59 @@ UserService.prototype.get = function(userName) {
 		});
 };
 
-UserService.prototype.update = function(userName, user) {
+UserService.prototype.update = function(userId, user) {
 	var def = q.defer();
 
-	if(!userName || !user) {
-		def.reject(new Error('Username and user must be supplied.'));
-		return def.promise;
-	}
-
-	if(userName !== user.id) {
-		def.reject(new Error('Username mismatch.'));
+	if(!userId || !user) {
+		def.reject(new Error('User ID and user must be supplied.'));
 		return def.promise;
 	}
 
 	var self = this;
-	return self.dbClient.get(userName, self.dbType)
+	return self.dbClient.get(userId, self.dbType)
 		.then(function(existingUser) {
 			if(!existingUser) {
 				throw new Error('User does not exist.');
 			}
 
-			return self.dbClient.update(userName, user, self.dbType);
+			return self.dbClient.update(userId, user, self.dbType);
 		})
 		.catch(function(error) {
 			return q.reject(error);
 		});
 };
 
-UserService.prototype.remove = function(userName) {
+UserService.prototype.remove = function(userId) {
+	if(!userId) {
+		var def = q.defer();
+		def.reject(new Error('User ID must be supplied.'));
+		return def.promise;
+	}
+
+	var self = this;
+	return self.dbClient.get(userId, self.dbType)
+		.then(function(existingUser) {
+			if(!existingUser) {
+				throw new Error('User does not exist.');
+			}
+
+			return self.dbClient.remove(userId, self.dbType);
+		})
+		.catch(function(error) {
+			return q.reject(error);
+		});
+};
+
+UserService.prototype.search = function(userName) {
 	if(!userName) {
 		var def = q.defer();
-		def.reject(new Error('Username must be supplied.'));
+		def.reject(new Error('Username must be specified.'));
 		return def.promise;
 	}
 
-	var self = this;
-	return self.dbClient.get(userName, self.dbType)
-		.then(function(existingUser) {
-			if(!existingUser) {
-				throw new Error('User does not exist.');
-			}
-
-			return self.dbClient.remove(userName, self.dbType);
-		})
-		.catch(function(error) {
-			return q.reject(error);
-		});
-};
-
-UserService.prototype.search = function(query) {
-	if(!query) {
-		var def = q.defer();
-		def.reject(new Error('Query must be specified.'));
-		return def.promise;
-	}
-
-	return this.dbClient.search(query, this.dbType)
+	return this.dbClient.searchFields([
+		{ fieldName: 'userName', query: userName, fuzzy: false }
+	], this.dbType)
 		.then(function(hits) {
 			return hits;
 		})
