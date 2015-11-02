@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: {
-					'dist/js/lib.min.js': [
+					'dist/app/lib.min.js': [
 						'bower_components/jquery/dist/jquery.js',
 						'bower_components/sugar/release/sugar-full.development.js',
 						'bower_components/angular/angular.js',
@@ -16,7 +16,7 @@ module.exports = function(grunt) {
 						'bower_components/ngstorage/ngStorage.js',
 						'assets/lib/*.js'
 					],
-					'dist/js/app.min.js': ['app/**/*.js']
+					'dist/app/app.min.js': ['app/**/*.js']
 				}
 			}
 		},
@@ -35,6 +35,11 @@ module.exports = function(grunt) {
 						src: ['assets/img/**/*'],
 						dest: 'dist/img',
 						flatten: true
+					},
+					{
+						expand: true,
+						src: ['app/**/*.html', 'index.html'],
+						dest: 'dist'
 					}
 				],
 			},

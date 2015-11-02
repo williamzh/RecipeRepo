@@ -28,10 +28,10 @@ describe('Given a TokenValidator', function() {
 		assert(res.send.calledWith(200));
 	});
 
-	it('should return Bad Request (400) if no authorization header set', function() {
+	it('should return Unauthorized (401) if no authorization header set', function() {
 		req.headers.authorization = undefined;
 		tokenValidator.validate(req, res, nextFn);
-		assert(res.json.calledWith(400, sinon.match({ error: 'No token found.' })));
+		assert(res.json.calledWith(401, sinon.match({ error: 'No token found.' })));
 	});
 
 	describe('token is invalid', function() {

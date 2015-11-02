@@ -13,7 +13,7 @@ TokenValidator.prototype.validate = function(req, res, next) {
 
 	var token = req.headers.authorization;
 	if(!token) {
-		res.json(400, { error: 'No token found.' });
+		res.json(401, { error: 'No token found.' });
 		return;
 	}
 
