@@ -22,7 +22,7 @@ describe('Given a UserService', function() {
 			sinon.stub(tokenHandler, 'issue').returns('ABCDEFGH');
 
 			deferredSearch = q.defer();
-			sinon.stub(dbClient, 'searchFields').returns(deferredSearch.promise);
+			sinon.stub(dbClient, 'searchField').returns(deferredSearch.promise);
 		});
 
 		it('should return error if no username provided', function() {
@@ -88,7 +88,7 @@ describe('Given a UserService', function() {
 			sinon.stub(dbClient, 'add').returns(deferredAdd.promise);
 
 			deferredSearch = q.defer();
-			sinon.stub(dbClient, 'searchFields').returns(deferredSearch.promise);
+			sinon.stub(dbClient, 'searchField').returns(deferredSearch.promise);
 
 			deferredAdd.resolve();
 		});

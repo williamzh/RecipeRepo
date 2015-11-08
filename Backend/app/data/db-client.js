@@ -51,25 +51,25 @@ DbClient.prototype.add = function(item, type) {
 	return deferred.promise;
 };
 
-// DbClient.prototype.getAll = function(type) {
-// 	var deferred = q.defer();
+DbClient.prototype.getAll = function(type) {
+	var deferred = q.defer();
 
-// 	if(!DbClient._db) {
-// 		deferred.reject('No connection has been configured. Call init() during startup to configure one.');
-// 		return deferred.promise;
-// 	}
+	if(!DbClient._db) {
+		deferred.reject('No connection has been configured. Call init() during startup to configure one.');
+		return deferred.promise;
+	}
 
-// 	DbClient._db.collection(type).find().toArray(function(err, docs) {
-// 		if(err) {
-// 			deferred.reject(err.message);
-// 		}
-// 		else {
-// 			deferred.resolve(docs);
-// 		}		
-// 	});
+	DbClient._db.collection(type).find().toArray(function(err, docs) {
+		if(err) {
+			deferred.reject(err.message);
+		}
+		else {
+			deferred.resolve(docs);
+		}		
+	});
 
-// 	return deferred.promise;
-// };
+	return deferred.promise;
+};
 
 DbClient.prototype.get = function(id, type) {
 	var deferred = q.defer();
@@ -131,7 +131,7 @@ DbClient.prototype.remove = function(id, type) {
 	return deferred.promise;
 };
 
-DbClient.prototype.searchFields = function(searchParams, type, limit) {
+DbClient.prototype.searchField = function(fieldName, query, type, limit) {
 	var deferred = q.defer();
 
 	if(!DbClient._db) {
@@ -140,9 +140,7 @@ DbClient.prototype.searchFields = function(searchParams, type, limit) {
 	}
 
 	var queryObj = {};
-	searchParams.each(function(p) {
-		queryObj[p.fieldName] = p.fuzzy === true ? { $regex: p.query } : p.query;
-	});
+	queryObj[fieldName] = query;
 
 	DbClient._db.collection(type).find(queryObj).limit(limit || 100).toArray(function(err, docs) {
 		if(err) {

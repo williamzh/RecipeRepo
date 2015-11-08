@@ -20,7 +20,7 @@ describe('Given a MetainfoStore', function() {
 			sinon.stub(dbClient, 'add').returns(deferredAdd.promise);
 
 			deferredSearch = q.defer();
-			sinon.stub(dbClient, 'searchFields').returns(deferredSearch.promise);
+			sinon.stub(dbClient, 'searchField').returns(deferredSearch.promise);
 
 			deferredAdd.resolve();
 		});

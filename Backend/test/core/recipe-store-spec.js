@@ -13,14 +13,14 @@ describe('Given a RecipeStore', function() {
 	});
 
 	describe('when adding a recipe', function() {
-		var deferredAdd, deferredGet;
+		var deferredAdd, deferredSearch;
 
 		beforeEach(function() {
 			deferredAdd = q.defer();
 			sinon.stub(dbClient, 'add').returns(deferredAdd.promise);
 
-			deferredGet = q.defer();
-			sinon.stub(dbClient, 'get').returns(deferredGet.promise);
+			deferredSearch = q.defer();
+			sinon.stub(dbClient, 'searchField').returns(deferredSearch.promise);
 
 			deferredAdd.resolve();
 		});
@@ -36,9 +36,9 @@ describe('Given a RecipeStore', function() {
 		});
 
 		it('should return error recipe already exists', function() {
-			deferredGet.resolve({ id: '1' })
+			deferredSearch.resolve({ recipeName: 'Test recipe 1' })
 
-			return recipeStore.add({ id: '1' })
+			return recipeStore.add({ recipeName: 'Test recipe 1' })
 				.then(function () {
 					throw new Error('Expected add() to fail');
 				})
@@ -48,41 +48,124 @@ describe('Given a RecipeStore', function() {
 		});
 
 		it('should add the recipe otherwise', function() {
-			deferredGet.resolve(null);
+			deferredSearch.resolve(null);
 			
-			return recipeStore.add({ id: 2 })
+			return recipeStore.add({ recipeName: 'Test recipe 1' })
 				.then(function() {
-					assert(dbClient.add.calledWith(sinon.match({ id: 2 }), 'recipes'));
+					assert(dbClient.add.calledWith(sinon.match({ recipeName: 'Test recipe 1' }), 'recipes'));
 				});
 		});	
 	});
 
-	// describe('when getting all recipes', function() {
-	// 	var deferredGetAll;
+	describe('when getting top rated recipes', function() {
+		var deferredGetAll;
 
-	// 	beforeEach(function() {
-	// 		deferredGetAll = q.defer();
-	// 		sinon.stub(dbClient, 'getAll').returns(deferredGetAll.promise);
-	// 	});
+		beforeEach(function() {
+			deferredGetAll = q.defer();
+			sinon.stub(dbClient, 'getAll').returns(deferredGetAll.promise);
+		});
 
-	// 	it('should return empty array if no recipes exist', function() {
-	// 		deferredGetAll.resolve([]);
+		it('should return empty array if no recipes exist', function() {
+			deferredGetAll.resolve([]);
 
-	// 		return recipeStore.getAll()
-	// 			.then(function(result) {
-	// 				assert.equal(result.length, 0);
-	// 			});
-	// 	});
+			return recipeStore.getTopRated('recipes')
+				.then(function(result) {
+					assert.equal(result.length, 0);
+				});
+		});
 
-	// 	it('should return all recipes otherwise', function() {
-	// 		deferredGetAll.resolve([{ id: '1' }, { id: '2' }]);
+		it('should return top rated recipes in descending order', function() {
+			deferredGetAll.resolve([
+				{ meta: { rating: 1 }}, 
+				{ meta: { rating: 2 }},
+				{ meta: { rating: 3 }}, 
+				{ meta: { rating: 4 }},
+				{ meta: { rating: 5 }}
+			]);
 
-	// 		return recipeStore.getAll()
-	// 			.then(function(result) {
-	// 				assert.equal(result.length, 2);
-	// 			});
-	// 	});
-	// });
+			return recipeStore.getTopRated()
+				.then(function(result) {
+					assert.equal(result.length, 3);
+
+					assert.equal(result[0].meta.rating, 5);
+					assert.equal(result[1].meta.rating, 4);
+					assert.equal(result[2].meta.rating, 3);
+				});
+		});
+
+		it('should limit number of items if more than 10', function() {
+			deferredGetAll.resolve([
+				{ meta: { rating: 3 }}, { meta: { rating: 3 }}, { meta: { rating: 3 }}, { meta: { rating: 3 }}, { meta: { rating: 3 }},
+				{ meta: { rating: 4 }}, { meta: { rating: 4 }}, { meta: { rating: 4 }}, { meta: { rating: 4 }}, { meta: { rating: 4 }},
+				{ meta: { rating: 5 }}, { meta: { rating: 5 }}, { meta: { rating: 5 }}, { meta: { rating: 5 }}, { meta: { rating: 5 }}
+			]);
+
+			return recipeStore.getTopRated()
+				.then(function(result) {
+					assert.equal(result.length, 10);
+				});
+		});
+	});
+
+	describe('when getting latest recipes', function() {
+		var deferredGetAll;
+
+		beforeEach(function() {
+			deferredGetAll = q.defer();
+			sinon.stub(dbClient, 'getAll').returns(deferredGetAll.promise);
+		});
+
+		it('should return empty array if no recipes exist', function() {
+			deferredGetAll.resolve([]);
+
+			return recipeStore.getLatest('recipes')
+				.then(function(result) {
+					assert.equal(result.length, 0);
+				});
+		});
+
+		it('should return latest recipes in descending order', function() {
+			deferredGetAll.resolve([
+				{ meta: { created: '2015-01-01T20:00Z' }},
+				{ meta: { created: '2015-02-01T00:00Z' }},
+				{ meta: { created: '2015-01-01T00:00Z' }},
+				{ meta: { created: '2015-04-25T00:00Z' }},
+				{ meta: { created: '2015-03-01T00:00Z' }}
+			]);
+
+			return recipeStore.getLatest()
+				.then(function(result) {
+					assert.equal(result.length, 5);
+
+					assert.equal(result[0].meta.created, '2015-04-25T00:00Z');
+					assert.equal(result[1].meta.created, '2015-03-01T00:00Z');
+					assert.equal(result[2].meta.created, '2015-02-01T00:00Z');
+					assert.equal(result[3].meta.created, '2015-01-01T20:00Z');
+					assert.equal(result[4].meta.created, '2015-01-01T00:00Z');
+				});
+		});
+
+		it('should limit number of items if more than 10', function() {
+			deferredGetAll.resolve([
+				{ meta: { created: '2015-01-01T00:00Z' }},
+				{ meta: { created: '2015-01-02T00:00Z' }},
+				{ meta: { created: '2015-01-03T00:00Z' }},
+				{ meta: { created: '2015-01-04T00:00Z' }},
+				{ meta: { created: '2015-01-05T00:00Z' }},
+				{ meta: { created: '2015-01-06T00:00Z' }},
+				{ meta: { created: '2015-01-07T00:00Z' }},
+				{ meta: { created: '2015-01-08T00:00Z' }},
+				{ meta: { created: '2015-01-09T00:00Z' }},
+				{ meta: { created: '2015-01-10T00:00Z' }},
+				{ meta: { created: '2015-01-11T00:00Z' }}
+			]);
+
+			return recipeStore.getLatest()
+				.then(function(result) {
+					assert.equal(result.length, 10);
+				});
+		});
+	});
 
 	describe('when getting recipe by ID', function() {
 		var deferredGet;
@@ -96,18 +179,18 @@ describe('Given a RecipeStore', function() {
 		it('should return null if recipe does not exist', function() {
 			deferredGet.resolve(undefined);
 
-			return recipeStore.get('1')
+			return recipeStore.get('563d33a5dbaab8d41abdf6ae')
 				.then(function(recipe) {
 					assert.strictEqual(recipe, null);
 				});
 		});
 
 		it('should return recipe if it exists', function() {
-			deferredGet.resolve({ id: 1 });
+			deferredGet.resolve({ _id: '563d33a5dbaab8d41abdf6ae' });
 
-			return recipeStore.get('1')
+			return recipeStore.get('563d33a5dbaab8d41abdf6ae')
 				.then(function(recipe) {
-					assert.equal(recipe.id, 1);
+					assert.equal(recipe._id, '563d33a5dbaab8d41abdf6ae');
 				});
 		});
 	});
@@ -126,7 +209,7 @@ describe('Given a RecipeStore', function() {
 		});
 
 		it('should return error if recipe ID is missing', function() {
-			return recipeStore.update(undefined, { id: '1' })
+			return recipeStore.update(undefined, { recipeName: 'Test recipe 1' })
 				.then(function(error) {
 					throw new Error('Expected update() to fail');
 				})
@@ -136,7 +219,7 @@ describe('Given a RecipeStore', function() {
 		});
 
 		it('should return error if recipe is missing', function() {
-			return recipeStore.update('1', null)
+			return recipeStore.update('563d33a5dbaab8d41abdf6ae', null)
 				.then(function(error) {
 					throw new Error('Expected update() to fail');
 				})
@@ -145,20 +228,10 @@ describe('Given a RecipeStore', function() {
 				});
 		});
 
-		it("should return error if recipe IDs don't match", function() {
-			return recipeStore.update('1', { id: '2' })
-				.then(function(error) {
-					throw new Error('Expected update() to fail');
-				})
-				.catch(function(err) {
-					assert.equal(err.message, 'Recipe ID mismatch');
-				});
-		});
-
 		it("should return error if recipe doesn't exist", function() {
 			deferredGet.resolve(undefined);
 
-			return recipeStore.update('1', { id: '1' })
+			return recipeStore.update('563d33a5dbaab8d41abdf6ae', { recipeName: 'Test recipe 1' })
 				.then(function(error) {
 					throw new Error('Expected update() to fail');
 				})
@@ -168,9 +241,9 @@ describe('Given a RecipeStore', function() {
 		});
 
 		it('should update the recipe otherwise', function() {
-			deferredGet.resolve({ id: '1' });
+			deferredGet.resolve({ _id: '563d33a5dbaab8d41abdf6ae' });
 
-			return recipeStore.update('1', { id: '1' });
+			return recipeStore.update('563d33a5dbaab8d41abdf6ae', { recipeName: 'Test recipe 1' });
 		});
 	});
 	
@@ -200,7 +273,7 @@ describe('Given a RecipeStore', function() {
 		it("should return error if recipe doesn't exist", function() {
 			deferredGet.resolve(undefined);
 
-			return recipeStore.remove(1)
+			return recipeStore.remove('563d33a5dbaab8d41abdf6ae')
 				.then(function(error) {
 					throw new Error('Expected update() to fail');
 				})
@@ -210,9 +283,9 @@ describe('Given a RecipeStore', function() {
 		});
 
 		it('should remove the recipe otherwise', function() {
-			deferredGet.resolve({ id: '1' });
+			deferredGet.resolve({ _id: '563d33a5dbaab8d41abdf6ae' });
 
-			return recipeStore.remove('1');
+			return recipeStore.remove('563d33a5dbaab8d41abdf6ae');
 		});
 	});
 });

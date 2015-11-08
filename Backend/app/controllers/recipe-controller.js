@@ -2,6 +2,7 @@ var express = require('express');
 var RecipeStore = require('../core/recipe-store');
 var TokenValidator = require('../middleware/token-validator');
 var q = require('q');
+require('sugar');
 
 function RecipeController(app, recipeStore, tokenValidator) {
 	this.recipeStore = recipeStore || new RecipeStore();
@@ -15,10 +16,19 @@ function RecipeController(app, recipeStore, tokenValidator) {
 		this.tokenValidator.validate(req, res, next);	
 	});
 
-	recipeRouter.get('/', function(req, res) {
-		this.recipeStore.getAll()
-			.then(function(recipes) {
-				res.json(200, recipes);
+	recipeRouter.get('/top-rated', function(req, res) {
+		this.recipeStore.getTopRated()
+			.then(function(topRecipes) {
+				res.json(200, topRecipes);
+			}).catch(function(err) {
+				res.json(500, { error: err.message });
+			});
+	});
+
+	recipeRouter.get('/latest', function(req, res) {
+		this.recipeStore.getLatest()
+			.then(function(latestRecipes) {
+				res.json(200, latestRecipes);
 			}).catch(function(err) {
 				res.json(500, { error: err.message });
 			});

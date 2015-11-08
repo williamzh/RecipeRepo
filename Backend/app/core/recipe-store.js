@@ -15,7 +15,7 @@ RecipeStore.prototype.add = function(recipe) {
 	}
 
 	var self = this;
-	return self.dbClient.get(recipe.id, self.dbType)
+	return self.dbClient.searchField('recipeName', recipe.recipeName, self.dbType)
 		.then(function(existingRecipe) {
 			if(existingRecipe) {
 				throw new Error('Recipe already exists.');
@@ -28,16 +28,39 @@ RecipeStore.prototype.add = function(recipe) {
 		});
 };
 
-// RecipeStore.prototype.getAll = function() {
-// 	return this.dbClient.getAll(this.dbType)
-// 		.then(function(recipes) {
-// 			// TODO: log
-// 			return recipes;
-// 		})
-// 		.catch(function(error) {
-// 			return q.reject(error);
-// 		});
-// };
+RecipeStore.prototype.getTopRated = function() {
+	return this.dbClient.getAll(this.dbType)
+		.then(function(recipes) {
+			var topRecipes = recipes
+				.filter(function(r) {
+					// Don't include recipes with ratings below 3
+					return r.meta.rating >= 3;
+				})
+				.sortBy(function(r) {
+					return r.meta.rating;
+				}, true)
+				.to(10);
+
+			return topRecipes;
+		})
+		.catch(function(error) {
+			return q.reject(error);
+		});
+};
+
+RecipeStore.prototype.getLatest = function() {
+	return this.dbClient.getAll(this.dbType)
+		.then(function(recipes) {
+			var latestRecipes = recipes.sortBy(function(r) {
+				return Date.create(r.meta.created);
+			}, true).to(10)
+
+			return latestRecipes;
+		})
+		.catch(function(error) {
+			return q.reject(error);
+		});
+};
 
 RecipeStore.prototype.get = function(recipeId) {
 	return this.dbClient.get(recipeId, this.dbType)
@@ -54,11 +77,6 @@ RecipeStore.prototype.update = function(recipeId, recipe) {
 
 	if(!recipeId || !recipe) {
 		def.reject(new Error('Recipe and recipe ID must be supplied'));
-		return def.promise;
-	}
-
-	if(recipeId != recipe.id) {
-		def.reject(new Error('Recipe ID mismatch'));
 		return def.promise;
 	}
 
@@ -91,22 +109,6 @@ RecipeStore.prototype.remove = function(recipeId) {
 			}
 
 			return self.dbClient.remove(recipeId, self.dbType);
-		})
-		.catch(function(error) {
-			return q.reject(error);
-		});
-};
-
-RecipeStore.prototype.search = function(query) {
-	if(!query) {
-		var def = q.defer();
-		def.reject('Query must be specified.');
-		return def.promise;
-	}
-
-	return this.dbClient.search(query, this.dbType)
-		.then(function(hits) {
-			return hits;
 		})
 		.catch(function(error) {
 			return q.reject(error);

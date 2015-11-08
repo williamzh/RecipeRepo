@@ -125,9 +125,7 @@ UserService.prototype.search = function(userName) {
 		return def.promise;
 	}
 
-	return this.dbClient.searchFields([
-		{ fieldName: 'userName', query: userName, fuzzy: false }
-	], this.dbType)
+	return this.dbClient.searchField('userName', userName, this.dbType)
 		.then(function(hits) {
 			return hits;
 		})

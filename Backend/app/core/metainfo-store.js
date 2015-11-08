@@ -89,9 +89,7 @@ MetainfoStore.prototype.search = function(name) {
 		return def.promise;
 	}
 
-	return this.dbClient.searchFields([
-		{ fieldName: 'name', query: name, fuzzy: false }
-	], this.dbType)
+	return this.dbClient.searchField('name', name, this.dbType)
 		.then(function(hits) {
 			return hits;
 		})

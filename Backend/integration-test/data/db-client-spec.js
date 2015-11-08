@@ -51,22 +51,22 @@ describe('Given a dbClient', function() {
 			
 
 			describe('Read', function() {
-				// it('should return empty array if no items exist', function() {
-				// 	return dbClient.getAll('testCollection')
-				// 		.then(function(items) {
-				// 			assert.equal(items.length, 0);
-				// 		});
-				// });
+				it('should return empty array if no items exist', function() {
+					return dbClient.getAll('testCollection')
+						.then(function(items) {
+							assert.equal(items.length, 0);
+						});
+				});
 
-				// it('should be able to get all items', function() {
-				// 	return testDb.collection('testCollection').insertMany([{ name: 'foo' }, { name: 'bar' }])
-				// 		.then(function(result) {
-				// 			return dbClient.getAll('testCollection');
-				// 		})
-				// 		.then(function(items) {
-				// 			assert.equal(items.length, 2);
-				// 		});
-				// });
+				it('should be able to get all items', function() {
+					return testDb.collection('testCollection').insertMany([{ name: 'foo' }, { name: 'bar' }])
+						.then(function(result) {
+							return dbClient.getAll('testCollection');
+						})
+						.then(function(items) {
+							assert.equal(items.length, 2);
+						});
+				});
 
 				it('should return null if no item with matching ID', function() {
 					return dbClient.get('507f191e810c19729de860ea', 'testCollection')
@@ -122,13 +122,13 @@ describe('Given a dbClient', function() {
 		
 		describe('when performing a field search', function() {
 			before(function() {
-				return testDb.collection('testCollection').insertMany(data.users)
+				return testDb.collection('testCollection').insertMany(data.recipes)
 					.then(function(result) {
 						// Create indices for relevant fields
 						return testDb.collection('testCollection').createIndex({ 
-							userName: 1, 
-							firstName: 1,
-							lastName: 1
+							recipeName: 1, 
+							'meta.created': 1,
+							'meta.rating': 1
 						}, { 
 							name: 'fieldSearchIndex' 
 						});
@@ -145,51 +145,54 @@ describe('Given a dbClient', function() {
 					});
 			});
 
-			describe('on a single field', function() {
-				it('should be able to find items using exact match', function() {
-					return dbClient.searchFields([
-						{ fieldName: 'userName', query: 'ceblo', fuzzy: false }
-					], 'testCollection')
-						.then(function(items) {
-							assert.equal(items.length, 1);
-							assert.equal(items[0].userName, 'ceblo');
-						});
-				});
-
-				it('should be able to find items using fuzzy match', function() {
-					return dbClient.searchFields([
-						{ fieldName: 'userName', query: 'eblo', fuzzy: true }
-					], 'testCollection')
-						.then(function(items) {
-							assert.equal(items.length, 1);
-							assert.equal(items[0].userName, 'ceblo');
-						});
-				});
+			it('should be able to find all documents that matches a string query', function() {
+				return dbClient.searchField('recipeName', 'Pasta Bolognese', 'testCollection')
+					.then(function(items) {
+						assert.equal(items.length, 1);
+						assert.equal(items[0].recipeName, 'Pasta Bolognese');
+					});
 			});
 
-			describe('on multiple fields', function() {
-				it('should be able to find items using exact match', function() {
-					return dbClient.searchFields([
-						{ fieldName: 'firstName', query: 'Cecilia', fuzzy: false },
-						{ fieldName: 'lastName', query: 'Blomdahl', fuzzy: false }
-					], 'testCollection')
-						.then(function(items) {
-							assert.equal(items.length, 1);
-							assert.equal(items[0].userName, 'ceblo');
-						});
-				});
-
-				it('should be able to find items using fuzzy match', function() {
-					return dbClient.searchFields([
-						{ fieldName: 'firstName', query: 'Ce', fuzzy: true },
-						{ fieldName: 'lastName', query: 'dahl', fuzzy: true }
-					], 'testCollection')
-						.then(function(items) {
-							assert.equal(items.length, 1);
-							assert.equal(items[0].userName, 'ceblo');
-						});
-				});
+			it('should be able to find all documents that matches a number query', function() {
+				return dbClient.searchField('meta.rating', 4, 'testCollection')
+					.then(function(items) {
+						assert.equal(items.length, 3);
+					});
 			});
+
+			it('should be able to find all documents that matches a date query', function() {
+				return dbClient.searchField('meta.created', '2014-01-02T20:00:00Z', 'testCollection')
+					.then(function(items) {
+						assert.equal(items.length, 1);
+						assert.equal(items[0].recipeName, 'Ugnsgratinerad falukorv');
+					});
+			});
+
+			// describe('fuzzy behavior specified', function() {
+			// 	it('should be able to find items using fuzzy match', function() {
+			// 		return dbClient.searchField('recipeName', 'Bolognese', 'testCollection', { behavior: 'fuzzy' })
+			// 			.then(function(items) {
+			// 				assert.equal(items.length, 1);
+			// 				assert.equal(items[0].recipeName, 'Pasta Bolognese');
+			// 			});
+			// 	});
+			// });
+
+			// describe('range behavior specified', function() {
+			// 	it('should be able to find items on date field using range match', function() {
+			// 		return dbClient.searchField('meta.created', '2015-09-01T00:00:00Z', 'testCollection', { behavior: 'range' })
+			// 			.then(function(items) {
+			// 				assert.equal(items.length, 2);
+			// 			});
+			// 	});
+
+			// 	it('should be able to find items on number field using range match', function() {
+			// 		return dbClient.searchField('meta.rating', 4, 'testCollection', { behavior: 'range' })
+			// 			.then(function(items) {
+			// 				assert.equal(items.length, 9);
+			// 			});
+			// 	});
+			// });
 		});
 
 		describe('when performing a free text search', function() {
@@ -221,7 +224,7 @@ describe('Given a dbClient', function() {
 				return dbClient.searchText('pannbiff', 'testCollection')
 					.then(function(items) {
 						assert.equal(items.length, 1);
-						assert.equal(items[0].id, '6');
+						assert.equal(items[0].recipeName, 'Pannbiff med skysås och potatisklyftor');
 					});
 			});
 
@@ -229,8 +232,8 @@ describe('Given a dbClient', function() {
 				return dbClient.searchText('champinjonsås', 'testCollection')
 					.then(function(items) {
 						assert.equal(items.length, 2);
-						assert.equal(items[0].id, '8');
-						assert.equal(items[1].id, '12');
+						assert.equal(items[0].recipeName, 'Panerad fläskfilé med parmesanost');
+						assert.equal(items[1].recipeName, 'Champinjonsås');
 					});
 			});
 
@@ -238,7 +241,7 @@ describe('Given a dbClient', function() {
 				return dbClient.searchText('mustig kantarell', 'testCollection')
 					.then(function(items) {
 						assert.equal(items.length, 1);
-						assert.equal(items[0].id, '5');
+						assert.equal(items[0].recipeName, 'Pasta med kyckling och svamp');
 					});
 			});
 		});
