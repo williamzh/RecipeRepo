@@ -14,34 +14,37 @@ function UserController(app, userService, tokenValidator) {
 		this.tokenValidator.validate(req, res, next);	
 	});
 
-	userRouter.get('/:userName', function(req, res) {
-		this.userService.get(req.params.userName)
+	userRouter.get('/:userId', function(req, res) {
+		this.userService.get(req.params.userId)
 			.then(function(user) {
 				res.json(200, user);
-			}).catch(function(err) {
+			})
+			.catch(function(err) {
 				res.json(500, { error: err.message });
 			});
 	});
 
-	userRouter.put('/:userName', function(req, res) {
-		this.userService.update(req.params.userName, req.body.user)
+	userRouter.put('/:userId', function(req, res) {
+		this.userService.update(req.params.userId, req.body.user)
 			.then(function() {
 				res.json(200);
-			}).catch(function(err) {
+			})
+			.catch(function(err) {
 				res.json(500, { error: err.message });
 			});
 	});
 
-	userRouter.delete('/:userName', function(req, res) {
-		if(!req.params.userName) {
+	userRouter.delete('/:userId', function(req, res) {
+		if(!req.params.userId) {
 			res.json(400, { error: 'User name must be provided.' });
 			return;
 		}
 
-		this.userService.remove(req.params.userName)
+		this.userService.remove(req.params.userId)
 			.then(function() {
 				res.json(200);
-			}).catch(function(err) {
+			})
+			.catch(function(err) {
 				res.json(500, { error: err.message });
 			});
 	});
