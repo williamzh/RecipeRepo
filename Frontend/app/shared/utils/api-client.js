@@ -32,10 +32,16 @@ recipeRepoServices.service('apiClient', ['$http', '$q', 'log', function($http, $
 			.catch(function(error) { return onError('login', error) });
 	};
 
-	this.getRecipes = function() {
-		return $http.get(apiUrl + '/recipes')
-			.then(function (response) {	return onSuccess('getRecipes', response); })
-			.catch(function(error) { return onError('getRecipes', error) });
+	this.getTopRecipes = function() {
+		return $http.get(apiUrl + '/recipes/top-rated')
+			.then(function (response) {	return onSuccess('getTopRecipes', response); })
+			.catch(function(error) { return onError('getTopRecipes', error) });
+	};
+
+	this.getLatestRecipes = function() {
+		return $http.get(apiUrl + '/recipes/latest')
+			.then(function (response) {	return onSuccess('getLatestRecipes', response); })
+			.catch(function(error) { return onError('getLatestRecipes', error) });
 	};
 
 	this.getRecipe = function(id) {

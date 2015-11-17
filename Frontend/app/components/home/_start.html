@@ -1,17 +1,58 @@
 <div id="start" class="page-container-wide" ng-controller="startController" ng-init="createSections()">
-	<div class="row" ng-repeat="section in startSections">
+	<div class="row">
 		<div class="section-area">
-			<h3><rd-translate key="home/{{section.name}}"></rd-translate></h3>
-			<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="recipe in section.items">
+			<h3><span class="fa fa-star-o"></span> <rd-translate key="home/topRated"></rd-translate></h3>
+			<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="recipe in topRecipes">
 				<div class="recipe-wrapper">
-					<a class="plain-link" ui-sref="recipe({ recipeId: recipe.id })">
+					<a class="plain-link" ui-sref="recipe({ recipeId: recipe._id })">
 						<div class="recipe-heading">
 							<h5>{{recipe.recipeName}}</h5>
 							<p class="preamble">{{recipe.description}}</p>
 						</div>
 						<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 						<div class="recipe-footer">
-							<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.rating}} / 5</span>
+							<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.meta.rating}} / 5</span>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="section-area">
+			<h3><span class="fa fa-clock-o"></span> <rd-translate key="home/latest"></rd-translate></h3>
+			<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="recipe in latestRecipes">
+				<div class="recipe-wrapper">
+					<a class="plain-link" ui-sref="recipe({ recipeId: recipe._id })">
+						<div class="recipe-heading">
+							<h5>{{recipe.recipeName}}</h5>
+							<p class="preamble">{{recipe.description}}</p>
+						</div>
+						<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
+						<div class="recipe-footer">
+							<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.meta.rating}} / 5</span>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="section-area">
+			<h3><span class="fa fa-history"></span> <rd-translate key="home/history"></rd-translate></h3>
+			<h4 ng-if="history.length === 0">History is empty. Go browse some recipes!</h4>
+			<div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="recipe in history">
+				<div class="recipe-wrapper">
+					<a class="plain-link" ui-sref="recipe({ recipeId: recipe._id })">
+						<div class="recipe-heading">
+							<h5>{{recipe.recipeName}}</h5>
+							<p class="preamble">{{recipe.description}}</p>
+						</div>
+						<div class="recipe-image" ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
+						<div class="recipe-footer">
+							<span class="recipe-rating"><i class="fa fa-star"></i> {{recipe.meta.rating}} / 5</span>
 						</div>
 					</a>
 				</div>
