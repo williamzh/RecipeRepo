@@ -19,6 +19,11 @@ recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 				$state.go('login');
 			};
 		}],
+		link: function(scope, elem, attrs) {
+			elem.find('.Header-toggleButton').on('click', function() {
+				$('.Header-menu').toggleClass('is-open');
+			});
+		},
     	templateUrl: '/app/shared/navbar/_navbar.html'
 	};
 }]);

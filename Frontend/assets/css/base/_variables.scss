@@ -28,8 +28,6 @@ $color-red: #f20403;
 $color-red-light: #ffdad5;
 
 $color-background: #fff;
-$color-box-background: #f4f4f4;
-$color-box-background-dark: #333;
 $color-brand: #3bb595;
 $color-danger: $color-red;
 $color-disabled: rgba(0, 0, 0, 0.4);
@@ -44,16 +42,17 @@ $color-text: $color-gray-dark;
 
 $border-radius: 4px;
 $font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-size-xs: 12px;
+$font-size-sm: 14px;
 $font-size: 16px;
 $font-size-lg: 20px;
-$font-size-sm: 14px;
-$font-size-xs: 12px;
+$font-size-xl: 32px;
 $line-height: 1.45;
-$line-height-extra-readability: 1.55;
 
 /* Spacing */
 
-$framework-height: 90px; /* Header & footer */
+$framework-height: 80px;	// Header & footer
+$framework-width: 954px; 	// Page content width
 
 $spacing-sm: 14px;
 $spacing-md: 36px;

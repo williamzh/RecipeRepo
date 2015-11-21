@@ -13,7 +13,8 @@
 .Header-content {
 	height: 100%;
 	margin: 0 auto;
-	max-width: 954px;
+	max-width: $framework-width;
+	padding-left: 30px;
 }
 
 .Header-brand {
@@ -29,3 +30,49 @@
 	top: 50%;
 	transform: translateY(-50%);
 }
+
+.Header-menuToggle {
+	float: right;
+	height: 100%;
+}
+
+.Header-toggleButton {
+	height: 100%;
+	background: transparent;
+	border: none;
+	font-size: 28px;
+ 	padding: 15px 30px;
+ 	cursor: pointer;
+
+ 	&:focus {
+ 		outline: none;
+ 	}
+}
+
+.Header-menu {
+	display: none;
+	position: fixed;
+	min-height: 100%;
+	width: 100%;
+	background-color: darken($color-brand, 5%);
+}
+
+.Header-menu.is-open {
+	display: block;
+}
+
+.Header-menuItems {
+	list-style-type: none;
+	padding: 0;
+	margin: 45px auto;
+	max-width: $framework-width;
+}
+
+.Header-menuItem {
+	margin: 15px;
+	padding-left: 15px;
+	font-size: $font-size-lg;
+	color: #efefef;
+}
+
+
