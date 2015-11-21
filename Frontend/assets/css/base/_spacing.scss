@@ -1,0 +1,81 @@
+/* Small */
+
+.u-spacingSmTop {
+  margin-top: $spacing-sm;
+}
+
+.u-spacingSmBottom {
+  margin-bottom: $spacing-sm;
+}
+
+.u-spacingSmBoth {
+  margin-bottom: $spacing-sm;
+  margin-top: $spacing-sm;
+}
+
+/* Medium */
+
+.u-spacingMdTop {
+  margin-top: $spacing-md;
+}
+
+.u-spacingMdBottom {
+  margin-bottom: $spacing-md;
+}
+
+.u-spacingMdBoth {
+  margin-bottom: $spacing-md;
+  margin-top: $spacing-md;
+}
+
+/* Large */
+
+.u-spacingLgTop {
+  margin-top: $spacing-lg;
+}
+
+.u-spacingLgBottom {
+  margin-bottom: $spacing-lg;
+}
+
+.u-spacingLgBoth {
+  margin-bottom: $spacing-lg;
+  margin-top: $spacing-lg;
+}
+
+/* Extra large */
+
+.u-spacingXlTop {
+  margin-top: $spacing-xl;
+}
+
+.u-spacingXlBottom {
+  margin-bottom: $spacing-xl;
+}
+
+.u-spacingXlBoth {
+  margin-bottom: $spacing-xl;
+  margin-top: $spacing-xl;
+}
+
+/* None */
+
+// .u-spacingNoTop,
+// .u-spacingTopNone {
+//   margin-top: 0;
+//   padding-top: 0;
+// }
+
+// .u-spacingNoBottom,
+// .u-spacingBottomNone {
+//   margin-bottom: 0;
+//   padding-bottom: 0;
+// }
+
+// .u-spacingNoBoth,
+// .u-spacingBothNone {
+//   margin-bottom: 0;
+//   margin-top: 0;
+//   padding-bottom: 0;
+//   padding-top: 0;
+// }

@@ -1,20 +1,16 @@
-<nav class="top-navigation navbar">
-	<div class="navbar-inner">
-		<ul class="nav navbar-nav navbar-left">
-	    	<li><a class="logo" ui-sref="home.start">Recipe repo</a></li>
-	    </ul>
-		<ul ng-if="isAuthenticated" class="nav navbar-nav navbar-right">
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" type="button" id="user-settings" data-toggle="dropdown">
-					<span class="avatar">{{user.firstName + ' ' + user.lastName}}</span>
-					<span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a ui-sref="manage"><rd-translate key="navigation/myRecipesLabel"></rd-translate></a></li>
-					<li><a ui-sref="profile"><rd-translate key="navigation/settingsLabel"></rd-translate></a></li>
-					<li><a href="" ng-click="logout()"><rd-translate key="navigation/logoutLabel"></rd-translate></a></li>
-				</ul>
-			</li>
+<a class="Header-brand" ui-sref="home.start"><span class="Header-brandContent">Recipe repo</span></a>
+<button class="Menu-toggle"><span class="fa fa-bars"></span></button>
+
+<ul ng-if="isAuthenticated" class="">
+	<li class="dropdown">
+		<a href="#" class="dropdown-toggle" type="button" id="user-settings" data-toggle="dropdown">
+			<span class="avatar">{{user.firstName + ' ' + user.lastName}}</span>
+			<span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a ui-sref="manage"><rd-translate key="navigation/myRecipesLabel"></rd-translate></a></li>
+			<li><a ui-sref="profile"><rd-translate key="navigation/settingsLabel"></rd-translate></a></li>
+			<li><a href="" ng-click="logout()"><rd-translate key="navigation/logoutLabel"></rd-translate></a></li>
 		</ul>
-	</div>
-</nav>
+	</li>
+</ul>

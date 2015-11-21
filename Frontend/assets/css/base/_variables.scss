@@ -1,0 +1,68 @@
+/* Breakpoints */
+
+$xs-viewport: 330px;
+$sm-viewport: 460px;
+$md-viewport: 760px;
+$lg-viewport: 1000px;
+$xl-viewport: 1260px;
+$xs-max-viewport: 329px;
+$sm-max-viewport: 459px;
+$md-max-viewport: 759px;
+$lg-max-viewport: 999px;
+$xl-max-viewport: 1259px;
+
+/* Colors */
+
+$color-white: #fff;
+$color-beige: #f4f3e4;
+$color-blue: #26aae2;
+$color-blue-light: #c2e5f8;
+$color-gray: #6d6d6d;
+$color-gray-dark: #444;
+$color-gray-light: #989898;
+$color-green: #14b9a0;
+$color-green-light: #d5f3ee;
+$color-lime: #009b00;
+$color-orange: #ea9e00;
+$color-red: #f20403;
+$color-red-light: #ffdad5;
+
+$color-background: #fff;
+$color-box-background: #f4f4f4;
+$color-box-background-dark: #333;
+$color-brand: #3bb595;
+$color-danger: $color-red;
+$color-disabled: rgba(0, 0, 0, 0.4);
+$color-divider: rgba(0, 0, 0, 0.13);
+$color-info: $color-blue-light;
+$color-muted: $color-gray-light;
+$color-primary: $color-blue;
+$color-success: $color-lime;
+$color-text: $color-gray-dark;
+
+/* Typography */
+
+$border-radius: 4px;
+$font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-size: 16px;
+$font-size-lg: 20px;
+$font-size-sm: 14px;
+$font-size-xs: 12px;
+$line-height: 1.45;
+$line-height-extra-readability: 1.55;
+
+/* Spacing */
+
+$framework-height: 90px; /* Header & footer */
+
+$spacing-sm: 14px;
+$spacing-md: 36px;
+$spacing-lg: 60px;
+$spacing-xl: 100px;
+
+/* Z-index priority levels */
+$z-index-high: 140;
+$z-index-higher: 120;
+$z-index-std: 100;
+$z-index-lower: 80;
+$z-index-low: 60;

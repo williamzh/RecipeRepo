@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 				files: [
 					{ 
 						expand: true, 
-						src: ['assets/css/fonts/**'],
+						src: ['bower_components/font-awesome/fonts/**'],
 						dest: 'dist/fonts',
 						flatten: true,
 						filter: 'isFile'
@@ -49,12 +49,10 @@ module.exports = function(grunt) {
 		sass: {
 		    dist: {
 				options: {
-		        	style: 'expanded',
-		        	sourcemap: 'none'
+		        	style: 'expanded'
 				},
 				files: {
-					'dist/css/lib.min.css': 'assets/css/lib/**/*.css',
-					'dist/css/style.min.css': 'assets/css/sass/style.scss',
+					'dist/css/style.min.css': 'assets/css/index.scss'
 				}
 		    }
 		},
