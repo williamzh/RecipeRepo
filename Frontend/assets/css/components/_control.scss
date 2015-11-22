@@ -1,0 +1,36 @@
+.Control {
+	height: 50px;
+	width: 100%;
+	margin-bottom: 25px;
+}
+
+.Control.has-error {
+	.Control-field {
+		background-color: #ffdad5;
+	}
+
+	.Control-error {
+		display: block;
+	}
+}
+
+.Control-field {
+	display: block;
+	box-sizing: border-box;
+	border: 1px solid #c3c3c3;
+	outline: none;
+	height: 100%;
+	width: 100%;
+	padding: 5px 10px;
+
+	&:focus {
+		border: 1px solid $color-brand;
+	}
+}
+
+.Control-error {
+	display: none;
+	font-size: $font-size-xs;
+	color: $color-red;
+	margin-top: 2px;
+}

@@ -1,0 +1,17 @@
+.Container {
+	margin: 0 auto;
+	max-width: $framework-width;
+	padding-left: 22px;
+	padding-right: 22px;
+	margin-bottom: $spacing-md;
+	margin-top: $spacing-md;
+
+	@media(min-width: $lg-viewport) {
+		margin-bottom: $spacing-lg;
+		margin-top: $spacing-lg;
+	}
+}
+
+.Container--narrow {
+	max-width: $framework-width * 0.6;
+}

@@ -1,0 +1,14 @@
+.ButtonGroup {
+	display: block;
+	overflow: hidden;
+}
+
+.ButtonGroup--alignRight {
+	.Button {
+		float: right;
+	}
+
+	.Button--link {
+		margin-right: -15px;
+	}
+}

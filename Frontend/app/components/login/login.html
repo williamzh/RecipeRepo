@@ -1,34 +1,26 @@
-<div id="login-wrapper" class="login-container" ng-controller="loginController">
-	<div class="login-box">
+<div class="Container Container--narrow" ng-controller="loginController">
+	<form id="login-form" name="loginForm" ng-submit="onSubmit()" novalidate>
 		<rd-alert type="danger" message-key="login/loginErrorMessage" observe="showError === true"></rd-alert>
 
-		<h1><rd-translate key="login/mainHeading"/></rd-translate></h1>
-		<form id="login-form" name="loginForm" ng-submit="onSubmit()" novalidate>
-			<fieldset>
-				<div class="form-group" ng-class="{ 'has-error': hasError('userName') }">
-					<label for="username"><rd-translate key="login/userNameLabel"/></label>
-					<div class="input-group">
-						<div class="input-group-addon"><i class="fa fa-user"></i></div>
-						<input type="text" id="username" class="form-control" name="userName" ng-model="userName" required />	
-					</div>
-					<p class="control-label error-label" ng-show="hasError('userName')"><rd-translate key="validation/userNameRequired"></rd-translate></p>
-				</div>
-				<div class="form-group" ng-class="{ 'has-error': hasError('password') }">
-					<label for="password"><rd-translate key="login/passwordLabel"/></label>
-					<div class="input-group">
-						<div class="input-group-addon"><i class="fa fa-lock"></i></div>
-						<input type="password" id="password" class="form-control" name="password" ng-model="password" required />
-					</div>
-					<p class="control-label error-label" ng-show="hasError('password')"><rd-translate key="validation/passwordRequired"></rd-translate></p>
-				</div>
-			</fieldset>
+		<h1 class="u-spacingBottomMd"><rd-translate key="login/mainHeading"/></rd-translate></h1>
 
-			<button id="login-button" type="submit" class="btn btn-primary pull-right" ng-click="submitted = true"><rd-translate key="login/submitButton"/></button>
+		<div class="Control" ng-class="{ 'has-error': hasError('userName') }">
+			<!-- <label for="username"><rd-translate key="login/userNameLabel"/></label> -->
+			<input type="text" class="Control-field" placeholder="Användarnamn" name="userName" ng-model="userName" required />	
+			<span class="Control-error"><rd-translate key="validation/userNameRequired"></rd-translate></span>
+		</div>
+		<div class="Control" ng-class="{ 'has-error': hasError('password') }">
+			<!-- <label for="password"><rd-translate key="login/passwordLabel"/></label> -->
+			<input type="password" class="Control-field" placeholder="Lösenord" name="password" ng-model="password" required />
+			<span class="Control-error"><rd-translate key="validation/passwordRequired"></rd-translate></span>
+		</div>
 
-			<div class="stacked">
-				<a class="stack-item" ui-sref="register.create"><rd-translate key="login/registerLabel"></rd-translate></a>
-				<a class="stack-item" ui-sref="resetPassword"><rd-translate key="login/forgotPasswordLabel"></rd-translate></a>
-			</div>
-		</form>
-	</div>
+		<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopSm">
+			<button type="submit" class="Button Button--primary" ng-click="submitted = true"><rd-translate key="login/submitButton"/></button>
+		</div>
+		<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopSm">
+			<a class="Button Button--link" ui-sref="register.create"><rd-translate key="login/registerLabel"></rd-translate></a>
+			<a class="Button Button--link" ui-sref="resetPassword"><rd-translate key="login/forgotPasswordLabel"></rd-translate></a>
+		</div>
+	</form>
 </div>

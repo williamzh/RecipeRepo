@@ -1,14 +1,20 @@
 html {
-  background: $color-background;
-  color: $color-text;
-  font-family: $font-family;
-  font-size: $font-size;
-  height: 100%;
-  line-height: $line-height;
+	background: $color-background;
+	color: $color-text;
+	height: 100%;
+}
+
+body {
+	box-sizing: border-box;
+	min-height: 100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	padding-bottom: $framework-height;
+	position: relative;
 }
 
 img {
-  max-width: 100%;
+	max-width: 100%;
 }
 
 hr {
@@ -18,17 +24,8 @@ hr {
   width: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font: inherit;
-  margin: 0;
-}
-
 form {
   margin: 0;
-}
-
-strong, b {
-  font-weight: 600;
 }
 
 // Reset link styles

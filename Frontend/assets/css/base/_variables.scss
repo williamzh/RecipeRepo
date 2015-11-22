@@ -5,36 +5,33 @@ $sm-viewport: 460px;
 $md-viewport: 760px;
 $lg-viewport: 1000px;
 $xl-viewport: 1260px;
-$xs-max-viewport: 329px;
-$sm-max-viewport: 459px;
-$md-max-viewport: 759px;
-$lg-max-viewport: 999px;
-$xl-max-viewport: 1259px;
+// $xs-max-viewport: 329px;
+// $sm-max-viewport: 459px;
+// $md-max-viewport: 759px;
+// $lg-max-viewport: 999px;
+// $xl-max-viewport: 1259px;
 
-/* Colors */
-
-$color-white: #fff;
-$color-beige: #f4f3e4;
-$color-blue: #26aae2;
-$color-blue-light: #c2e5f8;
+/* Color theme */
+//https://coolors.co/app/edae49-d1495b-00798c-30638e-003d5b
+$color-white: #FDFFFC;
+$color-blue: #30638E;
 $color-gray: #6d6d6d;
 $color-gray-dark: #444;
 $color-gray-light: #989898;
-$color-green: #14b9a0;
+$color-green: #00a03e;
 $color-green-light: #d5f3ee;
 $color-lime: #009b00;
-$color-orange: #ea9e00;
-$color-red: #f20403;
-$color-red-light: #ffdad5;
+$color-orange: #EDAE49;
+$color-red: #D1495B;
 
-$color-background: #fff;
-$color-brand: #3bb595;
+$color-background: $color-white;
+$color-brand: #00798C; //#3bb595;
 $color-danger: $color-red;
 $color-disabled: rgba(0, 0, 0, 0.4);
 $color-divider: rgba(0, 0, 0, 0.13);
-$color-info: $color-blue-light;
+$color-info: $color-blue;
 $color-muted: $color-gray-light;
-$color-primary: $color-blue;
+$color-primary: $color-brand;
 $color-success: $color-lime;
 $color-text: $color-gray-dark;
 
@@ -44,7 +41,7 @@ $border-radius: 4px;
 $font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-size-xs: 12px;
 $font-size-sm: 14px;
-$font-size: 16px;
+$font-size-md: 16px;
 $font-size-lg: 20px;
 $font-size-xl: 32px;
 $line-height: 1.45;

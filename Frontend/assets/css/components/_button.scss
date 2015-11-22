@@ -1,0 +1,29 @@
+.Button {
+	display: block;
+	box-sizing: border-box;
+	border: none;
+	color: $color-white;
+	padding: 15px 25px;
+	height: 50px;
+	text-align: center;
+	text-decoration: none;
+	width: 100%;
+
+	@media(min-width: $lg-viewport) {
+		width: auto;
+		display: inline-block;
+	}
+}
+
+.Button--primary {
+	background-color: $color-primary;
+}
+
+.Button--link {
+	background: transparent;
+	border-color: transparent;
+	color: $color-primary;
+	// padding-left: 0;
+	// padding-right: 0;
+	text-decoration: none;
+}

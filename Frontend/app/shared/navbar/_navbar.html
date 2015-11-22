@@ -4,23 +4,9 @@
 		<div class="Header-menuToggle">
 			<button class="Header-toggleButton"><span class="fa fa-bars"></span></button>
 		</div>
-
-		<!-- <ul ng-if="isAuthenticated" class="">
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" type="button" id="user-settings" data-toggle="dropdown">
-					<span class="avatar">{{user.firstName + ' ' + user.lastName}}</span>
-					<span class="caret"></span>
-				</a>
-				<ul class="dropdown-menu">
-					<li><a ui-sref="manage"><rd-translate key="navigation/myRecipesLabel"></rd-translate></a></li>
-					<li><a ui-sref="profile"><rd-translate key="navigation/settingsLabel"></rd-translate></a></li>
-					<li><a href="" ng-click="logout()"><rd-translate key="navigation/logoutLabel"></rd-translate></a></li>
-				</ul>
-			</li>
-		</ul> -->
 	</div>
 </div>
-<div class="Header-menu">
+<div ng-if="isAuthenticated" class="Header-menu">
 	<ul class="Header-menuItems">
 		<li class="Header-menuItem"><a ui-sref="manage"><rd-translate key="navigation/myRecipesLabel"></rd-translate></a></li>
 		<li class="Header-menuItem"><a ui-sref="profile"><rd-translate key="navigation/settingsLabel"></rd-translate></a></li>
