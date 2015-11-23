@@ -13,9 +13,4 @@ recipeRepoControllers.controller('loginController', ['$scope', '$state', 'userSe
 				$scope.showError = true;
 			});
 	};
-
-	$scope.hasError = function(field) {
-		var isInvalid = $scope.loginForm[field].$invalid;
-		return ($scope.loginForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
-	}
 }]);

@@ -4,7 +4,7 @@
 
 		<rd-alert type="danger" message-key="profile/createErrorMessage" observe="showError === true"></rd-alert>
 		
-		<div class="Grid Grid--withGutter">
+		<div class="Grid Grid--withGutter" validator>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control" ng-class="{ 'has-error': hasError('userName') }">
 					<input type="text" class="Control-field" name="userName" placeholder="{{'profile/userNameLabel' | translate}}" ng-model="profile.userName" required>
@@ -37,7 +37,7 @@
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control" ng-class="{ 'has-error': hasError('repeatPassword') }">
-					<input type="password" class="Control-field" name="repeatPassword" placeholder="{{'profile/repeatPasswordLabel' | translate}}" ng-model="repeatPassword" required>
+					<input type="password" class="Control-field" name="repeatPassword" placeholder="{{'profile/repeatPasswordLabel' | translate}}" ng-model="repeatPassword" required password-repeat='password'>
 					<span class="Control-error">{{'validation/passwordRepeatMismatch' | translate}}</span>
 				</div>
 			</div>

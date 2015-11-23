@@ -21,9 +21,4 @@ recipeRepoControllers.controller('createProfileController', ['$scope', '$state',
 				$scope.showError = true;
 			});
 	};
-
-	$scope.hasError = function(field) {
-		var isInvalid = $scope.createProfileForm[field].$invalid;
-		return ($scope.createProfileForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
-	};
 }]);

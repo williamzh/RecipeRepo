@@ -3,22 +3,23 @@
 		<rd-alert type="danger" message-key="login/loginErrorMessage" observe="showError === true"></rd-alert>
 
 		<h1 class="u-spacingBottomMd">{{'login/mainHeading' | translate}}</h1>
+		<div validator>
+			<div class="Control" ng-class="{ 'has-error': hasError('userName') }">
+				<input type="text" class="Control-field" placeholder="{{'login/userNameLabel' | translate}}" name="userName" ng-model="userName" required />	
+				<span class="Control-error">{{'validation/userNameRequired' | translate}}</span>
+			</div>
+			<div class="Control" ng-class="{ 'has-error': hasError('password') }">
+				<input type="password" class="Control-field" placeholder="{{'login/passwordLabel' | translate}}" name="password" ng-model="password" required />
+				<span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
+			</div>
 
-		<div class="Control" ng-class="{ 'has-error': hasError('userName') }">
-			<input type="text" class="Control-field" placeholder="{{'login/userNameLabel' | translate}}" name="userName" ng-model="userName" required />	
-			<span class="Control-error">{{'validation/userNameRequired' | translate}}></span>
-		</div>
-		<div class="Control" ng-class="{ 'has-error': hasError('password') }">
-			<input type="password" class="Control-field" placeholder="{{'login/passwordLabel' | translate}}" name="password" ng-model="password" required />
-			<span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
-		</div>
-
-		<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
-			<button type="submit" class="Button Button--primary" ng-click="submitted = true">{{'login/submitButton' | translate}}</button>
-		</div>
-		<div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopSm">
-			<a class="Button Button--link" ui-sref="resetPassword">{{'login/forgotPasswordLabel' | translate }}</a>
-			<a class="Button Button--link" ui-sref="register.create">{{'login/registerLabel' | translate }}</a>
+			<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+				<button type="submit" class="Button Button--primary" ng-click="submitted = true">{{'login/submitButton' | translate}}</button>
+			</div>
+			<div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopSm">
+				<a class="Button Button--link" ui-sref="resetPassword">{{'login/forgotPasswordLabel' | translate }}</a>
+				<a class="Button Button--link" ui-sref="register.create">{{'login/registerLabel' | translate }}</a>
+			</div>
 		</div>
 	</form>
 </div>

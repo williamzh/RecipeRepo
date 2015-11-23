@@ -13,9 +13,4 @@ recipeRepoControllers.controller('resetPasswordController', ['$scope', '$state',
 		// 		$scope.showError = true;
 		// 	});
 	};
-
-	$scope.hasError = function(field) {
-		var isInvalid = $scope.resetPasswordForm[field].$invalid;
-		return ($scope.resetPasswordForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
-	}
 }]);
