@@ -3,12 +3,14 @@ var recipeRepoApp = angular.module('recipeRepoApp', [
 	'ngStorage',
 	'recipeRepoControllers',
 	'recipeRepoDirectives',
-	'recipeRepoServices'
+	'recipeRepoServices',
+	'recipeRepoFilters'
 ]);
 
 var recipeRepoControllers = angular.module('recipeRepoControllers', []);
 var recipeRepoDirectives = angular.module('recipeRepoDirectives', []);
 var recipeRepoServices = angular.module('recipeRepoServices', []);
+var recipeRepoFilters = angular.module('recipeRepoFilters', []);
 
 recipeRepoApp.config(['$httpProvider', function($httpProvider) {
 	$httpProvider.interceptors.push('authInterceptor');

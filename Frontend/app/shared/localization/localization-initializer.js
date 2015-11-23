@@ -1,4 +1,4 @@
-recipeRepoServices.service('localizationInitializer', ['$localStorage', 'apiClient', function($localStorage, apiClient) {
+recipeRepoServices.service('localizationInitializer', ['$log', '$localStorage', 'apiClient', function($log, $localStorage, apiClient) {
 	this.load = function() {
 		// Save translations in local storage
 	    apiClient.getTranslations()
@@ -6,7 +6,7 @@ recipeRepoServices.service('localizationInitializer', ['$localStorage', 'apiClie
 				$localStorage.translations = translations;
 			})
 			.catch(function(error) {
-				// Do what?
+				$log.error('Failed to initialize translations. ' + error.message);
 			});
 	};
 }]);

@@ -8,22 +8,45 @@ recipeRepoServices.service('apiClient', ['$http', '$q', 'log', function($http, $
 	};
 
 	var onError = function (action, error) {
-		var errorMessage = error;
-		if (error.data) {
-			errorMessage = error.data.message || error.data;
+		if (!error || !error.data) {
+			return $q.reject({
+				statusCode: -1,
+				message: 'An unexpected error occured, but no error details are available. Make sure you have an active network connection.'
+			});
 		}
 
-		var formattedMsg = '{1}: an error occured{2}: {3}'.assign(
-			action,
-			(error.status && error.statusText) ? ' (' + error.status + ' ' + error.statusText + ')' : '',
-			errorMessage);
-
-		log.error(formattedMsg);
+		var errorMessage = '';
+    	// Check if error is a simple string
+		if (typeof error.data === 'string') {
+			errorMessage = error.data;
+		}
+		// Check if error is a backend error object
+		else if (error.data.message) {
+			errorMessage = error.data.message;
+		}
 		
-		return $q.reject({
-			statusCode: error.status || -1,
-			message: errorMessage
-		});
+        $log.error(action + ': an error occured (' + error.status + ' ' + error.statusText + '): ' + errorMessage);
+        return $q.reject({
+            statusCode: error.status,
+            message: errorMessage
+        });
+
+		// var errorMessage = error;
+		// if (error.data) {
+		// 	errorMessage = error.data.message || error.data;
+		// }
+
+		// var formattedMsg = '{1}: an error occured{2}: {3}'.assign(
+		// 	action,
+		// 	(error.status && error.statusText) ? ' (' + error.status + ' ' + error.statusText + ')' : '',
+		// 	errorMessage);
+
+		// log.error(formattedMsg);
+		
+		// return $q.reject({
+		// 	statusCode: error.status || -1,
+		// 	message: errorMessage
+		// });
 	};
 
 	this.login = function(userName, password) {
