@@ -1,0 +1,13 @@
+.manage-recipe-wrapper {
+	#recipe-form {
+		.table {
+			button:focus {
+				background-color: #FFF;
+			}
+
+			th {
+				font-weight: 100;
+			}
+		}
+	}
+}

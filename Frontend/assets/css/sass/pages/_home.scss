@@ -1,0 +1,175 @@
+.search-box {
+	@include center;
+	@include placeholder-color(#FFF);
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	max-width: 500px;
+	height: 100%;
+	max-height: 150px;
+	background-color: $brand-primary;
+	opacity: 0.8;
+	border-radius: 5px;
+
+	.search-box-field {
+		margin-top: 15px;
+		height: 80px;
+		width: 100%;
+		background-color: transparent;
+		border: none;
+		font-size: $font-size-h2;
+		padding-left: 25px;
+		color: #FFF;
+	}
+
+	.search-box-add {
+		position: absolute;
+		bottom: 25px;
+		left: 20px;
+		background-color: transparent;
+		border: none;
+		opacity: 0.9;
+		color: #FFF;
+
+		span {
+			padding-left: 8px;
+		}
+	}
+}
+
+.tab-group {
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	-webkit-transform: translate(-50%, 0);
+	-ms-transform: translate(-50%, 0);
+	transform: translate(-50%, 0);
+	
+	ul {
+		margin-bottom: 0;
+	}
+
+	li {
+		display: inline-block;
+		margin: 10px 10px 0 10px;
+
+		a {
+			display: inline-block;
+			padding: 10px;
+			color: #CCC;
+			font-weight: 600;
+			font-size: $font-size-small;
+			text-transform: uppercase;
+		}
+
+		&.active {
+			border-bottom: 4px solid $brand-primary-highlight;
+
+			a {
+				color: #FFF;
+			}
+		}
+	}
+}
+
+.recipe-wrapper {
+	position: relative;
+	height: 285px;
+	max-width: 350px;
+	border: 1px solid $gray-lighter;
+	margin: 15px auto;
+
+	.recipe-heading {
+		padding: 15px;
+
+		h5 {
+			margin: 5px 0;
+		    white-space: nowrap;
+		    text-overflow: ellipsis;
+		    overflow: hidden;
+		}
+
+		.preamble {
+			min-height: 20px;
+			color: $gray-light;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+
+	.recipe-image {
+		background-size: cover;
+		background-color: #EEE;
+		height: 60%;
+	}
+
+	.recipe-footer {
+		height: 35px;
+		color: $gray-light;
+
+		.recipe-rating {
+			padding: 10px;
+			float: right;
+			font-size: $font-size-small;
+		}
+	}
+}
+
+#start {
+	padding: 15px;
+
+	.section-area {
+		margin: 15px 30px;
+
+		h3 {
+			padding-bottom: 20px;
+			margin-bottom: 15px;
+			border-bottom: 1px solid $brand-primary;
+		}
+	}
+}
+
+#search-result {
+	h2 {
+		@include center;
+		margin-top: 15px;
+	}
+
+	.search-hits {
+		padding-top: 15px;
+		
+		.search-controls {
+			float: right;
+			list-style-type: none;
+
+			li {
+				display: inline-block;
+
+				a {
+					font-size: $font-size-h5;
+					padding: 15px 7px;
+					color: $text-color;
+				}
+			}
+		}
+
+		.filter-controls {
+			clear: both;
+			padding: 15px 0;
+
+			@media (min-width: $screen-md-min) {
+				display: flex;
+	  			justify-content: space-between;
+				
+				select {
+					max-width: 30%;
+				}
+			}
+		}
+	}
+}
+
+#favorites {
+	padding: 15px;
+}

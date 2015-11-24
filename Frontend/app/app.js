@@ -1,5 +1,6 @@
 var recipeRepoApp = angular.module('recipeRepoApp', [
 	'ui.router',
+	'ui.bootstrap',
 	'ngStorage',
 	'recipeRepoControllers',
 	'recipeRepoDirectives',

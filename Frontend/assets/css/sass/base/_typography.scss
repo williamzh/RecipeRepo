@@ -1,0 +1,20 @@
+body {
+	font-weight: 100;
+}
+
+.faded {
+	color: $gray-light;
+}
+
+.plain-link {
+	color: $text-color;
+
+	&:hover, &:focus {
+		text-decoration: none;
+		color: $text-color;
+	}
+}
+
+h1, h2, h3, h4, p {
+	margin: 0;
+}

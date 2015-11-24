@@ -1,0 +1,22 @@
+input[type="submit"], button, .link-btn {
+	margin-top: 15px;
+}
+
+.link-btn {
+	display: inline-block;
+}
+
+.light-btn {
+    border: 1px solid #3bb595;
+    padding: 8px 12px;      
+}
+
+.light-btn-rounded {
+	border-radius: 50%;	
+}
+
+.button-group {
+	.btn-primary {
+		float: right;
+	}
+}

@@ -1,0 +1,41 @@
+.top-navigation {
+	background-color: $gray-darker;
+	margin-bottom: 0;
+	border-radius: 0;
+
+	.navbar-inner {
+		text-align: center;
+
+		.navbar-left {
+			@media (min-width: $screen-xs-max) {
+				margin-left: 15%;
+			}
+
+			a.logo {
+				color: $brand-primary !important;
+				font-size: $font-size-h3;
+			}
+		}
+
+		.navbar-right {
+			margin-right: 15px;
+
+			.avatar {
+				
+			}
+
+			a {
+				color: $gray-light;
+
+				&:hover, &:focus {
+					color: $gray-lighter;
+					background-color: $gray-darker !important;
+				}
+			}
+
+			.dropdown-menu {
+				background-color: $gray-darker;	
+			}
+		}
+	}
+}

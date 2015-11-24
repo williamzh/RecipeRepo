@@ -1,0 +1,19 @@
+.my-recipes-wrapper {
+	.button-heading {
+		position: relative;
+
+		.light-btn {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+	}
+
+	#my-recipes-list {
+		clear: both;
+
+		.list-item-meta li {
+			font-size: 13px;
+		}
+	}
+}

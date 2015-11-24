@@ -1,0 +1,19 @@
+#edit-profile-form {
+	fieldset {
+		padding-top: 0;
+	}
+}
+
+#create-confirm-wrapper {
+	@include center;
+	text-align: center;
+
+	h1 {
+		margin-bottom: 30px;
+	}
+
+	p {
+		margin-bottom: 30px;
+		font-size: $font-size-large;
+	}
+}
