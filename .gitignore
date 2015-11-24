@@ -21,5 +21,5 @@ iisnode
 
 .DS_Store
 
-.sass-cache
+Frontend/.sass-cache/
 *.css.map
