@@ -20,8 +20,13 @@ recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 			};
 		}],
 		link: function(scope, elem, attrs) {
-			elem.find('.Header-toggleButton').on('click', function() {
-				$('.Header-menu').toggleClass('is-open');
+			var unbind = scope.$watch('isAuthenticated', function(newVal, oldVal) {
+				if(newVal === true) {
+					elem.find('.Header-toggleButton').on('click', function() {
+						$('.Header-menu').toggleClass('is-open');
+					});
+					//unbind();
+				}
 			});
 		},
     	templateUrl: '/app/shared/navbar/_navbar.html'

@@ -1,4 +1,7 @@
 recipeRepoControllers.controller('loginController', ['$scope', '$state', 'userSession', 'apiClient', function($scope, $state, userSession, apiClient) {
+	$scope.userName = '';
+	$scope.password = '';
+
 	$scope.onSubmit = function() {
 		if($scope.loginForm.$invalid) {
 			return;

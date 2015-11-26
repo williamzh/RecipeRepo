@@ -1,23 +1,152 @@
-<div class="home-wrapper" ng-controller="homeController">
-	<div class="row">
-		<div class="banner">
-			<div class="banner-figure blur" ng-style="{ 'background-image': 'url(/assets/img/mat.jpg)' }"/>
-			<div class="search-box">
+<div ng-controller="homeController">
+	<div class="Banner">
+		<div class="Banner-figure">
+			<div ng-style="{ 'background-image': 'url(/assets/img/mat.jpg)' }"></div>
+		</div>
+		<div class="Banner-wrap">
+			<div class="Banner-content">
 				<form ng-submit="search()">
-					<input type="text" id="recipe-search" autofocus class="search-box-field" rd-translate key="home/findRecipePlaceholder" attr="placeholder" ng-model="searchQuery"/>
-					<a ui-sref="manage/create" class="search-box-add"><i class="fa fa-file-text-o"></i><span><rd-translate key="home/addRecipeButton"></rd-translate></span></a>
+					<div class="Control Control--discrete">
+						<input type="text" autofocus class="Control-field" placeholder="{{'home/findRecipePlaceholder' | translate}}" ng-model="searchQuery"/>
+						<button type="submit" class="Control-addOn"><i class="fa fa-search"></i></button>
+					</div>
 				</form>
 			</div>
-			<div class="tab-group">
-				<ul>
-					<li ui-sref-active="active"><a ui-sref="home.start"><rd-translate key="home/featuredTab"></rd-translate></a></li>
-					<li ui-sref-active="active"><a ui-sref="home.search"><rd-translate key="home/searchTab"></rd-translate></a></li>
-					<li ui-sref-active="active"><a ui-sref="home.favorites"><rd-translate key="home/favoritesTab"></rd-translate></a></li>
-				</ul>
+		</div>
+	</div>
+	<section class="Section u-spacingTopSm">
+		<h2 class="Section-header">Nyaste recept</h1>
+		<hr/>
+		<div class="Grid Grid--withGutter">
+			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
+				<div class="Box">
+					<div class="Box-content">
+						<div class="Box-image">
+							<div ng-style="{ 'background-image': 'url(/assets/img/lasagne.jpg)' }"></div>
+						</div>
+						<div class="Box-overlay">
+							<h2 class="Box-heading">Lasagne</h2>
+							<div>
+								2h
+								<i class="fa fa-clock-o"></i>
+							</div>
+						</div>
+						<div class="Box-footer">
+							En klassisk krämig lasagne som uppskattas av stora och små.
+						</div>
+					</div>
+				</div>
 			</div>
-		</div>	
-	</div>
-	<div class="row">
-		<div ui-view></div>
-	</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
+				<div class="Box Box--small">
+					<div class="Box-content">
+						<div class="Box-image">
+							<div ng-style="{ 'background-image': 'url(/assets/img/bolognese.jpg)' }"></div>
+						</div>
+						<div class="Box-overlay">
+							<h2 class="Box-heading">Spaghetti Bolognese</h2>
+							<div>
+								1d 8h
+								<i class="fa fa-clock-o"></i>
+							</div>
+						</div>
+						<div class="Box-footer">
+							Italiensk köttfärssås med bacon, selleri och morötter.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
+				<div class="Box Box--small">
+					<div class="Box-content">
+						<div class="Box-image">
+							<div ng-style="{ 'background-image': 'url(/assets/img/fried_rice.jpg)' }"></div>
+						</div>
+						<div class="Box-overlay">
+							<h2 class="Box-heading">Stekt ris</h2>
+							<div>
+								1 vecka
+								<i class="fa fa-clock-o"></i>
+							</div>
+						</div>
+						<div class="Box-footer">
+							En god och enkel kinesisk vardagsrätt med stora variationsmöjligheter.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="Section">
+		<h2 class="Section-header">Recept med högst betyg</h1>
+		<hr/>
+		<div class="Grid Grid--withGutter">
+			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
+				<div class="Box">
+					<div class="Box-content">
+						<div class="Box-image">
+							<div ng-style="{ 'background-image': 'url(/assets/img/lasagne.jpg)' }"></div>
+						</div>
+						<div class="Box-overlay">
+							<h2 class="Box-heading">Lasagne</h2>
+							<div>
+								4.8&nbsp
+								<i class="fa fa-star-o"></i>
+							</div>
+						</div>
+						<div class="Box-footer">
+							En klassisk krämig lasagne som uppskattas av stora och små.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
+				<div class="Box Box--small">
+					<div class="Box-content">
+						<div class="Box-image">
+							<div ng-style="{ 'background-image': 'url(/assets/img/bolognese.jpg)' }"></div>
+						</div>
+						<div class="Box-overlay">
+							<h2 class="Box-heading">Spaghetti Bolognese</h2>
+							<div>
+								4.3&nbsp
+								<i class="fa fa-star-o"></i>
+							</div>
+						</div>
+						<div class="Box-footer">
+							Italiensk köttfärssås med bacon, selleri och morötter.
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
+				<div class="Box Box--small">
+					<div class="Box-content">
+						<div class="Box-image">
+							<div ng-style="{ 'background-image': 'url(/assets/img/fried_rice.jpg)' }"></div>
+						</div>
+						<div class="Box-overlay">
+							<h2 class="Box-heading">Stekt ris</h2>
+							<div>
+								4.2&nbsp
+								<i class="fa fa-star-o"></i>
+							</div>
+						</div>
+						<div class="Box-footer">
+							En god och enkel kinesisk vardagsrätt med stora variationsmöjligheter.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="Section">
+		<h2 class="Section-header">Senast visade recept</h1>
+		<hr/>
+		<div class="Grid Grid--withGutter">
+			<div class="Section-placeholder">
+				<h3>Du har inte kollat på några recept än. Vad väntar du på? :)</h3>
+			</div>
+		</div>
+	</section>
 </div>

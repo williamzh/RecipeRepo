@@ -1,6 +1,6 @@
 recipeRepoServices.service('userSession', ['$rootScope', '$sessionStorage', function($rootScope, $sessionStorage) {
 	this.isValid = function() {
-        return $sessionStorage.authSession && $sessionStorage.authSession.token;
+        return ($sessionStorage.authSession != undefined) && ($sessionStorage.authSession.token != undefined);
     };
 
     this.get = function() {

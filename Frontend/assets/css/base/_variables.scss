@@ -14,18 +14,20 @@ $xl-viewport: 1260px;
 /* Color theme */
 //https://coolors.co/app/edae49-d1495b-00798c-30638e-003d5b
 $color-white: #FDFFFC;
+$color-black: #333745;
 $color-blue: #30638E;
+$color-beige: #EEF5DB;
 $color-gray: #6d6d6d;
 $color-gray-dark: #444;
 $color-gray-light: #989898;
 $color-green: #00a03e;
 $color-green-light: #d5f3ee;
-$color-lime: #009b00;
-$color-orange: #EDAE49;
+$color-lime: #C7EFCF; //#009b00;
+$color-orange: #FE5F55;
 $color-red: #D1495B;
 
 $color-background: $color-white;
-$color-brand: #00798C; //#3bb595;
+$color-brand: #E63462; //#3bb595;
 $color-danger: $color-red;
 $color-disabled: rgba(0, 0, 0, 0.4);
 $color-divider: rgba(0, 0, 0, 0.13);

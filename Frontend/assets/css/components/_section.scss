@@ -1,0 +1,26 @@
+.Section {
+	display: block;
+	min-height: 200px;
+	padding: 25px 25px 15px 25px;
+}
+
+.Section-header {
+	color: #333745;
+}
+
+.Section-header + hr {
+	background-color: $color-brand;
+	margin-bottom: 15px;
+
+}
+
+.Section-placeholder {
+	width: 100%;
+	margin-top: 45px;
+	padding: 0 25px;
+	text-align: center;
+
+	h3 {
+		font-weight: 400;
+	}
+}

@@ -668,3 +668,175 @@
   }
 
 }
+
+/*
+  X-large screens
+*/
+@media (min-width: $xl-viewport) {
+
+  /* Proportional widths: breakpoint 3 (large)
+     ========================================================================== */
+
+  /**
+   * Specify the proportional width of an object.
+   * Intentional redundancy build into each set of unit classes.
+   * Supports: 2, 3, 4, 5, 6, 8, 10, 12 part
+   *
+   * 1. Use `flex-basis: auto` with a width to avoid box-sizing bug in IE10/11
+   *    http://git.io/vllMD
+   */
+
+  /* postcss-bem-linter: ignore */
+  [class*="u-xl-size"] {
+    flex-basis: auto !important; /* 1 */
+  }
+
+  .u-xl-size1of12 {
+    width: 100% * 1 / 12 !important;
+  }
+
+  .u-xl-size1of10 {
+    width: 10% !important;
+  }
+
+  .u-xl-size1of8 {
+    width: 12.5% !important;
+  }
+
+  .u-xl-size1of6,
+  .u-xl-size2of12 {
+    width: 100% * 1 / 6 !important;
+  }
+
+  .u-xl-size1of5,
+  .u-xl-size2of10 {
+    width: 20% !important;
+  }
+
+  .u-xl-size1of4,
+  .u-xl-size2of8,
+  .u-xl-size3of12 {
+    width: 25% !important;
+  }
+
+  .u-xl-size3of10 {
+    width: 30% !important;
+  }
+
+  .u-xl-size1of3,
+  .u-xl-size2of6,
+  .u-xl-size4of12 {
+    width: 100% * 1 / 3 !important;
+  }
+
+  .u-xl-size3of8 {
+    width: 37.5% !important;
+  }
+
+  .u-xl-size2of5,
+  .u-xl-size4of10 {
+    width: 40% !important;
+  }
+
+  .u-xl-size5of12 {
+    width: 100% * 5 / 12 !important;
+  }
+
+  .u-xl-size1of2,
+  .u-xl-size2of4,
+  .u-xl-size3of6,
+  .u-xl-size4of8,
+  .u-xl-size5of10,
+  .u-xl-size6of12 {
+    width: 50% !important;
+  }
+
+  .u-xl-size7of12 {
+    width: 100% * 7 / 12 !important;
+  }
+
+  .u-xl-size3of5,
+  .u-xl-size6of10 {
+    width: 60% !important;
+  }
+
+  .u-xl-size5of8 {
+    width: 62.5% !important;
+  }
+
+  .u-xl-size2of3,
+  .u-xl-size4of6,
+  .u-xl-size8of12 {
+    width: 100% * 2 / 3 !important;
+  }
+
+  .u-xl-size7of10 {
+    width: 70% !important;
+  }
+
+  .u-xl-size3of4,
+  .u-xl-size6of8,
+  .u-xl-size9of12 {
+    width: 75% !important;
+  }
+
+  .u-xl-size4of5,
+  .u-xl-size8of10 {
+    width: 80% !important;
+  }
+
+  .u-xl-size5of6,
+  .u-xl-size10of12 {
+    width: 100% * 5 / 6 !important;
+  }
+
+  .u-xl-size7of8 {
+    width: 87.5% !important;
+  }
+
+  .u-xl-size9of10 {
+    width: 90% !important;
+  }
+
+  .u-xl-size11of12 {
+    width: 100% * 11 / 12 !important;
+  }
+
+  /* Intrinsic widths
+     ========================================================================== */
+
+  /**
+   * Make an element fill the remaining space.
+   *
+   * 1. Be explicit to work around IE10 bug with shorthand flex - http://git.io/vllC7
+   * 2. IE10 ignores previous `flex-basis` value. Setting again here fixes - http://git.io/vllMt
+   */
+
+  .u-xl-sizeFill {
+    flex: 1 1 0% !important; /* 1 */
+    flex-basis: 0% !important; /* 2 */
+  }
+
+  /**
+   * An alternative method to make an element fill the remaining space.
+   * Distributes space based on the initial width and height of the element
+   *
+   * http://www.w3.org/TR/css-flexbox/images/rel-vs-abs-flex.svg
+   */
+
+  .u-xl-sizeFillAlt {
+    flex: 1 1 auto !important;
+    flex-basis: auto !important;
+  }
+
+  /**
+   * Make an element the width of its parent.
+   */
+
+  .u-xl-sizeFull {
+    box-sizing: border-box !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+}

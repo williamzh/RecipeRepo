@@ -6,8 +6,8 @@
 .Header-bar {
 	height: $framework-height;
 	width: 100%;
-	color: $color-white;
-	background-color: $color-red;
+	color: $color-brand;
+	background-color: $color-black;
 }
 
 .Header-content {
@@ -54,7 +54,7 @@
 	position: fixed;
 	min-height: 100%;
 	width: 100%;
-	background-color: darken($color-red, 5%);
+	background-color: lighten($color-black, 5%);
 }
 
 .Header-menu.is-open {
@@ -69,10 +69,10 @@
 }
 
 .Header-menuItem {
-	margin: 15px;
+	margin: 25px 15px;
 	padding-left: 15px;
 	font-size: $font-size-lg;
-	color: #efefef;
+	color: $color-white;
 }
 
 

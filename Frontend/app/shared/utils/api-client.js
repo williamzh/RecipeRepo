@@ -21,8 +21,8 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			errorMessage = error.data;
 		}
 		// Check if error is a backend error object
-		else if (error.data.message) {
-			errorMessage = error.data.message;
+		else if (error.data.error) {
+			errorMessage = error.data.error;
 		}
 		
         $log.error(action + ': an error occured (' + error.status + ' ' + error.statusText + '): ' + errorMessage);
@@ -30,23 +30,6 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
             statusCode: error.status,
             message: errorMessage
         });
-
-		// var errorMessage = error;
-		// if (error.data) {
-		// 	errorMessage = error.data.message || error.data;
-		// }
-
-		// var formattedMsg = '{1}: an error occured{2}: {3}'.assign(
-		// 	action,
-		// 	(error.status && error.statusText) ? ' (' + error.status + ' ' + error.statusText + ')' : '',
-		// 	errorMessage);
-
-		// log.error(formattedMsg);
-		
-		// return $q.reject({
-		// 	statusCode: error.status || -1,
-		// 	message: errorMessage
-		// });
 	};
 
 	this.login = function(userName, password) {

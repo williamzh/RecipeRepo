@@ -3,6 +3,15 @@ var bodyParser = require('body-parser');
 var app = express();
 var DbClient = require('./data/db-client');
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    next();
+};
+app.use(allowCrossDomain);
+
 app.use(bodyParser.json());
 
 // Initialize controllers
@@ -25,8 +34,8 @@ DbClient.init()
 			process.on('exit', dispose);		// Normal exit
 		});
 	})
-	.catch(function() {
-		console.log('Unable to connect to database.');
+	.catch(function(err) {
+		console.log('Unable to connect to database. ' + err);
 		process.exit(1);
 	});
 

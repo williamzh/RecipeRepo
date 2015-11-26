@@ -5,11 +5,11 @@
 		<h1 class="u-spacingBottomMd">{{'login/mainHeading' | translate}}</h1>
 		<div validator>
 			<div class="Control" ng-class="{ 'has-error': hasError('userName') }">
-				<input type="text" class="Control-field" placeholder="{{'login/userNameLabel' | translate}}" name="userName" ng-model="userName" required />	
+				<input type="text" class="Control-field" placeholder="{{'login/userNameLabel' | translate}}" name="userName" ng-model="$parent.userName" required />	
 				<span class="Control-error">{{'validation/userNameRequired' | translate}}</span>
 			</div>
 			<div class="Control" ng-class="{ 'has-error': hasError('password') }">
-				<input type="password" class="Control-field" placeholder="{{'login/passwordLabel' | translate}}" name="password" ng-model="password" required />
+				<input type="password" class="Control-field" placeholder="{{'login/passwordLabel' | translate}}" name="password" ng-model="$parent.password" required />
 				<span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
 			</div>
 

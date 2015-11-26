@@ -1,0 +1,57 @@
+.Banner {
+	max-height: 480px;
+	width: 100%;
+	position: relative;
+    overflow: hidden;
+}
+
+.Banner::before {
+    display: block;
+    content: "";
+    padding-bottom: 70%;
+
+    @media(min-width: $sm-viewport) {
+        padding-bottom: 45%;
+    }
+
+    @media(min-width: $md-viewport) {
+        padding-bottom: 35%;
+    }
+}
+
+.Banner-figure {
+	position: absolute;
+	background: #000;
+    // Offset height/width and positioning to hide the blurred edges
+    left: -3%;
+    top: -3%;
+    height: 106%;
+    width: 106%;
+}
+
+.Banner-figure > div {
+	background-position: center;
+    background-size: cover;
+    filter: blur(7px);
+    -webkit-filter: blur(7px);
+    height: 100%;
+    opacity: 0.7;
+    width: 100%;
+}
+
+.Banner-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.Banner-content {
+    box-sizing: border-box;
+    padding: 15px 35px;
+    flex-grow: 1;
+    max-width: 700px;
+}

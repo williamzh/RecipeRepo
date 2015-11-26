@@ -1,6 +1,6 @@
 recipeRepoControllers.controller('createProfileController', ['$scope', '$state', 'userSession', 'apiClient', function($scope, $state, userSession, apiClient) {
 	$scope.init = function() {
-		
+		$scope.profile = {};
 	};
 
 	$scope.createProfile = function() {
