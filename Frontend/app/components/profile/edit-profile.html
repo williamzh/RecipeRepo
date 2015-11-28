@@ -1,45 +1,65 @@
-<div id="edit-profile-wrapper" class="page-container" ng-controller="editProfileController" ng-init="init()">
-	<rd-back-link target-state="home.start"></rd-back-link>
+<div class="Container" ng-controller="editProfileController" ng-init="init()">
+	<div ng-show="showError" class="u-spacingBottomMd">
+		<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'profile/updateErrorMessage' | translate}}"></alert>
+	</div>
 
-	<h1 class="page-heading"><rd-translate key="profile/editProfileHeading"></rd-translate></h1>
+	<div ng-show="profileUpdated" class="u-spacingBottomMd">
+		<alert type="success" message="{{'profile/updateSuccessMessage' | translate}}"></alert>
+	</div>
 
-	<rd-alert type="danger" message-key="profile/updateErrorMessage" observe="showError === true"></rd-alert>
-	<rd-alert type="success" message-key="profile/updateSuccessMessage" observe="profileUpdated === true"></rd-alert>
+	<form name="editProfileForm" ng-submit="updateProfile()">
+		<h1 class="u-spacingBottomMd">{{'profile/editProfileHeading' | translate}}</h1>
 
-	<form id="edit-profile-form" name="editProfileForm" ng-submit="updateProfile()">
-		<fieldset class="personal-details">
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group" ng-class="{ 'has-error': hasError('firstName') }">
-						<label for="firstName"><rd-translate key="profile/firstNameLabel"/></label>
-						<input type="text" id="firstName" class="form-control" name="firstName" ng-model="profile.firstName" required>
-						<p class="control-label error-label" ng-show="hasError('firstName')"><rd-translate key="validation/firstNameRequired"></rd-translate></p>
-					</div>
-					<div class="form-group" ng-class="{ 'has-error': hasError('lastName') }">
-						<label for="lastName"><rd-translate key="profile/lastNameLabel"/></label>
-						<input type="text" id="recipe-img" class="form-control" name="lastName" ng-model="profile.lastName" required>
-						<p class="control-label error-label" ng-show="hasError('lastName')"><rd-translate key="validation/lastNameRequired"></rd-translate></p>
-					</div>
-					<div class="form-group">
-						<label for="userName"><rd-translate key="profile/userNameLabel"/></label>
-						<input type="text" id="userName" class="form-control" name="userName" ng-model="profile.userName" disabled>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group" ng-class="{ 'has-error': hasError('email') }">
-						<label for="email"><rd-translate key="profile/emailLabel"/></label>
-						<input type="email" id="email" class="form-control" name="email" ng-model="profile.email" required>
-						<p class="control-label error-label" ng-show="hasError('email')">Email is required.</p>
-					</div>
-					<div class="form-group" ng-class="{ 'has-error': hasError('password') }">
-						<label for="password"><rd-translate key="profile/passwordLabel"/></label>
-						<input type="password" id="password" class="form-control" name="password" ng-model="fakePassword" required>
-						<p class="control-label error-label" ng-show="hasError('password')">Password is required.</p>
-					</div>
+		<h2 class="u-spacingBothSm">{{'profile/personalDetailsHeading' | translate}}</h2>
+		<div class="Grid Grid--withGutter" validator>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control">
+					<input type="text" class="Control-field" name="userName" placeholder="{{'profile/userNameLabel' | translate}}" ng-model="profile.userName" disabled>
 				</div>
 			</div>
-		</fieldset>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control" ng-class="{ 'has-error': hasError('firstName') }">
+					<input type="text" class="Control-field" name="firstName" placeholder="{{'profile/firstNameLabel' | translate}}" ng-model="profile.firstName" required>
+					<span class="Control-error">{{'validation/firstNameRequired' | translate}}</span>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control" ng-class="{ 'has-error': hasError('lastName') }">
+					<input type="text" class="Control-field" name="lastName" placeholder="{{'profile/lastNameLabel' | translate}}" ng-model="profile.lastName" required>
+					<span class="Control-error">{{'validation/lastNameRequired' | translate}}</span>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control" ng-class="{ 'has-error': hasError('email') }">
+					<input type="email" class="Control-field" name="email" placeholder="{{'profile/emailLabel' | translate}}" ng-model="profile.email" required>
+					<span class="Control-error">{{'validation/emailRequired' | translate}}</span>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control" ng-class="{ 'has-error': hasError('password') }">
+					<input type="password" class="Control-field" name="password" placeholder="{{'profile/passwordLabel' | translate}}" ng-model="profile.password" required>
+					<span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control" ng-class="{ 'has-error': hasError('repeatPassword') }">
+					<input type="password" class="Control-field" name="repeatPassword" placeholder="{{'profile/repeatPasswordLabel' | translate}}" ng-model="repeatPassword" required password-repeat='password'>
+					<span class="Control-error">{{'validation/passwordRepeatMismatch' | translate}}</span>
+				</div>
+			</div>
+		</div>
 
-		<button type="submit" class="btn btn-primary" rng-click="submitted = true"><rd-translate key="profile/editSubmitButton"></rd-translate></button>
+		<h2 class="u-spacingBothSm">{{'profile/languageHeading' | translate}}</h2>
+		<div class="Grid Grid--withGutter" validator>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control">
+					<select class="Control-field" ng-options="opt.value as opt.text for opt in supportedLanguages" ng-model="selectedLang"></select>
+				</div>
+			</div>
+		</div>
+
+		<div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopMd">
+			<button type="submit" class="Button Button--primary">{{'profile/editSubmitButton' | translate}}</button>
+		</div>
 	</form>	
 </div>

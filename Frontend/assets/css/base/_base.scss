@@ -39,3 +39,8 @@ a {
 textarea {
   resize: vertical;
 }
+
+input[disabled] {
+	background-color: $color-disabled;
+	color: $color-gray-light;
+}

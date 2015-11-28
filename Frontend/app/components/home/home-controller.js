@@ -16,7 +16,9 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 
 				$scope.hasLatestRecipesError = true;
 			});
 
-		$scope.history = userSession.get().user.history;
+		if(userSession.isValid()) {
+			$scope.history = userSession.get().user.history;
+		}
 	};
 
 	$scope.search = function() {

@@ -1,7 +1,7 @@
 recipeRepoControllers.controller('editProfileController', ['$scope', 'userSession', 'apiClient', function($scope, userSession, apiClient) {
 	$scope.init = function() {
-		var userName = userSession.get().user.userName;
-		apiClient.getUser(userName)
+		var user = userSession.get().user;
+		apiClient.getUser(user._id)
 			.then(function(user) {
 				$scope.profile = user;
 				$scope.fakePassword = '********';
@@ -9,6 +9,15 @@ recipeRepoControllers.controller('editProfileController', ['$scope', 'userSessio
 			.catch(function() {
 				$scope.showError = true;
 			});
+
+		$scope.supportedLanguages = [{
+			text: 'Swedish',
+			value: 'sv-SE'
+		}];
+		
+		$scope.selectedLang = $scope.supportedLanguages.find(function(lang) { 
+			return lang.value === user.settings.language;
+		});
 	};
 
 	$scope.updateProfile = function() {
@@ -29,10 +38,5 @@ recipeRepoControllers.controller('editProfileController', ['$scope', 'userSessio
 			.catch(function() {
 				$scope.showError = true;
 			});
-	};
-
-	$scope.hasError = function(field) {
-		var isInvalid = $scope.editProfileForm[field].$invalid;
-		return ($scope.editProfileForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
 	};
 }]);

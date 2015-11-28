@@ -20,12 +20,18 @@ recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 			};
 		}],
 		link: function(scope, elem, attrs) {
-			var unbind = scope.$watch('isAuthenticated', function(newVal, oldVal) {
+			scope.$watch('isAuthenticated', function(newVal, oldVal) {
 				if(newVal === true) {
+					var headerMenu = $('.Header-menu');
+
 					elem.find('.Header-toggleButton').on('click', function() {
-						$('.Header-menu').toggleClass('is-open');
+						headerMenu.toggleClass('is-open');
 					});
-					//unbind();
+					
+					elem.on('click', '.Header-menuItem', function() {
+						// Close menu when menu item is clicked
+						headerMenu.removeClass('is-open');
+					});
 				}
 			});
 		},
