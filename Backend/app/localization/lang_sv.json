@@ -8,7 +8,8 @@
 			"generalErrorMessage": "Ett oväntat fel har tyvärr inträffat, var god försök senare.",
 			"yes": "Ja",
 			"no": "Nej",
-			"dismissLabel": "Stäng"
+			"dismissLabel": "Stäng",
+			"errorAlertPreamble": "Hoppsan!"
 		},
 		"validation": {
 			"firstNameRequired": "Förnamn måste anges",

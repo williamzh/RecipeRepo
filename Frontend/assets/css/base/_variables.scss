@@ -21,20 +21,21 @@ $color-gray: #6d6d6d;
 $color-gray-dark: #444;
 $color-gray-light: #989898;
 $color-green: #00a03e;
-$color-green-light: #d5f3ee;
+$color-green-light: #2EC4B6; // 02C39A
 $color-lime: #C7EFCF; //#009b00;
-$color-orange: #FE5F55;
-$color-red: #D1495B;
+$color-orange: #FF9F1C;
+$color-red: #E71D36;
 
 $color-background: $color-white;
 $color-brand: #E63462; //#3bb595;
 $color-danger: $color-red;
+$color-warning: $color-orange;
+$color-success: $color-green-light;
 $color-disabled: rgba(0, 0, 0, 0.4);
 $color-divider: rgba(0, 0, 0, 0.13);
 $color-info: $color-blue;
 $color-muted: $color-gray-light;
 $color-primary: $color-brand;
-$color-success: $color-lime;
 $color-text: $color-gray-dark;
 
 /* Typography */

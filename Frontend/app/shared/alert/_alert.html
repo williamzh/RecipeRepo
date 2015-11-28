@@ -1,4 +1,6 @@
-<div ng-show="visible" class="alert alert-{{type}}">
- 	<!-- <button type="button" class="close"><span>&times;</span></button> -->
-	<i class="fa" ng-class="{ 'fa-exclamation': type == 'danger', 'fa-check': type == 'success' }"></i> <rd-translate key="{{messageKey}}"/>
+<div ng-show="isVisible" class="Alert Alert--{{type}}">
+ 	<button type="button" class="Alert-close"><i class="fa fa-times"></i></button>
+ 	<div class="Alert-content">
+		<strong>{{preamble}}</strong>&nbsp;{{message}}
+	</div>
 </div>

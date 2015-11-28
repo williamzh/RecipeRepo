@@ -10,7 +10,7 @@ recipeRepoControllers.controller('loginController', ['$scope', '$state', 'userSe
 		apiClient.login($scope.userName, $scope.password)
 			.then(function(sessionData) {
 				userSession.initialize(sessionData);
-				$state.go('home.start');
+				$state.go('home');
 			})
 			.catch(function(err) {
 				$scope.showError = true;

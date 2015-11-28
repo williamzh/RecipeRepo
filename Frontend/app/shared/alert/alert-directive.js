@@ -1,20 +1,21 @@
-recipeRepoDirectives.directive('rdAlert', ['$window', function($window) {
+recipeRepoDirectives.directive('alert', ['$window', function($window) {
 	return {
     	restrict: 'E',
     	scope: {
     		type: '@',
-    		messageKey: '@',
+    		preamble: '@',
+    		message: '@',
     		observe: '&'
     	},
 		link: function($scope, elem) {
 			$scope.$watch($scope.observe, function(newValue, oldValue, scope) {
-				$scope.visible = newValue === true;
+				$scope.isVisible = newValue === true;
 			});
 
-			// elem.find('.close').on('click', function(e) {
-			// 	$scope.visible = false;
-			// 	$scope.$apply();
-			// });
+			elem.find('.Alert-close').on('click', function(e) {
+				$scope.isVisible = false;
+				$scope.$apply();
+			});
 		 },
     	templateUrl: '/app/shared/alert/_alert.html'
 	};

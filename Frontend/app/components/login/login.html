@@ -1,6 +1,8 @@
 <div class="Container Container--narrow" ng-controller="loginController">
 	<form name="loginForm" ng-submit="onSubmit()" novalidate>
-		<rd-alert type="danger" message-key="login/loginErrorMessage" observe="showError === true"></rd-alert>
+		<div class="u-spacingBottomMd">
+			<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'login/loginErrorMessage' | translate}}" observe="showError === true"></alert>
+		</div>
 
 		<h1 class="u-spacingBottomMd">{{'login/mainHeading' | translate}}</h1>
 		<div validator>
@@ -13,7 +15,7 @@
 				<span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
 			</div>
 
-			<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+			<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopSm">
 				<button type="submit" class="Button Button--primary" ng-click="submitted = true">{{'login/submitButton' | translate}}</button>
 			</div>
 			<div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopSm">
