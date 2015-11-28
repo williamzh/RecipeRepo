@@ -1,5 +1,5 @@
 recipeRepoControllers.controller('homeController', ['$scope', '$state', 'apiClient', 'userSession', function($scope, $state, apiClient, userSession) {
-	$scope.createSections = function() {
+	$scope.init = function() {
 		apiClient.getTopRecipes()
 			.then(function(topRecipes) {
 				$scope.topRecipes = topRecipes;
@@ -21,5 +21,9 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'apiClie
 
 	$scope.search = function() {
 		$state.go('home.search', { query: $scope.searchQuery });
+	};
+
+	$scope.showRecipe = function(id) {
+		$state.go('recipe', { recipeId: id });
 	};
 }]);

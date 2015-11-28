@@ -16,6 +16,12 @@ recipeRepoApp.config(['$httpProvider', function($httpProvider) {
 	$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-recipeRepoApp.run(['localizationInitializer', function(localizationInitializer) {
+recipeRepoApp.run(['localizationInitializer', 'userSession', function(localizationInitializer, userSession) {
 	localizationInitializer.load();
+
+	var session = userSession.get();
+	if(session) {
+		var userLocale = session.user.settings.language;
+		moment.locale(userLocale);
+	}
 }]);

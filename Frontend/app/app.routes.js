@@ -27,13 +27,8 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 		}).
 		// Home
 		state('home', {
-			abstract: true,
 			url: '/' ,
 			templateUrl: 'app/components/home/home.html'
-		}).
-		state('home.start', {		// Default nested state
-			url: '',	// Match parent URL
-			templateUrl: 'app/components/home/_start.html'
 		}).
 		state('home.search', {
 			resolve: {

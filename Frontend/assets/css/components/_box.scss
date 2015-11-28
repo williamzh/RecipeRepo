@@ -10,6 +10,7 @@
 	height: 100%;
 	width: 100%;
 	background-color: $color-white;
+	cursor: pointer;
 }
 
 .Box-image {
@@ -30,9 +31,6 @@
 .Box-overlay {
 	position: absolute;
 	bottom: 30%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 	box-sizing: border-box;
 	color: #FFF;
 	padding: 10px 15px;
@@ -40,12 +38,17 @@
 }
 
 .Box-heading {
+	display: block;
 	font-weight: 300;
 	font-size: $font-size-lg;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	margin: 0;
+}
+
+.Box-meta {
+	font-size: $font-size-sm;
 }
 
 .Box-footer {

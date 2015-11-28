@@ -1,4 +1,4 @@
-<div ng-controller="homeController">
+<div ng-controller="homeController" ng-init="init()">
 	<div class="Banner">
 		<div class="Banner-figure">
 			<div ng-style="{ 'background-image': 'url(/assets/img/mat.jpg)' }"></div>
@@ -15,62 +15,27 @@
 		</div>
 	</div>
 	<section class="Section u-spacingTopSm">
-		<h2 class="Section-header">Nyaste recept</h1>
+		<h2 class="Section-header">{{'home/latest' | translate}}</h1>
 		<hr/>
 		<div class="Grid Grid--withGutter">
-			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
+			<div ng-if="latestRecipes.length === 0" class="Section-placeholder">
+				<h3>{{'home/latestPlaceholder' | translate}}</h3>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3" ng-repeat="recipe in latestRecipes">
 				<div class="Box">
-					<div class="Box-content">
+					<div class="Box-content" ng-click="showRecipe(recipe._id)">
 						<div class="Box-image">
-							<div ng-style="{ 'background-image': 'url(/assets/img/lasagne.jpg)' }"></div>
+							<div ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 						</div>
 						<div class="Box-overlay">
-							<h2 class="Box-heading">Lasagne</h2>
-							<div>
-								2h
+							<h2 class="Box-heading">{{recipe.recipeName}}</h2>
+							<div class="Box-meta">
 								<i class="fa fa-clock-o"></i>
+								&nbsp;{{recipe.meta.created | timeAgo}}
 							</div>
 						</div>
 						<div class="Box-footer">
-							En klassisk krämig lasagne som uppskattas av stora och små.
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
-				<div class="Box Box--small">
-					<div class="Box-content">
-						<div class="Box-image">
-							<div ng-style="{ 'background-image': 'url(/assets/img/bolognese.jpg)' }"></div>
-						</div>
-						<div class="Box-overlay">
-							<h2 class="Box-heading">Spaghetti Bolognese</h2>
-							<div>
-								1d 8h
-								<i class="fa fa-clock-o"></i>
-							</div>
-						</div>
-						<div class="Box-footer">
-							Italiensk köttfärssås med bacon, selleri och morötter.
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
-				<div class="Box Box--small">
-					<div class="Box-content">
-						<div class="Box-image">
-							<div ng-style="{ 'background-image': 'url(/assets/img/fried_rice.jpg)' }"></div>
-						</div>
-						<div class="Box-overlay">
-							<h2 class="Box-heading">Stekt ris</h2>
-							<div>
-								1 vecka
-								<i class="fa fa-clock-o"></i>
-							</div>
-						</div>
-						<div class="Box-footer">
-							En god och enkel kinesisk vardagsrätt med stora variationsmöjligheter.
+							{{recipe.description}}
 						</div>
 					</div>
 				</div>
@@ -78,62 +43,27 @@
 		</div>
 	</section>
 	<section class="Section">
-		<h2 class="Section-header">Recept med högst betyg</h1>
+		<h2 class="Section-header">{{'home/topRated' | translate}}</h1>
 		<hr/>
 		<div class="Grid Grid--withGutter">
-			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
+			<div ng-if="topRecipes.length === 0" class="Section-placeholder">
+				<h3>{{'home/topRatedPlaceholder' | translate}}</h3>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3" ng-repeat="recipe in topRecipes">
 				<div class="Box">
-					<div class="Box-content">
+					<div class="Box-content" ng-click="showRecipe(recipe._id)">
 						<div class="Box-image">
-							<div ng-style="{ 'background-image': 'url(/assets/img/lasagne.jpg)' }"></div>
+							<div ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 						</div>
 						<div class="Box-overlay">
-							<h2 class="Box-heading">Lasagne</h2>
-							<div>
-								4.8&nbsp
+							<h2 class="Box-heading">{{recipe.recipeName}}</h2>
+							<div class="Box-meta">
 								<i class="fa fa-star-o"></i>
+								&nbsp;{{recipe.meta.rating}}
 							</div>
 						</div>
 						<div class="Box-footer">
-							En klassisk krämig lasagne som uppskattas av stora och små.
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
-				<div class="Box Box--small">
-					<div class="Box-content">
-						<div class="Box-image">
-							<div ng-style="{ 'background-image': 'url(/assets/img/bolognese.jpg)' }"></div>
-						</div>
-						<div class="Box-overlay">
-							<h2 class="Box-heading">Spaghetti Bolognese</h2>
-							<div>
-								4.3&nbsp
-								<i class="fa fa-star-o"></i>
-							</div>
-						</div>
-						<div class="Box-footer">
-							Italiensk köttfärssås med bacon, selleri och morötter.
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3">
-				<div class="Box Box--small">
-					<div class="Box-content">
-						<div class="Box-image">
-							<div ng-style="{ 'background-image': 'url(/assets/img/fried_rice.jpg)' }"></div>
-						</div>
-						<div class="Box-overlay">
-							<h2 class="Box-heading">Stekt ris</h2>
-							<div>
-								4.2&nbsp
-								<i class="fa fa-star-o"></i>
-							</div>
-						</div>
-						<div class="Box-footer">
-							En god och enkel kinesisk vardagsrätt med stora variationsmöjligheter.
+							{{recipe.description}}
 						</div>
 					</div>
 				</div>
@@ -141,11 +71,30 @@
 		</div>
 	</section>
 	<section class="Section">
-		<h2 class="Section-header">Senast visade recept</h1>
+		<h2 class="Section-header">{{'home/history' | translate}}</h1>
 		<hr/>
 		<div class="Grid Grid--withGutter">
-			<div class="Section-placeholder">
-				<h3>Du har inte kollat på några recept än. Vad väntar du på? :)</h3>
+			<div ng-if="history.length === 0" class="Section-placeholder">
+				<h3>{{'home/historyPlaceholder' | translate}}</h3>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3" ng-repeat="recipe in history">
+				<div class="Box">
+					<div class="Box-content" ng-click="showRecipe(recipe._id)">
+						<div class="Box-image">
+							<div ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
+						</div>
+						<div class="Box-overlay">
+							<h2 class="Box-heading">{{recipe.recipeName}}</h2>
+							<div class="Box-meta">
+								<i class="fa fa-history"></i>
+								&nbsp;{{recipe.meta.lastViewed | timeAgo}}
+							</div>
+						</div>
+						<div class="Box-footer">
+							{{recipe.description}}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
