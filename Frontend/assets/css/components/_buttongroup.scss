@@ -1,6 +1,10 @@
 .ButtonGroup {
 	display: block;
 	overflow: hidden;
+
+	.Button {
+		margin-top: 10px;
+	}
 }
 
 .ButtonGroup--alignRight {
