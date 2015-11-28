@@ -1,7 +1,7 @@
 <div class="Container Container--narrow" ng-controller="loginController">
 	<form name="loginForm" ng-submit="onSubmit()" novalidate>
-		<div class="u-spacingBottomMd">
-			<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'login/loginErrorMessage' | translate}}" observe="showError === true"></alert>
+		<div ng-show="showError" class="u-spacingBottomMd">
+			<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'login/loginErrorMessage' | translate}}"></alert>
 		</div>
 
 		<h1 class="u-spacingBottomMd">{{'login/mainHeading' | translate}}</h1>

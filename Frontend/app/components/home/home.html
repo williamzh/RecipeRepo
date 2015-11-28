@@ -4,7 +4,7 @@
 			<div ng-style="{ 'background-image': 'url(/assets/img/mat.jpg)' }"></div>
 		</div>
 		<div class="Banner-wrap">
-			<div class="Banner-content">
+			<div class="Banner-content Banner-content--padded">
 				<form ng-submit="search()">
 					<div class="Control Control--discrete">
 						<input type="text" autofocus class="Control-field" placeholder="{{'home/findRecipePlaceholder' | translate}}" ng-model="searchQuery"/>
@@ -23,7 +23,7 @@
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3" ng-repeat="recipe in latestRecipes">
 				<div class="Box">
-					<div class="Box-content" ng-click="showRecipe(recipe._id)">
+					<div class="Box-content" ng-click="showRecipe(recipe)">
 						<div class="Box-image">
 							<div ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 						</div>
@@ -51,7 +51,7 @@
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3" ng-repeat="recipe in topRecipes">
 				<div class="Box">
-					<div class="Box-content" ng-click="showRecipe(recipe._id)">
+					<div class="Box-content" ng-click="showRecipe(recipe)">
 						<div class="Box-image">
 							<div ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 						</div>
@@ -79,7 +79,7 @@
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3" ng-repeat="recipe in history">
 				<div class="Box">
-					<div class="Box-content" ng-click="showRecipe(recipe._id)">
+					<div class="Box-content" ng-click="showRecipe(recipe)">
 						<div class="Box-image">
 							<div ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 						</div>

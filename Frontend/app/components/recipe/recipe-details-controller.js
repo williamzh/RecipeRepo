@@ -1,16 +1,11 @@
-recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', 'userSession', 'apiClient', 'localizationService', function($scope, $stateParams, $state, userSession, apiClient, localizationService) {
-	$scope.previousState = $stateParams.referrer || 'home.start';
-
-	$scope.deleteModalHeading = localizationService.translate('recipeDetails', 'confirmRemoveHeading');
-	$scope.deleteModalAction = localizationService.translate('recipeDetails', 'confirmRemoveButton');
-
-	$scope.detailsModalHeading = localizationService.translate('recipeDetails', 'detailsHeading');
+recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', 'userSession', 'apiClient', function($scope, $stateParams, $state, userSession, apiClient) {
+	//$scope.previousState = $stateParams.referrer || 'home';
 
 	$scope.initialize = function() {
 		apiClient.getRecipe($stateParams.recipeId)
 			.then(function(recipe) {
 				recipe.meta.lastViewed = Date.create();
-				apiClient.updateRecipe(recipe);
+				apiClient.updateRecipe(recipe._id, recipe);
 
 				$scope.recipe = formatRecipe(recipe);
 
@@ -41,7 +36,7 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 	$scope.removeRecipe = function() {
 		apiClient.removeRecipe($scope.recipe.id)
 			.then(function() {
-				$state.go('home.start');
+				$state.go('home');
 			})
 			.catch(function() {
 				$scope.hasError = true;
@@ -52,10 +47,6 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 		recipe.groupedIngredients = recipe.ingredients.groupBy(function(ing) {
 			return ing.component;
 		});
-
-		recipe.meta.cuisine = localizationService.translate('metaTags', recipe.meta.cuisine);
-		recipe.meta.category = localizationService.translate('metaTags', recipe.meta.category);
-		recipe.meta.course = localizationService.translate('metaTags', recipe.meta.course);
 
 		return recipe;
 	}

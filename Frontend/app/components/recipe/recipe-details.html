@@ -1,52 +1,52 @@
 <div ng-controller="recipeDetailsController" ng-init="initialize()">
-	<alert ng-show="hasError" type="danger">
-		<i class="fa fa-exclamation danger"></i> <rd-translate key="global/generalErrorMessage"></rd-translate>
-	</alert>
+	<div ng-show="hasError" class="u-spacingBottomMd">
+		<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
+	</div>
 
 	<div class="recipe-details-wrapper" ng-show="!hasError">
-		<div class="row">
-			<div class="banner">
-				<span class="recipe-details-back" rd-back-link target-state="{{previousState}}"></span>
-				<div class="banner-figure" ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
-				<div class="headline">
-					<h3>{{recipe.recipeName}}</h3>
-					<div class="recipe-meta">
-						<ul>
-							<li>{{recipe.servingSize}} <rd-translate key="global/servings"></li>
+		<div class="Banner">
+			<div class="Banner-figure">
+				<div ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>
+			</div>
+			<div class="Banner-wrap">
+				<div class="Banner-content">
+					<div class="Banner-card">
+						<h3 class="u-spacingBothSm">{{recipe.recipeName}}</h3>
+						<ul class="Toolbar">
+							<li class="Toolbar-item Toolbar-item--large" ng-click="onFavoriteClick($event)">
+								<a href="#"><i class="fa" ng-class="isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
+							</li>
+							<li class="Toolbar-item Toolbar-item--large" ng-if="isEditable">
+								<a ui-sref="manage/edit({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o"></i></a>
+							</li>
+							<!-- <li class="Toolbar-item Toolbar-item--large" ng-if="isEditable"> -->
+							<!-- <li class="Toolbar-item Toolbar-item--large">
+								<a href="#" data-toggle="modal" data-target="#confirm-delete-modal"><i class="fa fa-trash-o"></i></a>
+							</li> -->
+							<!-- <li class="Toolbar-item Toolbar-item--large">
+								<a href="#" data-toggle="modal" data-target="#details-modal"><i class="fa fa-ellipsis-h"></i></a>
+							</li> -->
 						</ul>
-						<ul>
-							<li>{{recipe.meta.cuisine}}</li>
-							<li>{{recipe.meta.category}}</li>
-							<li>{{recipe.meta.course}}</li>
+						<ul class="Toolbar">
+							<li class="Toolbar-item">{{('metaTags/' + recipe.meta.cuisine) | translate}}</li>
+							<li class="Toolbar-item">{{('metaTags/' + recipe.meta.category) | translate}}</li>
+							<li class="Toolbar-item">{{('metaTags/' + recipe.meta.course) | translate}}</li>
 						</ul>
 					</div>
-					<ul class="recipe-toolbar">
-						<li class="favorite" ng-click="onFavoriteClick($event)">
-							<a href="#"><i class="fa" ng-class="isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
-						</li>
-						<li ng-if="isEditable" class="edit">
-							<a ui-sref="manage/edit({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o"></i></a>
-						</li>
-						<li ng-if="isEditable" class="delete">
-							<a href="#" data-toggle="modal" data-target="#confirm-delete-modal"><i class="fa fa-trash-o"></i></a>
-						</li>
-						<li class="details">
-							<a href="#" data-toggle="modal" data-target="#details-modal"><i class="fa fa-ellipsis-h"></i></a>
-						</li>
-					</ul>
 				</div>
 			</div>
 		</div>
-		<!-- <div class="row">
-			<p class="col-xs-12">{{recipe.description}}</p>
-		</div> -->
-		<div class="row">
-			<div class="col-lg-10 col-lg-offset-1">
-				<article id="rd-ingredients" class="col-lg-6">
-					<h3><div class="list-heading">{{recipe.ingredients.length}} <small><rd-translate key="recipeDetails/ingredientsHeading"></rd-translate></small></div></h3>
+		<div class="Grid">
+			<div class="Grid-cell u-sizeFull">
+					<p style="padding-left:15px;">{{recipe.servingSize}} {{'global/servings' | translate}}</p>
+			</div>
+			<div class="Grid-cell u-sizeFull u-lg-size1of2">
+				<article class="Article">
+					<h3>{{recipe.ingredients.length}} <small>{{'recipeDetails/ingredientsHeading' | translate}}</small></h3>
+					<hr/>
 					<ul class="component-list">
 						<li ng-repeat="(grpKey, grpVal) in recipe.groupedIngredients">
-							<p ng-if='grpKey !== "undefined"' class="component-header text-uppercase"><small>{{grpKey}}</small></p>
+							<div ng-if='grpKey !== "undefined"'><small class="u-textUppercase">{{grpKey}}</small></div>
 							<ul class="ingredient-list">
 								<li ng-repeat="ing in grpVal">
 									{{ing.quantity}} {{ing.unit}} {{ing.name}}
@@ -55,9 +55,11 @@
 						</li>
 					</ul>
 				</article>
-
-				<article id="rd-method" class="col-lg-6">
-					<h3><div class="list-heading">{{recipe.method.length}} <small><rd-translate key="recipeDetails/methodHeading"></rd-translate></small></div></h3>
+			</div>
+			<div class="Grid-cell u-sizeFull u-lg-size1of2">
+				<article class="Article">
+					<h3>{{recipe.method.length}} <small>{{'recipeDetails/methodHeading' | translate}}</small></h3>
+					<hr/>
 					<ol class="method-list">
 						<li ng-repeat="step in recipe.method">
 							{{step}}
@@ -67,25 +69,4 @@
 			</div>
 		</div>
 	</div>
-
-	<rd-modal type="confirmAction" target-id="confirm-delete-modal" modal-header="{{deleteModalHeading}}" action-label="{{deleteModalAction}}" on-action="removeRecipe()">
-		<p><rd-translate key="recipeDetails/confirmRemoveMessage"></rd-translate></p>
-	</rd-modal>
-
-	<rd-modal type="info" target-id="details-modal" modal-header="{{detailsModalHeading}}">
-		<table class="table plain-table">
-			<tr>
-				<td><rd-translate key="recipeDetails/ratingLabel"></rd-translate></td>
-				<td>{{recipe.rating}} / 5</td>
-			</tr>
-			<tr>
-				<td><rd-translate key="recipeDetails/createdLabel"></rd-translate></td>
-				<td>{{recipe.meta.created}}</td>
-			</tr>
-			<tr>
-				<td><rd-translate key="recipeDetails/lastEditedLabel"></rd-translate></td>
-				<td>{{recipe.meta.lastEdited}}</td>
-			</tr>
-		</table>
-	</rd-modal>
 </div>

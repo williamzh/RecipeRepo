@@ -62,8 +62,8 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			.catch(function(error) { return onError('addRecipe', error) });
 	};
 
-	this.updateRecipe = function(recipe) {
-		return $http.post(apiUrl + '/recipes/' + recipe.id, { recipe: recipe })
+	this.updateRecipe = function(id, recipe) {
+		return $http.put(apiUrl + '/recipes/' + id, { recipe: recipe })
 			.then(function (response) {	return onSuccess('updateRecipe', response); })
 			.catch(function(error) { return onError('updateRecipe', error) });
 	};

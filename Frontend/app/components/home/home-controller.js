@@ -1,4 +1,4 @@
-recipeRepoControllers.controller('homeController', ['$scope', '$state', 'apiClient', 'userSession', function($scope, $state, apiClient, userSession) {
+recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 'apiClient', 'userSession', function($scope, $state, Slug, apiClient, userSession) {
 	$scope.init = function() {
 		apiClient.getTopRecipes()
 			.then(function(topRecipes) {
@@ -23,7 +23,8 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'apiClie
 		$state.go('home.search', { query: $scope.searchQuery });
 	};
 
-	$scope.showRecipe = function(id) {
-		$state.go('recipe', { recipeId: id });
+	$scope.showRecipe = function(recipe) {
+		var slug = Slug.slugify(recipe.recipeName);
+		$state.go('recipe', { recipeId: recipe._id, recipeName: slug });
 	};
 }]);

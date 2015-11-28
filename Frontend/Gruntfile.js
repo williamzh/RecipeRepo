@@ -15,6 +15,7 @@ module.exports = function(grunt) {
 						'bower_components/angular-mocks/angular-mocks.js',
 						'bower_components/angular-ui-router/release/angular-ui-router.js',
 						'bower_components/ngstorage/ngStorage.js',
+						'bower_components/angular-slugify/angular-slugify.js',
 						'bower_components/moment/min/moment-with-locales.js'
 					],
 					'dist/app/app.min.js': ['app/**/*.js']
