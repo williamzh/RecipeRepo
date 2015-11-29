@@ -3,6 +3,7 @@
 	"values": {
 		"global": {
 			"servings": "portioner",
+			"informalOk": "Uppfattat!",
 			"cancelLabel": "Avbryt",
 			"backLabel": "Tillbaka",
 			"generalErrorMessage": "Ett oväntat fel har tyvärr inträffat, var god försök senare.",
@@ -109,7 +110,9 @@
 			"emailLabel": "E-post",
 			"passwordLabel": "Lösenord",
 			"editSubmitButton": "Spara ändringar",
-			"createSubmitButton": "Fortsätt"
+			"createSubmitButton": "Fortsätt",
+			"confirmHeading": "Yay!",
+			"confirmInstructions": "En profil har nu skapats åt dig. Du kan nu bläddra bland recept, lägga upp nya och bokmärka de du gillar. Följ länken för att komma igång!"
 		}
 	}
 }

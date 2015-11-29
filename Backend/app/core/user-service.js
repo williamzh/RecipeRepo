@@ -52,6 +52,14 @@ UserService.prototype.add = function(user) {
 				throw new Error('User already exists.');
 			}
 
+			// Additional user props
+			user.favoriteRecipes = [];
+			user.ownedRecipes = [];
+			user.history = [];
+			user.settings = {
+				language: 'sv-SE'
+			};
+
 			return self.dbClient.add(user, self.dbType);
 		})
 		.catch(function(error) {

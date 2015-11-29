@@ -1,5 +1,7 @@
-<div id="create-confirm-wrapper">
-	<h1>Yay!</h1>
-	<p>Your profile has now been created, follow the link below to start browsing recipes!</p>
-	<a ui-sref="home" class="Button Button--primary">Go!</a>
+<div ng-controller="createProfileController">
+	<h1>{{'profile/confirmHeading' | translate}}</h1>
+	<p>{{'profile/confirmInstructions' | translate}}</p>
+	<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+		<button class="Button Button--primary" ng-click="activate()">{{'global/informalOk' | translate}}</button>
+	</div>
 </div>

@@ -3,22 +3,28 @@ recipeRepoControllers.controller('createProfileController', ['$scope', '$state',
 		$scope.profile = {};
 	};
 
-	$scope.createProfile = function() {
-		if($scope.createProfileForm.$invalid) {
+	$scope.createProfile = function(isFormValid) {
+		if(!isFormValid) {
 			return;
 		}
 
 		apiClient.addUser($scope.profile)
 			.then(function() {
-				// Automatically authenticate the user for first-time login
-				return apiClient.login($scope.profile.userName, $scope.profile.password);
-			})
-			.then(function(sessionData) {
-				userSession.initialize(sessionData);
 				$state.go('register.confirm');
 			})
 			.catch(function() {
 				$scope.showError = true;
 			});
 	};
+
+	$scope.activate = function() {
+		apiClient.login($scope.profile.userName, $scope.profile.password)
+			.then(function(sessionData) {
+				userSession.initialize(sessionData);
+				$state.go('home');
+			})
+			.catch(function() {
+				$scope.showError = true;
+			});
+	}
 }]);

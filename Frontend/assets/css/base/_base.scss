@@ -35,6 +35,11 @@ a {
   text-decoration: none;
 }
 
+button {
+	background: transparent;
+	border: 0;
+}
+
 // Allow only vertical resizing of textareas
 textarea {
   resize: vertical;

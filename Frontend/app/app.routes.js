@@ -16,7 +16,8 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 		state('register', {
 			abstract: true,
 			url: '/register',
-			templateUrl: 'app/components/profile/register.html'
+			templateUrl: 'app/components/profile/register.html',
+			controller: 'createProfileController'	// Declare controller here so that nested states share $scope
 		}).
 		state('register.create', {
 			url: '',

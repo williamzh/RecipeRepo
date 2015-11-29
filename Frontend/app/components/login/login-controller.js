@@ -3,6 +3,8 @@ recipeRepoControllers.controller('loginController', ['$scope', '$state', 'userSe
 	$scope.password = '';
 
 	$scope.onSubmit = function() {
+		$scope.showError = false;
+		
 		if($scope.loginForm.$invalid) {
 			return;
 		}
