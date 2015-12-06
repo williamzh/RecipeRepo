@@ -50,26 +50,20 @@
 			"resetEmailRequired": "Ogiltig e-postadress"
 		},
 		"navigation": {
+			"home": "Start",
 			"newRecipeLabel": "Nytt recept",
 			"myRecipesLabel": "Mina recept",
 			"settingsLabel": "Inställningar",
 			"logoutLabel": "Logga ut"
 		},
 		"home": {
-			"findRecipePlaceholder": "Hitta ett recept",
-			"addRecipeButton": "Nytt recept",
-			"featuredTab": "Start",
-			"history": "Senaste visade",
+			"findRecipePlaceholder": "Pasta, fisk, italienskt, osv",
 			"latest": "Senast upplagda",
-			"topRated": "Högst betyg",
-			"searchTab": "Sök",
-			"noSearchQueryMessage": "Vänligen ange en sökfråga",
-			"noSearchHitsMessage": "Vi hittade tyvärr inget som matchade",
-			"hits": "träffar",
-			"allCuisines": "Alla kök",
-			"allCategories": "Alla kategorier",
-			"allCourses": "Alla rätter",
-			"favoritesTab": "Favoriter"
+			"latestPlaceholder": "Det finns inga upplagda recept än. Skapa gärna ett!",
+			"topRated": "Högst betygsatta",
+			"topRatedPlaceholder": "Det finns inga upplagda recept än. Skapa gärna ett!",
+			"history": "Historik",
+			"historyPlaceholder": "Här kommer de recept du tittade på senast att visas"
 		},
 		"recipeDetails": {
 			"ingredientsHeading": "Ingredienser",
@@ -84,6 +78,7 @@
 		"manage": {
 			"myRecipesHeading": "Mina recept",
 			"privateLabel": "Privat",
+			"createRecipeHeading": "Skapa recept",
 			"editRecipeHeading": "Redigera recept",
 			"detailsSubHeading": "Detaljer",
 			"ingredientsSubHeading": "Ingredienser",
@@ -98,9 +93,9 @@
 			"descriptionLabel": "Beskrivning",
 			"isPrivateLabel": "Dölj för andra",
 			"newIngredientLabel": "Ny ingrediens",
-			"ingredientQuantityLabel": "Mängd/antal (t.ex. dl, msk, g)",
-			"ingredientUnitLabel": "Enhet",
-			"ingredientUnitLabel": "Namn",
+			"ingredientQuantityLabel": "Mängd/antal",
+			"ingredientUnitLabel": "Enhet (t.ex. dl, msk, g)",
+			"ingredientNameLabel": "Namn",
 			"ingredientComponentLabel": "Komponent (valfri)",
 			"newStepLabel": "Nytt steg",
 			"stepLabel": "Beskrivning",
@@ -109,16 +104,20 @@
 			"updateSuccessMessage": "Receptet har uppdaterats."
 		},
 		"profile": {
+			"createProfileHeading": "Skapa ny profil",
+			"createSubmitButton": "Fortsätt",
+			"confirmHeading": "Yay!",
+			"confirmInstructions": "En profil har nu skapats åt dig. Du kan nu bläddra bland recept, lägga upp nya och bokmärka de du gillar. Följ länken för att komma igång!",
 			"editProfileHeading": "Min profil",
+			"personalDetailsHeading": "Dina uppgifter",
 			"firstNameLabel": "Förnamn",
 			"lastNameLabel": "Efternamn",
 			"userNameLabel": "Användarnamn",
 			"emailLabel": "E-post",
 			"passwordLabel": "Lösenord",
-			"editSubmitButton": "Spara ändringar",
-			"createSubmitButton": "Fortsätt",
-			"confirmHeading": "Yay!",
-			"confirmInstructions": "En profil har nu skapats åt dig. Du kan nu bläddra bland recept, lägga upp nya och bokmärka de du gillar. Följ länken för att komma igång!"
+			"repeatPasswordLabel": "Upprepa lösenord",
+			"languageHeading": "Språk",
+			"editSubmitButton": "Spara ändringar"
 		}
 	}
 }

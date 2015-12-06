@@ -1,4 +1,6 @@
 recipeRepoControllers.controller('editProfileController', ['$scope', 'userSession', 'apiClient', function($scope, userSession, apiClient) {
+	$scope.selectedLang = undefined;
+
 	$scope.init = function() {
 		var user = userSession.get().user;
 		apiClient.getUser(user._id)
@@ -15,9 +17,13 @@ recipeRepoControllers.controller('editProfileController', ['$scope', 'userSessio
 			value: 'sv-SE'
 		}];
 		
-		$scope.selectedLang = $scope.supportedLanguages.find(function(lang) { 
-			return lang.value === user.settings.language;
-		});
+		// $scope.selectedLang = $scope.supportedLanguages.find(function(lang) { 
+		// 	return lang.value === user.settings.language;
+		// });
+
+		// console.log($scope.supportedLanguages.find(function(lang) { 
+		// 	return lang.value === user.settings.language;
+		// }));
 	};
 
 	$scope.updateProfile = function() {

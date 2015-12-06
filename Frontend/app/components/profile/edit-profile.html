@@ -14,36 +14,42 @@
 		<div class="Grid Grid--withGutter" validator>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control">
-					<input type="text" class="Control-field" name="userName" placeholder="{{'profile/userNameLabel' | translate}}" ng-model="profile.userName" disabled>
+					<label class="Control-label" for="userName">{{'profile/userNameLabel' | translate}}</label>
+					<input type="text" class="Control-field" name="userName" ng-model="profile.userName" id="userName" disabled>
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control" ng-class="{ 'has-error': hasError('firstName') }">
-					<input type="text" class="Control-field" name="firstName" placeholder="{{'profile/firstNameLabel' | translate}}" ng-model="profile.firstName" required>
+					<label class="Control-label" for="firstName">{{'profile/firstNameLabel' | translate}}</label>
+					<input type="text" class="Control-field" name="firstName" ng-model="profile.firstName" id="firstName" required>
 					<span class="Control-error">{{'validation/firstNameRequired' | translate}}</span>
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control" ng-class="{ 'has-error': hasError('lastName') }">
-					<input type="text" class="Control-field" name="lastName" placeholder="{{'profile/lastNameLabel' | translate}}" ng-model="profile.lastName" required>
+					<label class="Control-label" for="lastName">{{'profile/lastNameLabel' | translate}}</label>
+					<input type="text" class="Control-field" name="lastName" ng-model="profile.lastName" id="lastName" required>
 					<span class="Control-error">{{'validation/lastNameRequired' | translate}}</span>
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control" ng-class="{ 'has-error': hasError('email') }">
-					<input type="email" class="Control-field" name="email" placeholder="{{'profile/emailLabel' | translate}}" ng-model="profile.email" required>
+					<label class="Control-label" for="email">{{'profile/emailLabel' | translate}}</label>
+					<input type="email" class="Control-field" name="email" ng-model="profile.email" id="email" required>
 					<span class="Control-error">{{'validation/emailRequired' | translate}}</span>
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control" ng-class="{ 'has-error': hasError('password') }">
-					<input type="password" class="Control-field" name="password" placeholder="{{'profile/passwordLabel' | translate}}" ng-model="profile.password" required>
+					<label class="Control-label" for="password">{{'profile/passwordLabel' | translate}}</label>
+					<input type="password" class="Control-field" name="password" ng-model="profile.password" id="password" required>
 					<span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<label class="Control-label" for="repeatPassword">{{'profile/repeatPasswordLabel' | translate}}</label>
 				<div class="Control" ng-class="{ 'has-error': hasError('repeatPassword') }">
-					<input type="password" class="Control-field" name="repeatPassword" placeholder="{{'profile/repeatPasswordLabel' | translate}}" ng-model="repeatPassword" required password-repeat='password'>
+					<input type="password" class="Control-field" name="repeatPassword" ng-model="repeatPassword" required password-repeat='password' id="repeatPassword">
 					<span class="Control-error">{{'validation/passwordRepeatMismatch' | translate}}</span>
 				</div>
 			</div>
@@ -53,7 +59,7 @@
 		<div class="Grid Grid--withGutter" validator>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control">
-					<select class="Control-field" ng-options="opt.value as opt.text for opt in supportedLanguages" ng-model="selectedLang"></select>
+					<select class="Control-field" ng-options="opt.value as opt.text for opt in supportedLanguages" ng-model="selectedLang" ng-init="selectedLang = supportedLanguages[0]"></select>
 				</div>
 			</div>
 		</div>
