@@ -36,8 +36,9 @@ a {
 }
 
 button {
-	background: transparent;
 	border: 0;
+	background: transparent;
+	outline: 0;
 }
 
 // Allow only vertical resizing of textareas

@@ -14,6 +14,15 @@ function MetaController(app, metaStore, tokenValidator) {
 		this.tokenValidator.validate(req, res, next);	
 	});
 
+	metaRouter.get('/', function(req, res) {
+		this.metaStore.getAll()
+			.then(function(items) {
+				res.json(200, items);
+			}, function(err) {
+				res.json(500, { error: err.message });
+			});
+	});
+
 	metaRouter.get('/:name', function(req, res) {
 		this.metaStore.search(req.params.name)
 			.then(function(items) {

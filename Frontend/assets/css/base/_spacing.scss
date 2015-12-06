@@ -1,4 +1,4 @@
-/* Small */
+ /* Small */
 
 .u-spacingTopSm {
   margin-top: $spacing-sm;
@@ -59,12 +59,9 @@
 }
 
 /* None */
-
-// .u-spacingNoTop,
-// .u-spacingTopNone {
-//   margin-top: 0;
-//   padding-top: 0;
-// }
+.u-spacingTopNone { 
+  margin-top: 0 !important;
+}
 
 // .u-spacingNoBottom,
 // .u-spacingBottomNone {

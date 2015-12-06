@@ -1,9 +1,13 @@
-recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$stateParams', 'apiClient', 'localizationService', 'log', function($scope, $q, $stateParams, apiClient, localizationService, log) {
+recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$stateParams', 'apiClient', 'localizationService', function($scope, $q, $stateParams, apiClient, localizationService) {
 	$scope.recipeId = $stateParams.recipeId;
 	$scope.inEditMode = $stateParams.recipeId != undefined;
-	$scope.currentRecipe = {
-		meta: {}
-	};
+	$scope.currentRecipe = {};
+
+	$scope.newIngredient = {};
+	$scope.ingredientModalSubmitted = false;
+
+	$scope.newStep = {};	// Use an object, since Angular doesn't handle model binding with strings very well
+	$scope.stepModalSubmitted = false;
 	
 	$scope.init = function() {
 		var initPromises = [apiClient.getMetainfo()];
@@ -14,43 +18,81 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 
 		$q.all(initPromises)
 			.then(function(responses) {
-				var metaInfo = responses[0];
-				var recipe = responses[1];
+				// var metaInfo = responses[0];
+				// var recipe = responses[1];
 
-				if(recipe) {
-					$scope.currentRecipe = recipe;
-				}
+				// if(recipe) {
+				// 	$scope.currentRecipe = recipe;
+				// }
 				
-				$scope.cuisines = metaInfo.cuisines;
-				$scope.currentRecipe.meta.cuisine = $scope.cuisines[0];
+				// $scope.cuisines = metaInfo.cuisines;
+				// $scope.currentRecipe.meta.cuisine = $scope.cuisines[0];
 
-				$scope.categories = metaInfo.categories;
-				$scope.currentRecipe.meta.category = $scope.categories[0];
+				// $scope.categories = metaInfo.categories;
+				// $scope.currentRecipe.meta.category = $scope.categories[0];
 
-				$scope.courses = metaInfo.courses;
-				$scope.currentRecipe.meta.course = $scope.courses[0];
+				// $scope.courses = metaInfo.courses;
+				// $scope.currentRecipe.meta.course = $scope.courses[0];
 			})
 			.catch(function() {
 				$scope.hasError = true;
 			});
 	}
 
-	$scope.getMetaLabel = function(value) {
-		return localizationService.translate('metaTags', value);
+	$scope.addIngredient = function(form) {
+		$scope.ingredientModalSubmitted = true;
+
+		if(form.$invalid) {
+			return;
+		}
+
+		if($scope.currentRecipe.ingredients === undefined) {
+			$scope.currentRecipe.ingredients = [];
+		}
+
+		$scope.currentRecipe.ingredients.push($scope.newIngredient);
+
+		$scope.newIngredient = {};
+		form.$setPristine();
+		form.$setUntouched();
+		$scope.ingredientModalSubmitted = false;
+
+		$scope.showIngredientModal = false;
 	};
 
-	$scope.removeRow = function(index, model) {
-		model.splice(index, 1);
+	$scope.removeIngredient = function(index) {
+		$scope.currentRecipe.ingredients.splice(index, 1);
 	};
 
-	$scope.insertRow = function(index, model, initValue) {
-		model.splice(index + 1, 0, initValue);
+	$scope.addStep = function(form) {
+		$scope.stepModalSubmitted = true;
+
+		if(form.$invalid) {
+			return;
+		}
+
+		if($scope.currentRecipe.method === undefined) {
+			$scope.currentRecipe.method = [];
+		}
+
+		$scope.currentRecipe.method.push($scope.newStep.value);
+
+		$scope.newStep= {};
+		form.$setPristine();
+		form.$setUntouched();
+		$scope.stepModalSubmitted = false;
+
+		$scope.showStepModal = false;
+	};
+
+	$scope.removeStep = function(index) {
+		$scope.currentRecipe.method.splice(index, 1);
 	};
 
 	$scope.onSubmit = function() {
 		$scope.showError = false;
 
-		if(recipeForm.$invalid) {
+		if($scope.recipeForm.$invalid) {
 			return;
 		}
 
@@ -85,10 +127,5 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 					$scope.showError = true;
 				});
 		}
-	};
-
-	$scope.hasError = function(field) {
-		var isInvalid = $scope.recipeForm[field].$invalid;
-		return ($scope.recipeForm[field].$dirty && isInvalid) || ($scope.submitted && isInvalid);
 	};
 }]);

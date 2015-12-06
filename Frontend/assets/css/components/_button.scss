@@ -7,6 +7,9 @@
 	text-align: center;
 	text-decoration: none;
 	width: 100%;
+	border: 0;
+	background: transparent;
+	outline: 0;
 
 	@media(min-width: $md-viewport) {
 		width: auto;
@@ -28,4 +31,11 @@
 	// padding-left: 0;
 	// padding-right: 0;
 	text-decoration: none;
+}
+
+.Button--inline {
+	width: auto;
+	display: inline-block;
+	padding: 0 15px;
+	height: 30px;
 }

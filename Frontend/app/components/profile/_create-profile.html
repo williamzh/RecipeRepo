@@ -45,9 +45,9 @@
 			</div>
 		</div>
 
-		<div class="ButtonGroup ButtonGroup--alignRight">
-			<button type="submit" class="Button Button--primary">{{'profile/createSubmitButton' | translate}}</button>
-			<a ui-sref="login" class="Button Button--link">{{'global/cancelLabel' | translate}}</a>
-		</div>
+		<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopSm">
+				<button type="submit" class="Button Button--primary" ng-click="submitted = true">{{'profile/createSubmitButton' | translate}}</button>
+				<a ui-sref="login" class="Button Button--link">{{'global/cancelLabel' | translate}}</a>
+			</div>
 	</form>
 </div>

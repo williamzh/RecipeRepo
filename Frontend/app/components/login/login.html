@@ -1,27 +1,27 @@
 <div class="Container Container--narrow" ng-controller="loginController">
 	<form name="loginForm" ng-submit="onSubmit()" novalidate>
-		<div ng-show="showError" class="u-spacingBottomMd">
-			<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'login/loginErrorMessage' | translate}}"></alert>
-		</div>
-
-		<h1 class="u-spacingBottomMd">{{'login/mainHeading' | translate}}</h1>
 		<div validator>
-			<div class="Control" ng-class="{ 'has-error': hasError('userName') }">
+			<div ng-show="showError" class="u-spacingBottomMd">
+				<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'login/loginErrorMessage' | translate}}"></alert>
+			</div>
+
+			<h1 class="u-spacingBottomMd">{{'login/mainHeading' | translate}}</h1>
+			
+			<div class="Control Control--noLabel" ng-class="{ 'has-error': hasError('userName') }">
 				<input type="text" class="Control-field" placeholder="{{'login/userNameLabel' | translate}}" name="userName" ng-model="$parent.userName" required />	
 				<span class="Control-error">{{'validation/userNameRequired' | translate}}</span>
 			</div>
-			<div class="Control" ng-class="{ 'has-error': hasError('password') }">
+			<div class="Control Control--noLabel" ng-class="{ 'has-error': hasError('password') }">
 				<input type="password" class="Control-field" placeholder="{{'login/passwordLabel' | translate}}" name="password" ng-model="$parent.password" required />
 				<span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
 			</div>
-
-			<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopSm">
-				<button type="submit" class="Button Button--primary" ng-click="submitted = true">{{'login/submitButton' | translate}}</button>
-			</div>
-			<div class="ButtonGroup ButtonGroup--alignRightJustified">
-				<a class="Button Button--link" ui-sref="resetPassword">{{'login/forgotPasswordLabel' | translate }}</a>
-				<a class="Button Button--link" ui-sref="register.create">{{'login/registerLabel' | translate }}</a>
-			</div>
+		</div>
+		<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+			<button type="submit" class="Button Button--primary" ng-click="submitted = true">{{'login/submitButton' | translate}}</button>
+		</div>
+		<div class="ButtonGroup ButtonGroup--alignRightJustified">
+			<a class="Button Button--link" ui-sref="resetPassword">{{'login/forgotPasswordLabel' | translate }}</a>
+			<a class="Button Button--link" ui-sref="register.create">{{'login/registerLabel' | translate }}</a>
 		</div>
 	</form>
 </div>

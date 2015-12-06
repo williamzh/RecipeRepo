@@ -40,30 +40,27 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 			},
 			templateUrl: 'app/components/home/_search.html'
 		}).
-		state('home.favorites', {
-			templateUrl: 'app/components/home/_favorites.html'
-		}).
 		// Recipe
+		state('recipe/create', {
+			url: '/recipes/create',
+			templateUrl: '/app/components/manage/manage-recipe.html'
+		}).
 		state('recipe', { 
 			url: '/recipes/:recipeId',
-			params: {
-				recipeId: null,
-				referrer: null
-			},
+			// params: {
+			// 	recipeId: null,
+			// 	referrer: null
+			// },
 			templateUrl: '/app/components/recipe/recipe-details.html'
 		}).
+		state('recipe/edit', {
+			url: '/recipes/:recipeId/edit',
+			templateUrl: '/app/components/manage/manage-recipe.html'
+		}).
 		// Manage
-		state('manage', {
-			url: '/manage',
+		state('my-recipes', {
+			url: '/my-recipes',
 			templateUrl: '/app/components/manage/my-recipes.html'
-		}).
-		state('manage/create', {
-			url: '/manage/create',
-			templateUrl: '/app/components/manage/manage-recipe.html'
-		}).
-		state('manage/edit', {
-			url: '/manage/edit/:recipeId',
-			templateUrl: '/app/components/manage/manage-recipe.html'
 		}).
 		// Profile
 		state('profile', {

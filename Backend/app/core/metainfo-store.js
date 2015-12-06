@@ -29,6 +29,16 @@ MetainfoStore.prototype.add = function(metaObj) {
 		});
 };
 
+MetainfoStore.prototype.getAll = function() {
+	return this.dbClient.getAll(this.dbType)
+		.then(function(metaObjects) {
+			return metaObjects;
+		})
+		.catch(function(error) {
+			return q.reject(error);
+		});
+};
+
 MetainfoStore.prototype.get = function(metaObjId) {
 	return this.dbClient.get(metaObjId, this.dbType)
 		.then(function(metaObj) {

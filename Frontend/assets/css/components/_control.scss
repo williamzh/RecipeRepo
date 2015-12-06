@@ -1,7 +1,12 @@
 .Control {
-	height: 50px;
 	width: 100%;
-	margin-bottom: 25px;
+	margin-bottom: 20px;
+}
+
+.Control--noLabel {
+	.Control-field {
+		height: 50px;
+	}
 }
 
 .Control--discrete {
@@ -19,13 +24,20 @@
 	}
 }
 
+.Control-label {
+	display: block;
+	font-size: $font-size-sm;
+	margin-bottom: 5px;
+	height: 20px;
+}
+
 .Control-field {
 	display: block;
 	box-sizing: border-box;
 	border: 1px solid #c3c3c3;
 	background-color: #FFF;
 	outline: none;
-	height: 100%;
+	height: 45px;
 	width: 100%;
 	padding: 5px 10px;
 	font-size: $font-size-md;
@@ -33,6 +45,11 @@
 	&:focus {
 		border: 1px solid $color-brand;
 	}
+}
+
+.Control-textarea {
+	@extend .Control-field;
+	height: 100px;
 }
 
 .Control--discrete .Control-field {
@@ -66,5 +83,5 @@
 	display: none;
 	font-size: $font-size-xs;
 	color: $color-red;
-	margin-top: 2px;
+	margin-top: 4px;
 }

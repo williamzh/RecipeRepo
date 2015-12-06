@@ -1,123 +1,166 @@
-<div class="manage-recipe-wrapper page-container" ng-controller="manageRecipeController" ng-init="init()">
-	<rd-back-link ng-if="!inEditMode" target-state="home.start"></rd-back-link>
+<div class="Container" ng-controller="manageRecipeController" ng-init="init()">
 	<rd-back-link ng-if="inEditMode" target-state="recipe" target-params="{ recipeId: recipeId }"></rd-back-link>
 
-	<h1 class="page-heading">
-		<rd-translate ng-if="!inEditMode" key="manage/createRecipeHeading"></rd-translate>
-		<rd-translate ng-if="inEditMode" key="manage/editRecipeHeading"></rd-translate>
-	</h1>
+	<form name="recipeForm" ng-submit="onSubmit()" novalidate>
+		<div ng-show="showError">
+			<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="global/generalErrorMessage"></alert>
+		</div>
+		<div ng-show="recipeCreated">
+			<alert type="success" message="manage/creationSuccessMessage"></alert>
+		</div>
+		<div ng-show="recipeUpdated">
+			<alert type="success" message="manage/updateSuccessMessage"></alert>
+		</div>
 
-	<rd-alert type="danger" message-key="global/generalErrorMessage" observe="showError === true"></rd-alert>
+		<h1 ng-if="!inEditMode">{{'manage/createRecipeHeading' | translate}}</h1>
+		<h1 ng-if="inEditMode">{{'manage/editRecipeHeading' | translate}}</h1>
 
-	<rd-alert type="success" message-key="global/creationSuccessMessage" observe="recipeCreated === true"></rd-alert>
-
-	<rd-alert type="success" message-key="global/updateSuccessMessage" observe="recipeUpdated === true"></rd-alert>
-
-	<form id="recipe-form" name="recipeForm" ng-submit="onSubmit()" novalidate>
-		<fieldset class="basic">
-			<legend><rd-translate key="manage/detailsSubHeading"/></legend>
-			<div class="row">
-				<div class="col-sm-6">
-					<div class="form-group" ng-class="{ 'has-error': hasError('recipeName') }">
-						<label for="recipe-name"><rd-translate key="manage/recipeNameLabel"/></label>
-						<input type="text" id="recipe-name" class="form-control" name="recipeName" ng-model="currentRecipe.recipeName" required />
-						<p class="control-label error-label" ng-show="hasError('recipeName')">Recipe name is required.</p>
-					</div>
-					<div class="form-group">
-						<label for="recipe-img"><rd-translate key="manage/imageLabel"/></label>
-						<input type="text" id="recipe-img" class="form-control" name="imagePath" ng-model="currentRecipe.imagePath" />
-					</div>
-					<div class="form-group" ng-class="{ 'has-error': hasError('servingSize') }">
-						<label for="recipe-servings"><rd-translate key="manage/servingsLabel"/></label>
-						<input type="number" id="recipe-servings" class="form-control" name="servingSize" ng-model="currentRecipe.servingSize" min="1" max="6" step="1" ng-init="servings = 1" required>
-						<p class="control-label error-label" ng-show="hasError('servingSize')">Number of servings must be a number between 1 and 6.</p>
-					</div>
-					<div class="form-group">
-						<label for="recipe-desc"><rd-translate key="manage/descriptionLabel"/></label>
-						<textarea id="recipe-desc" class="form-control" name="description" ng-model="currentRecipe.description"></textarea>
-					</div>
-				</div>
-				<div class="col-sm-6">
-					<div class="form-group">
-						<label for="recipe-cuisine"><rd-translate key="manage/cuisineLabel"/></label>
-						<select id="recipe-cuisine" name="cuisine" ng-model="currentRecipe.meta.cuisine" ng-options="getMetaLabel(c) for c in cuisines" class="form-control"></select>
-					</div>
-					<div class="form-group">
-						<label for="recipe-category"><rd-translate key="manage/categoryLabel"/></label>
-						<select id="recipe-category" name="category" ng-model="currentRecipe.meta.category" ng-options="getMetaLabel(c) for c in categories" class="form-control"></select>
-					</div>
-					<div class="form-group">
-						<label for="recipe-course"><rd-translate key="manage/courseLabel"/></label>
-						<select id="recipe-course" name="category" ng-model="currentRecipe.meta.course" ng-options="getMetaLabel(c) for c in courses" class="form-control"></select>
-					</div>
-					<div class="form-group" ng-class="{ 'has-error': hasError('rating') }">
-						<label for="recipe-rating"><rd-translate key="manage/ratingLabel"/></label>
-						<input type="number" id="recipe-rating" class="form-control" name="rating" ng-model="currentRecipe.rating" min="1" max="5" step="0.5" ng-init="rating = 1" required>
-						<p class="control-label error-label" ng-show="hasError('rating')">Rating must be a number between 1 and 5.</p>
-					</div>
-					<div class="checkbox">
-						<label for="is-private">
-							<input type="checkbox" id="is-private" name="isPrivate" ng-model="currentRecipe.isPrivate" />
-							<rd-translate key="manage/isPrivateLabel"/>
-						</label>
-					</div>
+		<h2 class="u-spacingTopMd u-spacingBottomSm">{{'manage/detailsSubHeading' | translate}}</h2>
+		<div class="Grid Grid--withGutter" validator>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control" ng-class="{ 'has-error': hasError('recipeName') }">
+					<label class="Control-label" for="recipeName">{{'manage/recipeNameLabel' | translate}}</label>
+					<input type="text" class="Control-field" name="recipeName" ng-model="currentRecipe.recipeName" id="recipeName" required />
+					<span class="Control-error">Recipe name is required.</span>
 				</div>
 			</div>
-		</fieldset>
 
-		<fieldset class="ingredients">
-			<legend><rd-translate key="manage/ingredientsSubHeading"></rd-translate></legend>
-
-			<div class="form-group">
-				<table class="table">
-					<thead>
-						<tr>
-							<th class="col-xs-1"><rd-translate key="manage/ingredientQuantityCaption"/></th>
-							<th class="col-xs-2"><rd-translate key="manage/ingredientUnitCaption"/></th>
-							<th class="col-xs-5"><rd-translate key="manage/ingredientNameCaption"/></th>
-							<th class="col xs-2"><rd-translate key="manage/ingredientComponentCaption"/></th>
-							<th class="col-xs-1"></th>
-							<th class="col-xs-1"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="ing in currentRecipe.ingredients track by $index">
-							<td><input type="text" class="form-control" ng-model="ing.quantity" /></td>
-							<td><input type="text" class="form-control" ng-model="ing.unit" /></td>
-							<td><input type="text" class="form-control" ng-model="ing.name"/></td>
-							<td><input type="text" class="form-control" ng-model="ing.component" /></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRow($index, currentRecipe.ingredients, {})"><i class="fa fa-plus"></i></button></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, currentRecipe.ingredients)" ng-if="$index > 0"><i class="fa fa-remove"></i></button></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control">
+					<label class="Control-label" for="imagePath">{{'manage/imageLabel' | translate}}</label>
+					<input type="text" class="Control-field" name="imagePath" ng-model="currentRecipe.imagePath" id="imagePath" />
+				</div>
 			</div>
-		</fieldset>
-
-		<fieldset class="method">
-			<legend><rd-translate key="manage/methodSubHeading"></rd-translate></legend>
-
-			<div class="form-group">
-				<table class="table">
-					<thead>
-						<tr>
-							<th class="col-xs-1"></th>
-							<th class="col-xs-10"></th>
-							<th class="col-xs-1"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="step in currentRecipe.method track by $index">
-							<td>{{$index + 1}}.</td>
-							<td><textarea class="form-control" ng-model="currentRecipe.method[$index]"></textarea></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="insertRow($index, currentRecipe.method, '')"><i class="fa fa-plus"></i></button></td>
-							<td><button type="button" class="btn btn-default btn-sm" ng-click="removeRow($index, currentRecipe.method)" ng-if="$index > 0"><i class="fa fa-remove"></i></button></td>
-						</tr>
-					</tbody>
-				</table>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control" ng-class="{ 'has-error': hasError('servingSize') }">
+					<label class="Control-label" for="servingSize">{{'manage/servingsLabel' | translate}}</label>
+					<input type="number" class="Control-field" name="servingSize" ng-model="currentRecipe.servingSize" min="1" max="6" step="1" ng-init="servings = 1" id="servingSize" required>
+					<span class="Control-error">Number of servings must be a number between 1 and 6.</span>
+				</div>
 			</div>
-		</fieldset>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control">
+					<label class="Control-label" for="cuisine">{{'manage/cuisineLabel' | translate}}</label>
+					<select class="Control-field" name="cuisine" ng-model="currentRecipe.meta.cuisine" ng-options="getMetaLabel(c) for c in cuisines" id="cuisine"></select>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control">
+					<label class="Control-label" for="category">{{'manage/categoryLabel' | translate}}</label>
+					<select class="Control-field" name="category" ng-model="currentRecipe.meta.category" ng-options="getMetaLabel(c) for c in categories" id="category"></select>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control">
+					<label class="Control-label" for="course">{{'manage/courseLabel' | translate}}</label>
+					<select class="Control-field" name="category" ng-model="currentRecipe.meta.course" ng-options="getMetaLabel(c) for c in courses" id="course"></select>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control" ng-class="{ 'has-error': hasError('rating') }">
+					<label class="Control-label" for="rating">{{'manage/ratingLabel' | translate}}</label>
+					<input type="number" class="Control-field" name="rating" ng-model="currentRecipe.rating" min="1" max="5" step="0.5" ng-init="rating = 1" id="rating" required>
+					<span class="Control-error">Rating must be a number between 1 and 5.</span>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control">
+					<label class="Control-label" for="isPrivate">{{'manage/isPrivateLabel' | translate}}</label>
+					<select class="Control-field" name="isPrivate" ng-model="currentRecipe.isPrivate" id="isPrivate">
+						<option value="true">{{'global/yes' | translate}}</option>
+						<option value="false">{{'global/no' | translate}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="Grid-cell u-sizeFull u-md-size1of2">
+				<div class="Control">
+					<label class="Control-label" for="rating">{{'manage/descriptionLabel' | translate}}</label>
+					<textarea class="Control-textarea" name="description" ng-model="currentRecipe.description" id="rating"></textarea>
+				</div>
+			</div>
+		</div>
 
-		<button type="submit" class="btn btn-primary" rd-scroll scroll-target="top" ng-click="submitted = true"><rd-translate key="manage/submitButton"/></button>
+		<h2 class="u-spacingTopMd u-spacingBottomSm">{{'manage/ingredientsSubHeading' | translate}}</h2>
+		<div class="Grid Grid--withGutter">
+			<div class="Grid-cell u-sizeFull">
+				<ul class="Toolbar u-spacingTopNone">
+					<li class="Toolbar-item" ng-repeat="ing in currentRecipe.ingredients track by $index">
+						<button type="button" class="Button Button--link Button--inline" ng-click="removeIngredient(ing)"><i class="fa fa-minus"></i></button>
+						{{'{1} {2} {3}{4}'.assign(ing.quantity, ing.unit, ing.name, (ing.component ? ' (' + ing.component + ')' : ''))}}
+					</li>
+				</ul>
+				<div class="ButtonGroup">
+					<button type="button" class="Button Button--link" ng-click="showIngredientModal = true">{{'manage/newIngredientLabel' | translate}}</button>
+				</div>
+			</div>
+		</div>
+
+		<h2 class="u-spacingTopMd u-spacingBottomSm">{{'manage/methodSubHeading' | translate}}</h2>
+		<div class="Grid Grid--withGutter">
+			<div class="Grid-cell u-sizeFull">
+				<ol class="Toolbar u-spacingTopNone">
+					<li class="Toolbar-item" ng-repeat="step in currentRecipe.method track by $index">
+						<button type="button" class="Button Button--link Button--inline" ng-click="removeStep(step)"><i class="fa fa-minus"></i></button>
+						{{step}}
+					</li>
+				</ol>
+				<div class="ButtonGroup">
+					<button type="button" class="Button Button--link" ng-click="showStepModal = true">{{'manage/newStepLabel' | translate}}</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopLg">
+			<button type="submit" class="Button Button--primary" rd-scroll scroll-target="top" ng-click="submitted = true">{{'manage/submitButton' | translate}}</button>
+		</div>
 	</form>
+
+	<modal ng-show="showIngredientModal" on-close="showIngredientModal = false">
+        <form name="newIngredientForm" ng-submit="addIngredient(newIngredientForm)" novalidate>
+        	<div validator="ingredientModalSubmitted">
+	        	<h2 class="u-spacingBottomSm">{{'manage/newIngredientLabel' | translate}}</h2>
+	        	<div class="Control" ng-class="{ 'has-error': hasError('quantity') }">
+					<label class="Control-label" for="quantity">{{'manage/ingredientQuantityLabel' | translate}}</label>
+					<input type="number" class="Control-field" name="quantity" ng-model="newIngredient.quantity" min="1" id="quantity" required>
+					<span class="Control-error">{{'validation/numberFormat' | translate}}</span>
+				</div>
+				<div class="Control" ng-class="{ 'has-error': hasError('unit') }">
+					<label class="Control-label" for="quantity">{{'manage/ingredientUnitLabel' | translate}}</label>
+					<input type="text" class="Control-field" name="unit" ng-model="newIngredient.unit" id="unit" required />
+					<span class="Control-error">{{'validation/genericRequired' | translate}}</span>
+				</div>
+				<div class="Control" ng-class="{ 'has-error': hasError('name') }">
+					<label class="Control-label" for="quantity">{{'manage/ingredientNameLabel' | translate}}</label>
+					<input type="text" class="Control-field" name="name" ng-model="newIngredient.name" id="name" required />
+					<span class="Control-error">{{'validation/genericRequired' | translate}}</span>
+				</div>
+				<div class="Control" ng-class="{ 'has-error': hasError('component') }">
+					<label class="Control-label" for="quantity">{{'manage/ingredientComponentLabel' | translate}}</label>
+					<input type="text" class="Control-field" name="component" ng-model="newIngredient.component" id="component" />
+					<span class="Control-error"></span>
+				</div>
+			</div>
+
+			<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+				<button type="submit" class="Button Button--primary">{{'global/addLabel' | translate}}</button>
+			</div>
+        </form>
+	</modal>
+
+	<modal ng-show="showStepModal" on-close="showStepModal = false">
+        <form name="newStepForm" ng-submit="addStep(newStepForm)" novalidate>
+        	<div validator="stepModalSubmitted">
+	        	<h2 class="u-spacingBottomSm">{{'manage/newStepLabel' | translate}}</h2>
+	        	<div class="Control" ng-class="{ 'has-error': hasError('step') }">
+					<label class="Control-label" for="step">{{'manage/stepLabel' | translate}}</label>
+					<textarea class="Control-textarea" name="step" ng-model="newStep.value" id="step" required></textarea>
+					<span class="Control-error">{{'validation/genericRequired' | translate}}</span>
+				</div>
+			</div>
+
+			<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+				<button type="submit" class="Button Button--primary">{{'global/addLabel' | translate}}</button>
+			</div>
+        </form>
+	</modal>
 </div>

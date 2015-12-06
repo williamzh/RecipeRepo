@@ -4,6 +4,7 @@
 		"global": {
 			"servings": "portioner",
 			"informalOk": "Uppfattat!",
+			"addLabel": "Lägg till",
 			"cancelLabel": "Avbryt",
 			"backLabel": "Tillbaka",
 			"generalErrorMessage": "Ett oväntat fel har tyvärr inträffat, var god försök senare.",
@@ -16,7 +17,9 @@
 			"firstNameRequired": "Förnamn måste anges",
 			"lastNameRequired": "Efternamn måste anges",
 			"userNameRequired": "Användarnamn måste anges",
-			"passwordRequired": "Lösenord måste anges"
+			"passwordRequired": "Lösenord måste anges",
+			"genericRequired": "Detta fält är obligatoriskt",
+			"numberFormat": "Vänligen ange ett numeriskt värde"
 		},
 		"metaTags": {
 			"swedish": "Svenskt",
@@ -47,6 +50,7 @@
 			"resetEmailRequired": "Ogiltig e-postadress"
 		},
 		"navigation": {
+			"newRecipeLabel": "Nytt recept",
 			"myRecipesLabel": "Mina recept",
 			"settingsLabel": "Inställningar",
 			"logoutLabel": "Logga ut"
@@ -80,7 +84,6 @@
 		"manage": {
 			"myRecipesHeading": "Mina recept",
 			"privateLabel": "Privat",
-			"createRecipeHeading": "Lägg till recept",
 			"editRecipeHeading": "Redigera recept",
 			"detailsSubHeading": "Detaljer",
 			"ingredientsSubHeading": "Ingredienser",
@@ -94,10 +97,13 @@
 			"ratingLabel": "Betyg",
 			"descriptionLabel": "Beskrivning",
 			"isPrivateLabel": "Dölj för andra",
-			"ingredientQuantityCaption": "Mängd",
-			"ingredientUnitCaption": "Enhet",
-			"ingredientNameCaption": "Namn",
-			"ingredientComponentCaption": "Komponent",
+			"newIngredientLabel": "Ny ingrediens",
+			"ingredientQuantityLabel": "Mängd/antal (t.ex. dl, msk, g)",
+			"ingredientUnitLabel": "Enhet",
+			"ingredientUnitLabel": "Namn",
+			"ingredientComponentLabel": "Komponent (valfri)",
+			"newStepLabel": "Nytt steg",
+			"stepLabel": "Beskrivning",
 			"submitButton": "Bekräfta",
 			"creationSuccessMessage": "Receptet har lagts till.",
 			"updateSuccessMessage": "Receptet har uppdaterats."

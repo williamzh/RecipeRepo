@@ -11,6 +11,7 @@ recipeRepoApp.factory('authInterceptor', ['$injector', '$q', 'userSession', func
         },
         responseError: function(response) {
             if (response.status === 401) {
+                userSession.dispose();
             	// Inject manually to avoid circular dependency
                 $injector.get('$state').go('login');
                 return $q.reject('User session has timed out.');

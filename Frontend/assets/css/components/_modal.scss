@@ -1,0 +1,48 @@
+.Modal {
+	position: fixed;
+	background: rgba(0, 0, 0, 0.6);
+	top: 0;
+	left: 0;
+	-webkit-overflow-scrolling: touch;
+	overflow-x: hidden;
+	overflow-y: auto;
+	z-index: $z-index-higher;
+	height: 100%;
+	width: 100%;
+}
+
+.Modal.is-open {
+	display: block;
+}
+
+.Modal-window {
+	margin: 60px auto 100px;
+	max-width: 400px;
+}
+
+@media (min-width: $lg-viewport) {
+	.Modal-window {
+		max-width: 600px;
+	}
+}
+
+.Modal-content {
+	background: $color-white;
+	margin: 0 15px;
+	padding: 25px;
+	position: relative;
+	z-index: $z-index-high;
+}
+
+.Modal-close {
+	position: absolute;
+	right: -11px;
+	top: -11px;
+	color: $color-brand;
+	height: 32px;
+	width: 32px;
+	border: 1px solid $color-brand;
+	border-radius: 50%;
+    background-color: $color-white;
+    font-size: $font-size-md;
+}
