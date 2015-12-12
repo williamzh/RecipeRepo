@@ -54,6 +54,22 @@ describe('Given a RecipeStore', function() {
 				.then(function() {
 					assert(dbClient.add.calledWith(sinon.match({ recipeName: 'Test recipe 1' }), 'recipes'));
 				});
+		});
+
+		it('should create date meta info when adding recipe', function() {
+			deferredSearch.resolve(null);
+			
+			return recipeStore.add({ recipeName: 'Test recipe 1' })
+				.then(function() {
+					assert(dbClient.add.calledWith(sinon.match({ 
+						recipeName: 'Test recipe 1',
+						meta: sinon.match({
+							created: sinon.match.date,
+							lastEdited: sinon.match.date,
+							lastViewed: sinon.match.date
+						})
+					}), 'recipes'));
+				});
 		});	
 	});
 

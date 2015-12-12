@@ -104,7 +104,7 @@
 			"updateSuccessMessage": "Receptet har uppdaterats.",
 			"ratingRequiredError": "Vänligen ange ett värde mellan 1 and 5.",
 			"ingredientRequiredError": "Receptet måste ha minst en ingrediens",
-			"stepRequiredError": "Receptet måste ha minst ett steg"
+			"stepRequiredError": "Receptet måste bestå av minst ett steg"
 		},
 		"profile": {
 			"createProfileHeading": "Skapa ny profil",

@@ -2,14 +2,10 @@
 	<rd-back-link ng-if="inEditMode" target-state="recipe" target-params="{ recipeId: recipeId }"></rd-back-link>
 
 	<form name="recipeForm" ng-submit="onSubmit()" novalidate>
-		<div ng-show="showError" class="u-spacingBottomMd">
-			<alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{errorMessage}}"></alert>
-		</div>
-		<div ng-show="recipeCreated">
-			<alert type="success" message="manage/creationSuccessMessage"></alert>
-		</div>
-		<div ng-show="recipeUpdated">
-			<alert type="success" message="manage/updateSuccessMessage"></alert>
+		<div  class="u-spacingBottomMd">
+			<alert ng-show="showError" type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{errorMessage}}"></alert>
+			<alert ng-show="recipeCreated" type="success" message="manage/creationSuccessMessage"></alert>
+			<alert ng-show="recipeUpdated" type="success" message="manage/updateSuccessMessage"></alert>
 		</div>
 
 		<h1 ng-if="!inEditMode">{{'manage/createRecipeHeading' | translate}}</h1>
@@ -59,7 +55,7 @@
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control" ng-class="{ 'has-error': hasError('rating') }">
 					<label class="Control-label" for="rating">{{'manage/ratingLabel' | translate}}</label>
-					<input type="number" class="Control-field" name="rating" ng-model="currentRecipe.rating" min="1" max="5" step="0.5" ng-init="rating = 1" id="rating" required>
+					<input type="number" class="Control-field" name="rating" ng-model="currentRecipe.meta.rating" min="1" max="5" step="0.5" ng-init="rating = 1" id="rating" required>
 					<span class="Control-error">{{'manage/ratingRequiredError' | translate}}</span>
 				</div>
 			</div>
@@ -85,7 +81,7 @@
 			<div class="Grid-cell u-sizeFull">
 				<ul class="Toolbar u-spacingTopNone" name="ingredients" ng-model="currentRecipe.ingredients" array-required>
 					<li class="Toolbar-item" ng-repeat="ing in currentRecipe.ingredients track by $index">
-						<button type="button" class="Button Button--link Button--inline" ng-click="removeIngredient(ing)"><i class="fa fa-minus"></i></button>
+						<button type="button" class="Button Button--link Button--inline" ng-click="removeIngredient($index)"><i class="fa fa-minus"></i></button>
 						{{'{1} {2} {3}{4}'.assign(ing.quantity, ing.unit, ing.name, (ing.component ? ' (' + ing.component + ')' : ''))}}
 					</li>
 				</ul>
@@ -104,14 +100,14 @@
 				<ol class="Toolbar u-spacingTopNone" name="method" ng-model="currentRecipe.method" array-required>
 					<li class="Toolbar-item" ng-repeat="step in currentRecipe.method track by $index">
 						<button type="button" class="Button Button--link Button--inline" ng-click="removeStep(step)"><i class="fa fa-minus"></i></button>
-						{{step}}
+						{{$index + 1}}. {{step}}
 					</li>
 				</ol>
 				<div class="ButtonGroup">
 					<button type="button" class="Button Button--link" ng-click="$parent.showStepModal = true">{{'manage/newStepLabel' | translate}}</button>
 				</div>
 				<div class="Control--fake" ng-class="{ 'has-error': hasError('method') }">
-					<span class="Control-error">{{'manage/methodRequiredError' | translate}}</span>
+					<span class="Control-error">{{'manage/stepRequiredError' | translate}}</span>
 				</div>
 			</div>
 		</div>
@@ -127,7 +123,7 @@
 	        	<h2 class="u-spacingBottomSm">{{'manage/newIngredientLabel' | translate}}</h2>
 	        	<div class="Control" ng-class="{ 'has-error': hasError('quantity') }">
 					<label class="Control-label" for="quantity">{{'manage/ingredientQuantityLabel' | translate}}</label>
-					<input type="number" class="Control-field" name="quantity" ng-model="newIngredient.quantity" min="1" id="quantity" required>
+					<input type="number" class="Control-field" name="quantity" ng-model="newIngredient.quantity" min="0" step="0.5" id="quantity" required>
 					<span class="Control-error">{{'validation/numberFormat' | translate}}</span>
 				</div>
 				<div class="Control" ng-class="{ 'has-error': hasError('unit') }">

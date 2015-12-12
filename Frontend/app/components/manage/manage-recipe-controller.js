@@ -104,24 +104,24 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			return;
 		}
 
+		console.log($scope.currentRecipe);
+
 		if(!$scope.inEditMode) {
 			$scope.recipeCreated = false;
 
-			// apiClient.addRecipe($scope.currentRecipe)
-			// 	.then(function() {
-			// 		$scope.recipeCreated = true;
+			apiClient.addRecipe($scope.currentRecipe)
+				.then(function() {
+					$scope.recipeCreated = true;
 
-			// 		// Reset form
-			// 		$scope.recipeForm.$setPristine();
-			// 		$scope.submitted = false;
-			// 		$scope.currentRecipe = {
-			// 			ingredients: [{}],
-			// 			method: [{}]
-			// 		};
-			// 	})
-			// 	.catch(function() {
-			// 		$scope.showError = true;
-			// 	});
+					// Reset form
+					$scope.recipeForm.$setPristine();
+					$scope.submitted = false;
+					$scope.currentRecipe = {};
+				})
+				.catch(function() {
+					$scope.errorMessage = localizationService.translate('global', 'generalErrorMessage');
+					$scope.showError = true;
+				});
 		}
 		else {
 			$scope.recipeUpdated = false;

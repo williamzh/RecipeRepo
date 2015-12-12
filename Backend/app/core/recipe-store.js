@@ -16,10 +16,16 @@ RecipeStore.prototype.add = function(recipe) {
 
 	var self = this;
 	return self.dbClient.searchField('recipeName', recipe.recipeName, self.dbType)
-		.then(function(existingRecipe) {
-			if(existingRecipe) {
+		.then(function(hits) {
+			if(hits.length > 0) {
 				throw new Error('Recipe already exists.');
 			}
+
+			recipe.meta = recipe.meta || {};
+			var now = Date.create();
+			recipe.meta.created = now;
+			recipe.meta.lastEdited = now;
+			recipe.meta.lastViewed = now;
 
 			return self.dbClient.add(recipe, self.dbType);
 		})
