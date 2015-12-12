@@ -24,6 +24,10 @@
 	}
 }
 
+.Control--fake.has-error .Control-error {
+	display: block;
+}
+
 .Control-label {
 	display: block;
 	font-size: $font-size-sm;

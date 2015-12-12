@@ -4,8 +4,7 @@ recipeRepoDirectives.directive('alert', ['$window', function($window) {
     	scope: {
     		type: '@',
     		preamble: '@',
-    		message: '@',
-    		observe: '&'
+    		message: '@'
     	},
 		link: function($scope, elem) {
 			// $scope.$watch($scope.observe, function(newValue, oldValue, scope) {

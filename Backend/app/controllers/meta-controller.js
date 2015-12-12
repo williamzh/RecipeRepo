@@ -26,7 +26,7 @@ function MetaController(app, metaStore, tokenValidator) {
 	metaRouter.get('/:name', function(req, res) {
 		this.metaStore.search(req.params.name)
 			.then(function(items) {
-				res.json(200, items);
+				res.json(200, items[0]);
 			}, function(err) {
 				res.json(500, { error: err.message });
 			});
@@ -39,6 +39,20 @@ function MetaController(app, metaStore, tokenValidator) {
 		}
 
 		this.metaStore.add(req.body.metaObj)
+			.then(function() {
+				res.json(200);
+			}).catch(function(err) {
+				res.json(500, { error: err.message });
+			});
+	});
+
+	metaRouter.put('/:id', function(req, res) {
+		if(!req.params.id || !req.body.metaObj) {
+			res.json(400, { error: 'Meta ID and meta object must be provided.' });
+			return;
+		}
+
+		this.metaStore.update(req.params.id, req.body.metaObj)
 			.then(function() {
 				res.json(200);
 			}).catch(function(err) {

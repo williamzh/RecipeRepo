@@ -1,7 +1,8 @@
-recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$stateParams', 'apiClient', 'localizationService', function($scope, $q, $stateParams, apiClient, localizationService) {
+recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$log', '$stateParams', 'apiClient', 'localizationService', function($scope, $q, $log, $stateParams, apiClient, localizationService) {
 	$scope.recipeId = $stateParams.recipeId;
 	$scope.inEditMode = $stateParams.recipeId != undefined;
 	$scope.currentRecipe = {};
+	$scope.submitted = false;
 
 	$scope.newIngredient = {};
 	$scope.ingredientModalSubmitted = false;
@@ -18,24 +19,27 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 
 		$q.all(initPromises)
 			.then(function(responses) {
-				// var metaInfo = responses[0];
-				// var recipe = responses[1];
+				var allMetaInfo = responses[0];
+				var recipe = responses[1];
 
-				// if(recipe) {
-				// 	$scope.currentRecipe = recipe;
-				// }
+				if(recipe) {
+					$scope.currentRecipe = recipe;
+				}
+
+				$scope.currentRecipe.meta = {};
 				
-				// $scope.cuisines = metaInfo.cuisines;
-				// $scope.currentRecipe.meta.cuisine = $scope.cuisines[0];
+				$scope.cuisines = getMetaInfoValues('cuisines', allMetaInfo);
+				$scope.currentRecipe.meta.cuisine = $scope.cuisines[0];
 
-				// $scope.categories = metaInfo.categories;
-				// $scope.currentRecipe.meta.category = $scope.categories[0];
+				$scope.categories = getMetaInfoValues('categories', allMetaInfo);
+				$scope.currentRecipe.meta.category = $scope.categories[0];
 
-				// $scope.courses = metaInfo.courses;
-				// $scope.currentRecipe.meta.course = $scope.courses[0];
+				$scope.courses = getMetaInfoValues('courses', allMetaInfo);
+				$scope.currentRecipe.meta.course = $scope.courses[0];
 			})
-			.catch(function() {
-				$scope.hasError = true;
+			.catch(function(error) {
+				$scope.showError = true;
+				$scope.errorMessage = localizationService.translate('manage', error.message);
 			});
 	}
 
@@ -89,6 +93,10 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 		$scope.currentRecipe.method.splice(index, 1);
 	};
 
+	$scope.toggleIngredientModal = function(isVisible) {
+		$scope.ingredientModalVisible = isVisible;
+	};
+
 	$scope.onSubmit = function() {
 		$scope.showError = false;
 
@@ -99,33 +107,45 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$st
 		if(!$scope.inEditMode) {
 			$scope.recipeCreated = false;
 
-			apiClient.addRecipe($scope.currentRecipe)
-				.then(function() {
-					$scope.recipeCreated = true;
+			// apiClient.addRecipe($scope.currentRecipe)
+			// 	.then(function() {
+			// 		$scope.recipeCreated = true;
 
-					// Reset form
-					$scope.recipeForm.$setPristine();
-					$scope.submitted = false;
-					$scope.currentRecipe = {
-						ingredients: [{}],
-						method: [{}]
-					};
-				})
-				.catch(function() {
-					$scope.showError = true;
-				});
+			// 		// Reset form
+			// 		$scope.recipeForm.$setPristine();
+			// 		$scope.submitted = false;
+			// 		$scope.currentRecipe = {
+			// 			ingredients: [{}],
+			// 			method: [{}]
+			// 		};
+			// 	})
+			// 	.catch(function() {
+			// 		$scope.showError = true;
+			// 	});
 		}
 		else {
 			$scope.recipeUpdated = false;
 
-			apiClient.updateRecipe($scope.currentRecipe)
-				.then(function() {
-					$scope.recipeUpdated = true;
-					$scope.submitted = false;
-				})
-				.catch(function() {
-					$scope.showError = true;
-				});
+			// apiClient.updateRecipe($scope.currentRecipe)
+			// 	.then(function() {
+			// 		$scope.recipeUpdated = true;
+			// 		$scope.submitted = false;
+			// 	})
+			// 	.catch(function() {
+			// 		$scope.showError = true;
+			// 	});
 		}
 	};
+
+	function getMetaInfoValues(metaInfoObjName, allMetaInfo) {
+		var metaInfoObj = allMetaInfo.find(function(m) { return m.name === metaInfoObjName });
+
+		if(!metaInfoObj || !metaInfoObj.values.length) {
+			$log.error('Failed to initalize form. No meta info object for ' + metaInfoObjName + ' has been defined.');
+			throw new Error('formInitError' + metaInfoObjName.capitalize());
+		}
+		
+		$log.debug('Mapped meta info for ' + metaInfoObjName);
+		return metaInfoObj.values;		
+	}
 }]);

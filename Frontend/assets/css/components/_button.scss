@@ -19,10 +19,18 @@
 
 .Button--primary {
 	background-color: $color-primary;
+
+	&:disabled {
+		background-color: lighten($color-primary, 15%);
+	}
 }
 
 .Button--secondary {
 	background-color: $color-orange;
+
+	&:disabled {
+		background-color: lighten($color-orange, 15%);
+	}
 }
 
 .Button--link {
@@ -31,6 +39,10 @@
 	// padding-left: 0;
 	// padding-right: 0;
 	text-decoration: none;
+
+	&:disabled {
+		background-color: lighten($color-primary, 15%);
+	}
 }
 
 .Button--inline {

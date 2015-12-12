@@ -99,6 +99,9 @@ DbClient.prototype.update = function(id, item, type) {
 		return deferred.promise;
 	}
 
+	// Don't update the immutable _id field
+	delete item._id;
+
 	DbClient._db.collection(type).updateOne({ '_id': ObjectID(id) }, { $set: item }, function(err, result) {
 		if(err) {
 			deferred.reject(err.message);
