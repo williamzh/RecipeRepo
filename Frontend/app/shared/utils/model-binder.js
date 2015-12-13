@@ -20,8 +20,8 @@ recipeRepoDirectives.directive('modelBinder', ['$log', function($log) {
                 
             });
             // Outbound binding - convert values into strings
-            ngModel.$formatters.push(function (val) {                    
-                return val.toString();
+            ngModel.$formatters.push(function (val) {
+                return val ? val.toString() : '';
             });
         }
     };
