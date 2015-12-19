@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F91D77
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Integrations", "RecipeRepo.Integrations\RecipeRepo.Integrations.csproj", "{7D3C676E-E11C-45C4-9680-A57141F935DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Api.Tests", "RecipeRepo.Api.Tests\RecipeRepo.Api.Tests.csproj", "{34A0B510-A613-418F-8A3E-9FD96C85844A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Integrations.Tests", "RecipeRepo.Integrations.Tests\RecipeRepo.Integrations.Tests.csproj", "{D9C40E08-68B4-4E18-A722-4B880307F777}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +32,14 @@ Global
 		{7D3C676E-E11C-45C4-9680-A57141F935DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D3C676E-E11C-45C4-9680-A57141F935DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D3C676E-E11C-45C4-9680-A57141F935DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34A0B510-A613-418F-8A3E-9FD96C85844A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34A0B510-A613-418F-8A3E-9FD96C85844A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34A0B510-A613-418F-8A3E-9FD96C85844A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34A0B510-A613-418F-8A3E-9FD96C85844A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9C40E08-68B4-4E18-A722-4B880307F777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9C40E08-68B4-4E18-A722-4B880307F777}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9C40E08-68B4-4E18-A722-4B880307F777}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9C40E08-68B4-4E18-A722-4B880307F777}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
