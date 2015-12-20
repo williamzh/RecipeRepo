@@ -48,9 +48,23 @@ namespace RecipeRepo.Integrations.Repositories
 			};
 		}
 
-		public ActionResponse<IEnumerable<Recipe>> Find<TValue>(string fieldName, TValue value, int limit = 100)
+		public ActionResponse<IEnumerable<Recipe>> Find<TValue>(string fieldName, TValue value, MatchingStrategy strategy, int limit = 100)
 		{
-			var hits = Collection.Find(FilterBuilder.Eq(fieldName, value)).Sort(SortBuilder.Descending(fieldName)).Limit(limit);
+			FilterDefinition<Recipe> filter;
+			switch (strategy)
+			{
+				case MatchingStrategy.LessThan:
+					filter = FilterBuilder.Lt(fieldName, value);
+					break;
+				case MatchingStrategy.GreaterThan:
+					filter = FilterBuilder.Gt(fieldName, value);
+					break;
+				default:
+					filter = FilterBuilder.Eq(fieldName, value);
+					break;
+			}
+
+			var hits = Collection.Find(filter).Sort(SortBuilder.Descending(fieldName)).Limit(limit);
 
 			return new ActionResponse<IEnumerable<Recipe>>
 			{

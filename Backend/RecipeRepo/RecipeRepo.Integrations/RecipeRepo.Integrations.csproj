@@ -58,6 +58,7 @@
     <Compile Include="Db\DbClient.cs" />
     <Compile Include="Db\IDbClient.cs" />
     <Compile Include="Entities\Ingredient.cs" />
+    <Compile Include="Entities\MatchingStrategy.cs" />
     <Compile Include="Entities\MetaInfo.cs" />
     <Compile Include="Entities\Recipe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

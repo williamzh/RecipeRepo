@@ -114,7 +114,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			});
 
 			// Act
-			var response = _recipeRepo.Find("Name", "Hamburgare");
+			var response = _recipeRepo.Find("Name", "Hamburgare", MatchingStrategy.Equals);
 
 			// Assert
 			Assert.IsTrue(response.IsSuccess && !response.Data.Any());
@@ -130,7 +130,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			});
 
 			// Act
-			var response = _recipeRepo.Find("Foo", "Hamburgare");
+			var response = _recipeRepo.Find("Foo", "Hamburgare", MatchingStrategy.Equals);
 
 			// Assert
 			Assert.IsTrue(response.IsSuccess && !response.Data.Any());
@@ -149,7 +149,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			});
 
 			// Act
-			var response = _recipeRepo.Find("IsPrivate", false);
+			var response = _recipeRepo.Find("IsPrivate", false, MatchingStrategy.Equals);
 
 			// Assert
 			Assert.IsTrue(response.IsSuccess && response.Data.Count(r => !r.IsPrivate) == 3);
@@ -161,17 +161,20 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			// Arrange
 			Collection.InsertMany(new[]
 			{
-				new Recipe { Name = "A", IsPrivate = false },
-				new Recipe { Name = "B", IsPrivate = false },
-				new Recipe { Name = "C", IsPrivate = true },
-				new Recipe { Name = "D", IsPrivate = false },
+				new Recipe { Name = "A", Meta = new MetaInfo { Rating = 4 } },
+				new Recipe { Name = "B", Meta = new MetaInfo { Rating = 2 } },
+				new Recipe { Name = "C", Meta = new MetaInfo { Rating = 5 } },
+				new Recipe { Name = "D", Meta = new MetaInfo { Rating = 1 } }
 			});
 
 			// Act
-			var response = _recipeRepo.Find("IsPrivate", false, 2);
+			var response = _recipeRepo.Find("Meta.Rating", 2, MatchingStrategy.GreaterThan, 2);
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && response.Data.Count(r => !r.IsPrivate) == 2);
+			Assert.IsTrue(response.IsSuccess && 
+				response.Data.First().Meta.Rating == 5 &&
+				response.Data.ElementAt(1).Meta.Rating == 4
+			);
 		}
 
 		[TestMethod]

@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 
 namespace RecipeRepo.Api
 {
@@ -6,8 +7,6 @@ namespace RecipeRepo.Api
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -17,8 +16,11 @@ namespace RecipeRepo.Api
                 defaults: new { id = RouteParameter.Optional }
             );
 
-			// Initialize logging
-			log4net.Config.XmlConfigurator.Configure();
+			//var cors = new EnableCorsAttribute(ConfigurationManager.AppSettings["AllowedCorsUrl"], "*", "*");
+			//config.EnableCors(cors);
+			
+			// Serialize JSON with camel case
+			config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }
