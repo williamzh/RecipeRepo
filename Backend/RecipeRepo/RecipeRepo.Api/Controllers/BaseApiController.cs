@@ -1,10 +1,14 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 using log4net;
+using RecipeRepo.Api.Filters;
+using RecipeRepo.Api.Security;
+using RecipeRepo.Common.Contract;
 
 namespace RecipeRepo.Api.Controllers
 {
+	[GenericExceptionFilter]
     public abstract class BaseApiController : ApiController
     {
 		protected BaseApiController()
@@ -14,16 +18,33 @@ namespace RecipeRepo.Api.Controllers
 
 		protected ILog Log { get; private set; }
 
-		protected IHttpActionResult InternalServerError(string message)
+		public IClaimContext ClaimContext { get; set; }
+
+		public IHttpActionResult InternalServerError(AppStatusCode code, string message)
 		{
-			var responseMsg = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, message);
-			return ResponseMessage(responseMsg);
+			return new NegotiatedContentResult<ActionResponse>(HttpStatusCode.InternalServerError, new ActionResponse
+			{
+				Code = code,
+				Message = message
+			}, this);
 		}
 
-		protected IHttpActionResult NotFound(string message)
+		public IHttpActionResult BadRequest(AppStatusCode code, string message)
 		{
-			var responseMsg = Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
-			return ResponseMessage(responseMsg);
+			return new NegotiatedContentResult<ActionResponse>(HttpStatusCode.BadRequest, new ActionResponse
+			{
+				Code = code,
+				Message = message
+			}, this);
+		}
+
+		public IHttpActionResult NotFound(AppStatusCode code, string message)
+		{
+			return new NegotiatedContentResult<ActionResponse>(HttpStatusCode.NotFound, new ActionResponse
+			{
+				Code = code,
+				Message = message
+			}, this);
 		}
     }
 }

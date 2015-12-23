@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using RecipeRepo.Integrations.Contract;
+using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Entities;
 
 namespace RecipeRepo.Integrations.Repositories

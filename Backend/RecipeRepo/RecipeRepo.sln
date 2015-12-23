@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Api.Tests", "Rec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Integrations.Tests", "RecipeRepo.Integrations.Tests\RecipeRepo.Integrations.Tests.csproj", "{D9C40E08-68B4-4E18-A722-4B880307F777}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Common", "RecipeRepo.Common\RecipeRepo.Common.csproj", "{5F095EC7-1C8A-48DB-A05C-C315F126BC00}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{D9C40E08-68B4-4E18-A722-4B880307F777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9C40E08-68B4-4E18-A722-4B880307F777}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9C40E08-68B4-4E18-A722-4B880307F777}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F095EC7-1C8A-48DB-A05C-C315F126BC00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F095EC7-1C8A-48DB-A05C-C315F126BC00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F095EC7-1C8A-48DB-A05C-C315F126BC00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F095EC7-1C8A-48DB-A05C-C315F126BC00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

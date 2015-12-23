@@ -10,8 +10,8 @@ namespace RecipeRepo.Api
 			// Initialize logging
 			log4net.Config.XmlConfigurator.Configure();
 
+			IocConfig.Configure();
             GlobalConfiguration.Configure(WebApiConfig.Register);
-	        IocConfig.Configure();
         }
     }
 }

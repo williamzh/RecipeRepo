@@ -49,12 +49,24 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Security">
       <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.OAuth">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
@@ -105,14 +117,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\IocConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Security\ClaimContext.cs" />
+    <Compile Include="Security\IClaimContext.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Entities\FindClientRequest.cs" />
+    <Compile Include="Filters\GenericExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AuthService.cs" />
+    <Compile Include="Security\IAuthService.cs" />
+    <Compile Include="Security\ApplicationOAuthProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -125,9 +144,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RecipeRepo.Common\RecipeRepo.Common.csproj">
+      <Project>{5F095EC7-1C8A-48DB-A05C-C315F126BC00}</Project>
+      <Name>RecipeRepo.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RecipeRepo.Integrations\RecipeRepo.Integrations.csproj">
       <Project>{7D3C676E-E11C-45C4-9680-A57141F935DC}</Project>
       <Name>RecipeRepo.Integrations</Name>

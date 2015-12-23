@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using MongoDB.Driver;
-using RecipeRepo.Integrations.Contract;
+using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Db;
 using RecipeRepo.Integrations.Entities;
 
@@ -27,14 +27,14 @@ namespace RecipeRepo.Integrations.Repositories
 			{
 				return new ActionResponse
 				{
-					IsSuccess = false,
+					Code = AppStatusCode.DuplicateExists,
 					Message = "A recipe with the name " + recipe.Name + " already exists."
 				};
 			}
 
 			Collection.InsertOne(recipe);
 
-			return new ActionResponse { IsSuccess = true };
+			return new ActionResponse { Code = AppStatusCode.Ok };
 		}
 
 		public ActionResponse<Recipe> Get(string id)
@@ -43,7 +43,7 @@ namespace RecipeRepo.Integrations.Repositories
 
 			return new ActionResponse<Recipe>
 			{
-				IsSuccess = true,
+				Code = AppStatusCode.Ok,
 				Data = hits.FirstOrDefault()
 			};
 		}
@@ -68,7 +68,7 @@ namespace RecipeRepo.Integrations.Repositories
 
 			return new ActionResponse<IEnumerable<Recipe>>
 			{
-				IsSuccess = true,
+				Code = AppStatusCode.Ok,
 				Data = hits.ToList()
 			};
 		}
@@ -81,7 +81,7 @@ namespace RecipeRepo.Integrations.Repositories
 
 			return new ActionResponse<IEnumerable<Recipe>>
 			{
-				IsSuccess = true,
+				Code = AppStatusCode.Ok,
 				Data = hits.ToList()
 			};
 		}
@@ -93,14 +93,14 @@ namespace RecipeRepo.Integrations.Repositories
 			{
 				return new ActionResponse
 				{
-					IsSuccess = false,
+					Code = AppStatusCode.EntityNotFound,
 					Message = "Update failed. Could not find a recipe with a matching ID (" + recipe.Id + ")."
 				};
 			}
 
 			return new ActionResponse
 			{
-				IsSuccess = true
+				Code = AppStatusCode.Ok
 			};
 		}
 
@@ -111,14 +111,14 @@ namespace RecipeRepo.Integrations.Repositories
 			{
 				return new ActionResponse
 				{
-					IsSuccess = false,
+					Code = AppStatusCode.EntityNotFound,
 					Message = "Delete failed. Could not find a recipe with a matching ID (" + id + ")."
 				};
 			}
 
 			return new ActionResponse
 			{
-				IsSuccess = true
+				Code = AppStatusCode.Ok
 			};
 		}
 	}

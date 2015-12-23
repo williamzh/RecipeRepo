@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Db;
 using RecipeRepo.Integrations.Entities;
 using RecipeRepo.Integrations.Repositories;
@@ -56,7 +57,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			});
 
 			// Assert
-			Assert.IsFalse(response.IsSuccess);
+			Assert.AreEqual(AppStatusCode.DuplicateExists, response.Code);
 		}
 
 		[TestMethod]
@@ -71,7 +72,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			});
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess);
+			Assert.AreEqual(AppStatusCode.Ok, response.Code);
 		}
 
 		[TestMethod]
@@ -83,7 +84,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Get("566da43c41d18b0ff8291f2d");
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && response.Data == null);
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data == null);
 		}
 
 		[TestMethod]
@@ -101,7 +102,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Get(insertedRecipe.Id);
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && response.Data.Id == insertedRecipe.Id);
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.Id == insertedRecipe.Id);
 		}
 
 		[TestMethod]
@@ -117,7 +118,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Find("Name", "Hamburgare", MatchingStrategy.Equals);
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && !response.Data.Any());
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && !response.Data.Any());
 		}
 
 		[TestMethod]
@@ -133,7 +134,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Find("Foo", "Hamburgare", MatchingStrategy.Equals);
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && !response.Data.Any());
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && !response.Data.Any());
 		}
 
 		[TestMethod]
@@ -152,7 +153,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Find("IsPrivate", false, MatchingStrategy.Equals);
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && response.Data.Count(r => !r.IsPrivate) == 3);
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.Count(r => !r.IsPrivate) == 3);
 		}
 
 		[TestMethod]
@@ -171,7 +172,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Find("Meta.Rating", 2, MatchingStrategy.GreaterThan, 2);
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && 
+			Assert.IsTrue(response.Code == AppStatusCode.Ok &&
 				response.Data.First().Meta.Rating == 5 &&
 				response.Data.ElementAt(1).Meta.Rating == 4
 			);
@@ -190,7 +191,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Search("Pasta");
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && !response.Data.Any());
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && !response.Data.Any());
 		}
 
 		[TestMethod]
@@ -208,7 +209,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Search("past");
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && response.Data.Count() == 1);
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.Count() == 1);
 		}
 
 		[TestMethod]
@@ -235,7 +236,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Search("Champinjoner");
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess && response.Data.Count() == 2);
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.Count() == 2);
 		}
 
 		[TestMethod]
@@ -245,7 +246,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Update(new Recipe());
 
 			// Assert
-			Assert.IsFalse(response.IsSuccess);
+			Assert.AreEqual(AppStatusCode.EntityNotFound, response.Code);
 		}
 
 		[TestMethod]
@@ -269,7 +270,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Update(recipe);
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess);
+			Assert.IsTrue(response.Code == AppStatusCode.Ok);
 		}
 
 		[TestMethod]
@@ -279,11 +280,11 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Remove("566da43c41d18b0ff8291f2d");
 
 			// Assert
-			Assert.IsFalse(response.IsSuccess);
+			Assert.AreEqual(AppStatusCode.EntityNotFound, response.Code);
 		}
 
 		[TestMethod]
-		public void RemoveRecipe_RecipeDoesExist_UpdatesRecipe()
+		public void RemoveRecipe_RecipeDoesExist_RemovesRecipe()
 		{
 			// Arrange
 			Collection.InsertOne(new Recipe
@@ -297,7 +298,7 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 			var response = _recipeRepo.Remove(addedRecipe.Id);
 
 			// Assert
-			Assert.IsTrue(response.IsSuccess);
+			Assert.AreEqual(AppStatusCode.Ok, response.Code);
 		}
 	}
 }

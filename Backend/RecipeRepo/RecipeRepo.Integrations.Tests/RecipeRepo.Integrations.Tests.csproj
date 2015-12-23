@@ -62,12 +62,17 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\UserRepositoryTest.cs" />
     <Compile Include="Repositories\RecipeRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\RecipeRepo.Common\RecipeRepo.Common.csproj">
+      <Project>{5F095EC7-1C8A-48DB-A05C-C315F126BC00}</Project>
+      <Name>RecipeRepo.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RecipeRepo.Integrations\RecipeRepo.Integrations.csproj">
       <Project>{7D3C676E-E11C-45C4-9680-A57141F935DC}</Project>
       <Name>RecipeRepo.Integrations</Name>
