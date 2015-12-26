@@ -129,6 +129,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TranslationsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Entities\UpdateHistoryRequest.cs" />
     <Compile Include="IO\JsonFileReader.cs" />
     <Compile Include="Security\ClaimContext.cs" />
     <Compile Include="Security\IClaimContext.cs" />

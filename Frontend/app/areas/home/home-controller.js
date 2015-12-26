@@ -20,9 +20,15 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 
 			});
 
 
-		if(userSession.isValid()) {
-			$scope.history = userSession.get().user.history;
-		}
+		// History
+		var userId = userSession.get().userId;
+		apiClient.getHistory(userId)
+			.then(function(history) {
+				$scope.history = history;
+			})
+			.catch(function() {
+				$scope.hasHistoryError = true;
+			});
 	};
 
 	$scope.search = function() {
@@ -30,7 +36,7 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 
 	};
 
 	$scope.showRecipe = function(recipe) {
-		var slug = Slug.slugify(recipe.recipeName);
-		$state.go('recipe', { recipeId: recipe._id, recipeName: slug });
+		var slug = Slug.slugify(recipe.name);
+		$state.go('recipe', { recipeId: recipe.id, recipeName: slug });
 	};
 }]);

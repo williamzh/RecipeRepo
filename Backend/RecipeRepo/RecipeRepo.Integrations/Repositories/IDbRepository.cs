@@ -21,6 +21,14 @@ namespace RecipeRepo.Integrations.Repositories
 		ActionResponse<TEntity> Get(string id);
 
 		/// <summary>
+		/// Returns a sequence of items matching the specified IDs, or an empty sequence 
+		/// if no matching items exist.
+		/// </summary>
+		/// <param name="ids"></param>
+		/// <returns></returns>
+		ActionResponse<IEnumerable<TEntity>> Get(IEnumerable<string> ids);
+
+		/// <summary>
 		/// Performs a field search with the given value. 
 		/// </summary>
 		/// <typeparam name="TValue"></typeparam>

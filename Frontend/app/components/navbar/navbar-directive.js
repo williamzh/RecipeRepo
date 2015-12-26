@@ -4,9 +4,6 @@ recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 		controller: ['$scope', '$state', 'userSession', function($scope, $state, userSession) {
 			var checkIsAuthenticated = function() {
 				$scope.isAuthenticated = userSession.isValid();
-				if($scope.isAuthenticated) {
-					$scope.user = userSession.get().user;
-				}	
 			}
 
 			checkIsAuthenticated();

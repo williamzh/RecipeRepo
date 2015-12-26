@@ -48,6 +48,17 @@ namespace RecipeRepo.Integrations.Repositories
 			};
 		}
 
+		public ActionResponse<IEnumerable<Recipe>> Get(IEnumerable<string> ids)
+		{
+			var hits = Collection.Find(FilterBuilder.In("Id", ids));
+
+			return new ActionResponse<IEnumerable<Recipe>>
+			{
+				Code = AppStatusCode.Ok,
+				Data = hits.ToList()
+			};
+		}
+
 		public ActionResponse<IEnumerable<Recipe>> Find<TValue>(string fieldName, TValue value, MatchingStrategy strategy, int limit = 100)
 		{
 			FilterDefinition<Recipe> filter;

@@ -58,8 +58,8 @@
 		},
 		"home": {
 			"findRecipePlaceholder": "Pasta, fisk, italienskt, osv",
-			"latest": "Senast upplagda",
-			"latestPlaceholder": "Det finns inga upplagda recept än. Skapa gärna ett!",
+			"latest": "Upplagda senaste veckan",
+			"latestPlaceholder": "Det finns inga upplagda recept denna vecka. Skapa gärna ett!",
 			"topRated": "Högst betygsatta",
 			"topRatedPlaceholder": "Det finns inga upplagda recept än. Skapa gärna ett!",
 			"history": "Historik",

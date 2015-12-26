@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
 using RecipeRepo.Api.Entities;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Entities;
@@ -9,13 +11,15 @@ namespace RecipeRepo.Api.Controllers
     public class UserController : BaseApiController
 	{
 		private readonly IDbRepository<User> _userRepository;
+		private readonly IDbRepository<Recipe> _recipeRepository;
 
-		public UserController(IDbRepository<User> userRepository)
+		public UserController(IDbRepository<User> userRepository, IDbRepository<Recipe> recipeRepository)
 		{
 			_userRepository = userRepository;
+			_recipeRepository = recipeRepository;
 		}
 
-		public IHttpActionResult Get(string id)
+	    public IHttpActionResult Get(string id)
 		{
 			if (string.IsNullOrEmpty(id))
 			{
@@ -104,6 +108,65 @@ namespace RecipeRepo.Api.Controllers
 			foreach (var user in response.Data)
 			{
 				user.Password = null;
+			}
+
+			return Ok(response);
+		}
+
+	    [Route("api/user/history/{userId}")]
+	    public IHttpActionResult GetHistory(string userId)
+	    {
+			if (string.IsNullOrEmpty(userId))
+			{
+				return BadRequest(AppStatusCode.InvalidInput, "User ID must be provided.");
+			}
+
+		    var response = _userRepository.Get(userId);
+			if (response.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("GET /user/history/{0} failed. Could not retrieve user with ID {1}. {2}", userId, userId, response.Message);
+				return InternalServerError(response.Code, response.Message);
+			}
+
+		    var history = response.Data.LastViewedRecipes.Take(10);
+		    var viewedRecipes = _recipeRepository.Get(history).Data;
+
+		    return Ok(new ActionResponse<ICollection<Recipe>>
+		    {
+			    Code = response.Code,
+				Data = viewedRecipes.ToList()
+		    });
+	    }
+
+		[Route("api/user/history")]
+		[HttpPost]
+		public IHttpActionResult UpdateHistory(UpdateHistoryRequest request)
+		{
+			if (request == null)
+			{
+				return BadRequest(AppStatusCode.InvalidInput, "Find request object must be provided.");
+			}
+
+			var getUserResponse = _userRepository.Get(request.UserId);
+			if (getUserResponse.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("POST /user/history failed. Could not retrieve user with ID {0}. {1}", request.UserId, getUserResponse.Message);
+				return InternalServerError(getUserResponse.Code, getUserResponse.Message);
+			}
+
+			var history = getUserResponse.Data.LastViewedRecipes.ToList();
+			if (history.Count >= 10)
+			{
+				history.RemoveAt(10);
+			}
+			history.Insert(0, request.RecipeId);
+			getUserResponse.Data.LastViewedRecipes = history;
+
+			var response = _userRepository.Update(getUserResponse.Data);
+			if (response.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("POST /user/history failed. Could not update user with ID {0}. {1}", request.UserId, response.Message);
+				return InternalServerError(response.Code, response.Message);
 			}
 
 			return Ok(response);

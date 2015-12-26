@@ -1,6 +1,6 @@
 recipeRepoServices.service('localizationInitializer', ['$log', '$localStorage', 'userSession', 'apiClient', function($log, $localStorage, userSession, apiClient) {
 	this.load = function() {
-		var currentLang = userSession.isValid() ? userSession.get().user.settings.language : 'sv-SE';
+		var currentLang = userSession.isValid() ? userSession.get().userLang : 'sv-SE';
 		// Save translations in local storage
 	    apiClient.getTranslations(currentLang)
 			.then(function(translations) {

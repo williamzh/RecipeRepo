@@ -100,6 +100,18 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			.catch(function(error) { return onError('updateUser', error) });
 	};
 
+	this.getHistory = function(userId) {
+		return $http.get(apiUrl + '/user/history/' + userId)
+			.then(function (response) {	return onSuccess('getHistory', response.data); })
+			.catch(function(error) { return onError('getHistory', error) });
+	};
+
+	this.updateHistory = function(userId, recipeId) {
+		return $http.post(apiUrl + '/user/history', { userId: userId, recipeId: recipeId })
+			.then(function (response) {	return onSuccess('updateHistory', response.data); })
+			.catch(function(error) { return onError('updateHistory', error) });
+	};
+
 	this.getTranslations = function(langCode) {
 		return $http.get(apiUrl + '/translations/' + langCode)
 			.then(function (response) {	return onSuccess('translations', response.data); })
