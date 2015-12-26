@@ -33,80 +33,76 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 	};
 
 	this.login = function(userName, password) {
-		return $http.post(baseUrl +'/auth/login', { userName: userName, password: password })
+		var data = "grant_type=password&username=" + userName + "&password=" + password;
+
+		return $http.post(baseUrl +'/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 			.then(function (response) {	return onSuccess('login', response); })
-			.catch(function(error) { return onError('login', error) });
-	};
-
-	this.getTopRecipes = function() {
-		return $http.get(apiUrl + '/recipes/top-rated')
-			.then(function (response) {	return onSuccess('getTopRecipes', response); })
-			.catch(function(error) { return onError('getTopRecipes', error) });
-	};
-
-	this.getLatestRecipes = function() {
-		return $http.get(apiUrl + '/recipes/latest')
-			.then(function (response) {	return onSuccess('getLatestRecipes', response); })
-			.catch(function(error) { return onError('getLatestRecipes', error) });
-	};
-
-	this.getRecipe = function(id) {
-		return $http.get(apiUrl + '/recipes/' + id)
-			.then(function (response) {	return onSuccess('getRecipe', response); })
-			.catch(function(error) { return onError('getRecipe', error) });
+			.catch(function(error) { return onError('login', error); });
 	};
 
 	this.addRecipe = function(recipe) {
 		return $http.post(apiUrl + '/recipes', { recipe: recipe })
-			.then(function (response) {	return onSuccess('addRecipe', response); })
+			.then(function (response) {	return onSuccess('addRecipe', response.data); })
 			.catch(function(error) { return onError('addRecipe', error) });
+	};
+
+	this.getRecipe = function(id) {
+		return $http.get(apiUrl + '/recipes/' + id)
+			.then(function (response) {	return onSuccess('getRecipe', response.data); })
+			.catch(function(error) { return onError('getRecipe', error) });
+	};
+
+	this.findRecipes = function(findOptions) {
+		return $http.post(apiUrl + '/recipes/find', findOptions)
+			.then(function (response) {	return onSuccess('findRecipes', response.data); })
+			.catch(function(error) { return onError('findRecipes', error) });
+	};
+
+	this.searchRecipes = function(query) {
+		return $http.get(apiUrl + '/recipes/search/' + query)
+			.then(function (response) {	return onSuccess('searchRecipes', response.data); })
+			.catch(function(error) { return onError('searchRecipes', error) });
 	};
 
 	this.updateRecipe = function(id, recipe) {
 		return $http.put(apiUrl + '/recipes/' + id, { recipe: recipe })
-			.then(function (response) {	return onSuccess('updateRecipe', response); })
+			.then(function (response) {	return onSuccess('updateRecipe', response.data); })
 			.catch(function(error) { return onError('updateRecipe', error) });
 	};
 
 	this.removeRecipe = function(recipeId) {
 		return $http.delete(apiUrl + '/recipes/' + recipeId)
-			.then(function (response) {	return onSuccess('removeRecipe', response); })
+			.then(function (response) {	return onSuccess('removeRecipe', response.data); })
 			.catch(function(error) { return onError('removeRecipe', error) });
 	};
 
-	this.searchRecipes = function(query) {
-		return $http.post(apiUrl + '/recipes/search', { query: query })
-			.then(function (response) {	return onSuccess('searchRecipes', response); })
-			.catch(function(error) { return onError('searchRecipes', error) });
-	}
-
 	this.getMetainfo = function() {
 		return $http.get(apiUrl + '/meta')
-			.then(function (response) {	return onSuccess('getMetainfo', response); })
+			.then(function (response) {	return onSuccess('getMetainfo', response.data); })
 			.catch(function(error) { return onError('getMetainfo', error) });
 	};
 
 	this.addUser = function(user) {
 		return $http.post(baseUrl + '/auth/register', { user: user })
-			.then(function (response) {	return onSuccess('addUser', response); })
+			.then(function (response) {	return onSuccess('addUser', response.data); })
 			.catch(function(error) { return onError('addUser', error) });
 	};
 
 	this.getUser = function(userName) {
 		return $http.get(apiUrl + '/user/' + userName)
-			.then(function (response) {	return onSuccess('getUser', response); })
+			.then(function (response) {	return onSuccess('getUser', response.data); })
 			.catch(function(error) { return onError('getUser', error) });
 	};
 
 	this.updateUser = function(userName, user) {
 		return $http.post(apiUrl + '/user/' + userName, { user: user })
-			.then(function (response) {	return onSuccess('updateUser', response); })
+			.then(function (response) {	return onSuccess('updateUser', response.data); })
 			.catch(function(error) { return onError('updateUser', error) });
 	};
 
-	this.getTranslations = function() {
-		return $http.get(apiUrl + '/lang/translations')
-			.then(function (response) {	return onSuccess('translations', response); })
+	this.getTranslations = function(langCode) {
+		return $http.get(apiUrl + '/translations/' + langCode)
+			.then(function (response) {	return onSuccess('translations', response.data); })
 			.catch(function(error) { return onError('translations', error) });
 	};
 }]);

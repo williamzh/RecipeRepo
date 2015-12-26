@@ -35,6 +35,6 @@ recipeRepoDirectives.directive('rdNavbar', ['$window', function($window) {
 				}
 			});
 		},
-    	templateUrl: '/app/shared/navbar/_navbar.html'
+    	templateUrl: '/app/components/navbar/_navbar.html'
 	};
 }]);

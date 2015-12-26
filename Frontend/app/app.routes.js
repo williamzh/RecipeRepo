@@ -5,31 +5,31 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 		// Login
 		state('login', {
 			url: '/login',
-			templateUrl: 'app/components/login/login.html'
+			templateUrl: 'app/areas/login/login.html'
 		}).
 		// Reset password
 		state('resetPassword', {
 			url: '/reset-password',
-			templateUrl: 'app/components/login/reset-password.html'
+			templateUrl: 'app/areas/login/reset-password.html'
 		}).
 		// Register
 		state('register', {
 			abstract: true,
 			url: '/register',
-			templateUrl: 'app/components/profile/register.html',
+			templateUrl: 'app/areas/profile/register.html',
 			controller: 'createProfileController'	// Declare controller here so that nested states share $scope
 		}).
 		state('register.create', {
 			url: '',
-			templateUrl: 'app/components/profile/_create-profile.html'
+			templateUrl: 'app/areas/profile/_create-profile.html'
 		}).
 		state('register.confirm', {
-			templateUrl: 'app/components/profile/_create-confirm.html'
+			templateUrl: 'app/areas/profile/_create-confirm.html'
 		}).
 		// Home
 		state('home', {
 			url: '/' ,
-			templateUrl: 'app/components/home/home.html'
+			templateUrl: 'app/areas/home/home.html'
 		}).
 		state('home.search', {
 			resolve: {
@@ -38,12 +38,12 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 			params: {
 				query: null
 			},
-			templateUrl: 'app/components/home/_search.html'
+			templateUrl: 'app/areas/home/_search.html'
 		}).
 		// Recipe
 		state('recipe/create', {
 			url: '/recipes/create',
-			templateUrl: '/app/components/manage/manage-recipe.html'
+			templateUrl: '/app/areas/manage/manage-recipe.html'
 		}).
 		state('recipe', { 
 			url: '/recipes/:recipeId',
@@ -51,21 +51,21 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 			// 	recipeId: null,
 			// 	referrer: null
 			// },
-			templateUrl: '/app/components/recipe/recipe-details.html'
+			templateUrl: '/app/areas/recipe/recipe-details.html'
 		}).
 		state('recipe/edit', {
 			url: '/recipes/:recipeId/edit',
-			templateUrl: '/app/components/manage/manage-recipe.html'
+			templateUrl: '/app/areas/manage/manage-recipe.html'
 		}).
 		// Manage
 		state('my-recipes', {
 			url: '/my-recipes',
-			templateUrl: '/app/components/manage/my-recipes.html'
+			templateUrl: '/app/areas/manage/my-recipes.html'
 		}).
 		// Profile
 		state('profile', {
 			url: '/profile',
-			templateUrl: '/app/components/profile/edit-profile.html'
+			templateUrl: '/app/areas/profile/edit-profile.html'
 		});
 
 		//$urlRouterProvider.otherwise("/");

@@ -15,7 +15,7 @@ namespace RecipeRepo.Api.Controllers
 			_recipeRepo = recipeRepo;
 		}
 
-		public IHttpActionResult Get(string id)
+	    public IHttpActionResult Get(string id)
 		{
 			if (string.IsNullOrEmpty(id))
 			{

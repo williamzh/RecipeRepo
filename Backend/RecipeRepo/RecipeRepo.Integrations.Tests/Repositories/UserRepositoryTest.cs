@@ -15,12 +15,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 		private readonly IDbClient _dbClient = new DbClient();
 		private UserRepository _userRepo;
 
-		[ClassInitialize]
-		public static void Initialize(TestContext context)
-		{
-			DbClient.Initialize("mongodb://localhost:27017/reciperepo");
-		}
-
 		[TestInitialize]
 		public void SetUp()
 		{
@@ -31,7 +25,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 		public void CleanUp()
 		{
 			_dbClient.GetCollection<BsonDocument>("users").DeleteMany(new BsonDocument());
-			_dbClient.GetCollection<BsonDocument>("users").Indexes.DropAll();
 		}
 
 		private IMongoCollection<User> Collection { get { return _dbClient.GetCollection<User>("users"); } }

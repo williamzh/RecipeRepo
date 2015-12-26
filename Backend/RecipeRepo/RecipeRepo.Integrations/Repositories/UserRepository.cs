@@ -69,7 +69,10 @@ namespace RecipeRepo.Integrations.Repositories
 			}
 
 			var filter = FilterBuilder.Eq(fieldName, value);
-			var hits = Collection.Find(filter).Sort(SortBuilder.Descending(fieldName)).Limit(limit);
+			var hits = Collection
+				.Find(filter)
+				.Sort(SortBuilder.Descending(fieldName))
+				.Limit(limit);
 
 			return new ActionResponse<IEnumerable<User>>
 			{

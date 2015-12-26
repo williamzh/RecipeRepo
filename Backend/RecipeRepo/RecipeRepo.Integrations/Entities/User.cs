@@ -14,9 +14,9 @@ namespace RecipeRepo.Integrations.Entities
 		public string LastName { get; set; }
 		public string Email { get; set; }
 		public string Password { get; set; }
-		public ICollection<int> OwnedRecipes { get; set; }
-		public ICollection<int> FavoriteRecipes { get; set; }
-		public ICollection<int> LastViewedRecipes { get; set; }
+		public ICollection<string> OwnedRecipes { get; set; }
+		public ICollection<string> FavoriteRecipes { get; set; }
+		public ICollection<string> LastViewedRecipes { get; set; }
 		public UserSettings Settings { get; set; }
 	}
 }

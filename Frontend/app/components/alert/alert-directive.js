@@ -18,6 +18,6 @@ recipeRepoDirectives.directive('alert', ['$window', function($window) {
 				$scope.$apply();
 			});
 		 },
-    	templateUrl: '/app/shared/alert/_alert.html'
+    	templateUrl: '/app/components/alert/_alert.html'
 	};
 }]);

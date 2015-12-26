@@ -9,6 +9,7 @@ using RecipeRepo.Common.Contract;
 namespace RecipeRepo.Api.Controllers
 {
 	[GenericExceptionFilter]
+	[Authorize]
     public abstract class BaseApiController : ApiController
     {
 		protected BaseApiController()

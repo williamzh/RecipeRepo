@@ -12,6 +12,7 @@ namespace RecipeRepo.Api
 
 			IocConfig.Configure();
             GlobalConfiguration.Configure(WebApiConfig.Register);
+	        DbConfig.Configure();
         }
     }
 }

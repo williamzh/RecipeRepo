@@ -11,6 +11,5 @@ namespace RecipeRepo.Integrations.Entities
 		public int Servings { get; set; }
 		public DateTime Created { get; set; }
 		public DateTime LastEdited { get; set; }
-		public DateTime LastViewed { get; set; }
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
@@ -39,17 +40,20 @@ namespace RecipeRepo.Api.Security
 			var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 			identity.AddClaims(new []
 			{
-				new Claim("userName", context.UserName)
+				new Claim("userId", authResponse.Data.Id),
+				new Claim("userName", context.UserName),
+				new Claim("lang", authResponse.Data.Settings.Language)
 			});
 
-			context.Validated();
+			context.Validated(identity);
 		}
 
 		public override Task TokenEndpoint(OAuthTokenEndpointContext context)
 		{
-			foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
+			var claims = context.Identity.Claims;
+			foreach (var claim in claims)
 			{
-				context.AdditionalResponseParameters.Add(property.Key, property.Value);
+				context.AdditionalResponseParameters.Add(claim.Type, claim.Value);
 			}
 
 			return Task.FromResult<object>(null);

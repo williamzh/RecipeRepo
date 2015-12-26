@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Configuration;
+using System.Globalization;
 using log4net;
 using MongoDB.Driver;
+using RecipeRepo.Integrations.Entities;
 
 namespace RecipeRepo.Integrations.Db
 {
@@ -25,6 +27,25 @@ namespace RecipeRepo.Integrations.Db
 
 			var client = new MongoClient(dbUrl);
 			_db = client.GetDatabase("reciperepo");
+		}
+
+		public static void BuildIndices()
+		{
+			// Recipe indices
+			var recipeIndexBuilder = Builders<Recipe>.IndexKeys;
+			_db.GetCollection<Recipe>("recipes").Indexes.CreateMany(new []
+			{
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Text(r => r.Name).Text("Ingredients.Name"), new CreateIndexOptions { DefaultLanguage = CultureInfo.CurrentCulture.TwoLetterISOLanguageName }),
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Rating")),
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Created"))
+			});
+
+			// User indices
+			var userIndexBuilder = Builders<User>.IndexKeys;
+			_db.GetCollection<User>("users").Indexes.CreateMany(new[]
+			{
+				new CreateIndexModel<User>(userIndexBuilder.Descending(u => u.UserName))
+			});
 		}
 
 		public virtual IMongoCollection<T> GetCollection<T>(string collectionName)

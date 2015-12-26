@@ -5,6 +5,6 @@ recipeRepoDirectives.directive('modal', ['$log', function($log) {
     	scope: {
     		onClose: '&'
     	},
-		templateUrl: '/app/shared/modal/_modal.html'
+		templateUrl: '/app/components/modal/_modal.html'
 	};
 }]);

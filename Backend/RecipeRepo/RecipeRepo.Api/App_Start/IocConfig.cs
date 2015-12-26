@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using RecipeRepo.Api.IO;
 using RecipeRepo.Api.Security;
 using RecipeRepo.Integrations.Db;
 using RecipeRepo.Integrations.Entities;
@@ -24,12 +25,15 @@ namespace RecipeRepo.Api
 			var b = new ContainerBuilder();
 
 			// Global registrations
-			b.RegisterApiControllers(Assembly.GetExecutingAssembly());
+			b.RegisterApiControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 			b.RegisterWebApiFilterProvider(config);
 
 			// Security
 			b.RegisterType<AuthService>().As<IAuthService>();
 			b.RegisterType<ClaimContext>().As<IClaimContext>();
+
+			// IO
+			b.RegisterType<JsonFileReader>().AsSelf();
 
 			// Integrations
 			b.RegisterType<DbClient>().As<IDbClient>();

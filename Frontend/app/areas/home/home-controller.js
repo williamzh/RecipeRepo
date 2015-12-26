@@ -1,6 +1,7 @@
 recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 'apiClient', 'userSession', function($scope, $state, Slug, apiClient, userSession) {
 	$scope.init = function() {
-		apiClient.getTopRecipes()
+		// Top recipes
+		apiClient.findRecipes({ fieldName: 'Meta.Rating', value: 3, strategy: 'GreaterThan' })
 			.then(function(topRecipes) {
 				$scope.topRecipes = topRecipes;
 			})
@@ -8,13 +9,16 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 
 				$scope.hasTopRecipesError = true;
 			});
 
-		apiClient.getLatestRecipes()
+		// Latest recipes
+		var dateFilter = Date.create().addDays(-10).toISOString();
+		apiClient.findRecipes({ fieldName: 'Meta.Created', value: dateFilter, strategy: 'GreaterThan' })
 			.then(function(latestRecipes) {
 				$scope.latestRecipes = latestRecipes;
 			})
 			.catch(function() {
 				$scope.hasLatestRecipesError = true;
 			});
+
 
 		if(userSession.isValid()) {
 			$scope.history = userSession.get().user.history;

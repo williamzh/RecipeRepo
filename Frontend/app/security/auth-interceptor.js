@@ -4,7 +4,7 @@ recipeRepoApp.factory('authInterceptor', ['$injector', '$q', 'userSession', func
             var session = userSession.get();
             if (session && session.token) {
                 config.headers = config.headers || {};
-                config.headers['Authorization'] = session.token;
+                config.headers.Authorization = 'Bearer ' + session.token;
             }
 
             return config;

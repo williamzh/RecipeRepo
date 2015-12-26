@@ -20,9 +20,7 @@ recipeRepoApp.config(['$httpProvider', function($httpProvider) {
 recipeRepoApp.run(['localizationInitializer', 'userSession', function(localizationInitializer, userSession) {
 	localizationInitializer.load();
 
-	var session = userSession.get();
-	if(session) {
-		var userLocale = session.user.settings.language;
-		moment.locale(userLocale);
+	if(userSession.isValid()) {
+		moment.locale(userSession.get().userLang);
 	}
 }]);

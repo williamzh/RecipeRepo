@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Configuration;
+using System.Web.Http;
+using System.Web.Http.Cors;
 using Newtonsoft.Json.Serialization;
 
 namespace RecipeRepo.Api
@@ -16,7 +18,7 @@ namespace RecipeRepo.Api
                 defaults: new { id = RouteParameter.Optional }
             );
 
-			//var cors = new EnableCorsAttribute(ConfigurationManager.AppSettings["AllowedCorsUrl"], "*", "*");
+			//var cors = new EnableCorsAttribute(ConfigurationManager.AppSettings["AllowedCorsUrls"], "*", "*");
 			//config.EnableCors(cors);
 			
 			// Serialize JSON with camel case

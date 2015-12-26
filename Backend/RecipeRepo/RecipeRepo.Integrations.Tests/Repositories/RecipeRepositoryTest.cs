@@ -16,12 +16,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 		private readonly IDbClient _dbClient = new DbClient();
 		private RecipeRepository _recipeRepo;
 
-		[ClassInitialize]
-		public static void Initialize(TestContext context)
-		{
-			DbClient.Initialize("mongodb://localhost:27017/reciperepo");
-		}
-
 		[TestInitialize]
 		public void SetUp()
 		{
