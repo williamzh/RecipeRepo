@@ -4,7 +4,7 @@ using RecipeRepo.Integrations.Entities;
 
 namespace RecipeRepo.Api.Entities
 {
-	public class FindClientRequest
+	public class FindItemRequest
 	{
 		public string FieldName { get; set; }
 		public dynamic Value { get; set; }

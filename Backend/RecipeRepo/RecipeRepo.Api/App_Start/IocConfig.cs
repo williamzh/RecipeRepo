@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
+using RecipeRepo.Api.Core;
 using RecipeRepo.Api.IO;
 using RecipeRepo.Api.Security;
 using RecipeRepo.Integrations.Db;
@@ -27,6 +28,9 @@ namespace RecipeRepo.Api
 			// Global registrations
 			b.RegisterApiControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 			b.RegisterWebApiFilterProvider(config);
+
+			// Core
+			b.RegisterType<UserManager>().As<IUserManager>();
 
 			// Security
 			b.RegisterType<AuthService>().As<IAuthService>();

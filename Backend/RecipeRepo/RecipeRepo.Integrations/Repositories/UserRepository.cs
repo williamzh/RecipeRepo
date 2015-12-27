@@ -22,16 +22,6 @@ namespace RecipeRepo.Integrations.Repositories
 
 		public ActionResponse Add(User user)
 		{
-			var filter = FilterBuilder.Eq("UserName", user.UserName);
-			if (Collection.Find(filter).Any())
-			{
-				return new ActionResponse
-				{
-					Code = AppStatusCode.DuplicateExists,
-					Message = "A user with the username " + user.UserName + " already exists."
-				};
-			}
-
 			Collection.InsertOne(user);
 
 			return new ActionResponse { Code = AppStatusCode.Ok };
@@ -94,26 +84,7 @@ namespace RecipeRepo.Integrations.Repositories
 
 		public ActionResponse Update(User user)
 		{
-			var existingUser = Collection.Find(FilterBuilder.Eq(u => u.Id, user.Id)).FirstOrDefault();
-			if (existingUser == null)
-			{
-				return new ActionResponse
-				{
-					Code = AppStatusCode.EntityNotFound,
-					Message = "Update failed. Could not find a user with a matching ID (" + user.Id + ")."
-				};
-			}
-
-			if (existingUser.UserName != user.UserName)
-			{
-				return new ActionResponse
-				{
-					Code = AppStatusCode.Unsupported,
-					Message = "Update failed. The username cannot be changed once set."
-				};
-			}
-
-			var result = Collection.ReplaceOne(r => r.Id == user.Id, user);
+			var result = Collection.ReplaceOne(u => u.Id == user.Id, user);
 			if (!result.IsAcknowledged || result.ModifiedCount == 0)
 			{
 				return new ActionResponse
@@ -136,8 +107,8 @@ namespace RecipeRepo.Integrations.Repositories
 			{
 				return new ActionResponse
 				{
-					Code = AppStatusCode.EntityNotFound,
-					Message = "Delete failed. Could not find a user with a matching ID (" + id + ")."
+					Code = AppStatusCode.UnknownError,
+					Message = "Delete failed. An unexpected error occured."
 				};
 			}
 

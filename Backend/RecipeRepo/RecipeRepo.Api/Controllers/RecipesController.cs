@@ -9,10 +9,12 @@ namespace RecipeRepo.Api.Controllers
     public class RecipesController : BaseApiController
 	{
 		private readonly IDbRepository<Recipe> _recipeRepo;
+		private readonly IDbRepository<User> _userRepository;
 
-		public RecipesController(IDbRepository<Recipe> recipeRepo)
+		public RecipesController(IDbRepository<Recipe> recipeRepo, IDbRepository<User> userRepository)
 		{
 			_recipeRepo = recipeRepo;
+			_userRepository = userRepository;
 		}
 
 	    public IHttpActionResult Get(string id)
@@ -32,18 +34,35 @@ namespace RecipeRepo.Api.Controllers
 			return Ok(response);
 		}
 
-		public IHttpActionResult Post(Recipe recipe)
+		public IHttpActionResult Post(AddRecipeRequest request)
 		{
-			if (recipe == null)
+			if (request == null)
 			{
-				return BadRequest(AppStatusCode.InvalidInput, "Recipe must be provided.");
+				return BadRequest(AppStatusCode.InvalidInput, "Request must be provided.");
 			}
 
-			var response = _recipeRepo.Add(recipe);
+			var getUserResponse = _userRepository.Get(request.UserId);
+			if (getUserResponse.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("POST /recipes failed. Could not retrieve user with ID {0}. {1}", request.UserId, getUserResponse.Message);
+				return InternalServerError(getUserResponse.Code, getUserResponse.Message);
+			}
+
+			var response = _recipeRepo.Add(request.Recipe);
 			if (response.Code != AppStatusCode.Ok)
 			{
-				Log.ErrorFormat("POST /recipes failed with code {0}. {1}", (int)response.Code, response.Message);
+				Log.ErrorFormat("POST /recipes failed with code {0}. Could not add recipe. {1}", (int)response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
+			}
+
+			var user = getUserResponse.Data;
+			user.OwnedRecipes.Add(request.Recipe.Id);
+
+			var updateUserResponse = _userRepository.Update(user);
+			if (updateUserResponse.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("POST /recipes failed. Could not associate new recipe with user {0}. {1}", request.UserId, updateUserResponse.Message);
+				return InternalServerError(getUserResponse.Code, getUserResponse.Message);
 			}
 
 			return Ok(response);
@@ -104,7 +123,7 @@ namespace RecipeRepo.Api.Controllers
 
 		[Route("api/recipes/find")]
 		[HttpPost]
-		public IHttpActionResult Find(FindClientRequest request)
+		public IHttpActionResult Find(FindItemRequest request)
 		{
 			if (request == null)
 			{

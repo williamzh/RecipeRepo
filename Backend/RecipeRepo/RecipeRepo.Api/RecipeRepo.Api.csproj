@@ -129,13 +129,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TranslationsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Entities\UpdateHistoryRequest.cs" />
+    <Compile Include="Core\IUserManager.cs" />
+    <Compile Include="Core\UserManager.cs" />
+    <Compile Include="Entities\AddRecipeRequest.cs" />
+    <Compile Include="Entities\UserRecipePairRequest.cs" />
     <Compile Include="IO\JsonFileReader.cs" />
     <Compile Include="Security\ClaimContext.cs" />
     <Compile Include="Security\IClaimContext.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
-    <Compile Include="Entities\FindClientRequest.cs" />
+    <Compile Include="Entities\FindItemRequest.cs" />
     <Compile Include="Filters\GenericExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

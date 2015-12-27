@@ -15,20 +15,15 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			});
 		}
 
-		var errorMessage = '';
-    	// Check if error is a simple string
-		if (typeof error.data === 'string') {
-			errorMessage = error.data;
-		}
-		// Check if error is a backend error object
-		else if (error.data.error) {
-			errorMessage = error.data.error;
-		}
-		
-        $log.error(action + ': an error occured (' + error.status + ' ' + error.statusText + '): ' + errorMessage);
+		var errResponse = error.data;
+
+    	var logMessage = 'The API call {1} failed with HTTP status {2} ({3}). Additional details: {4} {5}'
+    		.assign(action, error.status, error.statusText, errResponse.code, errResponse.message);
+        $log.error(logMessage);
+
         return $q.reject({
-            statusCode: error.status,
-            message: errorMessage
+            statusCode: errResponse.code,
+            message: errResponse.message
         });
 	};
 

@@ -1,19 +1,19 @@
-recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', 'userSession', 'apiClient', function($scope, $stateParams, $state, userSession, apiClient) {
+recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', '$q', 'userSession', 'apiClient', function($scope, $stateParams, $state, $q, userSession, apiClient) {
 	//$scope.previousState = $stateParams.referrer || 'home';
 
 	$scope.initialize = function() {
-		apiClient.getRecipe($stateParams.recipeId)
-			.then(function(recipe) {
-				recipe.meta.lastViewed = Date.create();
-				apiClient.updateRecipe(recipe._id, recipe);
-
+		$q.all([apiClient.getRecipe($stateParams.recipeId), apiClient.getUser(userSession.get().userId)])
+			.then(function(responses) {
+				var recipe = responses[0];
 				$scope.recipe = formatRecipe(recipe);
 
-				var user = userSession.get().user;
+				var user = responses[1];
 				$scope.isFavorite = user.favoriteRecipes.indexOf($scope.recipe.id) > -1;
 				$scope.isEditable = user.ownedRecipes.indexOf($scope.recipe.id) > -1;
+
+				return apiClient.updateHistory(user.id, recipe.id);
 			})
-			.catch(function() {
+			.catch(function(errResponse) {
 				$scope.hasError = true;
 			});
 	};

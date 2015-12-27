@@ -33,9 +33,8 @@ namespace RecipeRepo.Api
 			app.UseOAuthBearerTokens(new OAuthAuthorizationServerOptions
 			{
 				TokenEndpointPath = new PathString("/token"),
-				Provider = new ApplicationOAuthProvider(new AuthService(new UserRepository(new DbClient()))), 
-				//Provider = GlobalConfiguration.Configuration.DependencyResolver.GetService(typeof(ApplicationOAuthProvider)) as ApplicationOAuthProvider,
-				AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+				Provider = new ApplicationOAuthProvider(new AuthService(new UserRepository(new DbClient()))),
+				AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(int.Parse(ConfigurationManager.AppSettings["TokenTimeoutMinutes"])),
 				AllowInsecureHttp = true
 			});
 		}
