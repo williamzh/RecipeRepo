@@ -51,24 +51,6 @@ namespace RecipeRepo.Integrations.Repositories
 
 		public ActionResponse<IEnumerable<User>> Find<TValue>(string fieldName, TValue value, MatchingStrategy strategy, int limit = 100)
 		{
-			if (fieldName != "UserName" && fieldName != "Email")
-			{
-				return new ActionResponse<IEnumerable<User>>
-				{
-					Code = AppStatusCode.Unsupported,
-					Message = "Due to security reasons, users can only be queried on username and email."
-				};
-			}
-
-			if (strategy != MatchingStrategy.Equals)
-			{
-				return new ActionResponse<IEnumerable<User>>
-				{
-					Code = AppStatusCode.Unsupported,
-					Message = "Only the Equals strategy can be used."
-				};
-			}
-
 			var filter = FilterBuilder.Eq(fieldName, value);
 			var hits = Collection
 				.Find(filter)

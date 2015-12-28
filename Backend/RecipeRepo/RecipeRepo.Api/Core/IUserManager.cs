@@ -6,7 +6,7 @@ namespace RecipeRepo.Api.Core
 {
 	public interface IUserManager
 	{
-		ActionResponse AddUser(User user);
+		ActionResponse CreateUser(User user);
 		ActionResponse<User> GetUser(string userId);
 		ActionResponse UpdateUser(User user);
 		ActionResponse DeleteUser(string userId);

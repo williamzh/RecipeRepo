@@ -25,8 +25,9 @@ namespace RecipeRepo.Integrations.Db
 				throw new InvalidOperationException("Cannot initialize database. No MongoDB connection string has been defined in the AppSettings.");
 			}
 
+			var dbName = dbUrl.Substring(dbUrl.LastIndexOf('/') + 1);
 			var client = new MongoClient(dbUrl);
-			_db = client.GetDatabase("reciperepo");
+			_db = client.GetDatabase(dbName);
 		}
 
 		public static void BuildIndices()

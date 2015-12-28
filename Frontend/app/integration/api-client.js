@@ -102,7 +102,7 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 	};
 
 	this.updateHistory = function(userId, recipeId) {
-		return $http.post(apiUrl + '/user/history', { userId: userId, recipeId: recipeId })
+		return $http.put(apiUrl + '/user/history', { userId: userId, recipeId: recipeId })
 			.then(function (response) {	return onSuccess('updateHistory', response.data); })
 			.catch(function(error) { return onError('updateHistory', error) });
 	};

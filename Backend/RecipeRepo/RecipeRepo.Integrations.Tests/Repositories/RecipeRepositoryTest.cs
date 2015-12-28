@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
@@ -15,6 +16,12 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 	{
 		private readonly IDbClient _dbClient = new DbClient();
 		private RecipeRepository _recipeRepo;
+
+		[ClassInitialize]
+		public static void Initialize(TestContext context)
+		{
+			DbClient.Initialize(ConfigurationManager.AppSettings["MongoDbUrl"]);
+		}
 
 		[TestInitialize]
 		public void SetUp()

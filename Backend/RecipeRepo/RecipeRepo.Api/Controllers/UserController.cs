@@ -40,7 +40,7 @@ namespace RecipeRepo.Api.Controllers
 				return BadRequest(AppStatusCode.InvalidInput, "User must be provided.");
 			}
 
-			var response = _userManager.AddUser(user);
+			var response = _userManager.CreateUser(user);
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("POST /user failed with code {0}. {1}", (int)response.Code, response.Message);

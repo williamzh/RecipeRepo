@@ -17,19 +17,19 @@ namespace RecipeRepo.Api.Core
 			_recipeRepository = recipeRepository;
 		}
 
-		public ActionResponse AddUser(User user)
+		public ActionResponse CreateUser(User user)
 		{
 			var findUserResponse = _userRepository.Find("UserName", user.UserName, MatchingStrategy.Equals);
 			if (findUserResponse.Code != AppStatusCode.Ok)
 			{
 				return new ActionResponse
 				{
-					Code = AppStatusCode.EntityNotFound,
-					Message = "Add failed. Failed to check for existing user."
+					Code = findUserResponse.Code,
+					Message = "Could not create user - existance check failed. Underlying error: " + findUserResponse.Message
 				};
 			}
 
-			if (findUserResponse.Data != null)
+			if (findUserResponse.Data != null && findUserResponse.Data.Any())
 			{
 				return new ActionResponse
 				{
@@ -49,7 +49,7 @@ namespace RecipeRepo.Api.Core
 		public ActionResponse<User> GetUser(string userId)
 		{
 			var response = _userRepository.Get(userId);
-			if (response.Code == AppStatusCode.Ok)
+			if (response.Code == AppStatusCode.Ok && response.Data != null)
 			{
 				response.Data.Password = null;
 			}
@@ -64,8 +64,8 @@ namespace RecipeRepo.Api.Core
 			{
 				return new ActionResponse
 				{
-					Code = AppStatusCode.EntityNotFound,
-					Message = "Update failed. Failed to check for existing user."
+					Code = getUserResponse.Code,
+					Message = "Could not create user - existance check failed. Underlying error: " + getUserResponse.Message
 				};
 			}
 
@@ -94,8 +94,8 @@ namespace RecipeRepo.Api.Core
 			{
 				return new ActionResponse
 				{
-					Code = AppStatusCode.EntityNotFound,
-					Message = "Delete failed. Failed to check for existing user."
+					Code = getUserResponse.Code,
+					Message = "Could not create user - existance check failed. Underlying error: " + getUserResponse.Message
 				};
 			}
 
@@ -137,13 +137,30 @@ namespace RecipeRepo.Api.Core
 				};
 			}
 
+			if (response.Data == null)
+			{
+				return new ActionResponse<IEnumerable<Recipe>>
+				{
+					Code = AppStatusCode.EntityNotFound,
+					Message = "Failed to get user history. Could not find a user with a matching ID (" + userId + ")."
+				};
+			}
+
 			var history = response.Data.LastViewedRecipes.Take(10);
-			var viewedRecipes = _recipeRepository.Get(history).Data;
+			var recipesResponse = _recipeRepository.Get(history);
+			if (recipesResponse.Code != AppStatusCode.Ok)
+			{
+				return new ActionResponse<IEnumerable<Recipe>>
+				{
+					Code = recipesResponse.Code,
+					Message = recipesResponse.Message
+				};
+			}
 
 			return new ActionResponse<IEnumerable<Recipe>>
 			{
 				Code = AppStatusCode.Ok,
-				Data = viewedRecipes.ToList()
+				Data = recipesResponse.Data
 			};
 		}
 
@@ -162,14 +179,17 @@ namespace RecipeRepo.Api.Core
 			var history = getUserResponse.Data.LastViewedRecipes.ToList();
 			if (history.Contains(recipeId))
 			{
-				// Don't do anything if item already exists in history
-				return new ActionResponse { Code = AppStatusCode.Ok };
+				// If the recipe is already present in the history, remove it so it can
+				// be re-added at the top.
+				history.Remove(recipeId);
+			}
+			else if (history.Count >= 10)
+			{
+				// If the recipe isn't present in the history and the history is full,
+				// remove the oldest history item.
+				history.RemoveAt(history.Count - 1);
 			}
 
-			if (history.Count >= 10)
-			{
-				history.RemoveAt(10);
-			}
 			history.Insert(0, recipeId);
 			getUserResponse.Data.LastViewedRecipes = history;
 

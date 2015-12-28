@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -15,6 +16,12 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 		private readonly IDbClient _dbClient = new DbClient();
 		private UserRepository _userRepo;
 
+		[ClassInitialize]
+		public static void Initialize(TestContext context)
+		{
+			DbClient.Initialize(ConfigurationManager.AppSettings["MongoDbUrl"]);
+		}
+
 		[TestInitialize]
 		public void SetUp()
 		{
@@ -29,25 +36,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 
 		private IMongoCollection<User> Collection { get { return _dbClient.GetCollection<User>("users"); } }
 			
-		[TestMethod]
-		public void AddUser_UserAlreadyExists_ReturnsError()
-		{
-			// Arrange
-			Collection.InsertOne(new User
-			{
-				UserName = "testuser"
-			});
-
-			// Act
-			var response = _userRepo.Add(new User
-			{
-				UserName = "testuser"
-			});
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.DuplicateExists, response.Code);
-		}
-
 		[TestMethod]
 		public void AddUser_UserDoesNotExist_AddsUser()
 		{
@@ -106,38 +94,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 		}
 
 		[TestMethod]
-		public void FindUsers_InvalidFieldName_ReturnsError()
-		{
-			// Arrange
-			Collection.InsertMany(new[]
-			{
-				new User { UserName = "testuser" }
-			});
-
-			// Act
-			var response = _userRepo.Find("Password", "testuser", MatchingStrategy.Equals);
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.Unsupported, response.Code);
-		}
-
-		[TestMethod]
-		public void FindUsers_InvalidStrategy_ReturnsError()
-		{
-			// Arrange
-			Collection.InsertMany(new[]
-			{
-				new User { UserName = "testuser" }
-			});
-
-			// Act
-			var response = _userRepo.Find("UserName", "testuser", MatchingStrategy.GreaterThan);
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.Unsupported, response.Code);
-		}
-
-		[TestMethod]
 		public void FindUsers_UserWithMatchingUsernameExists_ReturnsHit()
 		{
 			// Arrange
@@ -176,35 +132,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 		}
 
 		[TestMethod]
-		public void UpdateUser_UserDoesNotExist_ReturnsError()
-		{
-			// Act
-			var response = _userRepo.Update(new User());
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.EntityNotFound, response.Code);
-		}
-
-		[TestMethod]
-		public void UpdateUser_OnUserNameField_ReturnsError()
-		{
-			// Arrange
-			Collection.InsertOne(new User
-			{
-				UserName = "testuser"
-			});
-
-			var recipe = Collection.Find(Builders<User>.Filter.Empty).First();
-			recipe.UserName = "testuser2";
-
-			// Act
-			var response = _userRepo.Update(recipe);
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.Unsupported, response.Code);
-		}
-
-		[TestMethod]
 		public void UpdateUser_UserDoesExist_UpdatesUser()
 		{
 			// Arrange
@@ -222,16 +149,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 
 			// Assert
 			Assert.AreEqual(AppStatusCode.Ok, response.Code);
-		}
-
-		[TestMethod]
-		public void RemoveUser_UserDoesNotExist_ReturnsError()
-		{
-			// Act
-			var response = _userRepo.Remove("566da43c41d18b0ff8291f2d");
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.EntityNotFound, response.Code);
 		}
 
 		[TestMethod]
