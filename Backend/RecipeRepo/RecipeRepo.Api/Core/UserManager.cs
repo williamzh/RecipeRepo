@@ -65,7 +65,7 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getUserResponse.Code,
-					Message = "Could not create user - existance check failed. Underlying error: " + getUserResponse.Message
+					Message = "Could not update user - existance check failed. Underlying error: " + getUserResponse.Message
 				};
 			}
 
@@ -80,6 +80,7 @@ namespace RecipeRepo.Api.Core
 
 			// Make sure we don't overwrite fields that aren't updateable directly
 			var existingUser = getUserResponse.Data;
+			user.UserName = existingUser.UserName;		// Username isn't editable
 			user.OwnedRecipes = existingUser.OwnedRecipes;	// Updated when adding recipe
 			user.LastViewedRecipes = existingUser.LastViewedRecipes;	// Updated through history API
 			user.FavoriteRecipes = existingUser.FavoriteRecipes;	// Updated through favorites API
@@ -95,7 +96,7 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getUserResponse.Code,
-					Message = "Could not create user - existance check failed. Underlying error: " + getUserResponse.Message
+					Message = "Could not delete user - existance check failed. Underlying error: " + getUserResponse.Message
 				};
 			}
 

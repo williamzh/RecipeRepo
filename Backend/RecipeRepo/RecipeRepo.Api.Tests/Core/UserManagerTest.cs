@@ -214,7 +214,7 @@ namespace RecipeRepo.Api.Tests.Core
 			Assert.AreEqual(AppStatusCode.Ok, response.Code);
 			_userRepoMock.Verify(r => r.Update(It.Is<User>(
 				u => u.Id == "2" &&
-					u.UserName == "johndoe1" &&
+					u.UserName == "johndoe" &&		// Check that username wasn't updated
 					u.Password == "test12345" &&
 					u.Email == "johndoe1@test.com" &&
 					u.FirstName == "John1" &&

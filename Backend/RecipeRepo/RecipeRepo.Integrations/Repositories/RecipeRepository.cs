@@ -22,16 +22,6 @@ namespace RecipeRepo.Integrations.Repositories
 
 		public ActionResponse Add(Recipe recipe)
 		{
-			var filter = FilterBuilder.Eq("Name", recipe.Name);
-			if (Collection.Find(filter).Any())
-			{
-				return new ActionResponse
-				{
-					Code = AppStatusCode.DuplicateExists,
-					Message = "A recipe with the name " + recipe.Name + " already exists."
-				};
-			}
-
 			Collection.InsertOne(recipe);
 
 			return new ActionResponse { Code = AppStatusCode.Ok };
@@ -100,37 +90,31 @@ namespace RecipeRepo.Integrations.Repositories
 		public ActionResponse Update(Recipe recipe)
 		{
 			var result = Collection.ReplaceOne(r => r.Id == recipe.Id, recipe);
-			if (result.IsAcknowledged && result.ModifiedCount == 0)
+			if (!result.IsAcknowledged)
 			{
 				return new ActionResponse
 				{
-					Code = AppStatusCode.EntityNotFound,
-					Message = "Update failed. Could not find a recipe with a matching ID (" + recipe.Id + ")."
+					Code = AppStatusCode.UnknownError,
+					Message = "Update failed. An unexpected error occured."
 				};
 			}
 
-			return new ActionResponse
-			{
-				Code = AppStatusCode.Ok
-			};
+			return new ActionResponse { Code = AppStatusCode.Ok };
 		}
 
 		public ActionResponse Remove(string id)
 		{
 			var result = Collection.DeleteOne(FilterBuilder.Eq(r => r.Id, id));
-			if (result.IsAcknowledged && result.DeletedCount == 0)
+			if (!result.IsAcknowledged)
 			{
 				return new ActionResponse
 				{
-					Code = AppStatusCode.EntityNotFound,
-					Message = "Delete failed. Could not find a recipe with a matching ID (" + id + ")."
+					Code = AppStatusCode.UnknownError,
+					Message = "Delete failed. An unexpected error occured."
 				};
 			}
 
-			return new ActionResponse
-			{
-				Code = AppStatusCode.Ok
-			};
+			return new ActionResponse { Code = AppStatusCode.Ok };
 		}
 	}
 }

@@ -129,10 +129,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TranslationsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Core\IRecipeStore.cs" />
     <Compile Include="Core\IUserManager.cs" />
+    <Compile Include="Core\RecipeStore.cs" />
     <Compile Include="Core\UserManager.cs" />
-    <Compile Include="Entities\AddRecipeRequest.cs" />
-    <Compile Include="Entities\UserRecipePairRequest.cs" />
     <Compile Include="IO\JsonFileReader.cs" />
     <Compile Include="Security\ClaimContext.cs" />
     <Compile Include="Security\IClaimContext.cs" />

@@ -67,7 +67,7 @@ namespace RecipeRepo.Integrations.Repositories
 		public ActionResponse Update(User user)
 		{
 			var result = Collection.ReplaceOne(u => u.Id == user.Id, user);
-			if (!result.IsAcknowledged || result.ModifiedCount == 0)
+			if (!result.IsAcknowledged)
 			{
 				return new ActionResponse
 				{

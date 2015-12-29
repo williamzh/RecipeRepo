@@ -52,10 +52,13 @@ namespace RecipeRepo.Api.Controllers
 
 		public IHttpActionResult Put(User user)
 		{
-			if (user == null || string.IsNullOrEmpty(user.Id))
+			if (user == null)
 			{
-				return BadRequest(AppStatusCode.InvalidInput, "User and/or a valid ID must be provided.");
+				return BadRequest(AppStatusCode.InvalidInput, "User must be provided.");
 			}
+
+			// Ensure that we only update the current user
+			user.Id = ClaimContext.UserId;
 
 			var response = _userManager.UpdateUser(user);
 			if (response.Code != AppStatusCode.Ok)
@@ -103,75 +106,70 @@ namespace RecipeRepo.Api.Controllers
 			return Ok(response);
 		}
 
-	    [Route("api/user/history/{userId}")]
-	    public IHttpActionResult GetHistory(string userId)
+	    [Route("api/user/history")]
+	    public IHttpActionResult GetHistory()
 	    {
-			if (string.IsNullOrEmpty(userId))
-			{
-				return BadRequest(AppStatusCode.InvalidInput, "User ID must be provided.");
-			}
-
-		    var response = _userManager.GetUserHistory(userId);
+		    var response = _userManager.GetUserHistory(ClaimContext.UserId);
 			if (response.Code != AppStatusCode.Ok)
 			{
-				Log.ErrorFormat("GET /user/history/{0} failed with code {1}. {2}", userId, response.Code, response.Message);
+				Log.ErrorFormat("GET /user/history failed with code {0}. {1}", response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
 			}
 
 		    return Ok(response);
 	    }
 
-		[Route("api/user/history")]
+		[Route("api/user/history/{recipeId}")]
 		[HttpPut]
-		public IHttpActionResult UpdateHistory(UserRecipePairRequest request)
+		public IHttpActionResult UpdateHistory(string recipeId)
 		{
-			if (request == null)
+			if (string.IsNullOrEmpty(recipeId))
 			{
-				return BadRequest(AppStatusCode.InvalidInput, "Request object must be provided.");
+				return BadRequest(AppStatusCode.InvalidInput, "Recipe ID must be provided.");
 			}
 
-			var response = _userManager.UpdateUserHistory(request.UserId, request.RecipeId);
+			var response = _userManager.UpdateUserHistory(ClaimContext.UserId, recipeId);
 			if (response.Code != AppStatusCode.Ok)
 			{
-				Log.ErrorFormat("POST /user/history failed for user {0} with code {1}. {2}", request.UserId, response.Code, response.Message);
+				Log.ErrorFormat("POST /user/history failed for user {0} with code {1}. {2}", ClaimContext.UserId, response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
 			}
 
 			return Ok(response);
 		}
 
-		[Route("api/user/favorites")]
+		[Route("api/user/favorites/{recipeId}")]
 		[HttpPut]
-		public IHttpActionResult AddFavorite(UserRecipePairRequest request)
+		public IHttpActionResult AddFavorite(string recipeId)
 		{
-			if (request == null)
+			if (string.IsNullOrEmpty(recipeId))
 			{
-				return BadRequest(AppStatusCode.InvalidInput, "Request object must be provided.");
+				return BadRequest(AppStatusCode.InvalidInput, "Rrecipe ID must be provided.");
 			}
 
-			var response = _userManager.SetFavoriteRecipe(request.UserId, request.RecipeId, true);
+			var response = _userManager.SetFavoriteRecipe(ClaimContext.UserId, recipeId, true);
 			if (response.Code != AppStatusCode.Ok)
 			{
-				Log.ErrorFormat("PUT /user/favorites failed for user {0} with code {1}. {2}", request.UserId, response.Code, response.Message);
+				Log.ErrorFormat("PUT /user/favorites/{0} failed for user {1} with code {2}. {3}", recipeId, ClaimContext.UserId, response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
 			}
 
 			return Ok(response);
 		}
 
-		[Route("api/user/favorites/{userId}/{recipeId}")]
+		[Route("api/user/favorites/{recipeId}")]
 		[HttpDelete]
-		public IHttpActionResult RemoveFavorite(string userId, string recipeId)
+		public IHttpActionResult RemoveFavorite(string recipeId)
 		{
-			if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(recipeId))
+			if (string.IsNullOrEmpty(recipeId))
 			{
-				return BadRequest(AppStatusCode.InvalidInput, "User and recipe IDs must be provided.");
+				return BadRequest(AppStatusCode.InvalidInput, "Recipe ID must be provided.");
 			}
 
-			var response = _userManager.SetFavoriteRecipe(userId, recipeId, false);
+			var response = _userManager.SetFavoriteRecipe(ClaimContext.UserId, recipeId, false);
 			if (response.Code != AppStatusCode.Ok)
 			{
-				Log.ErrorFormat("DELETE /user/favorites/{0}/{1} failed with code {2}. {3}", userId, recipeId, response.Code, response.Message);
+				Log.ErrorFormat("DELETE /user/favorites/{0} failed for user {1} with code {2}. {3}", recipeId, ClaimContext.UserId, response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
 			}
 

@@ -4,6 +4,10 @@ using RecipeRepo.Integrations.Entities;
 
 namespace RecipeRepo.Integrations.Repositories
 {
+	/// <summary>
+	/// A simple, low-level interface for database interactions.
+	/// </summary>
+	/// <typeparam name="TEntity"></typeparam>
 	public interface IDbRepository<TEntity>
 	{
 		/// <summary>

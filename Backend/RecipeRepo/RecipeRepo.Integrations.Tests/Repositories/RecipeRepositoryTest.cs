@@ -43,25 +43,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 		private IMongoCollection<Recipe> Collection { get { return _dbClient.GetCollection<Recipe>("recipes"); } }
 			
 		[TestMethod]
-		public void AddRecipe_RecipeAlreadyExists_ReturnsError()
-		{
-			// Arrange
-			Collection.InsertOne(new Recipe
-			{
-				Name = "Lasagne"
-			});
-
-			// Act
-			var response = _recipeRepo.Add(new Recipe
-			{
-				Name = "Lasagne"
-			});
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.DuplicateExists, response.Code);
-		}
-
-		[TestMethod]
 		public void AddRecipe_RecipeDoesNotExist_AddsRecipe()
 		{
 			// Arrange
@@ -241,16 +222,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 		}
 
 		[TestMethod]
-		public void UpdateRecipe_RecipeDoesNotExist_ReturnsError()
-		{
-			// Act
-			var response = _recipeRepo.Update(new Recipe());
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.EntityNotFound, response.Code);
-		}
-
-		[TestMethod]
 		public void UpdateRecipe_RecipeDoesExist_UpdatesRecipe()
 		{
 			// Arrange
@@ -272,16 +243,6 @@ namespace RecipeRepo.Integrations.Tests.Repositories
 
 			// Assert
 			Assert.IsTrue(response.Code == AppStatusCode.Ok);
-		}
-
-		[TestMethod]
-		public void RemoveRecipe_RecipeDoesNotExist_ReturnsError()
-		{
-			// Act
-			var response = _recipeRepo.Remove("566da43c41d18b0ff8291f2d");
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.EntityNotFound, response.Code);
 		}
 
 		[TestMethod]
