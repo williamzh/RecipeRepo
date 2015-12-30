@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.Linq;
 using log4net;
 using MongoDB.Driver;
 using RecipeRepo.Integrations.Entities;
@@ -10,12 +12,7 @@ namespace RecipeRepo.Integrations.Db
 	public class DbClient : IDbClient
 	{
 		private static IMongoDatabase _db;
-		private readonly ILog _log;
-
-		public DbClient()
-		{
-			_log = LogManager.GetLogger(typeof (DbClient));
-		}
+		private static readonly ILog Log = LogManager.GetLogger(typeof (DbClient));
 
 		public static void Initialize(string dbUrl = null)
 		{
@@ -28,32 +25,51 @@ namespace RecipeRepo.Integrations.Db
 			var dbName = dbUrl.Substring(dbUrl.LastIndexOf('/') + 1);
 			var client = new MongoClient(dbUrl);
 			_db = client.GetDatabase(dbName);
+
+			Log.Debug("Successfully connected to database  " + dbUrl + ".");
 		}
 
 		public static void BuildIndices()
 		{
 			// Recipe indices
+			var recipeCollection = _db.GetCollection<Recipe>("recipes");
 			var recipeIndexBuilder = Builders<Recipe>.IndexKeys;
-			_db.GetCollection<Recipe>("recipes").Indexes.CreateMany(new []
-			{
-				new CreateIndexModel<Recipe>(recipeIndexBuilder.Text(r => r.Name).Text("Ingredients.Name"), new CreateIndexOptions { DefaultLanguage = CultureInfo.CurrentCulture.TwoLetterISOLanguageName }),
-				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Rating")),
-				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Created"))
-			});
+
+			CreateIndices(recipeCollection,
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Text(r => r.Name).Text("Ingredients.Name"), new CreateIndexOptions
+				{
+					Name = "Recipe_Compound_Text",
+					DefaultLanguage = CultureInfo.CurrentCulture.TwoLetterISOLanguageName
+				}),
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Rating"), new CreateIndexOptions
+				{
+					Name = "Recipe_Rating_Desc",
+				}),
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Created"), new CreateIndexOptions
+				{
+					Name = "Recipe_Created_Desc",
+				})
+				);
 
 			// User indices
+			var userCollection = _db.GetCollection<User>("users");
 			var userIndexBuilder = Builders<User>.IndexKeys;
-			_db.GetCollection<User>("users").Indexes.CreateMany(new[]
-			{
-				new CreateIndexModel<User>(userIndexBuilder.Descending(u => u.UserName))
-			});
+
+			CreateIndices(userCollection,
+				new CreateIndexModel<User>(userIndexBuilder.Descending(u => u.UserName), new CreateIndexOptions
+				{
+					Name = "User_Username_Desc"
+				})
+			);
+
+			Log.Debug("Index initialization complete");
 		}
 
 		public virtual IMongoCollection<T> GetCollection<T>(string collectionName)
 		{
 			if (_db == null)
 			{
-				_log.Warn("Database was null. Reinitializing...");
+				Log.Warn("Database was null. Reinitializing...");
 
 				try
 				{
@@ -61,12 +77,38 @@ namespace RecipeRepo.Integrations.Db
 				}
 				catch (Exception ex)
 				{
-					_log.Fatal("Database initalization failed.", ex);
+					Log.Fatal("Database initalization failed.", ex);
 					return null;
 				}
 			}
 
 			return _db.GetCollection<T>(collectionName);
+		}
+
+		private static async void CreateIndices<T>(IMongoCollection<T> collection, params CreateIndexModel<T>[] indexDefinitions)
+		{
+			var newIndices = new List<CreateIndexModel<T>>();
+
+			var existingIndices = collection.Indexes.List().ToList()
+				.Select(d => d.Elements.First(e => e.Name == "name").Value)	// Get the index "name" field for each document
+				.Where(i => i != "_id")	// Filter out the default "_id" index on the projected indices
+				.ToList();
+
+			Log.Debug("Found indices " + string.Join(",", existingIndices) + ".");
+
+			foreach (var def in indexDefinitions)
+			{
+				if (!existingIndices.Contains(def.Options.Name))
+				{
+					Log.Debug("Adding new index " + def.Options.Name + ".");
+					newIndices.Add(def);
+				}
+			}
+
+			if (newIndices.Any())
+			{
+				await collection.Indexes.CreateManyAsync(newIndices);
+			}
 		}
 	}
 }
