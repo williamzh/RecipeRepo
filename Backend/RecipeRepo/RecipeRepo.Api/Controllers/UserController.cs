@@ -15,17 +15,12 @@ namespace RecipeRepo.Api.Controllers
 			_userManager = userManager;
 		}
 
-	    public IHttpActionResult Get(string id)
+	    public IHttpActionResult Get()
 		{
-			if (string.IsNullOrEmpty(id))
-			{
-				return BadRequest(AppStatusCode.InvalidInput, "User ID must be provided.");
-			}
-
-			var response = _userManager.GetUser(id);
+			var response = _userManager.GetUser(ClaimContext.UserId);
 			if (response.Code != AppStatusCode.Ok)
 			{
-				Log.ErrorFormat("GET /user/{0} failed with code {1}. {2}", id, (int)response.Code, response.Message);
+				Log.ErrorFormat("GET /user/{0} failed with code {1}. {2}", ClaimContext.UserId, (int)response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
 			}
 
@@ -70,17 +65,12 @@ namespace RecipeRepo.Api.Controllers
 			return Ok(response);
 		}
 
-		public IHttpActionResult Delete(string id)
+		public IHttpActionResult Delete()
 		{
-			if (string.IsNullOrEmpty(id))
-			{
-				return BadRequest(AppStatusCode.InvalidInput, "User ID must be provided.");
-			}
-
-			var response = _userManager.DeleteUser(id);
+			var response = _userManager.DeleteUser(ClaimContext.UserId);
 			if (response.Code != AppStatusCode.Ok)
 			{
-				Log.ErrorFormat("DELETE /user/{0} failed with code {1}. {2}", id, (int)response.Code, response.Message);
+				Log.ErrorFormat("DELETE /user/{0} failed with code {1}. {2}", ClaimContext.UserId, (int)response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
 			}
 

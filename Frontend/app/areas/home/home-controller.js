@@ -21,8 +21,7 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 
 
 
 		// History
-		var userId = userSession.get().userId;
-		apiClient.getHistory(userId)
+		apiClient.getHistory()
 			.then(function(history) {
 				$scope.history = history;
 			})

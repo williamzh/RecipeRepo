@@ -3,7 +3,7 @@ recipeRepoControllers.controller('editProfileController', ['$scope', 'userSessio
 
 	$scope.init = function() {
 		var user = userSession.get().user;
-		apiClient.getUser(user._id)
+		apiClient.getUser()
 			.then(function(user) {
 				$scope.profile = user;
 				$scope.fakePassword = '********';
