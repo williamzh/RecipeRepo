@@ -82,11 +82,11 @@
 				<ul class="Toolbar u-spacingTopNone" name="ingredients" ng-model="currentRecipe.ingredients" array-required>
 					<li class="Toolbar-item" ng-repeat="ing in currentRecipe.ingredients track by $index">
 						<button type="button" class="Button Button--link Button--inline" ng-click="removeIngredient($index)"><i class="fa fa-minus"></i></button>
-						{{'{1} {2} {3}{4}'.assign(ing.quantity, ing.unit, ing.name, (ing.component ? ' (' + ing.component + ')' : ''))}}
+						<a href="#" ng-click="showIngredientModal(ing)">{{'{1} {2} {3}{4}'.assign(ing.quantity, ing.unit, ing.name, (ing.component ? ' (' + ing.component + ')' : ''))}}</a>
 					</li>
 				</ul>
 				<div class="ButtonGroup">
-					<button type="button" class="Button Button--link" ng-click="$parent.showIngredientModal = true">{{'manage/newIngredientLabel' | translate}}</button>
+					<button type="button" class="Button Button--link" ng-click="showIngredientModal()">{{'manage/newIngredientLabel' | translate}}</button>
 				</div>
 				<div class="Control--fake" ng-class="{ 'has-error': hasError('ingredients') }">
 					<span class="Control-error">{{'manage/ingredientRequiredError' | translate}}</span>
@@ -97,16 +97,16 @@
 		<h2 class="u-spacingTopMd u-spacingBottomSm">{{'manage/methodSubHeading' | translate}}</h2>
 		<div class="Grid Grid--withGutter" validator>
 			<div class="Grid-cell u-sizeFull">
-				<ol class="Toolbar u-spacingTopNone" name="method" ng-model="currentRecipe.method" array-required>
-					<li class="Toolbar-item" ng-repeat="step in currentRecipe.method track by $index">
+				<ol class="Toolbar u-spacingTopNone" name="steps" ng-model="currentRecipe.steps" array-required>
+					<li class="Toolbar-item" ng-repeat="step in currentRecipe.steps track by $index">
 						<button type="button" class="Button Button--link Button--inline" ng-click="removeStep(step)"><i class="fa fa-minus"></i></button>
-						{{$index + 1}}. {{step}}
+						<button type="button" class="Button Button--link Button--inline" ng-click="showStepModal(step)">{{$index + 1}}. {{step}}</button>
 					</li>
 				</ol>
 				<div class="ButtonGroup">
-					<button type="button" class="Button Button--link" ng-click="$parent.showStepModal = true">{{'manage/newStepLabel' | translate}}</button>
+					<button type="button" class="Button Button--link" ng-click="showStepModal()">{{'manage/newStepLabel' | translate}}</button>
 				</div>
-				<div class="Control--fake" ng-class="{ 'has-error': hasError('method') }">
+				<div class="Control--fake" ng-class="{ 'has-error': hasError('steps') }">
 					<span class="Control-error">{{'manage/stepRequiredError' | translate}}</span>
 				</div>
 			</div>
@@ -117,7 +117,7 @@
 		</div>
 	</form>
 
-	<modal ng-show="showIngredientModal" on-close="showIngredientModal = false">
+	<modal ng-show="ingredientModalVisible" on-close="ingredientModalVisible = false">
         <form name="newIngredientForm" ng-submit="addIngredient(newIngredientForm)" novalidate>
         	<div validator="ingredientModalSubmitted">
 	        	<h2 class="u-spacingBottomSm">{{'manage/newIngredientLabel' | translate}}</h2>
@@ -149,7 +149,7 @@
         </form>
 	</modal>
 
-	<modal ng-show="showStepModal" on-close="showStepModal = false">
+	<modal ng-show="stepModalVisible" on-close="stepModalVisible = false">
         <form name="newStepForm" ng-submit="addStep(newStepForm)" novalidate>
         	<div validator="stepModalSubmitted">
 	        	<h2 class="u-spacingBottomSm">{{'manage/newStepLabel' | translate}}</h2>
@@ -158,6 +158,7 @@
 					<textarea class="Control-textarea" name="step" ng-model="newStep.value" id="step" required></textarea>
 					<span class="Control-error">{{'validation/genericRequired' | translate}}</span>
 				</div>
+				<input type="hidden" name="stepIndex" ng-value="newStep.index" />
 			</div>
 
 			<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">

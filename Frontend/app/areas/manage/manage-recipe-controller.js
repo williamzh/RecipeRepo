@@ -41,7 +41,15 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 				$scope.showError = true;
 				$scope.errorMessage = localizationService.translate('manage', error.message);
 			});
-	}
+	};
+
+	$scope.showIngredientModal = function(ingredient) {
+		if(ingredient) {
+			$scope.newIngredient = ingredient;
+		}
+
+		$scope.ingredientModalVisible = true;
+	};
 
 	$scope.addIngredient = function(form) {
 		$scope.ingredientModalSubmitted = true;
@@ -54,18 +62,37 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			$scope.currentRecipe.ingredients = [];
 		}
 
-		$scope.currentRecipe.ingredients.push($scope.newIngredient);
+		// Check if the ingredient already exists
+		var index = $scope.currentRecipe.ingredients.findIndex(function(ing) {
+			return ing.name === $scope.newIngredient.name;
+		});
+
+		if(index > -1) {
+			$scope.currentRecipe.ingredients.removeAt(index);
+			$scope.currentRecipe.ingredients.insert($scope.newIngredient, index);
+		}
+		else {
+			$scope.currentRecipe.ingredients.push($scope.newIngredient);
+		}
 
 		$scope.newIngredient = {};
 		form.$setPristine();
 		form.$setUntouched();
 		$scope.ingredientModalSubmitted = false;
 
-		$scope.showIngredientModal = false;
+		$scope.ingredientModalVisible = false;
 	};
 
 	$scope.removeIngredient = function(index) {
 		$scope.currentRecipe.ingredients.splice(index, 1);
+	};
+
+	$scope.showStepModal = function(step) {
+		if(step) {
+			$scope.newStep.value = step;
+		}
+
+		$scope.stepModalVisible = true;
 	};
 
 	$scope.addStep = function(form) {
@@ -75,26 +102,33 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			return;
 		}
 
-		if($scope.currentRecipe.method === undefined) {
-			$scope.currentRecipe.method = [];
+		if($scope.currentRecipe.steps === undefined) {
+			$scope.currentRecipe.steps = [];
 		}
 
-		$scope.currentRecipe.method.push($scope.newStep.value);
+		// Check if the ingredient already exists
+		var index = $scope.currentRecipe.steps.findIndex(function(step) {
+			return step === $scope.newStep.value;
+		});
 
-		$scope.newStep= {};
+		if(index > -1) {
+			$scope.currentRecipe.steps.removeAt(index);
+			$scope.currentRecipe.steps.insert($scope.newStep.value, index);
+		}
+		else {
+			$scope.currentRecipe.steps.push($scope.newStep.value);
+		}
+
+		$scope.newStep = {};
 		form.$setPristine();
 		form.$setUntouched();
 		$scope.stepModalSubmitted = false;
 
-		$scope.showStepModal = false;
+		$scope.stepModalVisible = false;
 	};
 
 	$scope.removeStep = function(index) {
-		$scope.currentRecipe.method.splice(index, 1);
-	};
-
-	$scope.toggleIngredientModal = function(isVisible) {
-		$scope.ingredientModalVisible = isVisible;
+		$scope.currentRecipe.steps.splice(index, 1);
 	};
 
 	$scope.onSubmit = function() {

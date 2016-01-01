@@ -4,7 +4,7 @@ recipeRepoServices.service('localizationInitializer', ['$log', '$localStorage', 
 		// Save translations in local storage
 	    apiClient.getTranslations(currentLang)
 			.then(function(translations) {
-				$localStorage.translations = translations.values;
+				$localStorage.translations = translations;
 			})
 			.catch(function(error) {
 				$log.error('Failed to initialize translations. ' + error.message);
