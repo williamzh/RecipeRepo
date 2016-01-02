@@ -18,7 +18,7 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 		var errResponse = error.data;
 
     	var logMessage = 'The API call {1} failed with HTTP status {2} ({3}). Additional details: {4} {5}'
-    		.assign(action, error.status, error.statusText, errResponse.code, errResponse.message);
+    		.assign(action, error.status, error.statusText, errResponse.code || '', errResponse.message || '');
         $log.error(logMessage);
 
         return $q.reject({
@@ -32,7 +32,13 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 
 		return $http.post(baseUrl +'/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
 			.then(function (response) {	return onSuccess('login', response); })
-			.catch(function(error) { return onError('login', error); });
+			.catch(function(error) { 
+				if(error.data) {
+					// Set error message from server
+					error.data.message = error.data.error_description;
+				}
+				return onError('login', error);
+			});
 	};
 
 	this.addRecipe = function(recipe) {
@@ -83,8 +89,8 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			.catch(function(error) { return onError('addUser', error) });
 	};
 
-	this.getUser = function(userName) {
-		return $http.get(apiUrl + '/user/' + userName)
+	this.getUser = function() {
+		return $http.get(apiUrl + '/user/')
 			.then(function (response) {	return onSuccess('getUser', response.data); })
 			.catch(function(error) { return onError('getUser', error) });
 	};
@@ -95,16 +101,28 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			.catch(function(error) { return onError('updateUser', error) });
 	};
 
-	this.getHistory = function(userId) {
-		return $http.get(apiUrl + '/user/history/' + userId)
+	this.getHistory = function() {
+		return $http.get(apiUrl + '/user/history')
 			.then(function (response) {	return onSuccess('getHistory', response.data); })
 			.catch(function(error) { return onError('getHistory', error) });
 	};
 
-	this.updateHistory = function(userId, recipeId) {
-		return $http.put(apiUrl + '/user/history', { userId: userId, recipeId: recipeId })
+	this.updateHistory = function(recipeId) {
+		return $http.put(apiUrl + '/user/history/' + recipeId)
 			.then(function (response) {	return onSuccess('updateHistory', response.data); })
 			.catch(function(error) { return onError('updateHistory', error) });
+	};
+
+	this.addFavorite = function(recipeId) {
+		return $http.put(apiUrl + '/user/favorites/' + recipeId)
+			.then(function (response) {	return onSuccess('addFavorite', response.data); })
+			.catch(function(error) { return onError('addFavorite', error) });
+	};
+
+	this.removeFavorite = function(recipeId) {
+		return $http.delete(apiUrl + '/user/favorites/' + recipeId)
+			.then(function (response) {	return onSuccess('removeFavorite', response.data); })
+			.catch(function(error) { return onError('removeFavorite', error) });
 	};
 
 	this.getTranslations = function(langCode) {

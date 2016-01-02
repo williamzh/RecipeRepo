@@ -2,7 +2,7 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 	//$scope.previousState = $stateParams.referrer || 'home';
 
 	$scope.initialize = function() {
-		$q.all([apiClient.getRecipe($stateParams.recipeId), apiClient.getUser(userSession.get().userId)])
+		$q.all([apiClient.getRecipe($stateParams.recipeId), apiClient.getUser()])
 			.then(function(responses) {
 				var recipe = responses[0];
 				$scope.recipe = formatRecipe(recipe);
