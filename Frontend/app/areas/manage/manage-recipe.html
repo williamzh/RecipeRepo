@@ -99,8 +99,8 @@
 			<div class="Grid-cell u-sizeFull">
 				<ol class="Toolbar u-spacingTopNone" name="steps" ng-model="currentRecipe.steps" array-required>
 					<li class="Toolbar-item" ng-repeat="step in currentRecipe.steps track by $index">
-						<button type="button" class="Button Button--link Button--inline" ng-click="removeStep(step)"><i class="fa fa-minus"></i></button>
-						<button type="button" class="Button Button--link Button--inline" ng-click="showStepModal(step)">{{$index + 1}}. {{step}}</button>
+						<button type="button" class="Button Button--link Button--inline" ng-click="removeStep($index)"><i class="fa fa-minus"></i></button>
+						<a href="#" ng-click="showStepModal(step, $index)">{{$index + 1}}. {{step.value}}</a>
 					</li>
 				</ol>
 				<div class="ButtonGroup">

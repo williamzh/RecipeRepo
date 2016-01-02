@@ -15,23 +15,26 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-        'app/lib/angular.min.js',
-        'app/lib/angular-mocks.js',
-        'app/lib/sugar.min.js',
-        'app/js/**/*.js',
+        'bower_components/jquery/dist/jquery.js',
+        'bower_components/angular/angular.js',
+        'bower_components/angular-mocks/angular-mocks.js',
+        'bower_components/angular-ui-router/release/angular-ui-router.js',
+        'bower_components/sugar/release/sugar-full.development.js',
+        'bower_components/moment/moment.js',
+        'bower_components/ngstorage/ngStorage.js',
+        'bower_components/angular-slugify/angular-slugify.js',
+        'app/**/*.js',
         'test/**/*.js'
     ],
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-    },
+    preprocessors: {},
 
 
     // test results reporter to use

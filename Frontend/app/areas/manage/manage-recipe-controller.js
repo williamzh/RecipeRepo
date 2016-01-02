@@ -1,13 +1,16 @@
-recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$log', '$stateParams', 'apiClient', 'localizationService', function($scope, $q, $log, $stateParams, apiClient, localizationService) {
+recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$log', '$stateParams', 'apiClient', 'localizationService', 'idGenerator',
+	function($scope, $q, $log, $stateParams, apiClient, localizationService, idGenerator) {
+	
 	$scope.recipeId = $stateParams.recipeId;
 	$scope.inEditMode = $stateParams.recipeId != undefined;
+
 	$scope.currentRecipe = {};
 	$scope.submitted = false;
 
 	$scope.newIngredient = {};
 	$scope.ingredientModalSubmitted = false;
 
-	$scope.newStep = {};	// Use an object, since Angular doesn't handle model binding with strings very well
+	$scope.newStep = {};
 	$scope.stepModalSubmitted = false;
 	
 	$scope.init = function() {
@@ -24,6 +27,12 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 
 				if(recipe) {
 					$scope.currentRecipe = recipe;
+
+					// Convert the steps string array into an object array so that each step is
+					// uniquely identifiable.
+					$scope.currentRecipe.steps.each(function(s, index) {
+						$scope.currentRecipe.steps[index] = { id: index + 1, value: s }
+					});
 				}
 
 				$scope.currentRecipe.meta = {};
@@ -89,7 +98,7 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 
 	$scope.showStepModal = function(step) {
 		if(step) {
-			$scope.newStep.value = step;
+			$scope.newStep = step;
 		}
 
 		$scope.stepModalVisible = true;
@@ -108,15 +117,16 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 
 		// Check if the ingredient already exists
 		var index = $scope.currentRecipe.steps.findIndex(function(step) {
-			return step === $scope.newStep.value;
+			return step.id === $scope.newStep.id;
 		});
 
 		if(index > -1) {
 			$scope.currentRecipe.steps.removeAt(index);
-			$scope.currentRecipe.steps.insert($scope.newStep.value, index);
+			$scope.currentRecipe.steps.insert($scope.newStep, index);
 		}
 		else {
-			$scope.currentRecipe.steps.push($scope.newStep.value);
+			$scope.newStep.id = idGenerator.sequentialId($scope.currentRecipe.steps.map(function(s) { return s.id; }));
+			$scope.currentRecipe.steps.push($scope.newStep);
 		}
 
 		$scope.newStep = {};
