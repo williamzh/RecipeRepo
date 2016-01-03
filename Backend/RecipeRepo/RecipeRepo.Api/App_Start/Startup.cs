@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Web.Cors;
-using System.Web.Http;
 using System.Web.Http.Cors;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
@@ -11,6 +8,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using RecipeRepo.Api.Security;
 using RecipeRepo.Integrations.Db;
+using RecipeRepo.Integrations.Entities;
 using RecipeRepo.Integrations.Repositories;
 
 [assembly: OwinStartup(typeof(RecipeRepo.Api.Startup))]
@@ -33,7 +31,7 @@ namespace RecipeRepo.Api
 			app.UseOAuthBearerTokens(new OAuthAuthorizationServerOptions
 			{
 				TokenEndpointPath = new PathString("/token"),
-				Provider = new ApplicationOAuthProvider(new AuthService(new UserRepository(new DbClient()))),
+				Provider = new ApplicationOAuthProvider(new AuthService(new DbRepository<User>(new DbClient()))),
 				AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(int.Parse(ConfigurationManager.AppSettings["TokenTimeoutMinutes"])),
 				AllowInsecureHttp = true
 			});

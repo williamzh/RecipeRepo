@@ -7,7 +7,6 @@ namespace RecipeRepo.Api
 		public static void Configure()
 		{
 			DbClient.Initialize();
-			DbClient.BuildIndices();
 		}
 	}
 }

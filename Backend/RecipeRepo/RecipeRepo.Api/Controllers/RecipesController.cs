@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
+using RecipeRepo.Api.Contract;
 using RecipeRepo.Api.Core;
-using RecipeRepo.Api.Entities;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Entities;
 

@@ -2,7 +2,7 @@
 using Newtonsoft.Json.Converters;
 using RecipeRepo.Integrations.Entities;
 
-namespace RecipeRepo.Api.Entities
+namespace RecipeRepo.Api.Contract
 {
 	public class FindItemRequest
 	{

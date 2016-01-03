@@ -42,8 +42,9 @@ namespace RecipeRepo.Api
 
 			// Integrations
 			b.RegisterType<DbClient>().As<IDbClient>();
-			b.RegisterType<RecipeRepository>().As<IDbRepository<Recipe>>();
-			b.RegisterType<UserRepository>().As<IDbRepository<User>>();
+			b.RegisterType<DbRepository<Recipe>>().As<IDbRepository<Recipe>>();
+			b.RegisterType<DbRepository<User>>().As<IDbRepository<User>>();
+			b.RegisterType<DbRepository<Meta>>().As<IDbRepository<Meta>>();
 
 			return b.Build();
 		}

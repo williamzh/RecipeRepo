@@ -138,7 +138,7 @@
     <Compile Include="Security\IClaimContext.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\RecipesController.cs" />
-    <Compile Include="Entities\FindItemRequest.cs" />
+    <Compile Include="Contract\FindItemRequest.cs" />
     <Compile Include="Filters\GenericExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RecipeRepo.Common\RecipeRepo.Common.csproj">

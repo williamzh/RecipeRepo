@@ -14,9 +14,35 @@ namespace RecipeRepo.Integrations.Db
 		private static IMongoDatabase _db;
 		private static readonly ILog Log = LogManager.GetLogger(typeof (DbClient));
 
-		public static void Initialize(string dbUrl = null)
+		public static void Initialize()
 		{
-			dbUrl = dbUrl ?? ConfigurationManager.AppSettings["MongoDbUrl"];
+			Connect();
+			BuildIndices();
+		}
+
+		public virtual IMongoCollection<T> GetCollection<T>(string collectionName)
+		{
+			if (_db == null)
+			{
+				Log.Warn("Database was null. Reinitializing...");
+
+				try
+				{
+					Connect();
+				}
+				catch (Exception ex)
+				{
+					Log.Fatal("Database initalization failed.", ex);
+					return null;
+				}
+			}
+
+			return _db.GetCollection<T>(collectionName);
+		}
+
+		private static void Connect()
+		{
+			var dbUrl = ConfigurationManager.AppSettings["MongoDbUrl"];
 			if (dbUrl == null)
 			{
 				throw new InvalidOperationException("Cannot initialize database. No MongoDB connection string has been defined in the AppSettings.");
@@ -29,10 +55,10 @@ namespace RecipeRepo.Integrations.Db
 			Log.Debug("Successfully connected to database  " + dbUrl + ".");
 		}
 
-		public static void BuildIndices()
+		private static void BuildIndices()
 		{
 			// Recipe indices
-			var recipeCollection = _db.GetCollection<Recipe>("recipes");
+			var recipeCollection = _db.GetCollection<Recipe>("recipe");
 			var recipeIndexBuilder = Builders<Recipe>.IndexKeys;
 
 			CreateIndices(recipeCollection,
@@ -49,10 +75,10 @@ namespace RecipeRepo.Integrations.Db
 				{
 					Name = "Recipe_Created_Desc",
 				})
-				);
+			);
 
 			// User indices
-			var userCollection = _db.GetCollection<User>("users");
+			var userCollection = _db.GetCollection<User>("user");
 			var userIndexBuilder = Builders<User>.IndexKeys;
 
 			CreateIndices(userCollection,
@@ -62,27 +88,7 @@ namespace RecipeRepo.Integrations.Db
 				})
 			);
 
-			Log.Debug("Index initialization complete");
-		}
-
-		public virtual IMongoCollection<T> GetCollection<T>(string collectionName)
-		{
-			if (_db == null)
-			{
-				Log.Warn("Database was null. Reinitializing...");
-
-				try
-				{
-					Initialize();
-				}
-				catch (Exception ex)
-				{
-					Log.Fatal("Database initalization failed.", ex);
-					return null;
-				}
-			}
-
-			return _db.GetCollection<T>(collectionName);
+			Log.Debug("Index initialization complete.");
 		}
 
 		private static async void CreateIndices<T>(IMongoCollection<T> collection, params CreateIndexModel<T>[] indexDefinitions)

@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace RecipeRepo.Integrations.Entities
 {
-	public class User
+	public class User : IDbEntity
 	{
 		[BsonRepresentation(BsonType.ObjectId)]
 		public string Id { get; set; }

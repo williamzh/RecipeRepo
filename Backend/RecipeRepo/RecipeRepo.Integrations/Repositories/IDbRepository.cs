@@ -7,9 +7,15 @@ namespace RecipeRepo.Integrations.Repositories
 	/// <summary>
 	/// A simple, low-level interface for database interactions.
 	/// </summary>
-	/// <typeparam name="TEntity"></typeparam>
-	public interface IDbRepository<TEntity>
+	public interface IDbRepository<TEntity> where TEntity : IDbEntity
 	{
+		/// <summary>
+		/// Gets or sets the name of the database collection associated with the enity
+		/// (i.e. "table"). Defaults to the type name, e.g. "item" if the type of 
+		/// <see cref="TEntity"/> is "Item".
+		/// </summary>
+		string CollectionName { get; set; }
+
 		/// <summary>
 		/// Inserts the specified item into the database. 
 		/// </summary>

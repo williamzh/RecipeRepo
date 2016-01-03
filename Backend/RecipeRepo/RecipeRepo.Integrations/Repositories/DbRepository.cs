@@ -7,51 +7,57 @@ using RecipeRepo.Integrations.Entities;
 
 namespace RecipeRepo.Integrations.Repositories
 {
-	public class RecipeRepository : IDbRepository<Recipe>
+	public class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : IDbEntity
 	{
 		private readonly IDbClient _dbClient;
+		private string _collectionName;
 
-		public RecipeRepository(IDbClient dbClient)
+		public DbRepository(IDbClient dbClient)
 		{
 			_dbClient = dbClient;
 		}
 
-		private IMongoCollection<Recipe> Collection { get { return _dbClient.GetCollection<Recipe>("recipes"); } }
-		private FilterDefinitionBuilder<Recipe> FilterBuilder { get { return Builders<Recipe>.Filter; } }
-		private SortDefinitionBuilder<Recipe> SortBuilder { get { return Builders<Recipe>.Sort; } }
+		private IMongoCollection<TEntity> Collection { get { return _dbClient.GetCollection<TEntity>(CollectionName); } }
+		private FilterDefinitionBuilder<TEntity> FilterBuilder { get { return Builders<TEntity>.Filter; } }
+		private SortDefinitionBuilder<TEntity> SortBuilder { get { return Builders<TEntity>.Sort; } }
 
-		public ActionResponse Add(Recipe recipe)
+		public string CollectionName
 		{
-			Collection.InsertOne(recipe);
+			get { return string.IsNullOrEmpty(_collectionName) ? typeof (TEntity).Name.ToLowerInvariant() : _collectionName; }
+			set { _collectionName = value; }
+		}
 
+		public ActionResponse Add(TEntity item)
+		{
+			Collection.InsertOne(item);
 			return new ActionResponse { Code = AppStatusCode.Ok };
 		}
 
-		public ActionResponse<Recipe> Get(string id)
+		public ActionResponse<TEntity> Get(string id)
 		{
 			var hits = Collection.Find(FilterBuilder.Eq("Id", id));
 
-			return new ActionResponse<Recipe>
+			return new ActionResponse<TEntity>
 			{
 				Code = AppStatusCode.Ok,
 				Data = hits.FirstOrDefault()
 			};
 		}
 
-		public ActionResponse<IEnumerable<Recipe>> Get(IEnumerable<string> ids)
+		public ActionResponse<IEnumerable<TEntity>> Get(IEnumerable<string> ids)
 		{
 			var hits = Collection.Find(FilterBuilder.In("Id", ids));
 
-			return new ActionResponse<IEnumerable<Recipe>>
+			return new ActionResponse<IEnumerable<TEntity>>
 			{
 				Code = AppStatusCode.Ok,
 				Data = hits.ToList()
 			};
 		}
 
-		public ActionResponse<IEnumerable<Recipe>> Find<TValue>(string fieldName, TValue value, MatchingStrategy strategy, int limit = 100)
+		public ActionResponse<IEnumerable<TEntity>> Find<TValue>(string fieldName, TValue value, MatchingStrategy strategy, int limit = 100)
 		{
-			FilterDefinition<Recipe> filter;
+			FilterDefinition<TEntity> filter;
 			switch (strategy)
 			{
 				case MatchingStrategy.LessThan:
@@ -67,27 +73,27 @@ namespace RecipeRepo.Integrations.Repositories
 
 			var hits = Collection.Find(filter).Sort(SortBuilder.Descending(fieldName)).Limit(limit);
 
-			return new ActionResponse<IEnumerable<Recipe>>
+			return new ActionResponse<IEnumerable<TEntity>>
 			{
 				Code = AppStatusCode.Ok,
 				Data = hits.ToList()
 			};
 		}
 
-		public ActionResponse<IEnumerable<Recipe>> Search(string query, int limit = 100)
+		public ActionResponse<IEnumerable<TEntity>> Search(string query, int limit = 100)
 		{
 			var textFilter = FilterBuilder.Text(query, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
 
 			var hits = Collection.Find(textFilter).Limit(limit);
 
-			return new ActionResponse<IEnumerable<Recipe>>
+			return new ActionResponse<IEnumerable<TEntity>>
 			{
 				Code = AppStatusCode.Ok,
 				Data = hits.ToList()
 			};
 		}
 
-		public ActionResponse Update(Recipe recipe)
+		public ActionResponse Update(TEntity recipe)
 		{
 			var result = Collection.ReplaceOne(r => r.Id == recipe.Id, recipe);
 			if (!result.IsAcknowledged)
