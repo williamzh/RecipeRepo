@@ -24,6 +24,13 @@ namespace RecipeRepo.Integrations.Repositories
 		ActionResponse Add(TEntity item);
 
 		/// <summary>
+		/// Gets all items in the collection.
+		/// Note: May use a lot of memory for large collections.
+		/// </summary>
+		/// <returns></returns>
+		ActionResponse<IEnumerable<TEntity>> GetAll();
+
+		/// <summary>
 		/// Returns the item with the specified ID, or null if no such item exists.
 		/// </summary>
 		/// <param name="id"></param>

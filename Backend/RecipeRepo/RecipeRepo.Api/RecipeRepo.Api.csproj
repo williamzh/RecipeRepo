@@ -127,12 +127,16 @@
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\MetaController.cs" />
     <Compile Include="Controllers\TranslationsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Core\IMetaStore.cs" />
     <Compile Include="Core\IRecipeStore.cs" />
     <Compile Include="Core\IUserManager.cs" />
+    <Compile Include="Core\MetaStore.cs" />
     <Compile Include="Core\RecipeStore.cs" />
     <Compile Include="Core\UserManager.cs" />
+    <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="IO\JsonFileReader.cs" />
     <Compile Include="Security\ClaimContext.cs" />
     <Compile Include="Security\IClaimContext.cs" />
@@ -162,7 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RecipeRepo.Common\RecipeRepo.Common.csproj">

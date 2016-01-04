@@ -6,6 +6,7 @@ using RecipeRepo.Integrations.Entities;
 
 namespace RecipeRepo.Api.Controllers
 {
+	[Authorize]
     public class UserController : BaseApiController
 	{
 	    private readonly IUserManager _userManager;

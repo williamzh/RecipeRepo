@@ -48,5 +48,14 @@ namespace RecipeRepo.Api.Security
 				Data = user
 			};
 		}
+
+		public ActionResponse<bool> IsAdmin(string userName)
+		{
+			return new ActionResponse<bool>
+			{
+				Code = AppStatusCode.Ok,
+				Data = userName == "wizha"	// TODO: fetch from some sort of store
+			};
+		}
 	}
 }

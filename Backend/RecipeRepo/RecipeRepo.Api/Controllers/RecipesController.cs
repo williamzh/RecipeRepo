@@ -6,6 +6,7 @@ using RecipeRepo.Integrations.Entities;
 
 namespace RecipeRepo.Api.Controllers
 {
+	[Authorize]
     public class RecipesController : BaseApiController
     {
 	    private readonly IRecipeStore _recipeStore;

@@ -33,6 +33,17 @@ namespace RecipeRepo.Integrations.Repositories
 			return new ActionResponse { Code = AppStatusCode.Ok };
 		}
 
+		public ActionResponse<IEnumerable<TEntity>> GetAll()
+		{
+			var allItems = Collection.Find(FilterBuilder.Empty);
+
+			return new ActionResponse<IEnumerable<TEntity>>
+			{
+				Code = AppStatusCode.Ok,
+				Data = allItems.ToList()
+			};
+		}
+
 		public ActionResponse<TEntity> Get(string id)
 		{
 			var hits = Collection.Find(FilterBuilder.Eq("Id", id));

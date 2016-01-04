@@ -4,7 +4,6 @@ using RecipeRepo.Common.Contract;
 
 namespace RecipeRepo.Api.Controllers
 {
-	[AllowAnonymous]
     public class TranslationsController : BaseApiController
     {
 	    private readonly JsonFileReader _jsonReader;

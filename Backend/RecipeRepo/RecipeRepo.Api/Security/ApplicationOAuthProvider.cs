@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Owin.Security.OAuth;
 using RecipeRepo.Common.Contract;
@@ -36,7 +34,7 @@ namespace RecipeRepo.Api.Security
 				context.SetError("unexpected_error", "An unexpected error occured during authentication.");
 				return;
 			}
-
+			
 			var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 			identity.AddClaims(new []
 			{
@@ -44,6 +42,12 @@ namespace RecipeRepo.Api.Security
 				new Claim("userName", context.UserName),
 				new Claim("lang", authResponse.Data.Settings.Language)
 			});
+
+			var claimsResponse = _authService.IsAdmin(context.UserName);
+			if (claimsResponse.Code == AppStatusCode.Ok && claimsResponse.Data)
+			{
+				identity.AddClaim(new Claim("privilege", "admin"));
+			}
 
 			context.Validated(identity);
 		}
