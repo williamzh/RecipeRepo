@@ -1,29 +1,18 @@
-recipeRepoControllers.controller('editProfileController', ['$scope', 'userSession', 'apiClient', function($scope, userSession, apiClient) {
-	$scope.selectedLang = undefined;
+recipeRepoControllers.controller('editProfileController', ['$scope', '$q', 'apiClient', function($scope, $q, apiClient) {
+	$scope.profile = {};
 
 	$scope.init = function() {
-		var user = userSession.get().user;
-		apiClient.getUser()
-			.then(function(user) {
-				$scope.profile = user;
+		$q.all([apiClient.getUser(), apiClient.getLanguages()])
+			.then(function(responses) {
+				$scope.profile = responses[0];
 				$scope.fakePassword = '********';
+
+				$scope.supportedLanguages = responses[1];
+				$scope.selectedLang = $scope.supportedLanguages[0];
 			})
 			.catch(function() {
 				$scope.showError = true;
 			});
-
-		$scope.supportedLanguages = [{
-			text: 'Swedish',
-			value: 'sv-SE'
-		}];
-		
-		// $scope.selectedLang = $scope.supportedLanguages.find(function(lang) { 
-		// 	return lang.value === user.settings.language;
-		// });
-
-		// console.log($scope.supportedLanguages.find(function(lang) { 
-		// 	return lang.value === user.settings.language;
-		// }));
 	};
 
 	$scope.updateProfile = function() {
@@ -33,7 +22,7 @@ recipeRepoControllers.controller('editProfileController', ['$scope', 'userSessio
 
 		$scope.profileUpdated = false;
 
-		apiClient.updateUser($scope.profile.userName, $scope.profile)
+		apiClient.updateUser($scope.profile)
 			.then(function() {
 				$scope.profileUpdated = true;
 

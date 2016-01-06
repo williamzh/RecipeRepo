@@ -28,6 +28,24 @@ namespace RecipeRepo.Api.Controllers
 			return Ok(response);
 		}
 
+		[Route("api/user/find/{userName}")]
+		public IHttpActionResult GetByUserName(string userName)
+		{
+			if (string.IsNullOrEmpty(userName))
+			{
+				return BadRequest(AppStatusCode.InvalidInput, "Username must be provided.");
+			}
+
+			var response = _userManager.GetUserByUserName(userName);
+			if (response.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("GET /user/{0} failed with code {1}. {2}", userName, (int)response.Code, response.Message);
+				return InternalServerError(response.Code, response.Message);
+			}
+
+			return Ok(response);
+		}
+
 		[AllowAnonymous]
 		public IHttpActionResult Post(User user)
 		{
@@ -72,25 +90,6 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("DELETE /user/{0} failed with code {1}. {2}", ClaimContext.UserId, (int)response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
-			}
-
-			return Ok(response);
-		}
-
-		[Route("api/user/find")]
-		[HttpPost]
-		public IHttpActionResult Find(FindItemRequest request)
-		{
-			if (request == null)
-			{
-				return BadRequest(AppStatusCode.InvalidInput, "Find request object must be provided.");
-			}
-
-			var response = _userManager.FindUsersByUserName(request.Value, request.Limit);
-			if (response.Code != AppStatusCode.Ok)
-			{
-				Log.ErrorFormat("POST /user/find failed for value {0} with code {1}. {2}", request.Value, (int)response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
 			}
 

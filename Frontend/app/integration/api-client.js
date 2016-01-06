@@ -96,7 +96,7 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 	};
 
 	this.updateUser = function(user) {
-		return $http.post(apiUrl + '/user', user)
+		return $http.put(apiUrl + '/user', user)
 			.then(function (response) {	return onSuccess('updateUser', response.data); })
 			.catch(function(error) { return onError('updateUser', error) });
 	};
@@ -127,7 +127,13 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 
 	this.getTranslations = function(langCode) {
 		return $http.get(apiUrl + '/translations/' + langCode)
-			.then(function (response) {	return onSuccess('translations', response.data); })
-			.catch(function(error) { return onError('translations', error) });
+			.then(function (response) {	return onSuccess('getTranslations', response.data); })
+			.catch(function(error) { return onError('getTranslations', error) });
+	};
+
+	this.getLanguages = function() {
+		return $http.get(apiUrl + '/translations/languages')
+			.then(function (response) {	return onSuccess('getLanguages', response.data); })
+			.catch(function(error) { return onError('getLanguages', error) });
 	};
 }]);

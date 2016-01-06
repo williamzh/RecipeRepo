@@ -39,6 +39,7 @@ namespace RecipeRepo.Api
 			b.RegisterType<ClaimContext>().As<IClaimContext>();
 
 			// IO
+			b.RegisterType<FileManager>().As<IFileManager>();
 			b.RegisterType<JsonFileReader>().AsSelf();
 
 			// Integrations

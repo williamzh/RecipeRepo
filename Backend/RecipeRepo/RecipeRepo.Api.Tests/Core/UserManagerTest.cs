@@ -120,20 +120,74 @@ namespace RecipeRepo.Api.Tests.Core
 		}
 
 		[TestMethod]
-		public void GetUser_MatchingUserExists_ReturnsUserWithHiddenPassword()
+		public void GetUser_MatchingUserExists_ReturnsUser()
 		{
 			// Arrange
 			_userRepoMock.Setup(u => u.Get(It.IsAny<string>())).Returns(new ActionResponse<User>
 			{
 				Code = AppStatusCode.Ok,
-				Data = new User { Password = "foo" }
+				Data = new User { UserName = "12345" }
 			});
 
 			// Act
 			var response = _userManager.GetUser("12345");
 
 			// Assert
-			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.Password == null);
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.UserName == "12345");
+		}
+
+		[TestMethod]
+		public void GetUserByUserName_DbQueryFailed_ReturnsError()
+		{
+			// Arrange
+			_userRepoMock.Setup(u => u.Find(It.IsAny<string>(), It.IsAny<string>(), MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<User>>
+			{
+				Code = AppStatusCode.UnknownError
+			});
+
+			// Act
+			var response = _userManager.GetUserByUserName("foo");
+
+			// Assert
+			Assert.AreEqual(AppStatusCode.UnknownError, response.Code);
+		}
+
+		[TestMethod]
+		public void GetUserByUserName_NoMatchingUsersExist_ReturnsNull()
+		{
+			// Arrange
+			_userRepoMock.Setup(u => u.Find(It.IsAny<string>(), It.IsAny<string>(), MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<User>>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new List<User>()
+			});
+
+			// Act
+			var response = _userManager.GetUserByUserName("foo");
+
+			// Assert
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data == null);
+		}
+
+		[TestMethod]
+		public void GetUserByUserName_MatchingUserExists_ReturnsUser()
+		{
+			// Arrange
+			_userRepoMock.Setup(u => u.Find(It.IsAny<string>(), It.IsAny<string>(), MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<User>>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new[]
+				{
+					new User { Id = "1", UserName = "user1" },
+					new User { Id = "2", UserName = "user2" }
+				}
+			});
+
+			// Act
+			var response = _userManager.GetUserByUserName("user1");
+
+			// Assert
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.UserName == "user1");
 		}
 
 		[TestMethod]
@@ -279,64 +333,6 @@ namespace RecipeRepo.Api.Tests.Core
 			// Assert
 			Assert.AreEqual(AppStatusCode.Ok, response.Code);
 			_userRepoMock.Verify(r => r.Remove("12345"), Times.Once());
-		}
-
-		[TestMethod]
-		public void FindUsersByUserName_DbQueryFailed_ReturnsError()
-		{
-			// Arrange
-			_userRepoMock.Setup(u => u.Find(It.IsAny<string>(), It.IsAny<string>(), MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<User>>
-			{
-				Code = AppStatusCode.UnknownError
-			});
-
-			// Act
-			var response = _userManager.FindUsersByUserName("foo", 100);
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.UnknownError, response.Code);
-		}
-
-		[TestMethod]
-		public void FindUsersByUserName_NoMatchingUsersExist_ReturnsEmptySequence()
-		{
-			// Arrange
-			_userRepoMock.Setup(u => u.Find(It.IsAny<string>(), It.IsAny<string>(), MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<User>>
-			{
-				Code = AppStatusCode.Ok,
-				Data = new List<User>()
-			});
-
-			// Act
-			var response = _userManager.FindUsersByUserName("foo", 100);
-
-			// Assert
-			Assert.IsTrue(response.Code == AppStatusCode.Ok && !response.Data.Any());
-		}
-
-		[TestMethod]
-		public void FindUsersByUserName_MatchingUsersExist_ReturnsUsersWithHiddenPasswords()
-		{
-			// Arrange
-			_userRepoMock.Setup(u => u.Find(It.IsAny<string>(), It.IsAny<string>(), MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<User>>
-			{
-				Code = AppStatusCode.Ok,
-				Data = new []
-				{
-					new User { Id = "1", UserName = "user1" },
-					new User { Id = "2", UserName = "user2" }
-				}
-			});
-
-			// Act
-			var response = _userManager.FindUsersByUserName("user", 100);
-
-			// Assert
-			Assert.IsTrue(
-				response.Code == AppStatusCode.Ok && 
-				response.Data.Count() == 2 && 
-				response.Data.All(u => u.Password == null)
-			);
 		}
 
 		[TestMethod]

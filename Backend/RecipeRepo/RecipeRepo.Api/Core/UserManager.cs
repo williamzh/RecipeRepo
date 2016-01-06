@@ -48,13 +48,26 @@ namespace RecipeRepo.Api.Core
 
 		public ActionResponse<User> GetUser(string userId)
 		{
-			var response = _userRepository.Get(userId);
-			if (response.Code == AppStatusCode.Ok && response.Data != null)
+			return _userRepository.Get(userId);
+		}
+
+		public ActionResponse<User> GetUserByUserName(string userName)
+		{
+			var response = _userRepository.Find("UserName", userName, MatchingStrategy.Equals, 1);
+			if (response.Code != AppStatusCode.Ok)
 			{
-				response.Data.Password = null;
+				return new ActionResponse<User>
+				{
+					Code = response.Code,
+					Message = response.Message
+				};
 			}
 
-			return response;
+			return new ActionResponse<User>
+			{
+				Code = AppStatusCode.Ok,
+				Data = response.Data.FirstOrDefault()
+			};
 		}
 
 		public ActionResponse UpdateUser(User user)
@@ -110,20 +123,6 @@ namespace RecipeRepo.Api.Core
 			}
 
 			return _userRepository.Remove(userId);
-		}
-
-		public ActionResponse<IEnumerable<User>> FindUsersByUserName(string userName, int limit)
-		{
-			var response = _userRepository.Find("UserName", userName, MatchingStrategy.Equals, limit == 0 ? 100 : limit);
-			if (response.Code == AppStatusCode.Ok)
-			{
-				foreach (var user in response.Data)
-				{
-					user.Password = null;
-				}
-			}
-
-			return response;
 		}
 
 		public ActionResponse<IEnumerable<Recipe>> GetUserHistory(string userId)

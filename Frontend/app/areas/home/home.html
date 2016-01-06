@@ -21,14 +21,14 @@
 			<div ng-if="latestRecipes.length === 0" class="Section-placeholder">
 				<h3>{{'home/latestPlaceholder' | translate}}</h3>
 			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3" ng-repeat="recipe in latestRecipes">
+			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of6" ng-repeat="recipe in latestRecipes">
 				<div class="Box">
 					<div class="Box-content" ng-click="showRecipe(recipe)">
 						<div class="Box-image">
 							<div ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 						</div>
 						<div class="Box-overlay">
-							<h2 class="Box-heading">{{recipe.name}}</h2>
+							<h4 class="Box-heading">{{recipe.name}}</h4>
 							<div class="Box-meta">
 								<i class="fa fa-clock-o"></i>
 								&nbsp;{{recipe.meta.created | timeAgo}}
@@ -49,14 +49,14 @@
 			<div ng-if="topRecipes.length === 0" class="Section-placeholder">
 				<h3>{{'home/topRatedPlaceholder' | translate}}</h3>
 			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3" ng-repeat="recipe in topRecipes">
+			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of6" ng-repeat="recipe in topRecipes">
 				<div class="Box">
 					<div class="Box-content" ng-click="showRecipe(recipe)">
 						<div class="Box-image">
 							<div ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 						</div>
 						<div class="Box-overlay">
-							<h2 class="Box-heading">{{recipe.name}}</h2>
+							<h4 class="Box-heading">{{recipe.name}}</h4>
 							<div class="Box-meta">
 								<i class="fa fa-star-o"></i>
 								&nbsp;{{recipe.meta.rating}}
@@ -77,14 +77,14 @@
 			<div ng-if="history.length === 0" class="Section-placeholder">
 				<h3>{{'home/historyPlaceholder' | translate}}</h3>
 			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2 u-xl-size1of3" ng-repeat="recipe in history">
+			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of6" ng-repeat="recipe in history">
 				<div class="Box">
 					<div class="Box-content" ng-click="showRecipe(recipe)">
 						<div class="Box-image">
 							<div ng-style="{ 'background-image': 'url({{recipe.imagePath}})' }"></div>
 						</div>
 						<div class="Box-overlay">
-							<h2 class="Box-heading">{{recipe.name}}</h2>
+							<h4 class="Box-heading">{{recipe.name}}</h4>
 							<div class="Box-meta"></div>
 						</div>
 						<div class="Box-footer">
