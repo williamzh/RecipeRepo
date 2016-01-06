@@ -13,17 +13,17 @@
 					<div class="Banner-card">
 						<h3 class="u-spacingBothSm">{{recipe.name}}</h3>
 						<ul class="Toolbar">
-							<li class="Toolbar-item Toolbar-item--large" ng-click="onFavoriteClick($event)">
-								<a href="#"><i class="fa" ng-class="isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
+							<li class="Toolbar-item Toolbar-item--block" ng-click="onFavoriteClick($event)">
+								<a href="#"><i class="fa fa-lg" ng-class="isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
 							</li>
-							<li class="Toolbar-item Toolbar-item--large" ng-if="isEditable">
-								<a ui-sref="manage/edit({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o"></i></a>
+							<li class="Toolbar-item Toolbar-item--block" ng-if="isEditable">
+								<a ui-sref="recipe/edit({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o fa-lg"></i></a>
 							</li>
 						</ul>
 						<ul class="Toolbar">
-							<li class="Toolbar-item">{{('metaTags/' + recipe.meta.cuisine) | translate}}</li>
-							<li class="Toolbar-item">{{('metaTags/' + recipe.meta.category) | translate}}</li>
-							<li class="Toolbar-item">{{('metaTags/' + recipe.meta.course) | translate}}</li>
+							<li class="Toolbar-item">{{('meta/' + recipe.meta.cuisine) | translate}}</li>
+							<li class="Toolbar-item">{{('meta/' + recipe.meta.category) | translate}}</li>
+							<li class="Toolbar-item">{{('meta/' + recipe.meta.course) | translate}}</li>
 						</ul>
 					</div>
 				</div>

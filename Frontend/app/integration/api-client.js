@@ -42,7 +42,7 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 	};
 
 	this.addRecipe = function(recipe) {
-		return $http.post(apiUrl + '/recipes', { recipe: recipe })
+		return $http.post(apiUrl + '/recipes', recipe)
 			.then(function (response) {	return onSuccess('addRecipe', response.data); })
 			.catch(function(error) { return onError('addRecipe', error) });
 	};
@@ -65,8 +65,8 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			.catch(function(error) { return onError('searchRecipes', error) });
 	};
 
-	this.updateRecipe = function(id, recipe) {
-		return $http.put(apiUrl + '/recipes/' + id, { recipe: recipe })
+	this.updateRecipe = function(recipe) {
+		return $http.put(apiUrl + '/recipes', recipe)
 			.then(function (response) {	return onSuccess('updateRecipe', response.data); })
 			.catch(function(error) { return onError('updateRecipe', error) });
 	};
@@ -84,7 +84,7 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 	};
 
 	this.addUser = function(user) {
-		return $http.post(baseUrl + '/auth/register', { user: user })
+		return $http.post(baseUrl + '/auth/register', user)
 			.then(function (response) {	return onSuccess('addUser', response.data); })
 			.catch(function(error) { return onError('addUser', error) });
 	};
@@ -95,8 +95,8 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			.catch(function(error) { return onError('getUser', error) });
 	};
 
-	this.updateUser = function(userName, user) {
-		return $http.post(apiUrl + '/user/' + userName, { user: user })
+	this.updateUser = function(user) {
+		return $http.post(apiUrl + '/user', user)
 			.then(function (response) {	return onSuccess('updateUser', response.data); })
 			.catch(function(error) { return onError('updateUser', error) });
 	};

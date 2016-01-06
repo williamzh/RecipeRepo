@@ -12,16 +12,12 @@
 }
 
 .Toolbar-item--block {
+    &:not(:last-child) {
+        margin-bottom: 0.5em;
+    }
+
     a {
         display: block;
-    }
-}
-
-.Toolbar-item--large {
-    font-size: $font-size-md;
-
-    @media(min-width: $lg-viewport) {
-        font-size: $font-size-lg;
     }
 }
 

@@ -1,4 +1,4 @@
-recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', '$q', 'userSession', 'apiClient', function($scope, $stateParams, $state, $q, userSession, apiClient) {
+recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', '$q', 'apiClient', function($scope, $stateParams, $state, $q, apiClient) {
 	//$scope.previousState = $stateParams.referrer || 'home';
 
 	$scope.initialize = function() {
@@ -11,7 +11,7 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 				$scope.isFavorite = user.favoriteRecipes.indexOf($scope.recipe.id) > -1;
 				$scope.isEditable = user.ownedRecipes.indexOf($scope.recipe.id) > -1;
 
-				return apiClient.updateHistory(user.id, recipe.id);
+				return apiClient.updateHistory(recipe.id);
 			})
 			.catch(function(errResponse) {
 				$scope.hasError = true;
@@ -21,16 +21,13 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 	$scope.onFavoriteClick = function(e) {
 		var isFavorite = $scope.isFavorite;
 		$scope.isFavorite = !$scope.isFavorite;
+		
 		if(isFavorite) {
-			return;
+			apiClient.removeFavorite($scope.recipe.id);
 		}
-
-		var user = userSession.get().user;
-		user.favoriteRecipes.push($scope.recipe.id);
-
-		apiClient.updateUser(user.userName, user).then(function(response) {
-			$scope.recipe.isFavorite = recipe.isFavorite;
-		});
+		else {
+			apiClient.addFavorite($scope.recipe.id);
+		}		
 	};
 
 	$scope.removeRecipe = function() {

@@ -19,20 +19,24 @@
 		"genericRequired": "Detta fält är obligatoriskt",
 		"numberFormat": "Vänligen ange ett numeriskt värde"
 	},
-	"metaTags": {
-		"swedish": "Svenskt",
-		"italian": "Italienskt",
-		"chinese": "Kinesiskt",
-		"fish": "Fisk",
-		"meat": "Kött",
-		"rice-grains": "Ris",
-		"pasta": "Pasta",
-		"gratins-pies": "Gratänger och pajer",
-		"sauces": "Såser",
-		"soups": "Soppor",
-		"main": "Huvudrätt",
-		"side": "Tillbehör",
-		"dessert": "Dessert"
+	"meta": {
+		"cui_se": "Svenskt",
+		"cui_it": "Italienskt",
+        "cui_cn": "Kinesiskt",
+        "cui_fr": "Franskt",
+
+        "cou_main": "Huvudrätt",
+		"cou_side": "Tillbehör",
+		"cou_dessert": "Dessert",
+
+		"cat_fish": "Fisk",
+		"cat_chicken": "Kyckling",
+		"cat_wok": "Wok",
+		"cat_pasta": "Pasta",
+        "cat_gratins": "Gratänger",
+        "cat_pies":  "Pies",
+		"cat_sauces": "Såser",
+        "cat_soups": "Soppor"
 	},
 	"login": {
 		"mainHeading": "Välkommen till ???!",

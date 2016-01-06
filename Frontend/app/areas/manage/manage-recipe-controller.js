@@ -4,7 +4,9 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 	$scope.recipeId = $stateParams.recipeId;
 	$scope.inEditMode = $stateParams.recipeId != undefined;
 
-	$scope.currentRecipe = {};
+	$scope.currentRecipe = {
+		meta: {}
+	};
 	$scope.submitted = false;
 
 	$scope.newIngredient = {};
@@ -35,8 +37,6 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 					});
 				}
 
-				$scope.currentRecipe.meta = {};
-				
 				$scope.cuisines = getMetaInfoValues('cuisines', allMetaInfo);
 				$scope.currentRecipe.meta.cuisine = $scope.cuisines[0];
 
@@ -53,9 +53,7 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 	};
 
 	$scope.showIngredientModal = function(ingredient) {
-		if(ingredient) {
-			$scope.newIngredient = ingredient;
-		}
+		$scope.newIngredient = ingredient || {};
 
 		$scope.ingredientModalVisible = true;
 	};
@@ -97,9 +95,7 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 	};
 
 	$scope.showStepModal = function(step) {
-		if(step) {
-			$scope.newStep = step;
-		}
+		$scope.newStep = step || {};
 
 		$scope.stepModalVisible = true;
 	};
@@ -115,7 +111,7 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			$scope.currentRecipe.steps = [];
 		}
 
-		// Check if the ingredient already exists
+		// Check if the step already exists
 		var index = $scope.currentRecipe.steps.findIndex(function(step) {
 			return step.id === $scope.newStep.id;
 		});
@@ -148,7 +144,8 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			return;
 		}
 
-		console.log($scope.currentRecipe);
+		// Convert steps back into a string collection
+		$scope.currentRecipe.steps = $scope.currentRecipe.steps.map(function(s) { return s.value; });
 
 		if(!$scope.inEditMode) {
 			$scope.recipeCreated = false;
@@ -170,14 +167,14 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 		else {
 			$scope.recipeUpdated = false;
 
-			// apiClient.updateRecipe($scope.currentRecipe)
-			// 	.then(function() {
-			// 		$scope.recipeUpdated = true;
-			// 		$scope.submitted = false;
-			// 	})
-			// 	.catch(function() {
-			// 		$scope.showError = true;
-			// 	});
+			apiClient.updateRecipe($scope.currentRecipe)
+				.then(function() {
+					$scope.recipeUpdated = true;
+					$scope.submitted = false;
+				})
+				.catch(function() {
+					$scope.showError = true;
+				});
 		}
 	};
 
@@ -189,7 +186,6 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			throw new Error('formInitError' + metaInfoObjName.capitalize());
 		}
 		
-		$log.debug('Mapped meta info for ' + metaInfoObjName);
 		return metaInfoObj.values;		
 	}
 }]);

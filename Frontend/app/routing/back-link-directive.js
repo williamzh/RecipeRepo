@@ -15,6 +15,6 @@ recipeRepoDirectives.directive('rdBackLink', ['$window', '$state', function($win
                 }
             });
         },
-        template: '<a class="back"><i class="fa fa-chevron-left"></i> <rd-translate key="global/backLabel"></rd-translate></a>'
+        template: '<a href="#" class="Button--link"><i class="fa fa-chevron-left"></i> {{"global/backLabel" | translate}}</a>'
     }
 }]);

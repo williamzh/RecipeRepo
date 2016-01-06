@@ -2,10 +2,10 @@
 	<rd-back-link ng-if="inEditMode" target-state="recipe" target-params="{ recipeId: recipeId }"></rd-back-link>
 
 	<form name="recipeForm" ng-submit="onSubmit()" novalidate>
-		<div  class="u-spacingBottomMd">
+		<div  class="u-spacingBothMd">
 			<alert ng-show="showError" type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{errorMessage}}"></alert>
-			<alert ng-show="recipeCreated" type="success" message="manage/creationSuccessMessage"></alert>
-			<alert ng-show="recipeUpdated" type="success" message="manage/updateSuccessMessage"></alert>
+			<alert ng-show="recipeCreated" type="success" message="{{'manage/creationSuccessMessage' | translate}}"></alert>
+			<alert ng-show="recipeUpdated" type="success" message="{{'manage/updateSuccessMessage'| translate}}"></alert>
 		</div>
 
 		<h1 ng-if="!inEditMode">{{'manage/createRecipeHeading' | translate}}</h1>
@@ -14,9 +14,9 @@
 		<h2 class="u-spacingTopMd u-spacingBottomSm">{{'manage/detailsSubHeading' | translate}}</h2>
 		<div class="Grid Grid--withGutter" validator>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
-				<div class="Control" ng-class="{ 'has-error': hasError('recipeName') }">
-					<label class="Control-label" for="recipeName">{{'manage/recipeNameLabel' | translate}}</label>
-					<input type="text" class="Control-field" name="recipeName" ng-model="currentRecipe.recipeName" id="recipeName" required />
+				<div class="Control" ng-class="{ 'has-error': hasError('name') }">
+					<label class="Control-label" for="name">{{'manage/recipeNameLabel' | translate}}</label>
+					<input type="text" class="Control-field" name="name" ng-model="currentRecipe.name" id="name" required />
 					<span class="Control-error">{{'validation/genericRequired' | translate}}</span>
 				</div>
 			</div>
@@ -28,28 +28,28 @@
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
-				<div class="Control" ng-class="{ 'has-error': hasError('servingSize') }">
-					<label class="Control-label" for="servingSize">{{'manage/servingsLabel' | translate}}</label>
-					<input type="number" class="Control-field" name="servingSize" ng-model="currentRecipe.servingSize" min="1" step="1" id="servingSize" required>
+				<div class="Control" ng-class="{ 'has-error': hasError('servings') }">
+					<label class="Control-label" for="servings">{{'manage/servingsLabel' | translate}}</label>
+					<input type="number" class="Control-field" name="servings" ng-model="currentRecipe.meta.servings" min="1" step="1" id="servings" required>
 					<span class="Control-error">{{'validation/genericRequired' | translate}}</span>
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control">
 					<label class="Control-label" for="cuisine">{{'manage/cuisineLabel' | translate}}</label>
-					<select class="Control-field" name="cuisine" ng-model="currentRecipe.meta.cuisine" ng-options="c as (('metaTags/' + c) | translate) for c in cuisines" id="cuisine"></select>
+					<select class="Control-field" name="cuisine" ng-model="currentRecipe.meta.cuisine" ng-options="c as (('meta/' + c) | translate) for c in cuisines" id="cuisine"></select>
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control">
 					<label class="Control-label" for="category">{{'manage/categoryLabel' | translate}}</label>
-					<select class="Control-field" name="category" ng-model="currentRecipe.meta.category" ng-options="c as (('metaTags/' + c) | translate) for c in categories" id="category"></select>
+					<select class="Control-field" name="category" ng-model="currentRecipe.meta.category" ng-options="c as (('meta/' + c) | translate) for c in categories" id="category"></select>
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control">
 					<label class="Control-label" for="course">{{'manage/courseLabel' | translate}}</label>
-					<select class="Control-field" name="category" ng-model="currentRecipe.meta.course" ng-options="c as (('metaTags/' + c) | translate) for c in courses" id="course"></select>
+					<select class="Control-field" name="category" ng-model="currentRecipe.meta.course" ng-options="c as (('meta/' + c) | translate) for c in courses" id="course"></select>
 				</div>
 			</div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
@@ -79,12 +79,13 @@
 		<h2 class="u-spacingTopMd u-spacingBottomSm">{{'manage/ingredientsSubHeading' | translate}}</h2>
 		<div class="Grid Grid--withGutter" validator>
 			<div class="Grid-cell u-sizeFull">
-				<ul class="Toolbar u-spacingTopNone" name="ingredients" ng-model="currentRecipe.ingredients" array-required>
+				<ul class="Toolbar u-spacingTopNone" name="ingredients" ng-model="currentRecipe.ingredients" ui-sortable array-required>
 					<li class="Toolbar-item" ng-repeat="ing in currentRecipe.ingredients track by $index">
 						<button type="button" class="Button Button--link Button--inline" ng-click="removeIngredient($index)"><i class="fa fa-minus"></i></button>
 						<a href="#" ng-click="showIngredientModal(ing)">{{'{1} {2} {3}{4}'.assign(ing.quantity, ing.unit, ing.name, (ing.component ? ' (' + ing.component + ')' : ''))}}</a>
 					</li>
 				</ul>
+
 				<div class="ButtonGroup">
 					<button type="button" class="Button Button--link" ng-click="showIngredientModal()">{{'manage/newIngredientLabel' | translate}}</button>
 				</div>
@@ -97,12 +98,12 @@
 		<h2 class="u-spacingTopMd u-spacingBottomSm">{{'manage/methodSubHeading' | translate}}</h2>
 		<div class="Grid Grid--withGutter" validator>
 			<div class="Grid-cell u-sizeFull">
-				<ol class="Toolbar u-spacingTopNone" name="steps" ng-model="currentRecipe.steps" array-required>
+				<ul class="Toolbar u-spacingTopNone" name="steps" ng-model="currentRecipe.steps" ui-sortable array-required>
 					<li class="Toolbar-item" ng-repeat="step in currentRecipe.steps track by $index">
 						<button type="button" class="Button Button--link Button--inline" ng-click="removeStep($index)"><i class="fa fa-minus"></i></button>
 						<a href="#" ng-click="showStepModal(step, $index)">{{$index + 1}}. {{step.value}}</a>
 					</li>
-				</ol>
+				</ul>
 				<div class="ButtonGroup">
 					<button type="button" class="Button Button--link" ng-click="showStepModal()">{{'manage/newStepLabel' | translate}}</button>
 				</div>
@@ -113,7 +114,7 @@
 		</div>
 
 		<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopLg">
-			<button type="submit" class="Button Button--primary" rd-scroll scroll-target="top" ng-click="submitted = true" ng-disabled="showError">{{'manage/submitButton' | translate}}</button>
+			<button type="submit" class="Button Button--primary" rd-scroll scroll-target="top" ng-click="submitted = true">{{'manage/submitButton' | translate}}</button>
 		</div>
 	</form>
 

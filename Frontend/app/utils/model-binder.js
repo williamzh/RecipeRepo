@@ -5,6 +5,8 @@ recipeRepoDirectives.directive('modelBinder', ['$log', function($log) {
         link: function (scope, element, attrs, ngModel) {
             var type = attrs.modelBinder;
 
+            console.log(type);
+
             // Inbound binding - parse string values
             ngModel.$parsers.push(function(val) {
                 switch(type) {
@@ -21,7 +23,7 @@ recipeRepoDirectives.directive('modelBinder', ['$log', function($log) {
             });
             // Outbound binding - convert values into strings
             ngModel.$formatters.push(function (val) {
-                return val ? val.toString() : '';
+                return (val !== undefined && val !== null) ? val.toString() : '';
             });
         }
     };

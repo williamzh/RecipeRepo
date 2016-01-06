@@ -10,12 +10,14 @@ module.exports = function(grunt) {
 				files: {
 					'dist/app/lib.min.js': [
 						'bower_components/jquery/dist/jquery.js',
+						'bower_components/jquery-ui/jquery-ui.js',
 						'bower_components/sugar/release/sugar-full.development.js',
 						'bower_components/angular/angular.js',
 						'bower_components/angular-mocks/angular-mocks.js',
 						'bower_components/angular-ui-router/release/angular-ui-router.js',
 						'bower_components/ngstorage/ngStorage.js',
 						'bower_components/angular-slugify/angular-slugify.js',
+						'bower_components/angular-ui-sortable/sortable.js',
 						'bower_components/moment/min/moment-with-locales.js'
 					],
 					'dist/app/app.min.js': ['app/**/*.js']
