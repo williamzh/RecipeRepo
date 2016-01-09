@@ -1,6 +1,4 @@
 recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', '$q', 'apiClient', function($scope, $stateParams, $state, $q, apiClient) {
-	//$scope.previousState = $stateParams.referrer || 'home';
-
 	$scope.initialize = function() {
 		$q.all([apiClient.getRecipe($stateParams.recipeId), apiClient.getUser()])
 			.then(function(responses) {

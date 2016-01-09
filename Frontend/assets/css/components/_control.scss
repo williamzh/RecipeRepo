@@ -1,3 +1,26 @@
+@mixin control-discrete($color) {
+	position: relative;
+	color: $color;
+
+	.Control-field {
+		border: none;
+		border-bottom: 1px solid $color;
+		background: transparent;
+		padding-left: 50px;
+		font-size: $font-size-lg;
+
+		&:focus {
+			color: $color;
+			border: none;
+			border-bottom: 1px solid $color;
+		}
+
+		@media(min-width: $sm-viewport) {
+			font-size: $font-size-lg * 1.2;
+		}
+	}
+}
+
 .Control {
 	width: 100%;
 	margin-bottom: 20px;
@@ -10,8 +33,11 @@
 }
 
 .Control--discrete {
-	position: relative;
-	color: $color-white;
+	@include control-discrete($color-white);
+}
+
+.Control--discreteDark {
+	@include control-discrete($color-gray-light);
 }
 
 .Control.has-error {
@@ -37,7 +63,7 @@
 
 .Control-field {
 	display: block;
-	box-sizing: border-box;
+	box-sizing: border-box !important;	// Don't allow browsers to override
 	border: 1px solid #c3c3c3;
 	background-color: #FFF;
 	outline: none;
@@ -54,22 +80,6 @@
 .Control-textarea {
 	@extend .Control-field;
 	height: 100px;
-}
-
-.Control--discrete .Control-field {
-	border: none;
-	border-bottom: 1px solid #FFF;
-	background: transparent;
-	padding-left: 50px;
-	font-size: $font-size-lg;
-
-	&:focus {
-		color: #FFF;
-	}
-
-	@media(min-width: $sm-viewport) {
-		font-size: $font-size-lg * 1.2;
-	}
 }
 
 .Control-addOn {

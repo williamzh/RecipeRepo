@@ -25,7 +25,7 @@ namespace RecipeRepo.Api.Controllers
 				return BadRequest(AppStatusCode.InvalidInput, "Language code must be provided.");
 		    }
 
-		    var translations = _jsonReader.GetFileContents("~/Localization/lang_" + langCode.ToLower() + ".json");
+		    var translations = _jsonReader.GetFileContents<dynamic>("~/Localization/lang_" + langCode + ".json");
 
 		    var response = new ActionResponse<dynamic>
 		    {

@@ -3,7 +3,9 @@
 		<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
 	</div>
 
-	<div class="recipe-details-wrapper" ng-show="!hasError">
+	<!-- <rd-back-link></rd-back-link> -->
+
+	<div ng-show="!hasError">
 		<div class="Banner">
 			<div class="Banner-figure">
 				<div ng-style="{ 'background-image':'url(' + recipe.imagePath + ')'}"></div>

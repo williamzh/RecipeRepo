@@ -15,6 +15,7 @@ namespace RecipeRepo.Api.Tests.Core
 	{
 		private Mock<IDbRepository<Recipe>> _recipeRepoMock;
 		private Mock<IDbRepository<User>> _userRepoMock;
+		private Mock<RecipeSearchQueryMapper> _queryMapperMock;
 		private RecipeStore _recipeStore;
 
 		[TestInitialize]
@@ -22,8 +23,9 @@ namespace RecipeRepo.Api.Tests.Core
 		{
 			_recipeRepoMock = new Mock<IDbRepository<Recipe>>();
 			_userRepoMock = new Mock<IDbRepository<User>>();
+			_queryMapperMock = new Mock<RecipeSearchQueryMapper>(null, null);
 
-			_recipeStore = new RecipeStore(_recipeRepoMock.Object, _userRepoMock.Object);
+			_recipeStore = new RecipeStore(_recipeRepoMock.Object, _userRepoMock.Object, _queryMapperMock.Object);
 		}
 
 		[TestMethod]
@@ -41,29 +43,6 @@ namespace RecipeRepo.Api.Tests.Core
 
 			// Assert
 			Assert.AreEqual(AppStatusCode.EntityNotFound, response.Code);
-		}
-
-		[TestMethod]
-		public void AddRecipe_RecipeAlreadyExists_ReturnsError()
-		{
-			// Arrange
-			_userRepoMock.Setup(u => u.Get(It.IsAny<string>())).Returns(new ActionResponse<User>
-			{
-				Code = AppStatusCode.Ok,
-				Data = new User()
-			});
-
-			_recipeRepoMock.Setup(r => r.Find("Name", It.IsAny<string>(), MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
-			{
-				Code = AppStatusCode.Ok,
-				Data = new [] { new Recipe() }
-			});
-
-			// Act
-			var response = _recipeStore.AddRecipe("12345", new Recipe());
-
-			// Assert
-			Assert.AreEqual(AppStatusCode.DuplicateExists, response.Code);
 		}
 
 		[TestMethod]
@@ -217,6 +196,78 @@ namespace RecipeRepo.Api.Tests.Core
 			// Assert
 			Assert.AreEqual(AppStatusCode.Ok, response.Code);
 			_recipeRepoMock.Verify(repo => repo.Remove("1"), Times.Once());
+		}
+
+		[TestMethod]
+		public void Search_QueryMapsToMetaField_ReturnsMetaHits()
+		{
+			// Arrange
+			_queryMapperMock.Setup(q => q.MapToMetaKey("Pasta", "sv-SE")).Returns("cat_pasta");
+
+			_recipeRepoMock.Setup(r => r.Find("Meta.Category", "cat_pasta", MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new [] { new Recipe { Id = "1" } }
+			});
+
+			_recipeRepoMock.Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new List<Recipe>()
+			});
+
+			// Act
+			var response = _recipeStore.Search("Pasta", "sv-SE");
+
+			// Assert
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.SingleOrDefault(r => r.Id == "1") != null);
+		}
+
+		[TestMethod]
+		public void Search_QueryMapsToMetaFieldAndOtherFields_ReturnsAllHits()
+		{
+			// Arrange
+			_queryMapperMock.Setup(q => q.MapToMetaKey("Italienskt", "sv-SE")).Returns("cui_it");
+
+			_recipeRepoMock.Setup(r => r.Find("Meta.Cuisine", "cui_it", MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new[] { new Recipe { Id = "1" } }
+			});
+
+			_recipeRepoMock.Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new[] { new Recipe { Id = "1" }, new Recipe { Id = "2" } }
+			});
+
+			// Act
+			var response = _recipeStore.Search("Italienskt", "sv-SE");
+
+			// Assert
+			var hits = response.Data.ToList();
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && 
+				hits.Count == 2 && hits[0].Id == "1" && hits[1].Id == "2"
+			);
+		}
+
+		[TestMethod]
+		public void Search_QueryDoesNotMapToMetaField_ReturnsOtherHits()
+		{
+			// Arrange
+			_queryMapperMock.Setup(q => q.MapToMetaKey("Italienskt", "sv-SE")).Returns(null as string);
+
+			_recipeRepoMock.Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new[] { new Recipe { Id = "1" } }
+			});
+
+			// Act
+			var response = _recipeStore.Search("Foo", "sv-SE");
+
+			// Assert
+			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.SingleOrDefault(r => r.Id == "1") != null);
 		}
 	}
 }

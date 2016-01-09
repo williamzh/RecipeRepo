@@ -9,6 +9,7 @@ namespace RecipeRepo.Api.Security
 
 		public string UserId { get { return GetClaimValue("userId"); } }
 		public string UserName { get { return GetClaimValue("userName"); } }
+		public string UserLanguage { get { return GetClaimValue("lang"); } }
 
 		private ClaimsPrincipal CurrentUser
 		{

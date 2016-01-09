@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Entities;
 using RecipeRepo.Integrations.Repositories;
+using RecipeRepo.Api.Extensions;
 
 namespace RecipeRepo.Api.Core
 {
@@ -11,11 +11,13 @@ namespace RecipeRepo.Api.Core
 	{
 		private readonly IDbRepository<Recipe> _recipeRepository;
 		private readonly IDbRepository<User> _userRepository;
-
-		public RecipeStore(IDbRepository<Recipe> recipeRepository, IDbRepository<User> userRepository)
+		private readonly RecipeSearchQueryMapper _queryMapper;
+		
+		public RecipeStore(IDbRepository<Recipe> recipeRepository, IDbRepository<User> userRepository, RecipeSearchQueryMapper queryMapper)
 		{
 			_recipeRepository = recipeRepository;
 			_userRepository = userRepository;
+			_queryMapper = queryMapper;
 		}
 
 		public ActionResponse AddRecipe(string userId, Recipe recipe)
@@ -28,26 +30,6 @@ namespace RecipeRepo.Api.Core
 				{
 					Code = AppStatusCode.EntityNotFound,
 					Message = "Could not add recipe - failed to get user " + userId + ". Underlying error: " + getUserResponse.Message
-				};
-			}
-
-			// Verfiy that recipe doesn't already exist
-			var getRecipeResponse = _recipeRepository.Find("Name", recipe.Name, MatchingStrategy.Equals);
-			if (getRecipeResponse.Code != AppStatusCode.Ok)
-			{
-				return new ActionResponse
-				{
-					Code = getRecipeResponse.Code,
-					Message = "Could not add recipe - recipe retrieval failed. Underlying error: " + getUserResponse.Message
-				};
-			}
-
-			if (getRecipeResponse.Data != null && getRecipeResponse.Data.Any())
-			{
-				return new ActionResponse
-				{
-					Code = AppStatusCode.DuplicateExists,
-					Message = "A recipe with the name " + recipe.Name + " already exists."
 				};
 			}
 
@@ -140,9 +122,42 @@ namespace RecipeRepo.Api.Core
 			return _recipeRepository.Find(fieldName, value, strategy, limit);
 		}
 
-		public ActionResponse<IEnumerable<Recipe>> Search(string query, int limit = 100)
+		public ActionResponse<IEnumerable<Recipe>> Search(string query, string userLang, int limit = 100)
 		{
-			return _recipeRepository.Search(query, limit);
+			var response = new ActionResponse<IEnumerable<Recipe>>()
+			{
+				Code = AppStatusCode.Ok,
+				Data = new List<Recipe>()
+			};
+
+			var mappedQuery = _queryMapper.MapToMetaKey(query, userLang);
+			if (mappedQuery != null)
+			{
+				var metaType = mappedQuery.Substring(0, 3);
+				var metaField = metaType == "cat" ? "Category" :
+					metaType == "cui" ? "Cuisine" : "Course";
+
+				var findResponse = _recipeRepository.Find("Meta." + metaField, mappedQuery, MatchingStrategy.Equals);
+				if (findResponse.Code != AppStatusCode.Ok)
+				{
+					response.Code = findResponse.Code;
+					response.Message = findResponse.Message;
+					return response;
+				}
+
+				response.Data = findResponse.Data;
+			}
+
+			var searchResponse = _recipeRepository.Search(query, limit);
+			if (searchResponse.Code != AppStatusCode.Ok)
+			{
+				response.Code = searchResponse.Code;
+				response.Message = searchResponse.Message;
+				return response;
+			}
+
+			response.Data = response.Data.Union(searchResponse.Data, r => r.Id);
+			return response;
 		}
 	}
 }

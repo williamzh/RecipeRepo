@@ -31,14 +31,10 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 			url: '/' ,
 			templateUrl: 'app/areas/home/home.html'
 		}).
-		state('home.search', {
-			resolve: {
-				searchQueryProvider: 'searchQueryProvider'
-			},
-			params: {
-				query: null
-			},
-			templateUrl: 'app/areas/home/_search.html'
+		// Search
+		state('search', {
+			url: '/search?query',
+			templateUrl: 'app/areas/search/search.html'
 		}).
 		// Recipe
 		state('recipe/create', {
@@ -47,17 +43,13 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 		}).
 		state('recipe', { 
 			url: '/recipes/:recipeId',
-			// params: {
-			// 	recipeId: null,
-			// 	referrer: null
-			// },
 			templateUrl: '/app/areas/recipe/recipe-details.html'
 		}).
 		state('recipe/edit', {
 			url: '/recipes/:recipeId/edit',
 			templateUrl: '/app/areas/manage/manage-recipe.html'
 		}).
-		// Manage
+		// My recipes
 		state('my-recipes', {
 			url: '/my-recipes',
 			templateUrl: '/app/areas/manage/my-recipes.html'

@@ -134,8 +134,10 @@
     <Compile Include="Core\IRecipeStore.cs" />
     <Compile Include="Core\IUserManager.cs" />
     <Compile Include="Core\MetaStore.cs" />
+    <Compile Include="Core\RecipeSearchQueryMapper.cs" />
     <Compile Include="Core\RecipeStore.cs" />
     <Compile Include="Core\UserManager.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="IO\FileManager.cs" />
     <Compile Include="IO\IFileManager.cs" />

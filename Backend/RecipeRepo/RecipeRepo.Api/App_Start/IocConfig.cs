@@ -33,6 +33,7 @@ namespace RecipeRepo.Api
 			b.RegisterType<UserManager>().As<IUserManager>();
 			b.RegisterType<RecipeStore>().As<IRecipeStore>();
 			b.RegisterType<MetaStore>().As<IMetaStore>();
+			b.RegisterType<RecipeSearchQueryMapper>().AsSelf();
 
 			// Security
 			b.RegisterType<AuthService>().As<IAuthService>();

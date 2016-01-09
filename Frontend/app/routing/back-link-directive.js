@@ -2,7 +2,7 @@ recipeRepoDirectives.directive('rdBackLink', ['$window', '$state', function($win
     return {
         restrict: 'AE',
         scope: {
-            targetState: '@',
+            targetState: '@?',
             targetParams: '=?'
         },
         link: function(scope, elem) {

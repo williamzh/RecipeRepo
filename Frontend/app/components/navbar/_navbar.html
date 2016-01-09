@@ -3,14 +3,14 @@
 		<div class="Header-content">
 			<a class="Header-brand" href="/"><span class="Header-brandContent">Recipe repo</span></a>
 			<div class="Header-menuToggle" ng-if="isAuthenticated">
-				<button class="Header-toggleButton"><span class="fa fa-bars fa-lg"></span></button>
+				<button class="Header-toggleButton"><span class="fa fa-bars"></span></button>
 			</div>
 		</div>
 	</div>
 	<div ng-if="isAuthenticated" class="Header-menu">
 		<ul class="Header-menuItems">
 			<li class="Header-menuItem"><a href="/">{{'navigation/home' | translate}}</a></li>
-			<!-- <li ><a ui-sref="home.search"><rd-translate key="home/searchTab"></rd-translate></a></li> -->
+			<li class="Header-menuItem"><a ui-sref="search">{{'navigation/search' | translate}}</a></li>
 			<li class="Header-menuItem"><a ui-sref="recipe/create">{{'navigation/newRecipeLabel' | translate}}</a></li>
 			<li class="Header-menuItem"><a ui-sref="manage">{{'navigation/myRecipesLabel' | translate}}</a></li>
 			<li class="Header-menuItem"><a ui-sref="profile">{{'navigation/settingsLabel' | translate}}</a></li>

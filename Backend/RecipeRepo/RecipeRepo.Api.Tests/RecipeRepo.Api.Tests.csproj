@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Core\RecipeStoreTest.cs" />
     <Compile Include="Core\UserManagerTest.cs" />
+    <Compile Include="Extensions\IEnumerableExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

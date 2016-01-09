@@ -2,6 +2,14 @@
 	text-transform: uppercase;
 }
 
+.u-textFaded {
+	color: $color-gray-light !important;
+}
+
+.u-textCenter {
+	text-align: center;
+}
+
 .u-plainList {
 	list-style-type: none !important;
 	padding-left: 5px !important;

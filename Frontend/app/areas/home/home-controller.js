@@ -31,7 +31,7 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 
 	};
 
 	$scope.search = function() {
-		$state.go('home.search', { query: $scope.searchQuery });
+		$state.go('search', { query: $scope.searchQuery });
 	};
 
 	$scope.showRecipe = function(recipe) {

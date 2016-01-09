@@ -1,0 +1,31 @@
+.DataList {
+	display: block;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.DataList-item {
+	border-bottom: 1px solid $color-divider;
+	overflow: hidden;
+	padding: 20px 0;
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.DataList-item > a {
+	display: block;
+	padding: 20px 0;
+}
+
+.DataList-data {
+	box-sizing: border-box;
+	float: left;
+}
+
+.DataList-dataRight {
+	float: right;
+	text-align: right;
+}

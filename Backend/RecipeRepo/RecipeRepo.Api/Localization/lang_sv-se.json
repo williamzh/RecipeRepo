@@ -8,6 +8,7 @@
         "generalErrorMessage": "Ett oväntat fel har tyvärr inträffat, var god försök senare.",
         "yes": "Ja",
         "no": "Nej",
+        "showLabel": "Visa",
         "dismissLabel": "Stäng",
         "errorAlertPreamble": "Hoppsan!"
     },
@@ -54,6 +55,7 @@
     },
     "navigation": {
         "home": "Start",
+        "search": "Sök",
         "newRecipeLabel": "Nytt recept",
         "myRecipesLabel": "Mina recept",
         "settingsLabel": "Inställningar",
@@ -67,6 +69,14 @@
         "topRatedPlaceholder": "Det finns inga upplagda recept än. Skapa gärna ett!",
         "history": "Historik",
         "historyPlaceholder": "Här kommer de recept du tittade på senast att visas"
+    },
+    "search": {
+        "searchHeading": "Sök recept",
+        "searchPlaceholder": "Pasta, fisk, italienskt, osv",
+        "hitCount": "Antal träffar",
+        "noHits": "Vi hittade tyvärr inget som matchade din sökning :/",
+        "searchTips": "Visste du att utöver receptnamn kan du även söka på kategori, kök och typ av måltid?",
+        "searchExample": "Skriv in t.ex. \"pasta\", \"svenskt\" eller \"huvudrätt\""
     },
     "recipeDetails": {
         "ingredientsHeading": "Ingredienser",

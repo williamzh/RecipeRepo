@@ -7,13 +7,13 @@ namespace RecipeRepo.Api.IO
 {
 	public class JsonFileReader
 	{
-		public virtual dynamic GetFileContents(string virtualPath)
+		public virtual T GetFileContents<T>(string virtualPath)
 		{
 			using (StreamReader sr = File.OpenText(HostingEnvironment.MapPath(virtualPath)))
 			using (var reader = new JsonTextReader(sr))
 			{
 				var serializer = new JsonSerializer();
-				return serializer.Deserialize(reader);
+				return serializer.Deserialize<T>(reader);
 			}
 		}
 

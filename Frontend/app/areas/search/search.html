@@ -1,0 +1,34 @@
+<div class="Container" ng-controller="searchController" ng-init="search()">
+	<div ng-show="hasError" class="u-spacingBottomMd">
+		<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
+	</div>
+
+	<form ng-submit="search()">
+		<h1 class="u-spacingBottomMd">{{'search/searchHeading' | translate}}</h1>
+
+		<div class="Control Control--discreteDark">
+			<input type="search" class="Control-field" placeholder="{{'search/searchPlaceholder' | translate}}" ng-model="searchQuery">
+			<button type="submit" class="Control-addOn"><i class="fa fa-search"></i></button>
+		</div>
+	</form>
+	<div ng-show="hits && hits.length > 0" class="u-spacingTopMd">
+		<h4 class="u-spacingBottomSm">{{'search/hitCount' | translate}}: {{hits.length}}</h4>
+		<ul class="DataList">
+			<li class="DataList-item" ng-repeat="recipe in hits">
+				<a class="u-blockLink" ui-sref="recipe({ recipeId: recipe.id })">
+					<span class="DataList-data u-size6of8 u-sm-size4of8 u-md-size2of8"><strong>{{recipe.name}}</strong></span>
+					<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description}}</span>
+					<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter">{{recipe.meta.rating}}</span>
+					<span class="DataList-dataRight">
+						<button class="Button--link">{{'global/showLabel' | translate}}</button>
+					</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div ng-show="hits && hits.length === 0" class="u-spacingTopLg u-textCenter u-textFaded">
+		<h3>{{'search/noHits' | translate}}</h3>
+		<p>{{'search/searchTips' | translate}}</p>
+		<p>{{'search/searchExample' | translate}}</p>
+	</div>
+</div>

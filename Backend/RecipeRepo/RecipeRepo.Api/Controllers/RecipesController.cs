@@ -93,7 +93,7 @@ namespace RecipeRepo.Api.Controllers
 				return BadRequest(AppStatusCode.InvalidInput, "Search query must be provided.");
 			}
 
-			var response = _recipeStore.Search(query);
+			var response = _recipeStore.Search(query, ClaimContext.UserLanguage);
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("POST /recipes/search failed for query {0} with code {1}. {2}", query, (int)response.Code, response.Message);

@@ -62,10 +62,22 @@ namespace RecipeRepo.Integrations.Db
 			var recipeIndexBuilder = Builders<Recipe>.IndexKeys;
 
 			CreateIndices(recipeCollection,
-				new CreateIndexModel<Recipe>(recipeIndexBuilder.Text(r => r.Name).Text("Ingredients.Name"), new CreateIndexOptions
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Text(r => r.Name), new CreateIndexOptions
 				{
-					Name = "Recipe_Compound_Text",
+					Name = "Recipe_Name_Text",
 					DefaultLanguage = CultureInfo.CurrentCulture.TwoLetterISOLanguageName
+				}),
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Category"), new CreateIndexOptions
+				{
+					Name = "Recipe_Category_Desc",
+				}),
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Cuisine"), new CreateIndexOptions
+				{
+					Name = "Recipe_Cuisine_Desc",
+				}),
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Course"), new CreateIndexOptions
+				{
+					Name = "Recipe_Course_Desc",
 				}),
 				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Rating"), new CreateIndexOptions
 				{
