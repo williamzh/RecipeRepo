@@ -9,6 +9,7 @@
         "yes": "Ja",
         "no": "Nej",
         "showLabel": "Visa",
+        "removeLabel": "Ta bort",
         "dismissLabel": "Stäng",
         "errorAlertPreamble": "Hoppsan!"
     },
@@ -55,10 +56,10 @@
     },
     "navigation": {
         "home": "Start",
-        "search": "Sök",
-        "newRecipeLabel": "Nytt recept",
+        "search": "Sök recept",
+        "newRecipeLabel": "Skapa recept",
         "myRecipesLabel": "Mina recept",
-        "settingsLabel": "Inställningar",
+        "settingsLabel": "Min profil",
         "logoutLabel": "Logga ut"
     },
     "home": {
@@ -89,7 +90,6 @@
         "lastEditedLabel": "Senast ändrad"
     },
     "manage": {
-        "myRecipesHeading": "Mina recept",
         "privateLabel": "Privat",
         "createRecipeHeading": "Skapa recept",
         "editRecipeHeading": "Redigera recept",
@@ -118,6 +118,19 @@
         "ratingRequiredError": "Vänligen ange ett värde mellan 1 and 5.",
         "ingredientRequiredError": "Receptet måste ha minst en ingrediens",
         "stepRequiredError": "Receptet måste bestå av minst ett steg"
+    },
+    "myRecipes": {
+        "myRecipesHeading": "Mina recept",
+        "ownedRecipesHeading": "Upplagda recept",
+        "noOwnedRecipes": "Recept som du lägger upp kommer att visas här.",
+        "removeRecipeError": "Ett oväntat fel inträffade när detta recept skulle tas bort. Vänligen försök igen senare.",
+        "removeRecipeConfirmationHeading": "Bekräfta borttagning",
+        "removeRecipeConfirmationMessage": "Är du säker på att du vill ta bort detta recept? Borttagningen kommer att vara permanent och går ej att ångra.",
+        "favoriteRecipesHeading": "Favoritmarkerade recept",
+        "noFavoriteRecipes": "Recept som du favoritmarkerar kommer att visas här.",
+        "removeFavoriteError": "Ett oväntat fel inträffade när detta recept skulle avmarkeras som favorit. Vänligen försök igen senare.",
+        "removeFavoriteConfirmationHeading": "Bekräfta avmarkering",
+        "removeFavoriteConfirmationMessage": "Är du säker på att du vill avmarkera detta recept som favorit? Om du skulle ångra dig kan du självklart favoritmarkera receptet igen!"
     },
     "profile": {
         "createProfileHeading": "Skapa ny profil",

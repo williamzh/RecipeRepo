@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Web.Http;
 using RecipeRepo.Api.Contract;
 using RecipeRepo.Api.Core;
 using RecipeRepo.Common.Contract;
@@ -27,6 +28,25 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("GET /recipes/{0} failed with code {1}. {2}", id, (int)response.Code, response.Message);
+				return InternalServerError(response.Code, response.Message);
+			}
+
+			return Ok(response);
+		}
+
+		[HttpPost]
+		[Route("api/recipes/batch")]
+		public IHttpActionResult GetBatch(IEnumerable<string> ids)
+		{
+			if (ids == null)
+			{
+				return BadRequest(AppStatusCode.InvalidInput, "Recipe IDs must be provided.");
+			}
+
+			var response = _recipeStore.GetRecipes(ids);
+			if (response.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("POST /recipes/batch failed with code {0}. {1}", (int)response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
 			}
 

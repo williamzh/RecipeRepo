@@ -1,6 +1,6 @@
 <div class="Container" ng-controller="manageRecipeController" ng-init="init()">
 	<rd-back-link ng-if="inEditMode" target-state="recipe" target-params="{ recipeId: recipeId }"></rd-back-link>
-
+	
 	<form name="recipeForm" ng-submit="onSubmit()" novalidate>
 		<div  class="u-spacingBothMd">
 			<alert ng-show="showError" type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{errorMessage}}"></alert>

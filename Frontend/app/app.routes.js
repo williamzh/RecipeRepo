@@ -39,7 +39,7 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 		// Recipe
 		state('recipe/create', {
 			url: '/recipes/create',
-			templateUrl: '/app/areas/manage/manage-recipe.html'
+			templateUrl: '/app/areas/recipe/manage-recipe.html'
 		}).
 		state('recipe', { 
 			url: '/recipes/:recipeId',
@@ -47,12 +47,12 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 		}).
 		state('recipe/edit', {
 			url: '/recipes/:recipeId/edit',
-			templateUrl: '/app/areas/manage/manage-recipe.html'
+			templateUrl: '/app/areas/recipe/manage-recipe.html'
 		}).
 		// My recipes
 		state('my-recipes', {
 			url: '/my-recipes',
-			templateUrl: '/app/areas/manage/my-recipes.html'
+			templateUrl: '/app/areas/my-recipes/my-recipes.html'
 		}).
 		// Profile
 		state('profile', {

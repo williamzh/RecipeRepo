@@ -4,6 +4,10 @@
 
 	.Button {
 		margin-bottom: 10px;
+
+		&:not(.Button--link) {
+			margin-right: 10px;
+		}
 	}
 }
 

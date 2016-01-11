@@ -53,6 +53,12 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			.catch(function(error) { return onError('getRecipe', error) });
 	};
 
+	this.getRecipes = function(ids) {
+		return $http.post(apiUrl + '/recipes/batch', ids)
+			.then(function (response) {	return onSuccess('getRecipes', response.data); })
+			.catch(function(error) { return onError('getRecipes', error) });
+	};
+
 	this.findRecipes = function(findOptions) {
 		return $http.post(apiUrl + '/recipes/find', findOptions)
 			.then(function (response) {	return onSuccess('findRecipes', response.data); })

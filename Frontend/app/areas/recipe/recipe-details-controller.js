@@ -28,16 +28,6 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 		}		
 	};
 
-	$scope.removeRecipe = function() {
-		apiClient.removeRecipe($scope.recipe.id)
-			.then(function() {
-				$state.go('home');
-			})
-			.catch(function() {
-				$scope.hasError = true;
-			});
-	};
-
 	function formatRecipe(recipe) {
 		recipe.groupedIngredients = recipe.ingredients.groupBy(function(ing) {
 			return ing.component;

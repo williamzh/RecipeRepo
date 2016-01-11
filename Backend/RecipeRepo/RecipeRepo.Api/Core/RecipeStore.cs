@@ -69,6 +69,11 @@ namespace RecipeRepo.Api.Core
 			return _recipeRepository.Get(recipeId);
 		}
 
+		public ActionResponse<IEnumerable<Recipe>> GetRecipes(IEnumerable<string> recipeIds)
+		{
+			return _recipeRepository.Get(recipeIds);
+		}
+
 		public ActionResponse UpdateRecipe(Recipe recipe)
 		{
 			var getRecipeResponse = _recipeRepository.Get(recipe.Id);

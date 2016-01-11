@@ -1,0 +1,70 @@
+<div class="Container" ng-controller="myRecipesController" ng-init="init()">
+	<!-- <rd-back-link target-state="home.start"></rd-back-link> -->
+
+	<div ng-show="hasError" class="u-spacingBottomMd">
+		<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
+	</div>
+
+	<h1>{{'myRecipes/myRecipesHeading' | translate}}</h1>
+	<!-- <a ui-sref="manage/create" class="light-btn light-btn-rounded"><span class="fa fa-plus"></span></a> -->
+
+	<h2 class="u-spacingTopMd">{{'myRecipes/ownedRecipesHeading' | translate}}</h2>
+	<div ng-show="ownedRecipes.length > 0" class="u-spacingTopSm">
+		<ul class="DataList">
+			<li class="DataList-item" ng-repeat="recipe in ownedRecipes">
+				<span class="DataList-data u-size6of8 u-sm-size4of8 u-md-size2of8"><strong>{{recipe.name}}</strong></span>
+				<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description}}</span>
+				<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter">{{recipe.meta.created | date:'yyyy-MM-dd'}}</span>
+				<span class="DataList-dataRight">
+					<a class="Button--link" ui-sref="recipe({ recipeId: recipe.id })">{{'global/showLabel' | translate}}</a>
+					<button type="button" class="Button--link" ng-click="showRemoveRecipeConfirmation(recipe)">{{'global/removeLabel' | translate}}</button>
+				</span>
+			</li>
+		</ul>
+	</div>
+	<div ng-show="ownedRecipes.length === 0" class="u-textCenter u-textFaded">
+		<p>{{'myRecipes/noOwnedRecipes' | translate}}</p>
+	</div>
+
+	<h2 class="u-spacingTopLg">{{'myRecipes/favoriteRecipesHeading' | translate}}</h2>
+	<div ng-show="favoriteRecipes.length > 0" class="u-spacingTopSm">
+		<ul class="DataList">
+			<li class="DataList-item" ng-repeat="recipe in favoriteRecipes">
+				<span class="DataList-data u-size6of8 u-sm-size4of8 u-md-size2of8"><strong>{{recipe.name}}</strong></span>
+				<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description}}</span>
+				<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter">{{recipe.meta.rating}}</span>
+				<span class="DataList-dataRight">
+					<a class="Button--link" ui-sref="recipe({ recipeId: recipe.id })">{{'global/showLabel' | translate}}</a>
+					<button class="Button--link" ng-click="showRemoveFavoriteConfirmation(recipe)">{{'global/removeLabel' | translate}}</button>
+				</span>
+			</li>
+		</ul>
+	</div>
+	<div ng-show="favoriteRecipes.length === 0" class="u-textCenter u-textFaded">
+		<p>{{'myRecipes/noFavoriteRecipes' | translate}}</p>
+	</div>
+
+	<modal ng-show="removeRecipeModalVisible" on-close="removeRecipeModalVisible = false">
+		<alert ng-show="hasRemoveRecipeError" type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'myRecipes/removeRecipeError' | translate}}"></alert>
+
+		<h3 class="u-spacingTopSm">{{'myRecipes/removeRecipeConfirmationHeading' | translate}}</h3>
+        <p>{{'myRecipes/removeRecipeConfirmationMessage' | translate}}</p>
+
+        <div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+        	<button type="button" class="Button Button--link" ng-click="$parent.$parent.removeRecipeModalVisible = false">{{'global/no' | translate}}</button>
+			<button type="button" class="Button Button--link" ng-click="removeRecipe()">{{'global/yes' | translate}}</button>
+		</div>
+	</modal>
+
+	<modal ng-show="removeFavoriteModalVisible" on-close="removeFavoriteModalVisible = false">
+		<alert ng-show="hasRemoveFavoriteError" type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'myRecipes/removeFavoriteError' | translate}}"></alert>
+
+		<h3 class="u-spacingTopSm">{{'myRecipes/removeFavoriteConfirmationHeading' | translate}}</h3>
+        <p>{{'myRecipes/removeFavoriteConfirmationMessage' | translate}}</p>
+
+        <div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+        	<button type="button" class="Button Button--link" ng-click="$parent.$parent.removeFavoriteModalVisible = false">{{'global/no' | translate}}</button>
+			<button type="button" class="Button Button--link" ng-click="removeFavorite()">{{'global/yes' | translate}}</button>
+		</div>
+	</modal>
+</div>
