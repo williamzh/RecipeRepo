@@ -2,12 +2,12 @@
 	display: block;
 	overflow: hidden;
 
-	.Button {
+	.Button:not(.Button--link) {
 		margin-bottom: 10px;
+	}
 
-		&:not(.Button--link) {
-			margin-right: 10px;
-		}
+	.Button:not(.Button--link) + .Button {
+		margin-right: 10px;
 	}
 }
 
@@ -23,6 +23,6 @@
 	@extend .ButtonGroup--alignRight;
 
 	.Button--link:nth-of-type(1) {
-		margin-right: -25px;
+		margin-right: -20px;
 	}
 }

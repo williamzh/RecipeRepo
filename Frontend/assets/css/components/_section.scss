@@ -4,11 +4,15 @@
 	padding: 25px 25px 15px 25px;
 }
 
-.Section-header {
+.Section--noPadding {
+	padding: 0;
+}
+
+.Section-heading {
 	color: #333745;
 }
 
-.Section-header + hr {
+.Section-heading + hr {
 	background-color: $color-brand;
 	margin-bottom: 15px;
 

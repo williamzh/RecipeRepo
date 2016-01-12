@@ -1,7 +1,7 @@
 .Button {
 	display: block;
-	box-sizing: border-box;
 	color: $color-white;
+	box-sizing: border-box;
 	padding: 10px 20px;
 	height: 45px;
 	text-align: center;
@@ -45,9 +45,19 @@
 	}
 }
 
+.Button--infoLink {
+	@extend .Button--link;
+
+	color: $color-info;
+
+	&:disabled {
+		background-color: lighten($color-info, 15%);
+	}
+}
+
 .Button--inline {
 	width: auto;
 	display: inline-block;
-	padding: 0 15px;
+	padding: 0 10px;
 	height: 30px;
 }
