@@ -24,8 +24,8 @@
 				</li>
 			</ul>
 		</div>
-		<div ng-show="ownedRecipes.length === 0" class="u-textCenter u-textFaded">
-			<p>{{'myRecipes/noOwnedRecipes' | translate}}</p>
+		<div ng-if="ownedRecipes.length === 0" class="u-textCenter u-textFaded">
+			<p class="u-spacingTopLg">{{'myRecipes/noOwnedRecipes' | translate}}</p>
 		</div>
 	</div>
 
@@ -37,7 +37,7 @@
 				<li class="DataList-item" ng-repeat="recipe in favoriteRecipes">
 					<span class="DataList-data u-size4of8 u-md-size2of8"><strong>{{recipe.name}}</strong></span>
 					<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description}}</span>
-					<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter"><rd-rating rating="recipe.meta.rating"></rd-rating></span>
+					<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter"><rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="true"></rd-rating></span>
 					<span class="DataList-dataRight">
 						<a class="Button Button--link Button--inline" ui-sref="recipe({ recipeId: recipe.id })"><small>{{'global/showLabel' | translate}}</small></a>
 						<button class="Button Button--link Button--inline" ng-click="showRemoveFavoriteConfirmation(recipe)"><small>{{'global/removeLabel' | translate}}</small></button>
@@ -45,8 +45,8 @@
 				</li>
 			</ul>
 		</div>
-		<div ng-show="favoriteRecipes.length === 0" class="u-textCenter u-textFaded">
-			<p>{{'myRecipes/noFavoriteRecipes' | translate}}</p>
+		<div ng-if="favoriteRecipes.length === 0" class="u-textCenter u-textFaded">
+			<p class="u-spacingTopLg">{{'myRecipes/noFavoriteRecipes' | translate}}</p>
 		</div>
 	</div>
 

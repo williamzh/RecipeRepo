@@ -33,10 +33,11 @@ namespace RecipeRepo.Api.Core
 				};
 			}
 
-			// Add recipe
+			// Set default meta info
 			recipe.Meta.Created = DateTime.Now;
 			recipe.Meta.LastEdited = DateTime.Now;
-
+			recipe.Meta.Owner = getUserResponse.Data.UserName;
+			
 			var addRecipeResponse = _recipeRepository.Add(recipe);
 			if (addRecipeResponse.Code != AppStatusCode.Ok)
 			{
@@ -47,7 +48,7 @@ namespace RecipeRepo.Api.Core
 				};
 			}
 
-			// Associate added recipe with the specified user
+			// Add to user's list of owned recipes
 			var user = getUserResponse.Data;
 			user.OwnedRecipes.Add(recipe.Id);
 

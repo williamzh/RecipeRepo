@@ -1,7 +1,7 @@
 recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 'apiClient', 'userSession', function($scope, $state, Slug, apiClient, userSession) {
 	$scope.init = function() {
 		// Top recipes
-		apiClient.findRecipes({ fieldName: 'Meta.Rating', value: 3, strategy: 'GreaterThan' })
+		apiClient.findRecipes({ fieldName: 'Meta.LikeCount', value: 100, strategy: 'GreaterThan' })
 			.then(function(topRecipes) {
 				$scope.topRecipes = topRecipes;
 			})

@@ -33,8 +33,13 @@
 		</div>
 		<div class="Grid">
 			<div class="Grid-cell u-sizeFull">
-					<p style="padding-left:15px;">{{recipe.meta.servings}} {{'global/servings' | translate}}</p>
+				<div class="Article">
+					<span class="u-pullLeft">{{recipe.meta.servings}} {{'global/servings' | translate}}</span>
+					<span class="u-pullRight"><rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="false" recipe-id="recipe.id"></rd-rating></span>
+				</div>
 			</div>
+		</div>
+		<div class="Grid">
 			<div class="Grid-cell u-sizeFull u-lg-size1of2">
 				<article class="Article">
 					<h3>{{recipe.ingredients.length}} <small>{{'recipeDetails/ingredientsHeading' | translate}}</small></h3>
@@ -61,6 +66,13 @@
 						</li>
 					</ol>
 				</article>
+			</div>
+		</div>
+		<div class="Grid">
+			<div class="Grid-cell u-sizeFull">
+				<div class="Article">
+					<small><i>Author: {{recipe.meta.owner}}</i></small>
+				</div>
 			</div>
 		</div>
 	</div>

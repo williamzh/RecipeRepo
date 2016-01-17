@@ -83,6 +83,12 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			.catch(function(error) { return onError('removeRecipe', error) });
 	};
 
+	this.rateRecipe = function(recipeId, isUpVote) {
+		return $http.post(apiUrl + '/recipes/rate', { recipeId: recipeId, isUpVote: isUpVote })
+			.then(function (response) {	return onSuccess('rateRecipe', response.data); })
+			.catch(function(error) { return onError('rateRecipe', error) });
+	};
+
 	this.getMetainfo = function() {
 		return $http.get(apiUrl + '/meta')
 			.then(function (response) {	return onSuccess('getMetainfo', response.data); })

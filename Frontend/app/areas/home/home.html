@@ -17,11 +17,11 @@
 	<section class="Section u-spacingTopSm">
 		<h2 class="Section-heading">{{'home/latest' | translate}}</h1>
 		<hr/>
+		<div ng-if="latestRecipes.length === 0" class="u-textCenter u-textFaded">
+			<p class="u-spacingTopLg">{{'home/latestPlaceholder' | translate}}</p>
+		</div>
 		<div class="Grid Grid--withGutter">
-			<div ng-if="latestRecipes.length === 0" class="Section-placeholder">
-				<h3>{{'home/latestPlaceholder' | translate}}</h3>
-			</div>
-			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of6" ng-repeat="recipe in latestRecipes">
+			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of5" ng-repeat="recipe in latestRecipes">
 				<div class="Box">
 					<div class="Box-content" ng-click="showRecipe(recipe)">
 						<div class="Box-image">
@@ -45,11 +45,11 @@
 	<section class="Section">
 		<h2 class="Section-heading">{{'home/topRated' | translate}}</h1>
 		<hr/>
+		<div ng-if="topRecipes.length === 0" class="u-textCenter u-textFaded">
+			<p class="u-spacingTopLg">{{'home/topRatedPlaceholder' | translate}}</p>
+		</div>
 		<div class="Grid Grid--withGutter">
-			<div ng-if="topRecipes.length === 0" class="Section-placeholder">
-				<h3>{{'home/topRatedPlaceholder' | translate}}</h3>
-			</div>
-			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of6" ng-repeat="recipe in topRecipes">
+			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of5" ng-repeat="recipe in topRecipes">
 				<div class="Box">
 					<div class="Box-content" ng-click="showRecipe(recipe)">
 						<div class="Box-image">
@@ -73,11 +73,11 @@
 	<section class="Section">
 		<h2 class="Section-heading">{{'home/history' | translate}}</h1>
 		<hr/>
+		<div ng-if="history.length === 0" class="u-textCenter u-textFaded">
+			<p class="u-spacingTopLg">{{'home/historyPlaceholder' | translate}}</p>
+		</div>
 		<div class="Grid Grid--withGutter">
-			<div ng-if="history.length === 0" class="Section-placeholder">
-				<h3>{{'home/historyPlaceholder' | translate}}</h3>
-			</div>
-			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of6" ng-repeat="recipe in history">
+			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of5" ng-repeat="recipe in history">
 				<div class="Box">
 					<div class="Box-content" ng-click="showRecipe(recipe)">
 						<div class="Box-image">

@@ -141,5 +141,41 @@ namespace RecipeRepo.Api.Controllers
 
 			return Ok(response);
 		}
+
+		[Route("api/recipes/rate")]
+		[HttpPost]
+		public IHttpActionResult Rate(RateRecipeRequest request)
+		{
+			if (request == null)
+			{
+				return BadRequest(AppStatusCode.InvalidInput, "Rating request object must be provided.");
+			}
+
+			var getRecipeResponse = _recipeStore.GetRecipe(request.RecipeId);
+			if (getRecipeResponse.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("POST /recipes/rate failed with code {0}. {1}", (int)getRecipeResponse.Code, getRecipeResponse.Message);
+				return InternalServerError(AppStatusCode.EntityNotFound, "Could not find a recipe with the provided ID.");
+			}
+
+			var recipe = getRecipeResponse.Data;
+			if (request.IsUpVote)
+			{
+				recipe.Meta.LikeCount++;
+			}
+			else
+			{
+				recipe.Meta.DislikeCount++;
+			}
+
+			var updateRecipeResponse = _recipeStore.UpdateRecipe(recipe);
+			if (updateRecipeResponse.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("POST /recipes/rate failed with code {0}. {1}", (int)updateRecipeResponse.Code, updateRecipeResponse.Message);
+				return InternalServerError(AppStatusCode.UnknownError, "Could not update the rating for the specified recipe.");
+			}
+
+			return Ok(updateRecipeResponse);
+		}
     }
 }

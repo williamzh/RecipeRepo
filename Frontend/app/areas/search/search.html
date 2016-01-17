@@ -20,7 +20,7 @@
 				<a class="u-blockLink" ui-sref="recipe({ recipeId: recipe.id })">
 					<span class="DataList-data u-size6of8 u-sm-size4of8 u-md-size2of8"><strong>{{recipe.name}}</strong></span>
 					<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description}}</span>
-					<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter"><rd-rating rating="recipe.meta.rating"></rd-rating></span>
+					<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter"><rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount"></rd-rating></span>
 					<span class="DataList-dataRight">
 						<button class="Button--link">{{'global/showLabel' | translate}}</button>
 					</span>

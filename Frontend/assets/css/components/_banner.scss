@@ -8,7 +8,7 @@
 .Banner::before {
     display: block;
     content: "";
-    padding-bottom: 70%;
+    padding-bottom: 80%;
 
     @media(min-width: $sm-viewport) {
         padding-bottom: 50%;
