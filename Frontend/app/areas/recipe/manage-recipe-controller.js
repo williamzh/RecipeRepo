@@ -52,6 +52,37 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			});
 	};
 
+	$scope.upload = function(file, errFiles) {
+        $scope.uploadError = errFiles && errFiles[0];
+
+        if($scope.uploadError) {
+        	switch($scope.uploadError.$error) {
+        		case 'maxSize':
+        			$scope.uploadValidationMessage = localizationService.translate('validation', 'imageUploadSizeExceeded');
+        			break;
+    			case 'pattern':
+    				$scope.uploadValidationMessage = localizationService.translate('validation', 'imageUploadFormat');
+        			break;
+			}
+
+			return;
+        }
+
+        if(file) {
+	        apiClient.upload(file)
+		        .then(function (uploadedFiles) {
+		        	if(uploadedFiles && uploadedFiles.length) {
+			            $scope.currentRecipe.imageUrl = uploadedFiles[0];
+			        }
+
+			        $scope.showError = false;
+		        })
+		        .catch(function () {
+		            $scope.showError = true;
+		        });
+	    }
+    };
+
 	$scope.showIngredientModal = function(ingredient) {
 		$scope.newIngredient = ingredient || {};
 
@@ -140,7 +171,7 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 	$scope.onSubmit = function() {
 		$scope.showError = false;
 
-		if($scope.recipeForm.$invalid) {
+		if($scope.recipeForm.$invalid || $scope.uploadError) {
 			return;
 		}
 

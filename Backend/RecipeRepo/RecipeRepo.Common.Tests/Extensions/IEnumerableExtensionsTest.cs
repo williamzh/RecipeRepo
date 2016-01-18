@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RecipeRepo.Api.Extensions;
+using RecipeRepo.Common.Extensions;
 
-namespace RecipeRepo.Api.Tests.Extensions
+namespace RecipeRepo.Common.Tests.Extensions
 {
 	[TestClass]
 	public class IEnumerableExtensionsTest

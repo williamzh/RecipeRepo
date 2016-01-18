@@ -24,6 +24,7 @@
     "normalize-css": "normalize.css#~3.0.3",
     "font-awesome": "fontawesome#~4.4.0",
     "moment": "~2.10.6",
-    "angular-slugify": "~1.0.1"
+    "angular-slugify": "~1.0.1",
+    "ng-file-upload": "~11.1.1"
   }
 }

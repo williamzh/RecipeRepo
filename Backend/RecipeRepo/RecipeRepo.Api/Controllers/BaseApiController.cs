@@ -4,6 +4,7 @@ using System.Web.Http.Results;
 using log4net;
 using RecipeRepo.Api.Filters;
 using RecipeRepo.Api.Security;
+using RecipeRepo.Common.Configuration;
 using RecipeRepo.Common.Contract;
 
 namespace RecipeRepo.Api.Controllers
@@ -19,6 +20,7 @@ namespace RecipeRepo.Api.Controllers
 		protected ILog Log { get; private set; }
 
 		public IClaimContext ClaimContext { get; set; }
+		public ConfigurationManager ConfigManager { get; set; }
 
 		public IHttpActionResult InternalServerError(AppStatusCode code, string message)
 		{

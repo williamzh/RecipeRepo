@@ -1,4 +1,4 @@
-recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, $q, $log) {
+recipeRepoServices.service('apiClient', ['$http', '$q', '$log', 'Upload', function($http, $q, $log, Upload) {
 	var baseUrl = 'http://' + Config.appServerUrl;
 	var apiUrl = baseUrl + '/api';
 
@@ -147,5 +147,14 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 		return $http.get(apiUrl + '/translations/languages')
 			.then(function (response) {	return onSuccess('getLanguages', response.data); })
 			.catch(function(error) { return onError('getLanguages', error) });
+	};
+
+	this.upload = function(file) {
+		return Upload.upload({
+	            url: apiUrl + '/upload/image',
+	            data: { file: file }
+	        })
+	        .then(function (response) {	return onSuccess('upload', response.data); })
+			.catch(function(error) { return onError('upload', error) });
 	};
 }]);

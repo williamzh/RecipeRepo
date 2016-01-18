@@ -82,6 +82,7 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="System.configuration" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -114,7 +115,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
@@ -130,6 +130,7 @@
     <Compile Include="Contract\RateRecipeRequest.cs" />
     <Compile Include="Controllers\MetaController.cs" />
     <Compile Include="Controllers\TranslationsController.cs" />
+    <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Core\IMetaStore.cs" />
     <Compile Include="Core\IRecipeStore.cs" />
@@ -138,11 +139,13 @@
     <Compile Include="Core\RecipeSearchQueryMapper.cs" />
     <Compile Include="Core\RecipeStore.cs" />
     <Compile Include="Core\UserManager.cs" />
-    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Environment\EnvironmentInfo.cs" />
     <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
+    <Compile Include="IO\CustomMultipartFormDataStreamProvider.cs" />
     <Compile Include="IO\FileManager.cs" />
     <Compile Include="IO\IFileManager.cs" />
     <Compile Include="IO\JsonFileReader.cs" />
+    <Compile Include="IO\MultipartFormDataStreamProviderFactory.cs" />
     <Compile Include="Security\ClaimContext.cs" />
     <Compile Include="Security\IClaimContext.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />

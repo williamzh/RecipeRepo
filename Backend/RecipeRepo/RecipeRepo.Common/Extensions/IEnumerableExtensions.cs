@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace RecipeRepo.Api.Extensions
+namespace RecipeRepo.Common.Extensions
 {
 	public static class IEnumerableExtensions
 	{

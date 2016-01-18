@@ -3,8 +3,10 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
 using RecipeRepo.Api.Core;
+using RecipeRepo.Api.Environment;
 using RecipeRepo.Api.IO;
 using RecipeRepo.Api.Security;
+using RecipeRepo.Common.Configuration;
 using RecipeRepo.Integrations.Db;
 using RecipeRepo.Integrations.Entities;
 using RecipeRepo.Integrations.Repositories;
@@ -29,6 +31,9 @@ namespace RecipeRepo.Api
 			b.RegisterApiControllers(Assembly.GetExecutingAssembly()).PropertiesAutowired();
 			b.RegisterWebApiFilterProvider(config);
 
+			// Common
+			b.RegisterType<ConfigurationManager>().AsSelf();
+
 			// Core
 			b.RegisterType<UserManager>().As<IUserManager>();
 			b.RegisterType<RecipeStore>().As<IRecipeStore>();
@@ -39,9 +44,13 @@ namespace RecipeRepo.Api
 			b.RegisterType<AuthService>().As<IAuthService>();
 			b.RegisterType<ClaimContext>().As<IClaimContext>();
 
+			// Environment
+			b.RegisterType<EnvironmentInfo>().AsSelf();
+
 			// IO
 			b.RegisterType<FileManager>().As<IFileManager>();
 			b.RegisterType<JsonFileReader>().AsSelf();
+			b.RegisterType<MultipartFormDataStreamProviderFactory>().AsSelf();
 
 			// Integrations
 			b.RegisterType<DbClient>().As<IDbClient>();

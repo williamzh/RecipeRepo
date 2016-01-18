@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Api", "RecipeRepo.Api\RecipeRepo.Api.csproj", "{48F7B718-17F0-4BAB-9357-1B3C0B75DC08}"
 EndProject
@@ -19,6 +19,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Integrations.Tests", "RecipeRepo.Integrations.Tests\RecipeRepo.Integrations.Tests.csproj", "{D9C40E08-68B4-4E18-A722-4B880307F777}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Common", "RecipeRepo.Common\RecipeRepo.Common.csproj", "{5F095EC7-1C8A-48DB-A05C-C315F126BC00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeRepo.Common.Tests", "RecipeRepo.Common.Tests\RecipeRepo.Common.Tests.csproj", "{A967D121-CAE4-48A3-85FA-FD5CF31CF82B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{5F095EC7-1C8A-48DB-A05C-C315F126BC00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F095EC7-1C8A-48DB-A05C-C315F126BC00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F095EC7-1C8A-48DB-A05C-C315F126BC00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A967D121-CAE4-48A3-85FA-FD5CF31CF82B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A967D121-CAE4-48A3-85FA-FD5CF31CF82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A967D121-CAE4-48A3-85FA-FD5CF31CF82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A967D121-CAE4-48A3-85FA-FD5CF31CF82B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

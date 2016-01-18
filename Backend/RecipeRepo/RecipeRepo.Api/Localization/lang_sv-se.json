@@ -20,7 +20,9 @@
         "passwordRequired": "Lösenord måste anges",
         "genericRequired": "Detta fält är obligatoriskt",
         "numberFormat": "Vänligen ange ett numeriskt värde",
-        "emailFormat": "Ogiltig e-postadress"
+        "emailFormat": "Ogiltig e-postadress",
+        "imageUploadSizeExceeded": "Bilder måste vara mindre än 5 MB.",
+        "imageUploadFormat":  "Endast bildformaten .png,.jpg,.jpeg,.tif är tillåtna."
     },
     "meta": {
         "cui_se": "Svenskt",
@@ -102,7 +104,6 @@
         "categoryLabel": "Kategori",
         "courseLabel": "Typ av rätt",
         "servingsLabel": "Antal portioner",
-        "ratingLabel": "Betyg",
         "descriptionLabel": "Beskrivning",
         "isPrivateLabel": "Dölj för andra",
         "newIngredientLabel": "Ny ingrediens",
@@ -115,7 +116,6 @@
         "submitButton": "Bekräfta",
         "creationSuccessMessage": "Receptet har lagts till.",
         "updateSuccessMessage": "Receptet har uppdaterats.",
-        "ratingRequiredError": "Vänligen ange ett värde mellan 1 and 5.",
         "ingredientRequiredError": "Receptet måste ha minst en ingrediens",
         "stepRequiredError": "Receptet måste bestå av minst ett steg"
     },

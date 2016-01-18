@@ -18,8 +18,8 @@
 					<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description}}</span>
 					<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter">{{recipe.meta.created | date:'yyyy-MM-dd'}}</span>
 					<span class="DataList-dataRight">
-						<a class="Button Button--link Button--inline" ui-sref="recipe({ recipeId: recipe.id })"><small>{{'global/showLabel' | translate}}</small></a>
-						<button class="Button Button--link Button--inline" ng-click="showRemoveRecipeConfirmation(recipe)"><small>{{'global/removeLabel' | translate}}</small></button>
+						<a class="Button Button--infoLink Button--inline" ui-sref="recipe({ recipeId: recipe.id })"><small>{{'global/showLabel' | translate}}</small></a>
+						<button class="Button Button--infoLink Button--inline" ng-click="showRemoveRecipeConfirmation(recipe)"><small>{{'global/removeLabel' | translate}}</small></button>
 					</span>
 				</li>
 			</ul>
@@ -39,8 +39,8 @@
 					<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description}}</span>
 					<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter"><rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="true"></rd-rating></span>
 					<span class="DataList-dataRight">
-						<a class="Button Button--link Button--inline" ui-sref="recipe({ recipeId: recipe.id })"><small>{{'global/showLabel' | translate}}</small></a>
-						<button class="Button Button--link Button--inline" ng-click="showRemoveFavoriteConfirmation(recipe)"><small>{{'global/removeLabel' | translate}}</small></button>
+						<a class="Button Button--infoLink Button--inline" ui-sref="recipe({ recipeId: recipe.id })"><small>{{'global/showLabel' | translate}}</small></a>
+						<button class="Button Button--infoLink Button--inline" ng-click="showRemoveFavoriteConfirmation(recipe)"><small>{{'global/removeLabel' | translate}}</small></button>
 					</span>
 				</li>
 			</ul>

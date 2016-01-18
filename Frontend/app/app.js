@@ -3,6 +3,7 @@ var recipeRepoApp = angular.module('recipeRepoApp', [
 	'ngStorage',
 	'slugifier',
 	'ui.sortable',
+	'ngFileUpload',
 	'recipeRepoControllers',
 	'recipeRepoDirectives',
 	'recipeRepoServices',

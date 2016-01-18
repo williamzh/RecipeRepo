@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using RecipeRepo.Common.Contract;
+using RecipeRepo.Common.Extensions;
 using RecipeRepo.Integrations.Entities;
 using RecipeRepo.Integrations.Repositories;
-using RecipeRepo.Api.Extensions;
 
 namespace RecipeRepo.Api.Core
 {

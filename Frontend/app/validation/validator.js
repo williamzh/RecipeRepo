@@ -19,6 +19,7 @@ recipeRepoDirectives.directive('validator', ['$log', function ($log) {
 				var field = $scope.formCtrl[fieldName];
 				if (field == undefined) {
 					// Ignore fields that doesn't exist
+					$log.warn('Could not find the field ' + fieldName + '. Ignoring validation on this field.');
 					return false;
 				}
 

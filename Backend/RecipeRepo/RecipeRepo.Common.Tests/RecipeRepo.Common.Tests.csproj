@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{34A0B510-A613-418F-8A3E-9FD96C85844A}</ProjectGuid>
+    <ProjectGuid>{A967D121-CAE4-48A3-85FA-FD5CF31CF82B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RecipeRepo.Api.Tests</RootNamespace>
-    <AssemblyName>RecipeRepo.Api.Tests</AssemblyName>
+    <RootNamespace>RecipeRepo.Common.Tests</RootNamespace>
+    <AssemblyName>RecipeRepo.Common.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -56,26 +56,16 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Core\RecipeStoreTest.cs" />
-    <Compile Include="Core\UserManagerTest.cs" />
+    <Compile Include="Extensions\IEnumerableExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RecipeRepo.Api\RecipeRepo.Api.csproj">
-      <Project>{48F7B718-17F0-4BAB-9357-1B3C0B75DC08}</Project>
-      <Name>RecipeRepo.Api</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RecipeRepo.Common\RecipeRepo.Common.csproj">
-      <Project>{5F095EC7-1C8A-48DB-A05C-C315F126BC00}</Project>
+      <Project>{5f095ec7-1c8a-48db-a05c-c315f126bc00}</Project>
       <Name>RecipeRepo.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RecipeRepo.Integrations\RecipeRepo.Integrations.csproj">
-      <Project>{7D3C676E-E11C-45C4-9680-A57141F935DC}</Project>
-      <Name>RecipeRepo.Integrations</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
