@@ -147,10 +147,7 @@ UpgradeLog*.htm
 node_modules/
 bower_components/
 
-Frontend/dist/
-Frontend/Media/
-
-iisnode
+Media/
 
 .DS_Store
 

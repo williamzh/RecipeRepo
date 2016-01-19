@@ -1,0 +1,24 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html ng-app="recipeRepoApp">
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Recipe Repository - A simple recipe store</title>
+
+    @Styles.Render("~/bundles/styles")
+</head>
+
+<body>
+    <rd-navbar></rd-navbar>
+
+    @RenderBody()
+
+    <footer></footer>
+
+    @Scripts.Render("~/bundles/scripts/lib", "~/bundles/scripts/app")
+</body>
+</html>
