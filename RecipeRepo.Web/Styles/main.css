@@ -1465,6 +1465,13 @@ small {
   background-color: #ee7897;
 }
 
+.Button--secondary {
+  background-color: #289FD6;
+}
+.Button--secondary:disabled {
+  background-color: #68bce3;
+}
+
 .Button--link, .Button--infoLink {
   border-color: transparent;
   color: #E63462;

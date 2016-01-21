@@ -26,6 +26,14 @@
 	}
 }
 
+.Button--secondary {
+	background-color: $color-info;
+
+	&:disabled {
+		background-color: lighten($color-info, 15%);
+	}
+}
+
 .Button--link {
 	border-color: transparent;
 	color: $color-primary;

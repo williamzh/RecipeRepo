@@ -156,6 +156,7 @@
     <Content Include="Scripts\app\validation\password-repeat.js" />
     <Content Include="Scripts\app\validation\validator.js" />
     <Content Include="Scripts\test\utils\id-generator-spec.js" />
+    <Content Include="Styles\main.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

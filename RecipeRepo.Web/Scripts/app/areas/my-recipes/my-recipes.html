@@ -15,7 +15,7 @@
 			<ul class="DataList">
 				<li class="DataList-item" ng-repeat="recipe in ownedRecipes">
 					<span class="DataList-data u-size4of8 u-md-size2of8"><strong>{{recipe.name}}</strong></span>
-					<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description}}</span>
+					<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description || '-'}}</span>
 					<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter">{{recipe.meta.created | date:'yyyy-MM-dd'}}</span>
 					<span class="DataList-dataRight">
 						<a class="Button Button--infoLink Button--inline" ui-sref="recipe({ recipeId: recipe.id })"><small>{{'global/showLabel' | translate}}</small></a>
@@ -36,7 +36,7 @@
 			<ul class="DataList">
 				<li class="DataList-item" ng-repeat="recipe in favoriteRecipes">
 					<span class="DataList-data u-size4of8 u-md-size2of8"><strong>{{recipe.name}}</strong></span>
-					<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description}}</span>
+					<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description || '-'}}</span>
 					<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter"><rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="true"></rd-rating></span>
 					<span class="DataList-dataRight">
 						<a class="Button Button--infoLink Button--inline" ui-sref="recipe({ recipeId: recipe.id })"><small>{{'global/showLabel' | translate}}</small></a>

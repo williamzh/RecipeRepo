@@ -26,18 +26,18 @@ namespace RecipeRepo.Web.Controllers
 				if (file != null && file.ContentLength > 0)
 				{
 					var fileName = Path.GetFileName(file.FileName);
-					var uploadLocation = _configManager.GetAppSetting("ImageUploadLocation") + fileName;
+					var uploadLocation = Path.Combine(_configManager.GetAppSetting("ImageUploadLocation"), fileName).Replace('\\', '/');
 					
 					file.SaveAs(Server.MapPath(uploadLocation));
 
 					return Json(new
 					{
-						Path = uploadLocation
+						Path = uploadLocation.TrimStart('~')
 					});
 				}
 			}
 
-		    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+		    return Json(new { Path = "" });
 		}
 
 		protected new virtual ActionResult Json(object obj)

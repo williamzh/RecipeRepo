@@ -23,7 +23,8 @@
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control" ng-class="{ 'has-error': uploadValidationMessage !== null }">
 					<label class="Control-label" for="image">{{'manage/imageLabel' | translate}}</label>
-					<input type="file" name="image" accept="image/*" ngf-select="upload($file, $invalidFiles)" ngf-pattern="'.png,.jpg,.jpeg,.tif'" ngf-max-size="5MB" id="image">
+					<button type="file" accept="image/*" ngf-select="setImage($file, $invalidFiles)" ngf-pattern="'.png,.jpg,.jpeg,.tif'" ngf-max-size="5MB" id="image" class="Button Button--infoLink">Ladda upp</button>
+					<span>{{currentImage.name || currentImageName}}</span>
 					<span class="Control-error">{{uploadValidationMessage}}</span>
 				</div>
 			</div>
@@ -91,8 +92,8 @@
 		<h2 class="u-spacingTopMd u-spacingBottomSm">{{'manage/methodSubHeading' | translate}}</h2>
 		<div class="Grid Grid--withGutter" validator>
 			<div class="Grid-cell u-sizeFull">
-				<ul class="Toolbar u-spacingTopNone" name="steps" ng-model="currentRecipe.steps" ui-sortable array-required>
-					<li class="Toolbar-item" ng-repeat="step in currentRecipe.steps track by $index">
+				<ul class="Toolbar u-spacingTopNone" name="steps" ng-model="currentSteps" ui-sortable array-required>
+					<li class="Toolbar-item" ng-repeat="step in currentSteps track by $index">
 						<button type="button" class="Button Button--link Button--inline" ng-click="removeStep($index)"><i class="fa fa-minus"></i></button>
 						<a href="#" ng-click="showStepModal(step, $index)">{{$index + 1}}. {{step.value}}</a>
 					</li>
@@ -107,7 +108,7 @@
 		</div>
 
 		<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopLg">
-			<button type="submit" class="Button Button--primary" rd-scroll scroll-target="top" ng-click="submitted = true">{{'manage/submitButton' | translate}}</button>
+			<button type="submit" class="Button Button--primary" rd-scroll="top" ng-click="submitted = true" ng-disabled="isBusy">{{'manage/submitButton' | translate}}</button>
 		</div>
 	</form>
 

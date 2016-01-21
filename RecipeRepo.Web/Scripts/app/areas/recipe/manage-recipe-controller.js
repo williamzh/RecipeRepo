@@ -1,5 +1,5 @@
-recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$log', '$stateParams', 'apiClient', 'localizationService', 'idGenerator',
-	function($scope, $q, $log, $stateParams, apiClient, localizationService, idGenerator) {
+recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$log', '$stateParams', 'Upload', 'apiClient', 'localizationService', 'idGenerator',
+	function($scope, $q, $log, $stateParams, Upload, apiClient, localizationService, idGenerator) {
 	
 	$scope.recipeId = $stateParams.recipeId;
 	$scope.inEditMode = $stateParams.recipeId != undefined;
@@ -7,6 +7,9 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 	$scope.currentRecipe = {
 		meta: {}
 	};
+	$scope.currentSteps = [];
+
+	$scope.isBusy = false;
 	$scope.submitted = false;
 
 	$scope.newIngredient = {};
@@ -22,6 +25,7 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			initPromises.push(apiClient.getRecipe($scope.recipeId));
 		}
 
+		$scope.isBusy = true;
 		$q.all(initPromises)
 			.then(function(responses) {
 				var allMetaInfo = responses[0];
@@ -30,11 +34,17 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 				if(recipe) {
 					$scope.currentRecipe = recipe;
 
-					// Convert the steps string array into an object array so that each step is
+					// Map the steps string array to a temporary object array so that each step is
 					// uniquely identifiable.
-					$scope.currentRecipe.steps.each(function(s, index) {
-						$scope.currentRecipe.steps[index] = { id: index + 1, value: s }
+					var i = 0;
+					$scope.currentSteps = $scope.currentRecipe.steps.map(function(s) {
+						return { 
+							id: i++,
+							value: s 
+						};
 					});
+
+					$scope.currentImageName = $scope.currentRecipe.imageUrl.substring($scope.currentRecipe.imageUrl.lastIndexOf('/') + 1);
 				}
 
 				$scope.cuisines = getMetaInfoValues('cuisines', allMetaInfo);
@@ -49,14 +59,19 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			.catch(function(error) {
 				$scope.showError = true;
 				$scope.errorMessage = localizationService.translate('manage', error.message);
+			})
+			.finally(function() {
+				$scope.isBusy = false;
 			});
 	};
 
-	$scope.upload = function(file, errFiles) {
-        $scope.uploadError = errFiles && errFiles[0];
+	$scope.setImage = function(file, errors) {
+		$scope.currentImage = file;
 
-        if($scope.uploadError) {
-        	switch($scope.uploadError.$error) {
+		var uploadError = errors && errors[0];
+
+        if(uploadError) {
+        	switch(uploadError.$error) {
         		case 'maxSize':
         			$scope.uploadValidationMessage = localizationService.translate('validation', 'imageUploadSizeExceeded');
         			break;
@@ -68,20 +83,8 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			return;
         }
 
-        if(file) {
-	        apiClient.upload(file)
-		        .then(function (uploadedFiles) {
-		        	if(uploadedFiles && uploadedFiles.length) {
-			            $scope.currentRecipe.imageUrl = uploadedFiles[0];
-			        }
-
-			        $scope.showError = false;
-		        })
-		        .catch(function () {
-		            $scope.showError = true;
-		        });
-	    }
-    };
+        $scope.uploadValidationMessage = null;
+	};
 
 	$scope.showIngredientModal = function(ingredient) {
 		$scope.newIngredient = ingredient || {};
@@ -138,22 +141,18 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 			return;
 		}
 
-		if($scope.currentRecipe.steps === undefined) {
-			$scope.currentRecipe.steps = [];
-		}
-
 		// Check if the step already exists
-		var index = $scope.currentRecipe.steps.findIndex(function(step) {
+		var index = $scope.currentSteps.findIndex(function(step) {
 			return step.id === $scope.newStep.id;
 		});
 
 		if(index > -1) {
-			$scope.currentRecipe.steps.removeAt(index);
-			$scope.currentRecipe.steps.insert($scope.newStep, index);
+			$scope.currentSteps.removeAt(index);
+			$scope.currentSteps.insert($scope.newStep, index);
 		}
 		else {
-			$scope.newStep.id = idGenerator.sequentialId($scope.currentRecipe.steps.map(function(s) { return s.id; }));
-			$scope.currentRecipe.steps.push($scope.newStep);
+			$scope.newStep.id = idGenerator.sequentialId($scope.currentSteps.map(function(s) { return s.id; }));
+			$scope.currentSteps.push($scope.newStep);
 		}
 
 		$scope.newStep = {};
@@ -165,23 +164,54 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 	};
 
 	$scope.removeStep = function(index) {
-		$scope.currentRecipe.steps.splice(index, 1);
+		$scope.currentSteps.splice(index, 1);
 	};
 
 	$scope.onSubmit = function() {
 		$scope.showError = false;
 
-		if($scope.recipeForm.$invalid || $scope.uploadError) {
+		if($scope.recipeForm.$invalid) {
 			return;
 		}
 
-		// Convert steps back into a string collection
-		$scope.currentRecipe.steps = $scope.currentRecipe.steps.map(function(s) { return s.value; });
+		$scope.isBusy = true;
 
-		if(!$scope.inEditMode) {
+		// Convert steps back into a string collection
+		$scope.currentRecipe.steps = $scope.currentSteps.map(function(s) { return s.value; });
+
+		if($scope.inEditMode) {
+			$scope.recipeUpdated = false;
+			
+			Upload.upload({ url: '/upload/image', data: { file: $scope.currentImage } })
+		        .then(function (response) {
+		        	if(response.data.path) {
+			            $scope.currentRecipe.imageUrl = response.data.path;
+			        }
+
+		            return apiClient.updateRecipe($scope.currentRecipe);
+		        })
+				.then(function() {
+					$scope.recipeUpdated = true;
+					$scope.submitted = false;
+				})
+				.catch(function() {
+					$scope.showError = true;
+				})
+				.finally(function() {
+					$scope.isBusy = false;
+				});
+		}
+		else {
 			$scope.recipeCreated = false;
 
-			apiClient.addRecipe($scope.currentRecipe)
+			Upload.upload({ url: '/upload/image', data: { file: $scope.currentImage } })
+		        .then(function (response) {
+		            if(response.data.path) {
+			            $scope.currentRecipe.imageUrl = response.data.path;
+			        }
+
+		            return apiClient.addRecipe($scope.currentRecipe);
+		        })
 				.then(function() {
 					$scope.recipeCreated = true;
 
@@ -193,18 +223,9 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 				.catch(function() {
 					$scope.errorMessage = localizationService.translate('global', 'generalErrorMessage');
 					$scope.showError = true;
-				});
-		}
-		else {
-			$scope.recipeUpdated = false;
-
-			apiClient.updateRecipe($scope.currentRecipe)
-				.then(function() {
-					$scope.recipeUpdated = true;
-					$scope.submitted = false;
 				})
-				.catch(function() {
-					$scope.showError = true;
+				.finally(function() {
+					$scope.isBusy = false;
 				});
 		}
 	};
