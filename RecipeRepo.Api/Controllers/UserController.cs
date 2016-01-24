@@ -111,17 +111,36 @@ namespace RecipeRepo.Api.Controllers
 
 		[Route("api/user/history/{recipeId}")]
 		[HttpPut]
-		public IHttpActionResult UpdateHistory(string recipeId)
+		public IHttpActionResult AddHistory(string recipeId)
 		{
 			if (string.IsNullOrEmpty(recipeId))
 			{
 				return BadRequest(AppStatusCode.InvalidInput, "Recipe ID must be provided.");
 			}
 
-			var response = _userManager.UpdateUserHistory(ClaimContext.UserId, recipeId);
+			var response = _userManager.AddUserHistory(ClaimContext.UserId, recipeId);
 			if (response.Code != AppStatusCode.Ok)
 			{
-				Log.ErrorFormat("POST /user/history failed for user {0} with code {1}. {2}", ClaimContext.UserId, response.Code, response.Message);
+				Log.ErrorFormat("PUT /user/history failed for user {0} with code {1}. {2}", ClaimContext.UserId, response.Code, response.Message);
+				return InternalServerError(response.Code, response.Message);
+			}
+
+			return Ok(response);
+		}
+
+		[Route("api/user/history/{recipeId}")]
+		[HttpDelete]
+		public IHttpActionResult RemoveHistory(string recipeId)
+		{
+			if (string.IsNullOrEmpty(recipeId))
+			{
+				return BadRequest(AppStatusCode.InvalidInput, "Recipe ID must be provided.");
+			}
+
+			var response = _userManager.RemoveUserHistory(ClaimContext.UserId, recipeId);
+			if (response.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("DELETE /user/history failed for user {0} with code {1}. {2}", ClaimContext.UserId, response.Code, response.Message);
 				return InternalServerError(response.Code, response.Message);
 			}
 

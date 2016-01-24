@@ -94,7 +94,7 @@ namespace RecipeRepo.Api.Controllers
 				return BadRequest(AppStatusCode.InvalidInput, "Recipe ID must be provided.");
 			}
 
-			var response = _recipeStore.DeleteRecipe(id);
+			var response = _recipeStore.DeleteRecipe(id, ClaimContext.UserId);
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("DELETE /recipes/{0} failed with code {1}. {2}", id, (int)response.Code, response.Message);
@@ -167,6 +167,8 @@ namespace RecipeRepo.Api.Controllers
 			{
 				recipe.Meta.DislikeCount++;
 			}
+
+			recipe.Meta.RelativeScore = (double)recipe.Meta.LikeCount / recipe.Meta.DislikeCount;
 
 			var updateRecipeResponse = _recipeStore.UpdateRecipe(recipe);
 			if (updateRecipeResponse.Code != AppStatusCode.Ok)

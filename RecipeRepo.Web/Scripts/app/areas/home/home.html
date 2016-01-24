@@ -1,7 +1,7 @@
 <div ng-controller="homeController" ng-init="init()">
 	<div class="Banner">
 		<div class="Banner-figure Banner-figure--blur">
-			<div ng-style="{ 'background-image': 'url(/assets/img/mat.jpg)' }"></div>
+			<div ng-style="{ 'background-image': 'url(/Content/Images/mat.jpg)' }"></div>
 		</div>
 		<div class="Banner-wrap">
 			<div class="Banner-content Banner-content--padded">
@@ -58,8 +58,7 @@
 						<div class="Box-overlay">
 							<h4 class="Box-heading">{{recipe.name}}</h4>
 							<div class="Box-meta">
-								<i class="fa fa-star-o"></i>
-								&nbsp;{{recipe.meta.rating}}
+								<rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="true"></rd-rating>
 							</div>
 						</div>
 						<div class="Box-footer">
@@ -80,6 +79,7 @@
 			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of5" ng-repeat="recipe in history">
 				<div class="Box">
 					<div class="Box-content" ng-click="showRecipe(recipe)">
+						<button type="button" class="Box-close" ng-click="removeHistory(recipe.id)"><i class="fa fa-times"></i></button>
 						<div class="Box-image">
 							<div ng-style="{ 'background-image': 'url({{recipe.imageUrl}})' }"></div>
 						</div>

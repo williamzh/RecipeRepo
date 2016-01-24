@@ -127,17 +127,18 @@ namespace RecipeRepo.Api.Core
 
 		public ActionResponse<IEnumerable<Recipe>> GetUserHistory(string userId)
 		{
-			var response = _userRepository.Get(userId);
-			if (response.Code != AppStatusCode.Ok)
+			var userResponse = _userRepository.Get(userId);
+			if (userResponse.Code != AppStatusCode.Ok)
 			{
 				return new ActionResponse<IEnumerable<Recipe>>
 				{
-					Code = response.Code,
-					Message = response.Message
+					Code = userResponse.Code,
+					Message = userResponse.Message
 				};
 			}
+			var user = userResponse.Data;
 
-			if (response.Data == null)
+			if (user == null)
 			{
 				return new ActionResponse<IEnumerable<Recipe>>
 				{
@@ -146,7 +147,7 @@ namespace RecipeRepo.Api.Core
 				};
 			}
 
-			var history = response.Data.LastViewedRecipes.Take(10);
+			var history = user.LastViewedRecipes.Take(10).ToList();
 			var recipesResponse = _recipeRepository.Get(history);
 			if (recipesResponse.Code != AppStatusCode.Ok)
 			{
@@ -156,6 +157,13 @@ namespace RecipeRepo.Api.Core
 					Message = recipesResponse.Message
 				};
 			}
+			var recipes = recipesResponse.Data;
+
+			// Remove history items that point to invalid recipes.
+			history.RemoveAll(h => !recipes.Any(r => r.Id == h));
+
+			user.LastViewedRecipes = history;
+			_userRepository.Update(user);
 
 			return new ActionResponse<IEnumerable<Recipe>>
 			{
@@ -164,7 +172,7 @@ namespace RecipeRepo.Api.Core
 			};
 		}
 
-		public ActionResponse UpdateUserHistory(string userId, string recipeId)
+		public ActionResponse AddUserHistory(string userId, string recipeId)
 		{
 			var getUserResponse = _userRepository.Get(userId);
 			if (getUserResponse.Code != AppStatusCode.Ok)
@@ -191,6 +199,25 @@ namespace RecipeRepo.Api.Core
 			}
 
 			history.Insert(0, recipeId);
+			getUserResponse.Data.LastViewedRecipes = history;
+
+			return _userRepository.Update(getUserResponse.Data);
+		}
+
+		public ActionResponse RemoveUserHistory(string userId, string recipeId)
+		{
+			var getUserResponse = _userRepository.Get(userId);
+			if (getUserResponse.Code != AppStatusCode.Ok)
+			{
+				return new ActionResponse
+				{
+					Code = getUserResponse.Code,
+					Message = getUserResponse.Message
+				};
+			}
+
+			var history = getUserResponse.Data.LastViewedRecipes.ToList();
+			history.Remove(recipeId);
 			getUserResponse.Data.LastViewedRecipes = history;
 
 			return _userRepository.Update(getUserResponse.Data);

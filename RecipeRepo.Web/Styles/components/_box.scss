@@ -61,3 +61,15 @@
 	padding: 10px;
 	font-size: $font-size-sm;
 }
+
+.Box-close {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	color: $color-white;
+	height: 32px;
+	width: 32px;
+	font-weight: 100;
+    font-size: $font-size-lg;
+    z-index: $z-index-std;
+}

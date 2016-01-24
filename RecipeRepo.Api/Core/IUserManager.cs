@@ -13,7 +13,8 @@ namespace RecipeRepo.Api.Core
 		ActionResponse DeleteUser(string userId);		
 
 		ActionResponse<IEnumerable<Recipe>> GetUserHistory(string userId);
-		ActionResponse UpdateUserHistory(string userId, string recipeId);
+		ActionResponse AddUserHistory(string userId, string recipeId);
+		ActionResponse RemoveUserHistory(string userId, string recipeId);
 
 		ActionResponse SetFavoriteRecipe(string userId, string recipeId, bool isFavorite);
 	}

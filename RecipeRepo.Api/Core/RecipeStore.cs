@@ -99,7 +99,7 @@ namespace RecipeRepo.Api.Core
 			return _recipeRepository.Update(recipe);
 		}
 
-		public ActionResponse DeleteRecipe(string recipeId)
+		public ActionResponse DeleteRecipe(string userId, string recipeId)
 		{
 			var getRecipeResponse = _recipeRepository.Get(recipeId);
 			if (getRecipeResponse.Code != AppStatusCode.Ok)
@@ -119,6 +119,20 @@ namespace RecipeRepo.Api.Core
 					Message = "Delete failed. Could not find a recipe with a matching ID (" + recipeId + ")."
 				};
 			}
+
+			var getUserResponse = _userRepository.Get(userId);
+			if (getUserResponse.Code != AppStatusCode.Ok)
+			{
+				return new ActionResponse
+				{
+					Code = getRecipeResponse.Code,
+					Message = "Could not delete recipe - Could not obtain owner. Underlying error: " + getRecipeResponse.Message
+				};
+			}
+
+			var owner = getUserResponse.Data;
+			owner.OwnedRecipes.Remove(recipeId);
+			_userRepository.Update(owner);
 
 			return _recipeRepository.Remove(recipeId);
 		}

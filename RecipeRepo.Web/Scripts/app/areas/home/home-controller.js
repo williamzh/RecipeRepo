@@ -1,14 +1,5 @@
 recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 'apiClient', 'userSession', function($scope, $state, Slug, apiClient, userSession) {
 	$scope.init = function() {
-		// Top recipes
-		apiClient.findRecipes({ fieldName: 'Meta.LikeCount', value: 100, strategy: 'GreaterThan' })
-			.then(function(topRecipes) {
-				$scope.topRecipes = topRecipes;
-			})
-			.catch(function() {
-				$scope.hasTopRecipesError = true;
-			});
-
 		// Latest recipes
 		var dateFilter = Date.create().addDays(-10).toISOString();
 		apiClient.findRecipes({ fieldName: 'Meta.Created', value: dateFilter, strategy: 'GreaterThan' })
@@ -19,6 +10,14 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 
 				$scope.hasLatestRecipesError = true;
 			});
 
+		// Top recipes
+		apiClient.findRecipes({ fieldName: 'Meta.RelativeScore', value: 1, strategy: 'GreaterThan' })
+			.then(function(topRecipes) {
+				$scope.topRecipes = topRecipes;
+			})
+			.catch(function() {
+				$scope.hasTopRecipesError = true;
+			});
 
 		// History
 		apiClient.getHistory()
@@ -37,5 +36,14 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 
 	$scope.showRecipe = function(recipe) {
 		var slug = Slug.slugify(recipe.name);
 		$state.go('recipe', { recipeId: recipe.id, recipeName: slug });
+	};
+
+	$scope.removeHistory = function(recipeId) {
+		apiClient.removeHistory(recipeId)
+			.then(function() {
+				$scope.history.remove(function(h) {
+					return h.id === recipeId;
+				});
+			});
 	};
 }]);

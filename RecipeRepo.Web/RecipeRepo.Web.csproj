@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\Mat.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
     <Content Include="karma.conf.js" />
@@ -157,7 +158,9 @@
     <Content Include="Scripts\app\validation\validator.js" />
     <Content Include="Scripts\test\utils\id-generator-spec.js" />
     <Content Include="Styles\main.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

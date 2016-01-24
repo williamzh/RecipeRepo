@@ -119,10 +119,16 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 			.catch(function(error) { return onError('getHistory', error) });
 	};
 
-	this.updateHistory = function(recipeId) {
+	this.addHistory = function(recipeId) {
 		return $http.put(apiUrl + '/user/history/' + recipeId)
-			.then(function (response) {	return onSuccess('updateHistory', response.data); })
-			.catch(function(error) { return onError('updateHistory', error) });
+			.then(function (response) {	return onSuccess('addHistory', response.data); })
+			.catch(function(error) { return onError('addHistory', error) });
+	};
+
+	this.removeHistory = function(recipeId) {
+		return $http.delete(apiUrl + '/user/history/' + recipeId)
+			.then(function (response) {	return onSuccess('removeHistory', response.data); })
+			.catch(function(error) { return onError('removeHistory', error) });
 	};
 
 	this.addFavorite = function(recipeId) {

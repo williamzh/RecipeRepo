@@ -9,7 +9,7 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 				$scope.isFavorite = user.favoriteRecipes.indexOf($scope.recipe.id) > -1;
 				$scope.isEditable = user.ownedRecipes.indexOf($scope.recipe.id) > -1;
 
-				return apiClient.updateHistory(recipe.id);
+				return apiClient.addHistory(recipe.id);
 			})
 			.catch(function(errResponse) {
 				$scope.hasError = true;

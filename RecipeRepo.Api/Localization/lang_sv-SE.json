@@ -89,7 +89,8 @@
         "confirmRemoveButton": "Ta bort",
         "detailsHeading": "Detaljerad information",
         "createdLabel": "Skapad",
-        "lastEditedLabel": "Senast ändrad"
+        "lastEditedLabel": "Senast ändrad",
+        "author": "Av"
     },
     "manage": {
         "privateLabel": "Privat",

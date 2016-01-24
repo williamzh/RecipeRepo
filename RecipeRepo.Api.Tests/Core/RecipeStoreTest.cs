@@ -169,14 +169,14 @@ namespace RecipeRepo.Api.Tests.Core
 			});
 
 			// Act
-			var response = _recipeStore.DeleteRecipe("12345");
+			var response = _recipeStore.DeleteRecipe("testuser", "12345");
 
 			// Assert
 			Assert.AreEqual(AppStatusCode.EntityNotFound, response.Code);
 		}
 
 		[TestMethod]
-		public void DeleteRecipe_RecipeExists_UpdatesRecipe()
+		public void DeleteRecipe_RecipeExists_UpdatesRecipeAndUpdatesReferences()
 		{
 			// Arrange
 			_recipeRepoMock.Setup(r => r.Get(It.IsAny<string>())).Returns(new ActionResponse<Recipe>
@@ -190,11 +190,18 @@ namespace RecipeRepo.Api.Tests.Core
 				Code = AppStatusCode.Ok
 			});
 
+			_userRepoMock.Setup(u => u.Get("testuser")).Returns(new ActionResponse<User>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new User { OwnedRecipes = new List<string> { "1", "2" } }
+			});
+
 			// Act
-			var response = _recipeStore.DeleteRecipe("1");
+			var response = _recipeStore.DeleteRecipe("testuser", "1");
 
 			// Assert
 			Assert.AreEqual(AppStatusCode.Ok, response.Code);
+			_userRepoMock.Verify(repo => repo.Update(It.Is<User>(u => u.OwnedRecipes.SequenceEqual(new[] { "2" }))), Times.Once());
 			_recipeRepoMock.Verify(repo => repo.Remove("1"), Times.Once());
 		}
 

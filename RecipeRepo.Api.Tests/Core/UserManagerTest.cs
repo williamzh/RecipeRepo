@@ -414,7 +414,7 @@ namespace RecipeRepo.Api.Tests.Core
 		}
 
 		[TestMethod]
-		public void UpdateUserHistory_UserRetrievalFailed_ReturnsError()
+		public void AddUserHistory_UserRetrievalFailed_ReturnsError()
 		{
 			// Arrange
 			_userRepoMock.Setup(u => u.Get(It.IsAny<string>())).Returns(new ActionResponse<User>
@@ -423,14 +423,14 @@ namespace RecipeRepo.Api.Tests.Core
 			});
 
 			// Act
-			var response = _userManager.UpdateUserHistory("12345", "23456");
+			var response = _userManager.AddUserHistory("12345", "23456");
 
 			// Assert
 			Assert.AreEqual(AppStatusCode.UnknownError, response.Code);
 		}
 
 		[TestMethod]
-		public void UpdateUserHistory_RecipeAlreadyInHistory_SetsItToLatest()
+		public void AddUserHistory_RecipeAlreadyInHistory_SetsItToLatest()
 		{
 			// Arrange
 			_userRepoMock.Setup(u => u.Get(It.IsAny<string>())).Returns(new ActionResponse<User>
@@ -447,7 +447,7 @@ namespace RecipeRepo.Api.Tests.Core
 			});
 
 			// Act
-			var response = _userManager.UpdateUserHistory("12345", "2");
+			var response = _userManager.AddUserHistory("12345", "2");
 
 			// Assert
 			Assert.AreEqual(AppStatusCode.Ok, response.Code);
@@ -458,7 +458,7 @@ namespace RecipeRepo.Api.Tests.Core
 		}
 
 		[TestMethod]
-		public void UpdateUserHistory_HistoryIsFull_UpdatesHistoryWithoutExceedingLimit()
+		public void AddUserHistory_HistoryIsFull_UpdatesHistoryWithoutExceedingLimit()
 		{
 			// Arrange
 			_userRepoMock.Setup(u => u.Get(It.IsAny<string>())).Returns(new ActionResponse<User>
@@ -475,13 +475,110 @@ namespace RecipeRepo.Api.Tests.Core
 			});
 
 			// Act
-			var response = _userManager.UpdateUserHistory("12345", "11");
+			var response = _userManager.AddUserHistory("12345", "11");
 
 			// Assert
 			Assert.AreEqual(AppStatusCode.Ok, response.Code);
 			_userRepoMock.Verify(r => r.Update(It.Is<User>(u => u.LastViewedRecipes.SequenceEqual(new []
 			{
 				"11", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+			}))), Times.Once());
+		}
+
+		[TestMethod]
+		public void RemoveUserHistory_UserRetrievalFailed_ReturnsError()
+		{
+			// Arrange
+			_userRepoMock.Setup(u => u.Get(It.IsAny<string>())).Returns(new ActionResponse<User>
+			{
+				Code = AppStatusCode.UnknownError
+			});
+
+			// Act
+			var response = _userManager.RemoveUserHistory("12345", "23456");
+
+			// Assert
+			Assert.AreEqual(AppStatusCode.UnknownError, response.Code);
+		}
+
+		[TestMethod]
+		public void RemoveUserHistory_HistoryIsEmpty_DoesNothing()
+		{
+			// Arrange
+			_userRepoMock.Setup(u => u.Get(It.IsAny<string>())).Returns(new ActionResponse<User>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new User
+				{
+					LastViewedRecipes = new string[0]
+				}
+			});
+			_userRepoMock.Setup(u => u.Update(It.IsAny<User>())).Returns(new ActionResponse
+			{
+				Code = AppStatusCode.Ok
+			});
+
+			// Act
+			var response = _userManager.RemoveUserHistory("12345", "4");
+
+			// Assert
+			Assert.AreEqual(AppStatusCode.Ok, response.Code);
+			_userRepoMock.Verify(r => r.Update(It.Is<User>(u => u.LastViewedRecipes.SequenceEqual(new string[0]))), Times.Once());
+		}
+
+		[TestMethod]
+		public void RemoveUserHistory_RecipeNotInHistory_DoesNothing()
+		{
+			// Arrange
+			_userRepoMock.Setup(u => u.Get(It.IsAny<string>())).Returns(new ActionResponse<User>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new User
+				{
+					LastViewedRecipes = new[] { "1", "2", "3" }
+				}
+			});
+			_userRepoMock.Setup(u => u.Update(It.IsAny<User>())).Returns(new ActionResponse
+			{
+				Code = AppStatusCode.Ok
+			});
+
+			// Act
+			var response = _userManager.RemoveUserHistory("12345", "4");
+
+			// Assert
+			Assert.AreEqual(AppStatusCode.Ok, response.Code);
+			_userRepoMock.Verify(r => r.Update(It.Is<User>(u => u.LastViewedRecipes.SequenceEqual(new[]
+			{
+				"1", "2", "3"
+			}))), Times.Once());
+		}
+
+		[TestMethod]
+		public void RemoveUserHistory_RecipeInHistory_RemovesIt()
+		{
+			// Arrange
+			_userRepoMock.Setup(u => u.Get(It.IsAny<string>())).Returns(new ActionResponse<User>
+			{
+				Code = AppStatusCode.Ok,
+				Data = new User
+				{
+					LastViewedRecipes = new[] { "1", "2", "3", "4" }
+				}
+			});
+			_userRepoMock.Setup(u => u.Update(It.IsAny<User>())).Returns(new ActionResponse
+			{
+				Code = AppStatusCode.Ok
+			});
+
+			// Act
+			var response = _userManager.RemoveUserHistory("12345", "2");
+
+			// Assert
+			Assert.AreEqual(AppStatusCode.Ok, response.Code);
+			_userRepoMock.Verify(r => r.Update(It.Is<User>(u => u.LastViewedRecipes.SequenceEqual(new[]
+			{
+				"1", "3", "4"
 			}))), Times.Once());
 		}
 
