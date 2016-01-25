@@ -2,12 +2,12 @@
 	<small><span class="fa fa-thumbs-o-up"></span> {{upCount}}</small>&nbsp;&nbsp;&nbsp;
 </span>
 <span ng-if="!readonly">
-	<button ng-click="voteUp()"><small><span class="fa fa-thumbs-o-up"></span> {{upCount}}</small></button>
+	<button ng-click="voteUp()" ng-disabled="hasVoted"><small><span class="fa fa-thumbs-o-up"></span> {{upCount}}</small></button>
 </span>
 
 <span ng-if="readonly">
 	<small><span class="fa fa-thumbs-o-down"></span> {{downCount}}</small>
 </span>
 <span ng-if="!readonly">
-	<button ng-click="voteDown()"><small><span class="fa fa-thumbs-o-down"></span> {{downCount}}</small></button>
+	<button ng-click="voteDown()" ng-disabled="hasVoted"><small><span class="fa fa-thumbs-o-down"></span> {{downCount}}</small></button>
 </span>

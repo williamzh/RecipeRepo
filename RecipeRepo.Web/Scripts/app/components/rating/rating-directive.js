@@ -8,6 +8,8 @@ recipeRepoDirectives.directive('rdRating', function() {
             recipeId: '=?'
     	},
     	controller: ['$scope', '$log', 'apiClient', function($scope, $log, apiClient) {
+            $scope.hasVoted = false;
+
     		$scope.voteUp = function() {
     			if(!$scope.recipeId) {
     				return;
@@ -16,6 +18,8 @@ recipeRepoDirectives.directive('rdRating', function() {
     			apiClient.rateRecipe($scope.recipeId, true)
 	    			.then(function() {
 	    				$scope.upCount++;
+                        $scope.hasVoted = true;
+                        
 	    				$log.debug('Upvote successful.');
 	    			})
 	    			.catch(function() {
@@ -31,6 +35,8 @@ recipeRepoDirectives.directive('rdRating', function() {
     			apiClient.rateRecipe($scope.recipeId, false)
 	    			.then(function() {
 	    				$scope.downCount++;
+                        $scope.hasVoted = true;
+
 	    				$log.debug('Downvote successful.');
 	    			})
 	    			.catch(function() {

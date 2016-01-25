@@ -18,6 +18,7 @@
         "lastNameRequired": "Efternamn måste anges",
         "userNameRequired": "Användarnamn måste anges",
         "passwordRequired": "Lösenord måste anges",
+        "passwordRepeatMismatch":  "Lösenord måste matcha",
         "genericRequired": "Detta fält är obligatoriskt",
         "numberFormat": "Vänligen ange ett numeriskt värde",
         "emailFormat": "Ogiltig e-postadress",
@@ -52,6 +53,7 @@
         "submitButton": "Logga in",
         "loginErrorMessage": "Felaktigt användarnamn eller lösenord.",
         "resetPasswordHeading": "Nollställ lösenord",
+        "resetPasswordInstructions": "Ange din e-postadress så skickar vi instruktioner till dig för hur du återställer lösenordet.",
         "resetEmailLabel": "E-post",
         "resetButton": "Skicka",
         "resetEmailRequired": "Ogiltig e-postadress"
@@ -148,7 +150,7 @@
         "repeatPasswordLabel": "Upprepa lösenord",
         "languageHeading": "Språk",
         "editSubmitButton": "Spara ändringar",
-        "updateSuccessMessage":  "Dina inställningar har blivit uppdaterade."
+        "updateSuccessMessage": "Dina inställningar har blivit uppdaterade."
     },
     "lang": { 
         "sv-SE":  "Svenska"
