@@ -8,11 +8,13 @@
 			<h1 class="u-spacingBottomMd">{{'login/mainHeading' | translate}}</h1>
 			
 			<div class="Control Control--noLabel" ng-class="{ 'has-error': hasError('userName') }">
-				<input type="text" class="Control-field" placeholder="{{'login/userNameLabel' | translate}}" name="userName" ng-model="$parent.userName" required />	
+				<label class="Control-label" for="userName">{{'login/userNameLabel' | translate}}</label>
+				<input type="text" class="Control-field" name="userName" ng-model="$parent.userName" id="userName" required />	
 				<span class="Control-error">{{'validation/userNameRequired' | translate}}</span>
 			</div>
 			<div class="Control Control--noLabel" ng-class="{ 'has-error': hasError('password') }">
-				<input type="password" class="Control-field" placeholder="{{'login/passwordLabel' | translate}}" name="password" ng-model="$parent.password" required />
+				<label class="Control-label" for="password">{{'login/passwordLabel' | translate}}</label>
+				<input type="password" class="Control-field" name="password" ng-model="$parent.password" id="password" required />
 				<span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
 			</div>
 		</div>

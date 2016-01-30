@@ -11,7 +11,9 @@
         "showLabel": "Visa",
         "removeLabel": "Ta bort",
         "dismissLabel": "Stäng",
-        "errorAlertPreamble": "Hoppsan!"
+        "errorAlertPreamble": "Hoppsan!",
+        "loadingLabel": "Hämtar data...",
+        "searchingLabel": "Söker..."
     },
     "validation": {
         "firstNameRequired": "Förnamn måste anges",
@@ -59,18 +61,17 @@
         "resetEmailRequired": "Ogiltig e-postadress"
     },
     "navigation": {
-        "home": "Start",
-        "search": "Sök recept",
+        "searchLabel": "Sök",
         "newRecipeLabel": "Skapa recept",
         "myRecipesLabel": "Mina recept",
-        "settingsLabel": "Min profil",
+        "settingsLabel": "Inställningar",
         "logoutLabel": "Logga ut"
     },
     "home": {
         "findRecipePlaceholder": "Pasta, fisk, italienskt, osv",
-        "latest": "Upplagda senaste veckan",
+        "latest": "Nya recept",
         "latestPlaceholder": "Det finns inga upplagda recept denna vecka. Skapa gärna ett!",
-        "topRated": "Högst betygsatta",
+        "topRated": "Mest gillade",
         "topRatedPlaceholder": "Det finns inga upplagda recept än. Skapa gärna ett!",
         "history": "Historik",
         "historyPlaceholder": "Här kommer de recept du tittade på senast att visas"

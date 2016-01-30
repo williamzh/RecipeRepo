@@ -62,15 +62,24 @@
 		</div>
 	</modal>
 
-	<modal ng-show="removeFavoriteModalVisible" on-close="removeFavoriteModalVisible = false">
-		<alert ng-show="hasRemoveFavoriteError" type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'myRecipes/removeFavoriteError' | translate}}"></alert>
+    <modal ng-show="removeFavoriteModalVisible" on-close="removeFavoriteModalVisible = false">
+        <alert ng-show="hasRemoveFavoriteError" type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'myRecipes/removeFavoriteError' | translate}}"></alert>
 
-		<h3 class="u-spacingTopSm">{{'myRecipes/removeFavoriteConfirmationHeading' | translate}}</h3>
+        <h3 class="u-spacingTopSm">{{'myRecipes/removeFavoriteConfirmationHeading' | translate}}</h3>
         <p>{{'myRecipes/removeFavoriteConfirmationMessage' | translate}}</p>
 
         <div class="ButtonGroup ButtonGroup--alignRight u-spacingTopLg">
-        	<button type="button" class="Button Button--primary" ng-click="removeFavorite()">{{'global/yes' | translate}}</button>
-        	<button type="button" class="Button Button--link" ng-click="$parent.$parent.removeFavoriteModalVisible = false">{{'global/no' | translate}}</button>
-		</div>
-	</modal>
+            <button type="button" class="Button Button--primary" ng-click="removeFavorite()">{{'global/yes' | translate}}</button>
+            <button type="button" class="Button Button--link" ng-click="$parent.$parent.removeFavoriteModalVisible = false">{{'global/no' | translate}}</button>
+        </div>
+    </modal>
+    
+    <div class="Loader" ng-class="{ 'is-loading': isBusy }">
+        <div class="Loader-content">
+            <span class="Loader-icon">
+                <i class="fa fa-refresh fa-spin fa-2x"></i><br />
+            </span>
+            <span class="Loader-label">{{'global/loadingLabel' | translate}}</span>
+        </div>
+    </div>
 </div>

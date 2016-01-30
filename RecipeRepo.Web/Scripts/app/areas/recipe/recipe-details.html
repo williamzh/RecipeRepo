@@ -5,75 +5,86 @@
 
 	<!-- <rd-back-link></rd-back-link> -->
 
-	<div ng-show="!hasError">
-		<div class="Banner">
-			<div class="Banner-figure">
-				<div ng-style="{ 'background-image':'url(' + recipe.imageUrl + ')'}"></div>
-			</div>
-			<div class="Banner-wrap">
-				<div class="Banner-content">
-					<div class="Banner-card">
-						<h3 class="u-spacingBothSm">{{recipe.name}}</h3>
-						<ul class="Toolbar">
-							<li class="Toolbar-item Toolbar-item--block" ng-click="onFavoriteClick($event)">
-								<a href="#"><i class="fa fa-lg" ng-class="isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
-							</li>
-							<li class="Toolbar-item Toolbar-item--block" ng-if="isEditable">
-								<a ui-sref="recipe/edit({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o fa-lg"></i></a>
-							</li>
-						</ul>
-						<ul class="Toolbar">
-							<li class="Toolbar-item">{{('meta/' + recipe.meta.cuisine) | translate}}</li>
-							<li class="Toolbar-item">{{('meta/' + recipe.meta.category) | translate}}</li>
-							<li class="Toolbar-item">{{('meta/' + recipe.meta.course) | translate}}</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="Grid">
-			<div class="Grid-cell u-sizeFull">
-				<div class="Article">
-					<span class="u-pullLeft">{{recipe.meta.servings}} {{'global/servings' | translate}}</span>
-					<span class="u-pullRight"><rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="false" recipe-id="recipe.id"></rd-rating></span>
-				</div>
-			</div>
-		</div>
-		<div class="Grid">
-			<div class="Grid-cell u-sizeFull u-lg-size1of2">
-				<article class="Article">
-					<h3>{{recipe.ingredients.length}} <small>{{'recipeDetails/ingredientsHeading' | translate}}</small></h3>
-					<hr/>
-					<ul class="u-plainList">
-						<li ng-repeat="(grpKey, grpVal) in recipe.groupedIngredients">
-							<div ng-if='grpKey !== "undefined"'><small class="u-textUppercase">{{grpKey}}</small></div>
-							<ul>
-								<li ng-repeat="ing in grpVal">
-									{{ing.quantity}} {{ing.unit}} {{ing.name}}
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</article>
-			</div>
-			<div class="Grid-cell u-sizeFull u-lg-size1of2">
-				<article class="Article">
-					<h3>{{recipe.steps.length}} <small>{{'recipeDetails/methodHeading' | translate}}</small></h3>
-					<hr/>
-					<ol>
-						<li ng-repeat="step in recipe.steps">
-							{{step}}
-						</li>
-					</ol>
-				</article>
-			</div>
-		</div>
-		<div class="Grid">
-			<div class="Grid-cell u-sizeFull">
-				<div class="Article">
-					<small><i>{{'recipeDetails/author' | translate}}: {{recipe.meta.owner}}</i></small>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div ng-show="!hasError">
+        <div class="Banner">
+            <div class="Banner-figure">
+                <div ng-style="{ 'background-image':'url(' + recipe.imageUrl + ')'}"></div>
+            </div>
+            <div class="Banner-wrap">
+                <div class="Banner-content">
+                    <div class="Banner-card">
+                        <h3 class="u-spacingBothSm">{{recipe.name}}</h3>
+                        <ul class="Toolbar">
+                            <li class="Toolbar-item Toolbar-item--block" ng-click="onFavoriteClick($event)">
+                                <a href="#"><i class="fa fa-lg" ng-class="isFavorite ? 'fa-heart' : 'fa-heart-o'"></i></a>
+                            </li>
+                            <li class="Toolbar-item Toolbar-item--block" ng-if="isEditable">
+                                <a ui-sref="recipe/edit({ recipeId: recipe.id })"><i class="fa fa-pencil-square-o fa-lg"></i></a>
+                            </li>
+                        </ul>
+                        <ul class="Toolbar">
+                            <li class="Toolbar-item">{{('meta/' + recipe.meta.cuisine) | translate}}</li>
+                            <li class="Toolbar-item">{{('meta/' + recipe.meta.category) | translate}}</li>
+                            <li class="Toolbar-item">{{('meta/' + recipe.meta.course) | translate}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Grid">
+            <div class="Grid-cell u-sizeFull">
+                <div class="Article">
+                    <span class="u-pullLeft">{{recipe.meta.servings}} {{'global/servings' | translate}}</span>
+                    <span class="u-pullRight"><rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="false" recipe-id="recipe.id"></rd-rating></span>
+                </div>
+            </div>
+        </div>
+        <div class="Grid">
+            <div class="Grid-cell u-sizeFull u-lg-size1of2">
+                <article class="Article">
+                    <h3>{{recipe.ingredients.length}} <small>{{'recipeDetails/ingredientsHeading' | translate}}</small></h3>
+                    <hr/>
+                    <ul class="u-plainList">
+                        <li ng-repeat="(grpKey, grpVal) in recipe.groupedIngredients">
+                            <div ng-if='grpKey !== "undefined"'><small class="u-textUppercase">{{grpKey}}</small></div>
+                            <ul>
+                                <li ng-repeat="ing in grpVal">
+                                    {{ing.quantity}} {{ing.unit}} {{ing.name}}
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+            <div class="Grid-cell u-sizeFull u-lg-size1of2">
+                <article class="Article">
+                    <h3>{{recipe.steps.length}} <small>{{'recipeDetails/methodHeading' | translate}}</small></h3>
+                    <hr/>
+                    <ol>
+                        <li ng-repeat="step in recipe.steps">
+                            {{step}}
+                        </li>
+                    </ol>
+                </article>
+            </div>
+        </div>
+        <div class="Grid">
+            <div class="Grid-cell u-sizeFull">
+                <div class="Article--muted">
+                    <hr/>
+                    <p class="u-pullLeft">{{'recipeDetails/author' | translate}}: {{recipe.meta.owner}}</p>
+                    <p class="u-pullRight"><a ui-sref="search({ query: recipe.meta.owner })">Se fler recept från {{recipe.meta.owner}}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="Loader" ng-class="{ 'is-loading': isBusy }">
+        <div class="Loader-content">
+            <span class="Loader-icon">
+                <i class="fa fa-refresh fa-spin fa-2x"></i><br />
+            </span>
+            <span class="Loader-label">{{'global/loadingLabel' | translate}}</span>
+        </div>
+    </div>
 </div>

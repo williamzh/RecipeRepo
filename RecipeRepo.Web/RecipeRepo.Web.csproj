@@ -203,6 +203,7 @@
     <Content Include="bower.json" />
     <Content Include="package.json" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Styles\components\_loader.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

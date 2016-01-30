@@ -135,8 +135,12 @@
     <Compile Include="Core\IRecipeStore.cs" />
     <Compile Include="Core\IUserManager.cs" />
     <Compile Include="Core\MetaStore.cs" />
-    <Compile Include="Core\RecipeSearchQueryMapper.cs" />
+    <Compile Include="Core\Search\SearchQueryParsers.cs" />
+    <Compile Include="Core\Search\UserNameSearchQueryParser.cs" />
+    <Compile Include="Core\Search\MetaSearchQueryParser.cs" />
     <Compile Include="Core\RecipeStore.cs" />
+    <Compile Include="Core\Search\ISearchQueryParser.cs" />
+    <Compile Include="Core\Search\MappedSearchHandler.cs" />
     <Compile Include="Core\UserManager.cs" />
     <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="IO\FileManager.cs" />

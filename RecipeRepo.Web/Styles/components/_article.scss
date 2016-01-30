@@ -1,6 +1,15 @@
 .Article {
 	padding: 15px;
 
+	a {
+		color: $color-info;
+		cursor: pointer;
+
+		&:hover {
+			color: lighten($color-info, 10%);
+		}
+	}
+
 	h1, h2, h3 {
 		color: $color-black;
 	}
@@ -20,5 +29,16 @@
 
 	li {
 		padding: 5px 0;
+	}
+}
+
+.Article--muted {
+	@extend .Article;
+
+	hr {
+		background-color: $color-divider;
+		border: 0;
+		height: 1px;
+		width: 100%;
 	}
 }

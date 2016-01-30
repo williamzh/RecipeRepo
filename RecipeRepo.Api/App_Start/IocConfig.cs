@@ -3,6 +3,7 @@ using System.Web.Http;
 using Autofac;
 using Autofac.Integration.WebApi;
 using RecipeRepo.Api.Core;
+using RecipeRepo.Api.Core.Search;
 using RecipeRepo.Api.IO;
 using RecipeRepo.Api.Security;
 using RecipeRepo.Common.Configuration;
@@ -37,7 +38,9 @@ namespace RecipeRepo.Api
 			b.RegisterType<UserManager>().As<IUserManager>();
 			b.RegisterType<RecipeStore>().As<IRecipeStore>();
 			b.RegisterType<MetaStore>().As<IMetaStore>();
-			b.RegisterType<RecipeSearchQueryMapper>().AsSelf();
+			b.RegisterType<MappedSearchHandler<Recipe>>().AsSelf();
+			b.RegisterType<MetaSearchQueryParser>().AsSelf();
+			b.RegisterType<UserNameSearchQueryParser>().AsSelf();
 
 			// Security
 			b.RegisterType<AuthService>().As<IAuthService>();

@@ -1,5 +1,5 @@
 <div ng-controller="homeController" ng-init="init()">
-	<div class="Banner">
+	<div class="Banner u-spacingBottomSm">
 		<div class="Banner-figure Banner-figure--blur">
 			<div ng-style="{ 'background-image': 'url(/Content/Images/mat.jpg)' }"></div>
 		</div>
@@ -7,92 +7,110 @@
 			<div class="Banner-content Banner-content--padded">
 				<form ng-submit="search()">
 					<div class="Control Control--discrete">
-						<input type="text" autofocus class="Control-field" placeholder="{{'home/findRecipePlaceholder' | translate}}" ng-model="searchQuery"/>
+						<input type="text" class="Control-field" placeholder="{{'home/findRecipePlaceholder' | translate}}" ng-model="searchQuery"/>
 						<button type="submit" class="Control-addOn"><i class="fa fa-search"></i></button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	<section class="Section u-spacingTopSm">
-		<h2 class="Section-heading">{{'home/latest' | translate}}</h1>
-		<hr/>
-		<div ng-if="latestRecipes.length === 0" class="u-textCenter u-textFaded">
-			<p class="u-spacingTopLg">{{'home/latestPlaceholder' | translate}}</p>
+
+	<div class="Grid">
+		<div class="Grid-cell u-sizeFull u-md-size1of2">
+		    <section class="Section">
+		        <h2 class="Section-heading">{{'home/latest' | translate}}</h2>
+		        <hr/>
+		        <div ng-if="latestRecipes.length === 0" class="u-textCenter u-textFaded">
+		            <p class="u-spacingTopLg">{{'home/latestPlaceholder' | translate}}</p>
+		        </div>
+		        <div class="Grid Grid--withGutter">
+		            <div class="Grid-cell u-sizeFull u-sm-size1of2 u-xl-size1of3" ng-repeat="recipe in latestRecipes">
+		                <div class="Box">
+		                    <div class="Box-content" ng-click="showRecipe(recipe)">
+		                        <div class="Box-image">
+		                            <div ng-style="{ 'background-image': 'url({{recipe.imageUrl}})' }"></div>
+		                        </div>
+		                        <div class="Box-overlay">
+		                            <h4 class="Box-heading">{{recipe.name}}</h4>
+		                            <div class="Box-meta">
+		                                <i class="fa fa-clock-o"></i>
+		                                &nbsp;{{recipe.meta.created | timeAgo}}
+		                            </div>
+		                        </div>
+		                        <div class="Box-footer">
+		                            {{recipe.description}}
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>	
 		</div>
-		<div class="Grid Grid--withGutter">
-			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of5" ng-repeat="recipe in latestRecipes">
-				<div class="Box">
-					<div class="Box-content" ng-click="showRecipe(recipe)">
-						<div class="Box-image">
-							<div ng-style="{ 'background-image': 'url({{recipe.imageUrl}})' }"></div>
-						</div>
-						<div class="Box-overlay">
-							<h4 class="Box-heading">{{recipe.name}}</h4>
-							<div class="Box-meta">
-								<i class="fa fa-clock-o"></i>
-								&nbsp;{{recipe.meta.created | timeAgo}}
-							</div>
-						</div>
-						<div class="Box-footer">
-							{{recipe.description}}
-						</div>
-					</div>
-				</div>
-			</div>
+
+		<div class="Grid-cell u-sizeFull u-md-size1of2">
+		    <section class="Section">
+		        <h2 class="Section-heading">{{'home/topRated' | translate}}</h2>
+		        <hr/>
+		        <div ng-if="topRecipes.length === 0" class="u-textCenter u-textFaded">
+		            <p class="u-spacingTopLg">{{'home/topRatedPlaceholder' | translate}}</p>
+		        </div>
+		        <div class="Grid Grid--withGutter">
+		            <div class="Grid-cell u-sizeFull u-sm-size1of2 u-xl-size1of3" ng-repeat="recipe in topRecipes">
+		                <div class="Box">
+		                    <div class="Box-content" ng-click="showRecipe(recipe)">
+		                        <div class="Box-image">
+		                            <div ng-style="{ 'background-image': 'url({{recipe.imageUrl}})' }"></div>
+		                        </div>
+		                        <div class="Box-overlay">
+		                            <h4 class="Box-heading">{{recipe.name}}</h4>
+		                            <div class="Box-meta">
+		                                <rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="true"></rd-rating>
+		                            </div>
+		                        </div>
+		                        <div class="Box-footer">
+		                            {{recipe.description}}
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </section>
 		</div>
-	</section>
-	<section class="Section">
-		<h2 class="Section-heading">{{'home/topRated' | translate}}</h1>
-		<hr/>
-		<div ng-if="topRecipes.length === 0" class="u-textCenter u-textFaded">
-			<p class="u-spacingTopLg">{{'home/topRatedPlaceholder' | translate}}</p>
-		</div>
-		<div class="Grid Grid--withGutter">
-			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of5" ng-repeat="recipe in topRecipes">
-				<div class="Box">
-					<div class="Box-content" ng-click="showRecipe(recipe)">
-						<div class="Box-image">
-							<div ng-style="{ 'background-image': 'url({{recipe.imageUrl}})' }"></div>
-						</div>
-						<div class="Box-overlay">
-							<h4 class="Box-heading">{{recipe.name}}</h4>
-							<div class="Box-meta">
-								<rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="true"></rd-rating>
-							</div>
-						</div>
-						<div class="Box-footer">
-							{{recipe.description}}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<section class="Section">
-		<h2 class="Section-heading">{{'home/history' | translate}}</h1>
-		<hr/>
-		<div ng-if="history.length === 0" class="u-textCenter u-textFaded">
-			<p class="u-spacingTopLg">{{'home/historyPlaceholder' | translate}}</p>
-		</div>
-		<div class="Grid Grid--withGutter">
-			<div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of5" ng-repeat="recipe in history">
-				<div class="Box">
-					<div class="Box-content" ng-click="showRecipe(recipe)">
-						<button type="button" class="Box-close" ng-click="removeHistory(recipe.id)"><i class="fa fa-times"></i></button>
-						<div class="Box-image">
-							<div ng-style="{ 'background-image': 'url({{recipe.imageUrl}})' }"></div>
-						</div>
-						<div class="Box-overlay">
-							<h4 class="Box-heading">{{recipe.name}}</h4>
-							<div class="Box-meta"></div>
-						</div>
-						<div class="Box-footer">
-							{{recipe.description}}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	</div>
+    
+    <div class="Loader" ng-class="{ 'is-loading': isBusy }">
+        <div class="Loader-content">
+            <span class="Loader-icon">
+                <i class="fa fa-refresh fa-spin fa-2x"></i><br />
+            </span>
+            <span class="Loader-label">{{'global/loadingLabel' | translate}}</span>
+        </div>
+    </div>
+
+    <!-- <section class="Section">
+            <h2 class="Section-heading">{{'home/history' | translate}}</h1>
+            <hr/>
+            <div ng-if="history.length === 0" class="u-textCenter u-textFaded">
+                <p class="u-spacingTopLg">{{'home/historyPlaceholder' | translate}}</p>
+            </div>
+            <div class="Grid Grid--withGutter">
+                <div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-size1of4 u-xl-size1of5" ng-repeat="recipe in history">
+                    <div class="Box">
+                        <div class="Box-content" ng-click="showRecipe(recipe)">
+                            <button type="button" class="Box-close" ng-click="removeHistory(recipe.id)"><i class="fa fa-times"></i></button>
+                            <div class="Box-image">
+                                <div ng-style="{ 'background-image': 'url({{recipe.imageUrl}})' }"></div>
+                            </div>
+                            <div class="Box-overlay">
+                                <h4 class="Box-heading">{{recipe.name}}</h4>
+                                <div class="Box-meta"></div>
+                            </div>
+                            <div class="Box-footer">
+                                {{recipe.description}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> -->
 </div>

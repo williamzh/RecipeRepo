@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RecipeRepo.Api.Core;
+using RecipeRepo.Api.Core.Search;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Entities;
 using RecipeRepo.Integrations.Repositories;
@@ -15,7 +16,7 @@ namespace RecipeRepo.Api.Tests.Core
 	{
 		private Mock<IDbRepository<Recipe>> _recipeRepoMock;
 		private Mock<IDbRepository<User>> _userRepoMock;
-		private Mock<RecipeSearchQueryMapper> _queryMapperMock;
+		private Mock<MappedSearchHandler<Recipe>> _mappedSearchHandler;
 		private RecipeStore _recipeStore;
 
 		[TestInitialize]
@@ -23,9 +24,9 @@ namespace RecipeRepo.Api.Tests.Core
 		{
 			_recipeRepoMock = new Mock<IDbRepository<Recipe>>();
 			_userRepoMock = new Mock<IDbRepository<User>>();
-			_queryMapperMock = new Mock<RecipeSearchQueryMapper>(null, null);
+			_mappedSearchHandler = new Mock<MappedSearchHandler<Recipe>>(null);
 
-			_recipeStore = new RecipeStore(_recipeRepoMock.Object, _userRepoMock.Object, _queryMapperMock.Object);
+			_recipeStore = new RecipeStore(_recipeRepoMock.Object, _userRepoMock.Object, _mappedSearchHandler.Object);
 		}
 
 		[TestMethod]
@@ -206,15 +207,12 @@ namespace RecipeRepo.Api.Tests.Core
 		}
 
 		[TestMethod]
-		public void Search_QueryMapsToMetaField_ReturnsMetaHits()
+		public void Search_HasMappedHitsOnly_ReturnsMappedHits()
 		{
 			// Arrange
-			_queryMapperMock.Setup(q => q.MapToMetaKey("Pasta", "sv-SE")).Returns("cat_pasta");
-
-			_recipeRepoMock.Setup(r => r.Find("Meta.Category", "cat_pasta", MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
+			_mappedSearchHandler.Setup(m => m.ExecuteSearch("Italienskt", "sv-SE")).Returns(new[]
 			{
-				Code = AppStatusCode.Ok,
-				Data = new [] { new Recipe { Id = "1" } }
+				new Recipe { Id = "1" }
 			});
 
 			_recipeRepoMock.Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
@@ -224,22 +222,42 @@ namespace RecipeRepo.Api.Tests.Core
 			});
 
 			// Act
-			var response = _recipeStore.Search("Pasta", "sv-SE");
+			var response = _recipeStore.Search("Italienskt", "sv-SE");
 
 			// Assert
-			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.SingleOrDefault(r => r.Id == "1") != null);
+			Assert.IsTrue(response.Code == AppStatusCode.Ok &&
+				response.Data.Count() == 1 && response.Data.Single(r => r.Id == "1") != null
+			);
 		}
 
 		[TestMethod]
-		public void Search_QueryMapsToMetaFieldAndOtherFields_ReturnsAllHits()
+		public void Search_HasTextSearchHitsOnly_ReturnsTextSearchHits()
 		{
 			// Arrange
-			_queryMapperMock.Setup(q => q.MapToMetaKey("Italienskt", "sv-SE")).Returns("cui_it");
+			_mappedSearchHandler.Setup(m => m.ExecuteSearch("Italienskt", "sv-SE")).Returns(new List<Recipe>());
 
-			_recipeRepoMock.Setup(r => r.Find("Meta.Cuisine", "cui_it", MatchingStrategy.Equals, It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
+			_recipeRepoMock.Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
 			{
 				Code = AppStatusCode.Ok,
-				Data = new[] { new Recipe { Id = "1" } }
+				Data = new List<Recipe> { new Recipe { Id = "1" } }
+			});
+
+			// Act
+			var response = _recipeStore.Search("Italienskt", "sv-SE");
+
+			// Assert
+			Assert.IsTrue(response.Code == AppStatusCode.Ok &&
+				response.Data.Count() == 1 && response.Data.Single(r => r.Id == "1") != null
+			);
+		}
+
+		[TestMethod]
+		public void Search_HasMappedAndTextSearchHits_ReturnsAllDistinctHits()
+		{
+			// Arrange
+			_mappedSearchHandler.Setup(m => m.ExecuteSearch("Italienskt", "sv-SE")).Returns(new []
+			{
+				new Recipe { Id = "1" }
 			});
 
 			_recipeRepoMock.Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
@@ -253,28 +271,9 @@ namespace RecipeRepo.Api.Tests.Core
 
 			// Assert
 			var hits = response.Data.ToList();
-			Assert.IsTrue(response.Code == AppStatusCode.Ok && 
+			Assert.IsTrue(response.Code == AppStatusCode.Ok &&
 				hits.Count == 2 && hits[0].Id == "1" && hits[1].Id == "2"
 			);
-		}
-
-		[TestMethod]
-		public void Search_QueryDoesNotMapToMetaField_ReturnsOtherHits()
-		{
-			// Arrange
-			_queryMapperMock.Setup(q => q.MapToMetaKey("Italienskt", "sv-SE")).Returns(null as string);
-
-			_recipeRepoMock.Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int>())).Returns(new ActionResponse<IEnumerable<Recipe>>
-			{
-				Code = AppStatusCode.Ok,
-				Data = new[] { new Recipe { Id = "1" } }
-			});
-
-			// Act
-			var response = _recipeStore.Search("Foo", "sv-SE");
-
-			// Assert
-			Assert.IsTrue(response.Code == AppStatusCode.Ok && response.Data.SingleOrDefault(r => r.Id == "1") != null);
 		}
 	}
 }

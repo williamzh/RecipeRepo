@@ -5,7 +5,9 @@ recipeRepoControllers.controller('myRecipesController', ['$scope', 'apiClient', 
 	$scope.currentOwnedRecipe = null;
 	$scope.currentFavoriteRecipe = null;
 
-	$scope.init = function() {
+	$scope.init = function () {
+	    $scope.isBusy = true;
+
 		apiClient.getUser()
 			.then(function(user) {
 				return $q.all([apiClient.getRecipes(user.ownedRecipes), apiClient.getRecipes(user.favoriteRecipes)]);
@@ -18,7 +20,10 @@ recipeRepoControllers.controller('myRecipesController', ['$scope', 'apiClient', 
 			})
 			.catch(function() {
 				$scope.hasError = true;
-			});
+			})
+	        .finally(function() {
+		        $scope.isBusy = false;
+		    });
 	};
 
 	$scope.showRemoveRecipeConfirmation = function(recipe) {

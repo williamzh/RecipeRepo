@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RecipeRepo.Api.Core.Search;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Common.Extensions;
 using RecipeRepo.Integrations.Entities;
@@ -11,13 +12,13 @@ namespace RecipeRepo.Api.Core
 	{
 		private readonly IDbRepository<Recipe> _recipeRepository;
 		private readonly IDbRepository<User> _userRepository;
-		private readonly RecipeSearchQueryMapper _queryMapper;
-		
-		public RecipeStore(IDbRepository<Recipe> recipeRepository, IDbRepository<User> userRepository, RecipeSearchQueryMapper queryMapper)
+		private readonly MappedSearchHandler<Recipe> _mappedSearchHandler;
+
+		public RecipeStore(IDbRepository<Recipe> recipeRepository, IDbRepository<User> userRepository, MappedSearchHandler<Recipe> mappedSearchHandler)
 		{
 			_recipeRepository = recipeRepository;
 			_userRepository = userRepository;
-			_queryMapper = queryMapper;
+			_mappedSearchHandler = mappedSearchHandler;
 		}
 
 		public ActionResponse AddRecipe(string userId, Recipe recipe)
@@ -144,29 +145,13 @@ namespace RecipeRepo.Api.Core
 
 		public ActionResponse<IEnumerable<Recipe>> Search(string query, string userLang, int limit = 100)
 		{
-			var response = new ActionResponse<IEnumerable<Recipe>>()
+			var response = new ActionResponse<IEnumerable<Recipe>>
 			{
-				Code = AppStatusCode.Ok,
-				Data = new List<Recipe>()
+				Code = AppStatusCode.Ok
 			};
 
-			var mappedQuery = _queryMapper.MapToMetaKey(query, userLang);
-			if (mappedQuery != null)
-			{
-				var metaType = mappedQuery.Substring(0, 3);
-				var metaField = metaType == "cat" ? "Category" :
-					metaType == "cui" ? "Cuisine" : "Course";
-
-				var findResponse = _recipeRepository.Find("Meta." + metaField, mappedQuery, MatchingStrategy.Equals);
-				if (findResponse.Code != AppStatusCode.Ok)
-				{
-					response.Code = findResponse.Code;
-					response.Message = findResponse.Message;
-					return response;
-				}
-
-				response.Data = findResponse.Data;
-			}
+			var mappedHits = _mappedSearchHandler.ExecuteSearch(query, userLang);
+			response.Data = mappedHits;
 
 			var searchResponse = _recipeRepository.Search(query, limit);
 			if (searchResponse.Code != AppStatusCode.Ok)

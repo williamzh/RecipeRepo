@@ -44,6 +44,7 @@
 .Banner-figure--blur > div {
      filter: blur(6px);
     -webkit-filter: blur(6px);
+    filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='6'%20/></filter></svg>#blur");
 }
 
 .Banner-wrap {

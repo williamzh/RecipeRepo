@@ -1,32 +1,23 @@
-recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 'apiClient', 'userSession', function($scope, $state, Slug, apiClient, userSession) {
-	$scope.init = function() {
-		// Latest recipes
-		var dateFilter = Date.create().addDays(-10).toISOString();
-		apiClient.findRecipes({ fieldName: 'Meta.Created', value: dateFilter, strategy: 'GreaterThan' })
-			.then(function(latestRecipes) {
-				$scope.latestRecipes = latestRecipes;
-			})
-			.catch(function() {
-				$scope.hasLatestRecipesError = true;
-			});
+recipeRepoControllers.controller('homeController', ['$scope', '$state', '$q', 'apiClient', function($scope, $state, $q, apiClient) {
+    $scope.init = function () {
+        $scope.isBusy = true;
 
-		// Top recipes
-		apiClient.findRecipes({ fieldName: 'Meta.RelativeScore', value: 1, strategy: 'GreaterThan' })
-			.then(function(topRecipes) {
-				$scope.topRecipes = topRecipes;
-			})
-			.catch(function() {
-				$scope.hasTopRecipesError = true;
-			});
+        var dateFilter = Date.create().addDays(-10).toISOString();
+        var latestRecipesPromise = apiClient.findRecipes({ fieldName: 'Meta.Created', value: dateFilter, strategy: 'GreaterThan' });
+        var topRecipesPromise = apiClient.findRecipes({ fieldName: 'Meta.RelativeScore', value: 1, strategy: 'GreaterThan' });
 
-		// History
-		apiClient.getHistory()
-			.then(function(history) {
-				$scope.history = history;
-			})
-			.catch(function() {
-				$scope.hasHistoryError = true;
-			});
+        $q.all([latestRecipesPromise, topRecipesPromise])
+            .then(function(responses) {
+                $scope.latestRecipes = responses[0];
+                $scope.topRecipes = responses[1];
+            })
+            .catch(function () {
+                $scope.hasLatestRecipesError = true;
+                $scope.hasTopRecipesError = true;
+            })
+            .finally(function() {
+                $scope.isBusy = false;
+            });
 	};
 
 	$scope.search = function() {
@@ -34,8 +25,7 @@ recipeRepoControllers.controller('homeController', ['$scope', '$state', 'Slug', 
 	};
 
 	$scope.showRecipe = function(recipe) {
-		var slug = Slug.slugify(recipe.name);
-		$state.go('recipe', { recipeId: recipe.id, recipeName: slug });
+		$state.go('recipe', { recipeId: recipe.id });
 	};
 
 	$scope.removeHistory = function(recipeId) {

@@ -1229,29 +1229,52 @@ small {
   background: none;
 }
 
-.Article {
+.Article, .Article--muted {
   padding: 15px;
 }
-.Article h1, .Article h2, .Article h3 {
+.Article a, .Article--muted a {
+  color: #289FD6;
+  cursor: pointer;
+}
+.Article a:hover, .Article--muted a:hover {
+  color: #52b2df;
+}
+.Article h1, .Article--muted h1, .Article h2, .Article--muted h2, .Article h3, .Article--muted h3 {
   color: #333745;
 }
-.Article hr {
+.Article hr, .Article--muted hr {
   background-color: #E63462;
 }
-.Article ul {
+.Article ul, .Article--muted ul {
   list-style-type: disc;
   margin: 0;
 }
-.Article ul, .Article ol {
+.Article ul, .Article--muted ul, .Article ol, .Article--muted ol {
   padding-left: 25px;
 }
-.Article li {
+.Article li, .Article--muted li {
   padding: 5px 0;
+}
+
+.Article--muted hr {
+  background-color: rgba(0, 0, 0, 0.13);
+  border: 0;
+  height: 1px;
+  width: 100%;
 }
 
 .Header {
   position: relative;
   z-index: 120;
+}
+
+.Header.is-expanded {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .Header-bar {
@@ -1565,6 +1588,7 @@ small {
 .Banner-figure--blur > div {
   filter: blur(6px);
   -webkit-filter: blur(6px);
+  filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='6'%20/></filter></svg>#blur");
 }
 
 .Banner-wrap {
@@ -1794,6 +1818,51 @@ small {
   float: right;
   margin-top: -5px;
   text-align: right;
+}
+
+.Loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 140;
+  display: none;
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.Loader--inline {
+  position: relative;
+  z-index: 140;
+  display: none;
+  min-height: 150px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.Loader-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  text-align: center;
+}
+
+.Loader-icon {
+  color: #E63462;
+}
+.Loader-icon .fa-spin {
+  animation-duration: 1.5s;
+}
+
+.Loader-label {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.Loader.is-loading {
+  display: block;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -86,6 +86,10 @@ namespace RecipeRepo.Integrations.Db
 				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Created"), new CreateIndexOptions
 				{
 					Name = "Recipe_Created_Desc",
+				}),
+				new CreateIndexModel<Recipe>(recipeIndexBuilder.Descending("Meta.Owner"), new CreateIndexOptions
+				{
+					Name = "Recipe_Owner_Desc",
 				})
 			);
 

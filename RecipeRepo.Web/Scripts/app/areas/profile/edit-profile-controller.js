@@ -1,7 +1,9 @@
 recipeRepoControllers.controller('editProfileController', ['$scope', '$q', 'apiClient', function($scope, $q, apiClient) {
 	$scope.profile = {};
 
-	$scope.init = function() {
+	$scope.init = function () {
+	    $scope.isBusy = true;
+
 		$q.all([apiClient.getUser(), apiClient.getLanguages()])
 			.then(function(responses) {
 				$scope.profile = responses[0];
@@ -12,7 +14,10 @@ recipeRepoControllers.controller('editProfileController', ['$scope', '$q', 'apiC
 			})
 			.catch(function() {
 				$scope.showError = true;
-			});
+			})
+	        .finally(function() {
+		        $scope.isBusy = false;
+		    });
 	};
 
 	$scope.updateProfile = function() {

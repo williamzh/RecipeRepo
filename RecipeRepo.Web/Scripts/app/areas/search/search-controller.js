@@ -6,6 +6,8 @@ recipeRepoControllers.controller('searchController', ['$scope', '$stateParams', 
 			return;
 		}
 
+	    $scope.isBusy = true;
+
 		apiClient.searchRecipes($scope.searchQuery)
 			.then(function(hits) {
 				$scope.hits = hits;
@@ -13,6 +15,9 @@ recipeRepoControllers.controller('searchController', ['$scope', '$stateParams', 
 			})
 			.catch(function() {
 				$scope.hasError = true;
-			});
+			})
+	        .finally(function() {
+		        $scope.isBusy = false;
+		    });
 	}
 }]);

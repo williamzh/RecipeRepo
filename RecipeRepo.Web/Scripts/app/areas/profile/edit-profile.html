@@ -7,58 +7,67 @@
 		<alert type="success" message="{{'profile/updateSuccessMessage' | translate}}"></alert>
 	</div>
 
-	<form name="editProfileForm" ng-submit="updateProfile()" autocomplete="new-password">
-		<h1 class="u-spacingBottomMd">{{'profile/editProfileHeading' | translate}}</h1>
+    <form name="editProfileForm" ng-submit="updateProfile()" autocomplete="new-password">
+        <h1 class="u-spacingBottomMd">{{'profile/editProfileHeading' | translate}}</h1>
 
-		<h2 class="u-spacingBothSm">{{'profile/personalDetailsHeading' | translate}}</h2>
-		<div class="Grid Grid--withGutter" validator>
-			<div class="Grid-cell u-sizeFull u-md-size1of2">
-				<div class="Control">
-					<label class="Control-label" for="userName">{{'profile/userNameLabel' | translate}}</label>
-					<input type="text" class="Control-field" name="userName" ng-model="profile.userName" id="userName" disabled>
-				</div>
-			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2">
-				<div class="Control" ng-class="{ 'has-error': hasError('firstName') }">
-					<label class="Control-label" for="firstName">{{'profile/firstNameLabel' | translate}}</label>
-					<input type="text" class="Control-field" name="firstName" ng-model="profile.firstName" id="firstName" required>
-					<span class="Control-error">{{'validation/firstNameRequired' | translate}}</span>
-				</div>
-			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2">
-				<div class="Control" ng-class="{ 'has-error': hasError('lastName') }">
-					<label class="Control-label" for="lastName">{{'profile/lastNameLabel' | translate}}</label>
-					<input type="text" class="Control-field" name="lastName" ng-model="profile.lastName" id="lastName" required>
-					<span class="Control-error">{{'validation/lastNameRequired' | translate}}</span>
-				</div>
-			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2">
-				<div class="Control" ng-class="{ 'has-error': hasError('email') }">
-					<label class="Control-label" for="email">{{'profile/emailLabel' | translate}}</label>
-					<input type="email" class="Control-field" name="email" ng-model="profile.email" id="email" required>
-					<span class="Control-error">{{'validation/emailRequired' | translate}}</span>
-				</div>
-			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2">
-				<div class="Control" ng-class="{ 'has-error': hasError('password') }">
-					<label class="Control-label" for="password">{{'profile/passwordLabel' | translate}}</label>
-					<input type="password" class="Control-field" name="password" ng-model="profile.password" id="password" required>
-					<span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
-				</div>
-			</div>
-		</div>
+        <h2 class="u-spacingBothSm">{{'profile/personalDetailsHeading' | translate}}</h2>
+        <div class="Grid Grid--withGutter" validator>
+            <div class="Grid-cell u-sizeFull u-md-size1of2">
+                <div class="Control">
+                    <label class="Control-label" for="userName">{{'profile/userNameLabel' | translate}}</label>
+                    <input type="text" class="Control-field" name="userName" ng-model="profile.userName" id="userName" disabled>
+                </div>
+            </div>
+            <div class="Grid-cell u-sizeFull u-md-size1of2">
+                <div class="Control" ng-class="{ 'has-error': hasError('firstName') }">
+                    <label class="Control-label" for="firstName">{{'profile/firstNameLabel' | translate}}</label>
+                    <input type="text" class="Control-field" name="firstName" ng-model="profile.firstName" id="firstName" required>
+                    <span class="Control-error">{{'validation/firstNameRequired' | translate}}</span>
+                </div>
+            </div>
+            <div class="Grid-cell u-sizeFull u-md-size1of2">
+                <div class="Control" ng-class="{ 'has-error': hasError('lastName') }">
+                    <label class="Control-label" for="lastName">{{'profile/lastNameLabel' | translate}}</label>
+                    <input type="text" class="Control-field" name="lastName" ng-model="profile.lastName" id="lastName" required>
+                    <span class="Control-error">{{'validation/lastNameRequired' | translate}}</span>
+                </div>
+            </div>
+            <div class="Grid-cell u-sizeFull u-md-size1of2">
+                <div class="Control" ng-class="{ 'has-error': hasError('email') }">
+                    <label class="Control-label" for="email">{{'profile/emailLabel' | translate}}</label>
+                    <input type="email" class="Control-field" name="email" ng-model="profile.email" id="email" required>
+                    <span class="Control-error">{{'validation/emailRequired' | translate}}</span>
+                </div>
+            </div>
+            <div class="Grid-cell u-sizeFull u-md-size1of2">
+                <div class="Control" ng-class="{ 'has-error': hasError('password') }">
+                    <label class="Control-label" for="password">{{'profile/passwordLabel' | translate}}</label>
+                    <input type="password" class="Control-field" name="password" ng-model="profile.password" id="password" required>
+                    <span class="Control-error">{{'validation/passwordRequired' | translate}}</span>
+                </div>
+            </div>
+        </div>
 
-		<h2 class="u-spacingBothSm">{{'profile/languageHeading' | translate}}</h2>
-		<div class="Grid Grid--withGutter" validator>
-			<div class="Grid-cell u-sizeFull u-md-size1of2">
-				<div class="Control">
-					<select class="Control-field" ng-options="l as ('lang/' + l | translate) for l in supportedLanguages" ng-model="selectedLang"></select>
-				</div>
-			</div>
-		</div>
+        <h2 class="u-spacingBothSm">{{'profile/languageHeading' | translate}}</h2>
+        <div class="Grid Grid--withGutter" validator>
+            <div class="Grid-cell u-sizeFull u-md-size1of2">
+                <div class="Control">
+                    <select class="Control-field" ng-options="l as ('lang/' + l | translate) for l in supportedLanguages" ng-model="selectedLang"></select>
+                </div>
+            </div>
+        </div>
 
-		<div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopMd">
-			<button type="submit" class="Button Button--primary">{{'profile/editSubmitButton' | translate}}</button>
-		</div>
-	</form>	
+        <div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopMd">
+            <button type="submit" class="Button Button--primary">{{'profile/editSubmitButton' | translate}}</button>
+        </div>
+    </form>
+    
+    <div class="Loader" ng-class="{ 'is-loading': isBusy }">
+        <div class="Loader-content">
+            <span class="Loader-icon">
+                <i class="fa fa-refresh fa-spin fa-2x"></i><br />
+            </span>
+            <span class="Loader-label">{{'global/loadingLabel' | translate}}</span>
+        </div>
+    </div>
 </div>

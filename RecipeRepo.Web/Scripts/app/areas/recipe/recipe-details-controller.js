@@ -1,5 +1,7 @@
 recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$stateParams', '$state', '$q', 'apiClient', function($scope, $stateParams, $state, $q, apiClient) {
-	$scope.initialize = function() {
+    $scope.initialize = function () {
+        $scope.isBusy = true;
+
 		$q.all([apiClient.getRecipe($stateParams.recipeId), apiClient.getUser()])
 			.then(function(responses) {
 				var recipe = responses[0];
@@ -13,7 +15,10 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 			})
 			.catch(function(errResponse) {
 				$scope.hasError = true;
-			});
+			})
+            .finally(function() {
+                $scope.isBusy = false;
+		    });
 	};
 
 	$scope.onFavoriteClick = function(e) {
