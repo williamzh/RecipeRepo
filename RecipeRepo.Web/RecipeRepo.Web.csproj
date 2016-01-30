@@ -142,7 +142,7 @@
     <Content Include="Scripts\app\components\rating\rating-directive.js" />
     <Content Include="Scripts\app\components\rating\_rating.html" />
     <Content Include="Scripts\app\components\scroll-directive.js" />
-    <Content Include="Scripts\app\config\config.js" />
+    <Content Include="Scripts\app\areas\error-pages\404.html" />
     <Content Include="Scripts\app\integration\api-client.js" />
     <Content Include="Scripts\app\localization\localization-initializer.js" />
     <Content Include="Scripts\app\localization\localization-service.js" />
@@ -166,6 +166,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Configuration\ClientSettings.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Global.asax.cs">

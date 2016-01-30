@@ -1,7 +1,7 @@
 .Article {
 	padding: 15px;
 
-	a {
+	a:not(.Button) {
 		color: $color-info;
 		cursor: pointer;
 

@@ -2,8 +2,13 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 	$locationProvider.html5Mode(true);
 
 	$urlRouterProvider.when(/.*/, ['$location', '$state', 'userSession', function ($location, $state, userSession) {
-	    if (userSession.isValid() || $location.url().endsWith('login')) {
-            // Don't handle if user session is valid or we're already on the login page
+	    if (
+            userSession.isValid() ||
+            $location.url().endsWith('login') ||
+            $location.url().endsWith('register') ||
+            $location.url().endsWith('reset-password')
+        ) {
+            // Don't handle if user session is valid or we're on public pages
 	        return false;
 	    }
 

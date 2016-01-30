@@ -1232,11 +1232,11 @@ small {
 .Article, .Article--muted {
   padding: 15px;
 }
-.Article a, .Article--muted a {
+.Article a:not(.Button), .Article--muted a:not(.Button) {
   color: #289FD6;
   cursor: pointer;
 }
-.Article a:hover, .Article--muted a:hover {
+.Article a:not(.Button):hover, .Article--muted a:not(.Button):hover {
   color: #52b2df;
 }
 .Article h1, .Article--muted h1, .Article h2, .Article--muted h2, .Article h3, .Article--muted h3 {
@@ -1462,7 +1462,7 @@ small {
 
 .Button {
   display: block;
-  color: #FDFFFC !important;
+  color: #FDFFFC;
   box-sizing: border-box;
   padding: 10px 20px;
   height: 45px;

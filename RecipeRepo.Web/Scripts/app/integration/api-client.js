@@ -1,5 +1,5 @@
 recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, $q, $log) {
-	var baseUrl = 'http://' + Config.appServerUrl;
+	var baseUrl = 'http://' + clientSettings.appServerUrl;
 	var apiUrl = baseUrl + '/api';
 
 	var onSuccess = function (action, response) {

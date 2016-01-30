@@ -1,4 +1,7 @@
 ﻿@using System.Web.Optimization
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@using RecipeRepo.Web.Configuration
 
 <!DOCTYPE html>
 <html ng-app="recipeRepoApp">
@@ -20,5 +23,12 @@
     <footer></footer>
 
     @Scripts.Render("~/bundles/scripts/lib", "~/bundles/scripts/app")
+    
+    <script type="text/javascript">
+        var clientSettings = @Html.Raw(JsonConvert.SerializeObject(new ClientSettings(), new JsonSerializerSettings
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver()
+        }));
+    </script>
 </body>
 </html>
