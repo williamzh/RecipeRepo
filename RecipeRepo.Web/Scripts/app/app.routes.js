@@ -1,6 +1,17 @@
 recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider) {
 	$locationProvider.html5Mode(true);
 
+	$urlRouterProvider.when(/.*/, ['$location', '$state', 'userSession', function ($location, $state, userSession) {
+	    if (userSession.isValid() || $location.url().endsWith('login')) {
+            // Don't handle if user session is valid or we're already on the login page
+	        return false;
+	    }
+
+	    return $state.go('login');
+	}]);
+
+    $urlRouterProvider.otherwise("/404");
+
 	$stateProvider.
 		// Login
 		state('login', {
@@ -58,7 +69,10 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 		state('profile', {
 			url: '/profile',
 			templateUrl: '/Scripts/app/areas/profile/edit-profile.html'
-		});
-
-		//$urlRouterProvider.otherwise("/");
+		}).
+        // 404
+	    state('notfound', {
+	        url: '/404',
+	        templateUrl: '/Scripts/app/areas/error-pages/404.html'
+	    });
 }]);

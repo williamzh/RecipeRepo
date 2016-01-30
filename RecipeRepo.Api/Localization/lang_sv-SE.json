@@ -20,12 +20,12 @@
         "lastNameRequired": "Efternamn måste anges",
         "userNameRequired": "Användarnamn måste anges",
         "passwordRequired": "Lösenord måste anges",
-        "passwordRepeatMismatch":  "Lösenord måste matcha",
+        "passwordRepeatMismatch": "Lösenord måste matcha",
         "genericRequired": "Detta fält är obligatoriskt",
         "numberFormat": "Vänligen ange ett numeriskt värde",
         "emailFormat": "Ogiltig e-postadress",
         "imageUploadSizeExceeded": "Bilder måste vara mindre än 5 MB.",
-        "imageUploadFormat":  "Endast bildformaten .png,.jpg,.jpeg,.tif är tillåtna."
+        "imageUploadFormat": "Endast bildformaten .png,.jpg,.jpeg,.tif är tillåtna."
     },
     "meta": {
         "cui_se": "Svenskt",
@@ -152,6 +152,11 @@
         "languageHeading": "Språk",
         "editSubmitButton": "Spara ändringar",
         "updateSuccessMessage": "Dina inställningar har blivit uppdaterade."
+    },
+    errorpage: {
+        "notFoundHeading": "Oj oj... Sidan du försöker gå till finns inte :(",
+        "notFoundText": "Kontrollera att du har angett rätt URL.",
+        "notFoundLinkText": "Tillbaka till startsidan"
     },
     "lang": { 
         "sv-SE":  "Svenska"

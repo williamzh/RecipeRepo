@@ -1462,7 +1462,7 @@ small {
 
 .Button {
   display: block;
-  color: #FDFFFC;
+  color: #FDFFFC !important;
   box-sizing: border-box;
   padding: 10px 20px;
   height: 45px;
