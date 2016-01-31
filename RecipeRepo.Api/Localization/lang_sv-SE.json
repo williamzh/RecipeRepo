@@ -151,7 +151,8 @@
         "repeatPasswordLabel": "Upprepa lösenord",
         "languageHeading": "Språk",
         "editSubmitButton": "Spara ändringar",
-        "updateSuccessMessage": "Dina inställningar har blivit uppdaterade."
+        "updateSuccessMessage": "Dina inställningar har blivit uppdaterade.",
+        "duplicateUserError":  "Användarnamnet du har valt är tyvärr upptaget. Vänligen välj ett nytt."
     },
     errorpage: {
         "notFoundHeading": "Oj oj... Sidan du försöker gå till finns inte :(",

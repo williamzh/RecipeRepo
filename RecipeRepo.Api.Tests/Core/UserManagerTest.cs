@@ -3,6 +3,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RecipeRepo.Api.Core;
+using RecipeRepo.Api.Localization;
+using RecipeRepo.Api.Security;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Entities;
 using RecipeRepo.Integrations.Repositories;
@@ -14,6 +16,8 @@ namespace RecipeRepo.Api.Tests.Core
 	{
 		private Mock<IDbRepository<User>> _userRepoMock;
 		private Mock<IDbRepository<Recipe>> _recipeRepoMock;
+		private Mock<ITranslator> _translatorMock;
+		private Mock<IClaimContext> _claimContextMock;
 		private UserManager _userManager;
 
 		[TestInitialize]
@@ -21,8 +25,10 @@ namespace RecipeRepo.Api.Tests.Core
 		{
 			_userRepoMock = new Mock<IDbRepository<User>>();
 			_recipeRepoMock = new Mock<IDbRepository<Recipe>>();
+			_translatorMock = new Mock<ITranslator>();
+			_claimContextMock = new Mock<IClaimContext>();
 
-			_userManager = new UserManager(_userRepoMock.Object, _recipeRepoMock.Object);
+			_userManager = new UserManager(_userRepoMock.Object, _recipeRepoMock.Object, _translatorMock.Object, _claimContextMock.Object);
 		}
 
 		[TestMethod]

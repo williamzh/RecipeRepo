@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using RecipeRepo.Api.Localization;
+using RecipeRepo.Api.Security;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Entities;
 using RecipeRepo.Integrations.Repositories;
@@ -10,11 +12,15 @@ namespace RecipeRepo.Api.Core
 	{
 		private readonly IDbRepository<User> _userRepository;
 		private readonly IDbRepository<Recipe> _recipeRepository;
+		private readonly ITranslator _translator;
+		private readonly IClaimContext _claimContext;
 
-		public UserManager(IDbRepository<User> userRepository, IDbRepository<Recipe> recipeRepository)
+		public UserManager(IDbRepository<User> userRepository, IDbRepository<Recipe> recipeRepository, ITranslator translator, IClaimContext claimContext)
 		{
 			_userRepository = userRepository;
 			_recipeRepository = recipeRepository;
+			_translator = translator;
+			_claimContext = claimContext;
 		}
 
 		public ActionResponse CreateUser(User user)
@@ -25,7 +31,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = findUserResponse.Code,
-					Message = "Could not create user - existance check failed. Underlying error: " + findUserResponse.Message
+					Message = "Could not create user - existance check failed. Underlying error: " + findUserResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -34,7 +41,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = AppStatusCode.DuplicateExists,
-					Message = "A user with the username " + user.UserName + " already exists."
+					Message = "A user with the username " + user.UserName + " already exists.",
+					UserMessage = _translator.Translate("profile", "duplicateUserError", _claimContext.UserLanguage)
 				};
 			}
 
@@ -59,7 +67,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse<User>
 				{
 					Code = response.Code,
-					Message = response.Message
+					Message = response.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -78,7 +87,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getUserResponse.Code,
-					Message = "Could not update user - existance check failed. Underlying error: " + getUserResponse.Message
+					Message = "Could not update user - existance check failed. Underlying error: " + getUserResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -87,7 +97,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = AppStatusCode.EntityNotFound,
-					Message = "Update failed. Could not find a user with a matching ID (" + user.Id + ")."
+					Message = "Update failed. Could not find a user with a matching ID (" + user.Id + ").",
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -109,7 +120,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getUserResponse.Code,
-					Message = "Could not delete user - existance check failed. Underlying error: " + getUserResponse.Message
+					Message = "Could not delete user - existance check failed. Underlying error: " + getUserResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -118,7 +130,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = AppStatusCode.EntityNotFound,
-					Message = "Delete failed. Could not find a user with a matching ID (" + userId + ")."
+					Message = "Delete failed. Could not find a user with a matching ID (" + userId + ").",
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -133,7 +146,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse<IEnumerable<Recipe>>
 				{
 					Code = userResponse.Code,
-					Message = userResponse.Message
+					Message = userResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 			var user = userResponse.Data;
@@ -143,7 +157,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse<IEnumerable<Recipe>>
 				{
 					Code = AppStatusCode.EntityNotFound,
-					Message = "Failed to get user history. Could not find a user with a matching ID (" + userId + ")."
+					Message = "Failed to get user history. Could not find a user with a matching ID (" + userId + ").",
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -154,7 +169,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse<IEnumerable<Recipe>>
 				{
 					Code = recipesResponse.Code,
-					Message = recipesResponse.Message
+					Message = recipesResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 			var recipes = recipesResponse.Data;
@@ -168,7 +184,8 @@ namespace RecipeRepo.Api.Core
 			return new ActionResponse<IEnumerable<Recipe>>
 			{
 				Code = AppStatusCode.Ok,
-				Data = recipesResponse.Data
+				Data = recipesResponse.Data,
+				UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 			};
 		}
 
@@ -180,7 +197,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getUserResponse.Code,
-					Message = getUserResponse.Message
+					Message = getUserResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -212,7 +230,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getUserResponse.Code,
-					Message = getUserResponse.Message
+					Message = getUserResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -231,7 +250,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getUserResponse.Code,
-					Message = getUserResponse.Message
+					Message = getUserResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 

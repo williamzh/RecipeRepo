@@ -23,15 +23,13 @@ recipeRepoDirectives.directive('rdNavbar', ['$timeout', function($timeout) {
 		link: function(scope, elem, attrs) {
 			scope.$watch('isAuthenticated', function(newVal, oldVal) {
 				if(newVal === true) {
-					var header = $('.Header');
 					var headerMenu = $('.Header-menu');
 
 					elem.find('.Header-toggleButton').on('click', function() {
-						header.toggleClass('is-expanded');
 						headerMenu.toggleClass('is-open');
 
-						if(header.hasClass('is-expanded')) {
-							$('body').css({ 'overflow': 'hidden' });
+						if(headerMenu.hasClass('is-open')) {
+							$('body').css({ 'overflow-y': 'hidden' });
 						}
 						else {
 							$('body').removeAttr("style");
@@ -41,7 +39,6 @@ recipeRepoDirectives.directive('rdNavbar', ['$timeout', function($timeout) {
 					elem.on('click', '.Header-menuItem, .Header-brand', function() {
 						// Close menu when menu item/brand is clicked
 						headerMenu.removeClass('is-open');
-						header.removeClass('is-expanded');
 						$('body').removeAttr("style");
 					});
 				}

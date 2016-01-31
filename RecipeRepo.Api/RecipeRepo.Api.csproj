@@ -146,6 +146,8 @@
     <Compile Include="IO\FileManager.cs" />
     <Compile Include="IO\IFileManager.cs" />
     <Compile Include="IO\JsonFileReader.cs" />
+    <Compile Include="Localization\ITranslator.cs" />
+    <Compile Include="Localization\JsonTranslator.cs" />
     <Compile Include="Security\ClaimContext.cs" />
     <Compile Include="Security\IClaimContext.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />

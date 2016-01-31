@@ -1,0 +1,7 @@
+@mixin animation($animation_name, $duration, $timing_fn, $delay: null, $fill_mode: forwards) {
+	animation-name: $animation_name;
+	animation-duration: $duration;
+	animation-timing-function: $timing_fn;
+	animation-delay: $delay;
+	animation-fill-mode: $fill_mode;
+}

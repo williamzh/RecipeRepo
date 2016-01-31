@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using RecipeRepo.Api.Contract;
 using RecipeRepo.Api.Core;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Entities;
@@ -22,7 +21,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("GET /user/{0} failed with code {1}. {2}", ClaimContext.UserId, (int)response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 			return Ok(response);
@@ -40,7 +39,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("GET /user/{0} failed with code {1}. {2}", userName, (int)response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 			return Ok(response);
@@ -58,7 +57,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("POST /user failed with code {0}. {1}", (int)response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 			return Ok(response);
@@ -78,7 +77,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("PUT /user failed with code {0}. {1}", (int)response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 			return Ok(response);
@@ -90,7 +89,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("DELETE /user/{0} failed with code {1}. {2}", ClaimContext.UserId, (int)response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 			return Ok(response);
@@ -103,7 +102,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("GET /user/history failed with code {0}. {1}", response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 		    return Ok(response);
@@ -122,7 +121,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("PUT /user/history failed for user {0} with code {1}. {2}", ClaimContext.UserId, response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 			return Ok(response);
@@ -141,7 +140,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("DELETE /user/history failed for user {0} with code {1}. {2}", ClaimContext.UserId, response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 			return Ok(response);
@@ -160,7 +159,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("PUT /user/favorites/{0} failed for user {1} with code {2}. {3}", recipeId, ClaimContext.UserId, response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 			return Ok(response);
@@ -179,7 +178,7 @@ namespace RecipeRepo.Api.Controllers
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("DELETE /user/favorites/{0} failed for user {1} with code {2}. {3}", recipeId, ClaimContext.UserId, response.Code, response.Message);
-				return InternalServerError(response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
 			}
 
 			return Ok(response);

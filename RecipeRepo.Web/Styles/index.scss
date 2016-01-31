@@ -5,12 +5,14 @@
 // Source
 @import 'base/_variables';
 @import 'base/_base';
+@import 'base/_mixins';
 @import 'base/_typography';
 @import 'base/_breakpoints';
 @import 'base/_spacing';
 @import 'base/_grid';
 @import 'base/_size';
 @import 'base/_utils';
+@import 'base/_animations';
 
 @import 'components/_container';
 @import 'components/_alert';

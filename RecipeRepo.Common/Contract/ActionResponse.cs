@@ -9,6 +9,7 @@ namespace RecipeRepo.Common.Contract
 		public AppStatusCode Code { get; set; }
 
 		public string Message { get; set; }
+		public string UserMessage { get; set; }
 	}
 
 	public class ActionResponse<TData> : ActionResponse
