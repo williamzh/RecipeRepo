@@ -5,22 +5,17 @@ $sm-viewport: 460px;
 $md-viewport: 760px;
 $lg-viewport: 1000px;
 $xl-viewport: 1260px;
-// $xs-max-viewport: 329px;
-// $sm-max-viewport: 459px;
-// $md-max-viewport: 759px;
-// $lg-max-viewport: 999px;
-// $xl-max-viewport: 1259px;
 
 /* Color theme */
-//https://coolors.co/app/edae49-d1495b-00798c-30638e-003d5b
-//https://coolors.co/app/3da4ff-fdfffc-00baa7-e71d36-ff9f1c
+//https://coolors.co/app/2b2d42-8d99ae-edf2f4-ef233c-d90429
 $color-white: #FDFFFC;
 $color-white-smoke: #F8F8F8;
-$color-black: #333745;
+$color-black: #2B2D42;
 $color-blue: #289FD6;
-$color-gray: #6d6d6d;
-$color-gray-dark: #444;
+$color-gray: #8D99AE;
+$color-gray-dark: #6D6D6D;
 $color-gray-light: #989898;
+$color-gray-xlight: #EDF2F4;
 $color-green: #00a03e;
 $color-azure: #44BBA4;
 $color-orange: #FF9F1C;
@@ -31,12 +26,12 @@ $color-brand: #E63462;
 $color-danger: $color-red;
 $color-warning: $color-orange;
 $color-success: $color-green;
-$color-disabled: rgba(0, 0, 0, 0.1);
-$color-divider: rgba(0, 0, 0, 0.13);
+$color-disabled: $color-gray-xlight;
+$color-divider: $color-gray-xlight;
 $color-info: $color-blue;
 $color-muted: $color-gray-light;
 $color-primary: $color-brand;
-$color-text: $color-gray-dark;
+$color-text: $color-black;
 
 /* Typography */
 

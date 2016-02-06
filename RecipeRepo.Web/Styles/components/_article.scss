@@ -34,7 +34,7 @@
 
 .Article--muted {
 	@extend .Article;
-    color: $color-gray-light;
+    color: $color-gray-dark;
 
 	hr {
 		background-color: $color-divider;
@@ -47,11 +47,16 @@
 .Article--preamble {
     @extend .Article--muted;
 
-    background: $color-white-smoke;
+    background: $color-gray-xlight;
     text-align: center;
+    padding: 20px;
     
     p {
-        font-size: $font-size-lg;
         font-style: italic;
+
+        font-size: $font-size-md;
+        @media(min-width: $lg-viewport) {
+            font-size: $font-size-lg;
+        }
     }
 }

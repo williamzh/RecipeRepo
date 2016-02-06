@@ -1,4 +1,4 @@
-recipeRepoDirectives.directive('rdNavbar', ['$timeout', function($timeout) {
+recipeRepoDirectives.directive('rdHeader', ['$timeout', function($timeout) {
 	return {
     	restrict: 'AE',
     	controller: ['$scope', '$state', 'userSession', 'apiClient', function ($scope, $state, userSession, apiClient) {
@@ -51,6 +51,6 @@ recipeRepoDirectives.directive('rdNavbar', ['$timeout', function($timeout) {
 				}
 			});
 		},
-    	templateUrl: '/Scripts/app/components/navbar/_navbar.html'
+    	templateUrl: '/Scripts/app/components/header/_header.html'
 	};
 }]);

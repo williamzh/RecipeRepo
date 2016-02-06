@@ -6,6 +6,7 @@ body {
 	font-family: $font-family;
 	font-size: $font-size-sm;
 	line-height: $line-height;
+    -webkit-font-smoothing: antialiased;
 
 	@media(min-width: $lg-viewport) {
 		font-size: $font-size-md;
