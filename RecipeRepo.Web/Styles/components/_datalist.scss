@@ -25,6 +25,10 @@
 	float: left;
 }
 
+.DataList-data--small {
+	font-size: $font-size-sm;
+}
+
 .DataList-dataRight {
 	float: right;
 	margin-top: -5px;

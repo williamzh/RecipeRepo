@@ -3,6 +3,7 @@
         restrict: 'AE',
         scope: {
             isVisible: '=',
+            isInline: '=',
             delayMillis: '=?'
         },
         controller: ['$scope', '$timeout', function ($scope, $timeout) {

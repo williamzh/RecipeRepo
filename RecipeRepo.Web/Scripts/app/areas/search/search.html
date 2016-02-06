@@ -1,9 +1,9 @@
 <div class="Container" ng-controller="searchController" ng-init="search()">
 	<button class="Button Button--infoLink Button--inline u-pullRight" ng-click="helpModalVisible = true"><i class="fa fa-question-circle fa-lg"></i></button>
 	
-	<div ng-show="hasError" class="u-spacingBottomMd">
-		<alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
-	</div>
+    <div ng-show="errorMsg" class="u-spacingBottomMd">
+        <alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{errorMsg}}"></alert>
+    </div>
 
 	<form ng-submit="search()">
 		<h1 class="u-spacingBottomMd">{{'search/searchHeading' | translate}}</h1>
@@ -18,7 +18,7 @@
 		<ul class="DataList">
 			<li class="DataList-item" ng-repeat="recipe in hits">
 				<span class="DataList-data u-size6of8 u-sm-size4of8 u-md-size2of8"><strong>{{recipe.name}}</strong></span>
-				<span class="DataList-data u-md-size3of8 u-md-show u-textTruncate u-textCenter">{{recipe.description || '-'}}</span>
+                <span class="DataList-data DataList-data--small u-md-size3of8 u-md-show u-textTruncate">{{recipe.description || '-'}}</span>
 				<span class="DataList-data u-sm-size1of8 u-sm-show u-textCenter"><rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount"></rd-rating></span>
 				<span class="DataList-dataRight">
 					<a ui-sref="recipe({ recipeId: recipe.id })" class="Button Button--infoLink Button--inline"><small>{{'global/showLabel' | translate}}</small></a>
@@ -31,15 +31,9 @@
         <p>{{'search/searchTips' | translate}}</p>
         <p>{{'search/searchExample' | translate}}</p>
     </div>
-    <div class="Loader Loader--inline" ng-class="{ 'is-loading': isBusy }">
-        <div class="Loader-content">
-            <span class="Loader-icon">
-                <i class="fa fa-refresh fa-spin fa-2x"></i><br />
-            </span>
-            <span class="Loader-label">{{'global/searchingLabel' | translate}}</span>
-        </div>
-    </div>
-
+    
+    <loader is-visible="isBusy" delay-millis="100" is-inline="true"></loader>
+    
     <modal is-visible="helpModalVisible">
         <article class="Article">
         	<h2>Så här söker du</h2>

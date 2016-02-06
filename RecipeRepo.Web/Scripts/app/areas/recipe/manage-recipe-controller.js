@@ -31,33 +31,33 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 				var allMetaInfo = responses[0];
 				var recipe = responses[1];
 
-				if(recipe) {
-					$scope.currentRecipe = recipe;
-
-					// Map the steps string array to a temporary object array so that each step is
-					// uniquely identifiable.
-					var i = 0;
-					$scope.currentSteps = $scope.currentRecipe.steps.map(function(s) {
-						return { 
-							id: i++,
-							value: s 
-						};
-					});
-
-				    $scope.currentImageName = $scope.currentImage ?
-				        $scope.currentRecipe.imageUrl.substring($scope.currentRecipe.imageUrl.lastIndexOf('/') + 1) :
-				        '';
-				}
-
 				$scope.cuisines = getMetaInfoValues('cuisines', allMetaInfo);
-				$scope.currentRecipe.meta.cuisine = $scope.cuisines[0];
-
 				$scope.categories = getMetaInfoValues('categories', allMetaInfo);
-				$scope.currentRecipe.meta.category = $scope.categories[0];
-
 				$scope.courses = getMetaInfoValues('courses', allMetaInfo);
-				$scope.currentRecipe.meta.course = $scope.courses[0];
-			})
+
+		        if (recipe) {
+		            $scope.currentRecipe = recipe;
+
+		            // Map the steps string array to a temporary object array so that each step is
+		            // uniquely identifiable.
+		            var i = 0;
+		            $scope.currentSteps = $scope.currentRecipe.steps.map(function(s) {
+		                return {
+		                    id: i++,
+		                    value: s
+		                };
+		            });
+
+		            $scope.currentImageName = $scope.currentImage ?
+		                $scope.currentRecipe.imageUrl.substring($scope.currentRecipe.imageUrl.lastIndexOf('/') + 1) :
+		                '';
+		        }
+		        else {
+		            $scope.currentRecipe.meta.cuisine = $scope.cuisines[0];
+		            $scope.currentRecipe.meta.category = $scope.categories[0];
+		            $scope.currentRecipe.meta.course = $scope.courses[0];
+		        }
+		    })
 			.catch(function(error) {
 				$scope.showError = true;
 				$scope.errorMessage = localizationService.translate('manage', error.message);

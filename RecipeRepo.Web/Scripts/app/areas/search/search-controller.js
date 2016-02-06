@@ -6,15 +6,16 @@ recipeRepoControllers.controller('searchController', ['$scope', '$stateParams', 
 			return;
 		}
 
-	    $scope.isBusy = true;
+		$scope.isBusy = true;
+	    $scope.hits = [];
 
 		apiClient.searchRecipes($scope.searchQuery)
 			.then(function(hits) {
 				$scope.hits = hits;
-				$scope.hasError = false;
+				$scope.errorMsg = false;
 			})
-			.catch(function() {
-				$scope.hasError = true;
+			.catch(function(err) {
+				$scope.errorMsg = err.message;
 			})
 	        .finally(function() {
 		        $scope.isBusy = false;

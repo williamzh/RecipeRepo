@@ -1,9 +1,7 @@
 <div ng-controller="recipeDetailsController" ng-init="initialize()">
     <div ng-show="errorMsg" class="u-spacingBothMd">
-        <alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="errorMsg"></alert>
+        <alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{errorMsg}}"></alert>
     </div>
-
-	<!-- <rd-back-link></rd-back-link> -->
 
     <div ng-show="!errorMsg">
         <div class="Banner">
