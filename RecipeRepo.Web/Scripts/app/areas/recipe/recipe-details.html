@@ -29,12 +29,13 @@
                 </div>
             </div>
         </div>
-        <div class="Grid">
-            <div class="Grid-cell u-sizeFull">
-                <div class="Article">
-                    <span class="u-pullLeft">{{recipe.meta.servings}} {{'global/servings' | translate}}</span>
-                    <span class="u-pullRight"><rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="false" recipe-id="recipe.id"></rd-rating></span>
-                </div>
+        <div class="Article Article--preamble">
+            <p>{{recipe.description}}</p>
+            <p>{{recipe.meta.servings}} {{'global/servings' | translate}}</p>
+            <p><a ui-sref="search({ query: recipe.meta.owner })"><small>{{'recipeDetails/author' | translate}}: {{recipe.meta.owner}}</small></a></p>
+            
+            <div class="u-textCenter">
+                <rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="false" recipe-id="recipe.id"></rd-rating>
             </div>
         </div>
         <div class="Grid">
@@ -66,7 +67,7 @@
                 </article>
             </div>
         </div>
-        <div class="Grid">
+        <!--<div class="Grid">
             <div class="Grid-cell u-sizeFull">
                 <div class="Article--muted">
                     <hr />
@@ -74,7 +75,7 @@
                     <p class="u-pullRight"><a ui-sref="search({ query: recipe.meta.owner })">Se fler recept från {{recipe.meta.owner}}</a></p>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
     
     <loader is-visible="isBusy" delay-millis="100"></loader>

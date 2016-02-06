@@ -123,8 +123,8 @@ h4 {
 
 /* Paragraphs */
 p {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 small {
@@ -1261,38 +1261,50 @@ small {
   background: none;
 }
 
-.Article, .Article--muted {
+.Article, .Article--muted, .Article--preamble {
   padding: 15px;
 }
-.Article a:not(.Button), .Article--muted a:not(.Button) {
+.Article a:not(.Button), .Article--muted a:not(.Button), .Article--preamble a:not(.Button) {
   color: #289FD6;
   cursor: pointer;
 }
-.Article a:not(.Button):hover, .Article--muted a:not(.Button):hover {
+.Article a:not(.Button):hover, .Article--muted a:not(.Button):hover, .Article--preamble a:not(.Button):hover {
   color: #52b2df;
 }
-.Article h1, .Article--muted h1, .Article h2, .Article--muted h2, .Article h3, .Article--muted h3 {
+.Article h1, .Article--muted h1, .Article--preamble h1, .Article h2, .Article--muted h2, .Article--preamble h2, .Article h3, .Article--muted h3, .Article--preamble h3 {
   color: #333745;
 }
-.Article hr, .Article--muted hr {
+.Article hr, .Article--muted hr, .Article--preamble hr {
   background-color: #E63462;
 }
-.Article ul, .Article--muted ul {
+.Article ul, .Article--muted ul, .Article--preamble ul {
   list-style-type: disc;
   margin: 0;
 }
-.Article ul, .Article--muted ul, .Article ol, .Article--muted ol {
+.Article ul, .Article--muted ul, .Article--preamble ul, .Article ol, .Article--muted ol, .Article--preamble ol {
   padding-left: 25px;
 }
-.Article li, .Article--muted li {
+.Article li, .Article--muted li, .Article--preamble li {
   padding: 5px 0;
 }
 
-.Article--muted hr {
+.Article--muted, .Article--preamble {
+  color: #989898;
+}
+.Article--muted hr, .Article--preamble hr {
   background-color: rgba(0, 0, 0, 0.13);
   border: 0;
   height: 1px;
   width: 100%;
+}
+
+.Article--preamble {
+  background: #F8F8F8;
+  text-align: center;
+}
+.Article--preamble p {
+  font-size: 20px;
+  font-style: italic;
 }
 
 .Header {
