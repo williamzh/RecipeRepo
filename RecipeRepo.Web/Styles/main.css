@@ -1588,7 +1588,7 @@ small {
 .Banner::before {
   display: block;
   content: "";
-  padding-bottom: 80%;
+  padding-bottom: 90%;
 }
 @media (min-width: 460px) {
   .Banner::before {
@@ -1597,7 +1597,7 @@ small {
 }
 @media (min-width: 760px) {
   .Banner::before {
-    padding-bottom: 35%;
+    padding-bottom: 40%;
   }
 }
 @media (min-width: 1260px) {
