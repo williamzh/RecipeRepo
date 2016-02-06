@@ -183,5 +183,19 @@ namespace RecipeRepo.Api.Controllers
 
 			return Ok(response);
 		}
+
+		[Route("api/user/purge")]
+		[HttpPut]
+		public IHttpActionResult Purge()
+		{
+			var response = _userManager.Purge(ClaimContext.UserId);
+			if (response.Code != AppStatusCode.Ok)
+			{
+				Log.ErrorFormat("PUT /user/purge failed for user {0} with code {1}. {2}", ClaimContext.UserId, response.Code, response.Message);
+				return InternalServerError(response.Code, response.UserMessage);
+			}
+
+			return Ok(response);
+		}
     }
 }

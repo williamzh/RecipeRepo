@@ -52,6 +52,14 @@ h3 {
 	}
 }
 
+h4 {
+	font-size: 1.15em;
+
+	@media(min-width: $lg-viewport) {
+		font-size: 1.25em;
+	}
+}
+
 /* Paragraphs */
 p {
 	margin-top: 1em;

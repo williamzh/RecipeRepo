@@ -62,14 +62,24 @@
 .Header-menu.is-open {
 	display: block;
 	// Use animation since transition doesn't work with display
-    @include animation(fadein, 0.3s, ease-in-out);
+    @include animation(fadein, 0.2s, ease-in-out);
+}
+
+.Header-userInfo {
+    position: absolute;
+    bottom: 115px;
+    color: $color-white;
+    padding: 0 25px;
+}
+
+.Header-userIcon {
+    margin-right: 7px;
 }
 
 .Header-menuItems {
 	list-style-type: none;
 	padding: 0;
 	margin: 45px auto;
-	max-width: $framework-width;
 }
 
 .Header-menuItem {

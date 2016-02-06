@@ -32,12 +32,14 @@
         "cui_it": "Italienskt",
         "cui_cn": "Kinesiskt",
         "cui_fr": "Franskt",
+        "cui_gr": "Grekiskt",
 
         "cou_main": "Huvudrätt",
         "cou_side": "Tillbehör",
         "cou_dessert": "Dessert",
 
         "cat_fish": "Fisk",
+        "cat_meat": "Kött",
         "cat_chicken": "Kyckling",
         "cat_wok": "Wok",
         "cat_pasta": "Pasta",
@@ -140,7 +142,7 @@
         "createProfileHeading": "Skapa ny profil",
         "createSubmitButton": "Fortsätt",
         "confirmHeading": "Yay!",
-        "confirmInstructions": "En profil har nu skapats åt dig. Du kan nu bläddra bland recept, lägga upp nya och bokmärka de du gillar. Följ länken för att komma igång!",
+        "confirmInstructions": "En profil har nu skapats åt dig. Du kan nu bläddra bland recept, lägga upp nya och bokmärka de du gillar. Följ länken för att komma igång.",
         "editProfileHeading": "Min profil",
         "personalDetailsHeading": "Dina uppgifter",
         "firstNameLabel": "Förnamn",

@@ -2,7 +2,7 @@
 	<button class="Button Button--infoLink Button--inline u-pullRight" ng-click="helpModalVisible = true"><i class="fa fa-question-circle fa-lg"></i></button>
 	
 	<div ng-show="hasError" class="u-spacingBottomMd">
-		<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
+		<alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
 	</div>
 
 	<form ng-submit="search()">
@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <modal ng-show="helpModalVisible" on-close="helpModalVisible = false">
+    <modal is-visible="helpModalVisible">
         <article class="Article">
         	<h2>Så här söker du</h2>
         	<h3 class="u-spacingTopSm">Sök på nyckelord</h3>
@@ -51,7 +51,7 @@
         		<li>Kategori, <i>Pasta</i></li>
         		<li>Måltid, t.ex. <i>Huvudrätt</i>.</li>
         	</ul>
-        	<p>För att hitta alla recept som en specifik användare har lagt upp kan du även ange användarnamnet direkt, t.ex. <i>wizha</i>.</p>
+        	<p>För att hitta alla recept som en specifik användare har lagt upp kan du även ange användarnamnet direkt.</p>
         	<h3 class="u-spacingTopSm">Fritextsök</h3>
         	<p>Det går även bra att göra en fritextsök. Detta kommer att försöka hitta bästa match baserat på receptnamn.</p>
 

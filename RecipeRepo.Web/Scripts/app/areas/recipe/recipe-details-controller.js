@@ -13,8 +13,8 @@ recipeRepoControllers.controller('recipeDetailsController', ['$scope', '$statePa
 
 				return apiClient.addHistory(recipe.id);
 			})
-			.catch(function(errResponse) {
-				$scope.hasError = true;
+			.catch(function(err) {
+				$scope.errorMsg = err.message;
 			})
             .finally(function() {
                 $scope.isBusy = false;

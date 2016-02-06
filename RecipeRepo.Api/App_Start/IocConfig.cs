@@ -5,6 +5,7 @@ using Autofac.Integration.WebApi;
 using RecipeRepo.Api.Core;
 using RecipeRepo.Api.Core.Search;
 using RecipeRepo.Api.IO;
+using RecipeRepo.Api.Localization;
 using RecipeRepo.Api.Security;
 using RecipeRepo.Common.Configuration;
 using RecipeRepo.Integrations.Db;
@@ -49,6 +50,9 @@ namespace RecipeRepo.Api
 			// IO
 			b.RegisterType<FileManager>().As<IFileManager>();
 			b.RegisterType<JsonFileReader>().AsSelf();
+
+			// Localization
+			b.RegisterType<JsonTranslator>().As<ITranslator>();
 
 			// Integrations
 			b.RegisterType<DbClient>().As<IDbClient>();

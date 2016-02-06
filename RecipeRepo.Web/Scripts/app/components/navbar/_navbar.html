@@ -7,13 +7,18 @@
 			</div>
 		</div>
 	</div>
-	<div ng-if="isAuthenticated" class="Header-menu">
-		<ul class="Header-menuItems">
-			<li class="Header-menuItem" ui-sref-active="is-active"><a ui-sref="search">{{'navigation/searchLabel' | translate}}</a></li>
-			<li class="Header-menuItem" ui-sref-active="is-active"><a ui-sref="recipe/create">{{'navigation/newRecipeLabel' | translate}}</a></li>
-			<li class="Header-menuItem" ui-sref-active="is-active"><a ui-sref="my-recipes">{{'navigation/myRecipesLabel' | translate}}</a></li>
-			<li class="Header-menuItem" ui-sref-active="is-active"><a ui-sref="profile">{{'navigation/settingsLabel' | translate}}</a></li>
-			<li class="Header-menuItem" ui-sref-active="is-active"><a href="#" ng-click="logout()">{{'navigation/logoutLabel' | translate}}</a></li>
-		</ul>
-	</div>
+    <div ng-if="isAuthenticated" class="Header-menu">
+        <div class="Container">
+            <ul class="Header-menuItems">
+                <li class="Header-menuItem" ui-sref-active="is-active"><a ui-sref="search">{{'navigation/searchLabel' | translate}}</a></li>
+                <li class="Header-menuItem" ui-sref-active="is-active"><a ui-sref="recipe/create">{{'navigation/newRecipeLabel' | translate}}</a></li>
+                <li class="Header-menuItem" ui-sref-active="is-active"><a ui-sref="my-recipes">{{'navigation/myRecipesLabel' | translate}}</a></li>
+                <li class="Header-menuItem" ui-sref-active="is-active"><a ui-sref="profile">{{'navigation/settingsLabel' | translate}}</a></li>
+                <li class="Header-menuItem" ui-sref-active="is-active"><a href="#" ng-click="logout()">{{'navigation/logoutLabel' | translate}}</a></li>
+            </ul>
+            <div class="Header-userInfo">
+                <i class="Header-userIcon fa fa-user"></i>{{loggedInUser}}
+            </div>
+        </div>
+    </div>
 </header>

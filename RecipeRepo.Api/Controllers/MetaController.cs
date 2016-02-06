@@ -16,6 +16,8 @@ namespace RecipeRepo.Api.Controllers
 		    _metaStore = metaStore;
 	    }
 
+		[Authorize]
+		[OverrideAuthorization]
 	    public IHttpActionResult Get()
 	    {
 			var response = _metaStore.GetAllMeta();
@@ -28,6 +30,8 @@ namespace RecipeRepo.Api.Controllers
 			return Ok(response);
 	    }
 
+		[Authorize]
+		[OverrideAuthorization]
 		[Route("api/meta/{name}")]
 		public IHttpActionResult Get(string name)
 		{

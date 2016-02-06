@@ -96,13 +96,13 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 	};
 
 	this.addUser = function(user) {
-		return $http.post(baseUrl + '/auth/register', user)
+		return $http.post(apiUrl + '/user', user)
 			.then(function (response) {	return onSuccess('addUser', response.data); })
 			.catch(function(error) { return onError('addUser', error) });
 	};
 
 	this.getUser = function() {
-		return $http.get(apiUrl + '/user/')
+		return $http.get(apiUrl + '/user')
 			.then(function (response) {	return onSuccess('getUser', response.data); })
 			.catch(function(error) { return onError('getUser', error) });
 	};
@@ -141,6 +141,12 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 		return $http.delete(apiUrl + '/user/favorites/' + recipeId)
 			.then(function (response) {	return onSuccess('removeFavorite', response.data); })
 			.catch(function(error) { return onError('removeFavorite', error) });
+	};
+
+	this.purgeRecipes = function () {
+	    return $http.put(apiUrl + '/user/purge')
+			.then(function (response) { return onSuccess('purgeRecipes', response.data); })
+			.catch(function (error) { return onError('purgeRecipes', error) });
 	};
 
 	this.getTranslations = function(langCode) {

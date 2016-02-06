@@ -1,9 +1,16 @@
 recipeRepoDirectives.directive('rdNavbar', ['$timeout', function($timeout) {
 	return {
     	restrict: 'AE',
-		controller: ['$scope', '$state', 'userSession', function($scope, $state, userSession) {
+    	controller: ['$scope', '$state', 'userSession', 'apiClient', function ($scope, $state, userSession, apiClient) {
 			var checkIsAuthenticated = function() {
-				$scope.isAuthenticated = userSession.isValid();
+			    $scope.isAuthenticated = userSession.isValid();
+
+                if ($scope.isAuthenticated) {
+                    apiClient.getUser()
+                        .then(function(user) {
+                            $scope.loggedInUser = user.firstName + ' ' + user.lastName;
+                        });
+                }
 			}
 
 			checkIsAuthenticated();

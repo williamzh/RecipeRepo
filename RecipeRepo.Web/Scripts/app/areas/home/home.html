@@ -24,7 +24,7 @@
 		            <p class="u-spacingTopLg">{{'home/latestPlaceholder' | translate}}</p>
 		        </div>
 		        <div class="Grid Grid--withGutter">
-		            <div class="Grid-cell u-sizeFull u-sm-size1of2 u-xl-size1of3" ng-repeat="recipe in latestRecipes">
+		            <div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-sizeFull u-lg-size1of2" ng-repeat="recipe in latestRecipes">
 		                <div class="Box">
 		                    <div class="Box-content" ng-click="showRecipe(recipe)">
 		                        <div class="Box-image">
@@ -37,9 +37,9 @@
 		                                &nbsp;{{recipe.meta.created | timeAgo}}
 		                            </div>
 		                        </div>
-		                        <div class="Box-footer">
+		                        <!--<div class="Box-footer">
 		                            {{recipe.description}}
-		                        </div>
+		                        </div>-->
 		                    </div>
 		                </div>
 		            </div>
@@ -55,37 +55,30 @@
 		            <p class="u-spacingTopLg">{{'home/topRatedPlaceholder' | translate}}</p>
 		        </div>
 		        <div class="Grid Grid--withGutter">
-		            <div class="Grid-cell u-sizeFull u-sm-size1of2 u-xl-size1of3" ng-repeat="recipe in topRecipes">
-		                <div class="Box">
-		                    <div class="Box-content" ng-click="showRecipe(recipe)">
-		                        <div class="Box-image">
-		                            <div ng-style="{ 'background-image': 'url({{recipe.imageUrl}})' }"></div>
-		                        </div>
-		                        <div class="Box-overlay">
-		                            <h4 class="Box-heading">{{recipe.name}}</h4>
-		                            <div class="Box-meta">
-		                                <rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="true"></rd-rating>
-		                            </div>
-		                        </div>
-		                        <div class="Box-footer">
-		                            {{recipe.description}}
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
+                    <div class="Grid-cell u-sizeFull u-sm-size1of2 u-md-sizeFull u-lg-size1of2" ng-repeat="recipe in topRecipes">
+                        <div class="Box">
+                            <div class="Box-content" ng-click="showRecipe(recipe)">
+                                <div class="Box-image">
+                                    <div ng-style="{ 'background-image': 'url({{recipe.imageUrl}})' }"></div>
+                                </div>
+                                <div class="Box-overlay">
+                                    <h4 class="Box-heading">{{recipe.name}}</h4>
+                                    <div class="Box-meta">
+                                        <rd-rating up="recipe.meta.likeCount" down="recipe.meta.dislikeCount" readonly="true"></rd-rating>
+                                    </div>
+                                </div>
+                                <!--<div class="Box-footer">
+                    {{recipe.description}}
+                </div>-->
+                            </div>
+                        </div>
+                    </div>
 		        </div>
 		    </section>
 		</div>
 	</div>
     
-    <div class="Loader" ng-class="{ 'is-loading': isBusy }">
-        <div class="Loader-content">
-            <span class="Loader-icon">
-                <i class="fa fa-refresh fa-spin fa-2x"></i><br />
-            </span>
-            <span class="Loader-label">{{'global/loadingLabel' | translate}}</span>
-        </div>
-    </div>
+    <loader is-visible="isBusy" delay-millis="100"></loader>
 
     <!-- <section class="Section">
             <h2 class="Section-heading">{{'home/history' | translate}}</h1>

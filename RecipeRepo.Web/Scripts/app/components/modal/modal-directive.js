@@ -3,7 +3,7 @@ recipeRepoDirectives.directive('modal', ['$log', function($log) {
     	restrict: 'E',
     	transclude: true,
     	scope: {
-    		onClose: '&'
+            isVisible: '='
     	},
 		templateUrl: '/Scripts/app/components/modal/_modal.html'
 	};

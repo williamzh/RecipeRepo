@@ -1,5 +1,7 @@
 .Modal {
 	position: fixed;
+    visibility: hidden;
+    opacity: 0;
 	background: rgba(0, 0, 0, 0.6);
 	top: 0;
 	left: 0;
@@ -12,11 +14,18 @@
 }
 
 .Modal.is-open {
-	display: block;
+	visibility: visible;
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+
+    .Modal-window {
+        margin-top: 90px;
+        transition: margin-top 0.2s ease-in-out;
+    }
 }
 
 .Modal-window {
-	margin: 90px auto 100px;
+	margin: 110px auto 100px;
 	max-width: 400px;
 }
 

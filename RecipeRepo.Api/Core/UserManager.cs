@@ -173,13 +173,14 @@ namespace RecipeRepo.Api.Core
 					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
-			var recipes = recipesResponse.Data;
+			//var recipes = recipesResponse.Data;
 
 			// Remove history items that point to invalid recipes.
-			history.RemoveAll(h => !recipes.Any(r => r.Id == h));
+			// TODO: create a purge task that purges all recipe references instead
+			//history.RemoveAll(h => !recipes.Any(r => r.Id == h));
 
-			user.LastViewedRecipes = history;
-			_userRepository.Update(user);
+			//user.LastViewedRecipes = history;
+			//_userRepository.Update(user);
 
 			return new ActionResponse<IEnumerable<Recipe>>
 			{
@@ -274,6 +275,73 @@ namespace RecipeRepo.Api.Core
 			getUserResponse.Data.FavoriteRecipes = favorites;
 
 			return _userRepository.Update(getUserResponse.Data);
+		}
+
+		public ActionResponse Purge(string userId)
+		{
+			var userResponse = _userRepository.Get(userId);
+			if (userResponse.Code != AppStatusCode.Ok)
+			{
+				return new ActionResponse<IEnumerable<Recipe>>
+				{
+					Code = userResponse.Code,
+					Message = userResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
+				};
+			}
+			var user = userResponse.Data;
+
+			if (user == null)
+			{
+				return new ActionResponse<IEnumerable<Recipe>>
+				{
+					Code = AppStatusCode.EntityNotFound,
+					Message = "Failed to get user history. Could not find a user with a matching ID (" + userId + ").",
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
+				};
+			}
+
+			var favorites = user.FavoriteRecipes.ToList();
+			var history = user.LastViewedRecipes.ToList();
+
+			var combined = favorites.Union(history).Distinct();
+
+			var recipesResponse = _recipeRepository.Get(combined);
+			if (recipesResponse.Code != AppStatusCode.Ok)
+			{
+				return new ActionResponse<IEnumerable<Recipe>>
+				{
+					Code = recipesResponse.Code,
+					Message = recipesResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
+				};
+			}
+
+			var recipes = recipesResponse.Data;
+
+			favorites.RemoveAll(f => !recipes.Any(r => r.Id == f));
+			history.RemoveAll(h => !recipes.Any(r => r.Id == h));
+
+			if (user.FavoriteRecipes.SequenceEqual(favorites) && user.LastViewedRecipes.SequenceEqual(history))
+			{
+				return new ActionResponse { Code = AppStatusCode.Ok };
+			}
+
+			user.FavoriteRecipes = favorites;
+			user.LastViewedRecipes = history;
+			
+			var updateUserResponse = _userRepository.Update(user);
+			if (updateUserResponse.Code != AppStatusCode.Ok)
+			{
+				return new ActionResponse<IEnumerable<Recipe>>
+				{
+					Code = updateUserResponse.Code,
+					Message = updateUserResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
+				};
+			}
+			
+			return new ActionResponse { Code = AppStatusCode.Ok };
 		}
 	}
 }

@@ -2,7 +2,7 @@
 	<form name="loginForm" ng-submit="onSubmit()" novalidate>
 		<div validator>
 			<div ng-show="showError" class="u-spacingBottomMd">
-				<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'login/loginErrorMessage' | translate}}"></alert>
+				<alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{'login/loginErrorMessage' | translate}}"></alert>
 			</div>
 
 			<h1 class="u-spacingBottomMd">{{'login/mainHeading' | translate}}</h1>
@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
-			<button type="submit" class="Button Button--primary" ng-click="submitted = true">{{'login/submitButton' | translate}}</button>
+			<button type="submit" class="Button Button--primary" ng-click="submitted = true" ng-disabled="isBusy">{{'login/submitButton' | translate}}</button>
 		</div>
 		<div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopSm">
 			<a class="Button Button--link" ui-sref="resetPassword">{{'login/forgotPasswordLabel' | translate }}</a>

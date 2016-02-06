@@ -2,7 +2,7 @@
 	<!-- <rd-back-link target-state="home.start"></rd-back-link> -->
 
 	<div ng-show="hasError" class="u-spacingBottomMd">
-		<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
+		<alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
 	</div>
 
 	<h1>{{'myRecipes/myRecipesHeading' | translate}}</h1>
@@ -50,8 +50,8 @@
 		</div>
 	</div>
 
-	<modal ng-show="removeRecipeModalVisible" on-close="removeRecipeModalVisible = false">
-		<alert ng-show="hasRemoveRecipeError" type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'myRecipes/removeRecipeError' | translate}}"></alert>
+	<modal is-visible="removeRecipeModalVisible">
+		<alert ng-show="hasRemoveRecipeError" type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{'myRecipes/removeRecipeError' | translate}}"></alert>
 
 		<h3 class="u-spacingTopSm">{{'myRecipes/removeRecipeConfirmationHeading' | translate}}</h3>
         <p>{{'myRecipes/removeRecipeConfirmationMessage' | translate}}</p>
@@ -62,8 +62,8 @@
 		</div>
 	</modal>
 
-    <modal ng-show="removeFavoriteModalVisible" on-close="removeFavoriteModalVisible = false">
-        <alert ng-show="hasRemoveFavoriteError" type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'myRecipes/removeFavoriteError' | translate}}"></alert>
+    <modal is-visible="removeFavoriteModalVisible">
+        <alert ng-show="hasRemoveFavoriteError" type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{'myRecipes/removeFavoriteError' | translate}}"></alert>
 
         <h3 class="u-spacingTopSm">{{'myRecipes/removeFavoriteConfirmationHeading' | translate}}</h3>
         <p>{{'myRecipes/removeFavoriteConfirmationMessage' | translate}}</p>
@@ -74,12 +74,5 @@
         </div>
     </modal>
     
-    <div class="Loader" ng-class="{ 'is-loading': isBusy }">
-        <div class="Loader-content">
-            <span class="Loader-icon">
-                <i class="fa fa-refresh fa-spin fa-2x"></i><br />
-            </span>
-            <span class="Loader-label">{{'global/loadingLabel' | translate}}</span>
-        </div>
-    </div>
+    <loader is-visible="isBusy" delay-millis="100"></loader>
 </div>

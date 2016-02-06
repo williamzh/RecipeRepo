@@ -10,10 +10,10 @@ recipeRepoControllers.controller('createProfileController', ['$scope', '$state',
 
 		apiClient.addUser($scope.profile)
 			.then(function() {
-				$state.go('register.confirm');
+				return $state.go('register.confirm');
 			})
-			.catch(function() {
-				$scope.showError = true;
+			.catch(function(err) {
+			    $scope.createProfileError = err.message;
 			});
 	};
 
@@ -21,10 +21,10 @@ recipeRepoControllers.controller('createProfileController', ['$scope', '$state',
 		apiClient.login($scope.profile.userName, $scope.profile.password)
 			.then(function(sessionData) {
 				userSession.initialize(sessionData);
-				$state.go('home');
+				return $state.go('home');
 			})
-			.catch(function() {
-				$scope.showError = true;
+			.catch(function(err) {
+			    $scope.createProfileError = err.message;
 			});
 	}
 }]);

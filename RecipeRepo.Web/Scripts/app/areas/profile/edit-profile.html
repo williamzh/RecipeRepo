@@ -1,6 +1,6 @@
 <div class="Container" ng-controller="editProfileController" ng-init="init()">
 	<div ng-show="showError" class="u-spacingBottomMd">
-		<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'profile/updateErrorMessage' | translate}}"></alert>
+		<alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{'profile/updateErrorMessage' | translate}}"></alert>
 	</div>
 
 	<div ng-show="profileUpdated" class="u-spacingBottomMd">
@@ -57,17 +57,10 @@
             </div>
         </div>
 
-        <div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopMd">
+        <div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopLg">
             <button type="submit" class="Button Button--primary">{{'profile/editSubmitButton' | translate}}</button>
         </div>
     </form>
     
-    <div class="Loader" ng-class="{ 'is-loading': isBusy }">
-        <div class="Loader-content">
-            <span class="Loader-icon">
-                <i class="fa fa-refresh fa-spin fa-2x"></i><br />
-            </span>
-            <span class="Loader-label">{{'global/loadingLabel' | translate}}</span>
-        </div>
-    </div>
+    <loader is-visible="isBusy" delay-millis="100"></loader>
 </div>

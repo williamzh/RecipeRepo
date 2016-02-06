@@ -1,7 +1,7 @@
-<div class="Modal">
+<div class="Modal" ng-class="{ 'is-open' : isVisible }">
     <div class="Modal-window">
         <div class="Modal-content">
-            <button type="button" class="Modal-close" ng-click="onClose()"><i class="fa fa-times"></i></button>
+            <button type="button" class="Modal-close" ng-click="isVisible = false"><i class="fa fa-times"></i></button>
             <div ng-transclude></div>
         </div>
     </div>

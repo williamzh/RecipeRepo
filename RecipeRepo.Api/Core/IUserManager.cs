@@ -17,5 +17,7 @@ namespace RecipeRepo.Api.Core
 		ActionResponse RemoveUserHistory(string userId, string recipeId);
 
 		ActionResponse SetFavoriteRecipe(string userId, string recipeId, bool isFavorite);
+
+		ActionResponse Purge(string userId);
 	}
 }

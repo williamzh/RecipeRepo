@@ -1,11 +1,11 @@
 <div ng-controller="recipeDetailsController" ng-init="initialize()">
-	<div ng-show="hasError" class="u-spacingBottomMd">
-		<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'global/generalErrorMessage' | translate}}"></alert>
-	</div>
+    <div ng-show="errorMsg" class="u-spacingBothMd">
+        <alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="errorMsg"></alert>
+    </div>
 
 	<!-- <rd-back-link></rd-back-link> -->
 
-    <div ng-show="!hasError">
+    <div ng-show="!errorMsg">
         <div class="Banner">
             <div class="Banner-figure">
                 <div ng-style="{ 'background-image':'url(' + recipe.imageUrl + ')'}"></div>
@@ -43,10 +43,10 @@
             <div class="Grid-cell u-sizeFull u-lg-size1of2">
                 <article class="Article">
                     <h3>{{recipe.ingredients.length}} <small>{{'recipeDetails/ingredientsHeading' | translate}}</small></h3>
-                    <hr/>
+                    <hr />
                     <ul class="u-plainList">
                         <li ng-repeat="(grpKey, grpVal) in recipe.groupedIngredients">
-                            <div ng-if='grpKey !== "undefined"'><small class="u-textUppercase">{{grpKey}}</small></div>
+                            <div ng-if='grpKey !== "null"'><small class="u-textUppercase">{{grpKey}}</small></div>
                             <ul>
                                 <li ng-repeat="ing in grpVal">
                                     {{ing.quantity}} {{ing.unit}} {{ing.name}}
@@ -59,7 +59,7 @@
             <div class="Grid-cell u-sizeFull u-lg-size1of2">
                 <article class="Article">
                     <h3>{{recipe.steps.length}} <small>{{'recipeDetails/methodHeading' | translate}}</small></h3>
-                    <hr/>
+                    <hr />
                     <ol>
                         <li ng-repeat="step in recipe.steps">
                             {{step}}
@@ -71,7 +71,7 @@
         <div class="Grid">
             <div class="Grid-cell u-sizeFull">
                 <div class="Article--muted">
-                    <hr/>
+                    <hr />
                     <p class="u-pullLeft">{{'recipeDetails/author' | translate}}: {{recipe.meta.owner}}</p>
                     <p class="u-pullRight"><a ui-sref="search({ query: recipe.meta.owner })">Se fler recept från {{recipe.meta.owner}}</a></p>
                 </div>
@@ -79,12 +79,5 @@
         </div>
     </div>
     
-    <div class="Loader" ng-class="{ 'is-loading': isBusy }">
-        <div class="Loader-content">
-            <span class="Loader-icon">
-                <i class="fa fa-refresh fa-spin fa-2x"></i><br />
-            </span>
-            <span class="Loader-label">{{'global/loadingLabel' | translate}}</span>
-        </div>
-    </div>
+    <loader is-visible="isBusy" delay-millis="100"></loader>
 </div>

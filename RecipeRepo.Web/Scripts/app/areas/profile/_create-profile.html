@@ -2,8 +2,8 @@
 	<form name="createProfileForm" ng-submit="createProfile(createProfileForm.$valid)">
 		<h1 class="u-spacingBottomMd">{{'profile/createProfileHeading' | translate}}</h1>
 
-		<div ng-show="showError" class="u-spacingBottomMd">
-			<alert type="danger" preamble="{{'global/errorAlertPreamble'}}" message="{{'profile/createErrorMessage' | translate}}"></alert>
+		<div ng-show="createProfileError" class="u-spacingBottomMd">
+			<alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{createProfileError}}"></alert>
 		</div>
 		
 		<div class="Grid Grid--withGutter" validator>

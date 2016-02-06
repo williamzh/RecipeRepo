@@ -27,7 +27,7 @@ namespace RecipeRepo.Api.Localization
 
 		public string Translate(string area, string key, string langCode)
 		{
-			var translations = _jsonReader.GetFileContents<JObject>("~/Localization/lang_" + langCode + ".json");
+			var translations = _jsonReader.GetFileContents<JObject>("~/Localization/lang_" + (langCode ?? "sv-SE") + ".json");
 
 			var areaObj = translations[area];
 			if (areaObj != null)

@@ -44,7 +44,9 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 						};
 					});
 
-					$scope.currentImageName = $scope.currentRecipe.imageUrl.substring($scope.currentRecipe.imageUrl.lastIndexOf('/') + 1);
+				    $scope.currentImageName = $scope.currentImage ?
+				        $scope.currentRecipe.imageUrl.substring($scope.currentRecipe.imageUrl.lastIndexOf('/') + 1) :
+				        '';
 				}
 
 				$scope.cuisines = getMetaInfoValues('cuisines', allMetaInfo);
@@ -219,7 +221,8 @@ recipeRepoControllers.controller('manageRecipeController', ['$scope', '$q', '$lo
 					$scope.recipeForm.$setPristine();
 					$scope.submitted = false;
 					$scope.currentRecipe = {};
-				})
+			        $scope.currentSteps = [];
+			    })
 				.catch(function() {
 					$scope.errorMessage = localizationService.translate('global', 'generalErrorMessage');
 					$scope.showError = true;

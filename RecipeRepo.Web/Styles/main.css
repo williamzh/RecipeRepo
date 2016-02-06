@@ -15,7 +15,7 @@ body {
   box-sizing: border-box;
   min-height: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-bottom: 80px;
   position: relative;
 }
@@ -109,6 +109,15 @@ h3 {
 @media (min-width: 1000px) {
   h3 {
     font-size: 1.45em;
+  }
+}
+
+h4 {
+  font-size: 1.15em;
+}
+@media (min-width: 1000px) {
+  h4 {
+    font-size: 1.25em;
   }
 }
 
@@ -1212,9 +1221,11 @@ small {
 }
 
 .Alert {
-  width: 100%;
   display: block;
   position: relative;
+  max-width: 954px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #289FD6;
   color: #FDFFFC;
 }
@@ -1232,15 +1243,15 @@ small {
 }
 
 .Alert-content {
-  padding: 15px 45px 15px 15px;
+  padding: 20px 45px 20px 20px;
   word-wrap: break-word;
 }
 
 .Alert-close {
   position: absolute;
-  top: 4px;
-  right: 4px;
-  padding: 10px;
+  top: 10px;
+  right: 10px;
+  padding: 10px 15px;
   font-size: 16px;
   background: none;
 }
@@ -1342,16 +1353,26 @@ small {
 .Header-menu.is-open {
   display: block;
   animation-name: fadein;
-  animation-duration: 0.3s;
+  animation-duration: 0.2s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
+}
+
+.Header-userInfo {
+  position: absolute;
+  bottom: 115px;
+  color: #FDFFFC;
+  padding: 0 25px;
+}
+
+.Header-userIcon {
+  margin-right: 7px;
 }
 
 .Header-menuItems {
   list-style-type: none;
   padding: 0;
   margin: 45px auto;
-  max-width: 954px;
 }
 
 .Header-menuItem {
@@ -1677,17 +1698,17 @@ small {
 .Box-image > div {
   background-position: center;
   background-size: cover;
-  height: 70%;
+  height: 100%;
   width: 100%;
   opacity: 0.7;
 }
 
 .Box-overlay {
   position: absolute;
-  bottom: 30%;
+  bottom: 0;
   box-sizing: border-box;
   color: #FFF;
-  padding: 10px 15px;
+  padding: 10px 20px;
   width: 100%;
 }
 
@@ -1698,8 +1719,8 @@ small {
 }
 
 .Box-meta {
-  margin: 5px 0;
-  font-size: 12px;
+  margin: 7px 0;
+  font-size: 14px;
 }
 
 .Box-footer {
@@ -1754,6 +1775,8 @@ small {
 
 .Modal {
   position: fixed;
+  visibility: hidden;
+  opacity: 0;
   background: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
@@ -1766,11 +1789,17 @@ small {
 }
 
 .Modal.is-open {
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+.Modal.is-open .Modal-window {
+  margin-top: 90px;
+  transition: margin-top 0.2s ease-in-out;
 }
 
 .Modal-window {
-  margin: 90px auto 100px;
+  margin: 110px auto 100px;
   max-width: 400px;
 }
 

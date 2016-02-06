@@ -135,6 +135,8 @@
     <Content Include="Scripts\app\areas\search\search.html" />
     <Content Include="Scripts\app\components\alert\alert-directive.js" />
     <Content Include="Scripts\app\components\alert\_alert.html" />
+    <Content Include="Scripts\app\components\loader\loader-directive.js" />
+    <Content Include="Scripts\app\components\loader\_loader.html" />
     <Content Include="Scripts\app\components\modal\modal-directive.js" />
     <Content Include="Scripts\app\components\modal\_modal.html" />
     <Content Include="Scripts\app\components\navbar\navbar-directive.js" />
