@@ -5,6 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using RecipeRepo.Api.Core;
 using RecipeRepo.Api.Core.Search;
+using RecipeRepo.Api.Localization;
+using RecipeRepo.Api.Security;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Integrations.Entities;
 using RecipeRepo.Integrations.Repositories;
@@ -18,6 +20,8 @@ namespace RecipeRepo.Api.Tests.Core
 		private Mock<IDbRepository<User>> _userRepoMock;
 		private Mock<MappedSearchHandler<Recipe>> _mappedSearchHandler;
 		private RecipeStore _recipeStore;
+		private Mock<ITranslator> _translatorMock;
+		private Mock<IClaimContext> _claimContextMock;
 
 		[TestInitialize]
 		public void SetUp()
@@ -25,8 +29,10 @@ namespace RecipeRepo.Api.Tests.Core
 			_recipeRepoMock = new Mock<IDbRepository<Recipe>>();
 			_userRepoMock = new Mock<IDbRepository<User>>();
 			_mappedSearchHandler = new Mock<MappedSearchHandler<Recipe>>(null);
+			_translatorMock = new Mock<ITranslator>();
+			_claimContextMock = new Mock<IClaimContext>();
 
-			_recipeStore = new RecipeStore(_recipeRepoMock.Object, _userRepoMock.Object, _mappedSearchHandler.Object);
+			_recipeStore = new RecipeStore(_recipeRepoMock.Object, _userRepoMock.Object, _mappedSearchHandler.Object, _translatorMock.Object, _claimContextMock.Object);
 		}
 
 		[TestMethod]

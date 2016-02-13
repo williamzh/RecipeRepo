@@ -94,7 +94,7 @@ namespace RecipeRepo.Api.Controllers
 				return BadRequest(AppStatusCode.InvalidInput, "Recipe ID must be provided.");
 			}
 
-			var response = _recipeStore.DeleteRecipe(id, ClaimContext.UserId);
+			var response = _recipeStore.DeleteRecipe(ClaimContext.UserId, id);
 			if (response.Code != AppStatusCode.Ok)
 			{
 				Log.ErrorFormat("DELETE /recipes/{0} failed with code {1}. {2}", id, (int)response.Code, response.Message);

@@ -59,6 +59,9 @@
   <ItemGroup>
     <Compile Include="Db\DbClient.cs" />
     <Compile Include="Db\IDbClient.cs" />
+    <Compile Include="Email\IMailClient.cs" />
+    <Compile Include="Email\SmtpMailClient.cs" />
+    <Compile Include="Entities\DictionaryItem.cs" />
     <Compile Include="Entities\IDbEntity.cs" />
     <Compile Include="Entities\Ingredient.cs" />
     <Compile Include="Entities\MatchingStrategy.cs" />

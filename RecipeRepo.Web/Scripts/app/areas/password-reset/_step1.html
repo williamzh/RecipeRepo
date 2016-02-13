@@ -1,0 +1,16 @@
+﻿<form name="verifyUserNameForm" ng-submit="verifyUserName()" novalidate>
+    <p class="u-spacingBothMd">
+        {{'reset/verifyUserNameInstructions' | translate}}
+    </p>
+
+    <div validator>
+        <div class="Control" ng-class="{ 'has-error': hasError('userName') }">
+            <input type="text" class="Control-field" name="userName" placeholder="{{'login/userNameLabel' | translate}}" ng-model="profile.userName" required />
+            <span class="Control-error">{{'validation/genericRequired' | translate}}</span>
+        </div>
+    </div>
+    <div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+        <button id="reset-button" type="submit" class="Button Button--primary" ng-click="submitted = true" ng-disabled="isBusy">{{'global/nextButton' | translate}}</button>
+        <a class="Button Button--link" ui-sref="login">{{'global/cancelLabel' | translate}}</a>
+    </div>
+</form>

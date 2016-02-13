@@ -44,120 +44,136 @@ recipeRepoServices.service('apiClient', ['$http', '$q', '$log', function($http, 
 	this.addRecipe = function(recipe) {
 		return $http.post(apiUrl + '/recipes', recipe)
 			.then(function (response) {	return onSuccess('addRecipe', response.data); })
-			.catch(function(error) { return onError('addRecipe', error) });
+			.catch(function(error) { return onError('addRecipe', error); });
 	};
 
 	this.getRecipe = function(id) {
 		return $http.get(apiUrl + '/recipes/' + id)
 			.then(function (response) {	return onSuccess('getRecipe', response.data); })
-			.catch(function(error) { return onError('getRecipe', error) });
+			.catch(function(error) { return onError('getRecipe', error); });
 	};
 
 	this.getRecipes = function(ids) {
 		return $http.post(apiUrl + '/recipes/batch', ids)
 			.then(function (response) {	return onSuccess('getRecipes', response.data); })
-			.catch(function(error) { return onError('getRecipes', error) });
+			.catch(function(error) { return onError('getRecipes', error); });
 	};
 
 	this.findRecipes = function(findOptions) {
 		return $http.post(apiUrl + '/recipes/find', findOptions)
 			.then(function (response) {	return onSuccess('findRecipes', response.data); })
-			.catch(function(error) { return onError('findRecipes', error) });
+			.catch(function(error) { return onError('findRecipes', error); });
 	};
 
 	this.searchRecipes = function(query) {
 		return $http.get(apiUrl + '/recipes/search/' + query)
 			.then(function (response) {	return onSuccess('searchRecipes', response.data); })
-			.catch(function(error) { return onError('searchRecipes', error) });
+			.catch(function(error) { return onError('searchRecipes', error); });
 	};
 
 	this.updateRecipe = function(recipe) {
 		return $http.put(apiUrl + '/recipes', recipe)
 			.then(function (response) {	return onSuccess('updateRecipe', response.data); })
-			.catch(function(error) { return onError('updateRecipe', error) });
+			.catch(function(error) { return onError('updateRecipe', error); });
 	};
 
 	this.removeRecipe = function(recipeId) {
 		return $http.delete(apiUrl + '/recipes/' + recipeId)
 			.then(function (response) {	return onSuccess('removeRecipe', response.data); })
-			.catch(function(error) { return onError('removeRecipe', error) });
+			.catch(function(error) { return onError('removeRecipe', error); });
 	};
 
 	this.rateRecipe = function(recipeId, isUpVote) {
 		return $http.post(apiUrl + '/recipes/rate', { recipeId: recipeId, isUpVote: isUpVote })
 			.then(function (response) {	return onSuccess('rateRecipe', response.data); })
-			.catch(function(error) { return onError('rateRecipe', error) });
+			.catch(function(error) { return onError('rateRecipe', error); });
 	};
 
 	this.getMetainfo = function() {
 		return $http.get(apiUrl + '/meta')
 			.then(function (response) {	return onSuccess('getMetainfo', response.data); })
-			.catch(function(error) { return onError('getMetainfo', error) });
+			.catch(function(error) { return onError('getMetainfo', error); });
 	};
 
 	this.addUser = function(user) {
 		return $http.post(apiUrl + '/user', user)
 			.then(function (response) {	return onSuccess('addUser', response.data); })
-			.catch(function(error) { return onError('addUser', error) });
+			.catch(function(error) { return onError('addUser', error); });
 	};
 
 	this.getUser = function() {
 		return $http.get(apiUrl + '/user')
 			.then(function (response) {	return onSuccess('getUser', response.data); })
-			.catch(function(error) { return onError('getUser', error) });
+			.catch(function(error) { return onError('getUser', error); });
 	};
 
 	this.updateUser = function(user) {
 		return $http.put(apiUrl + '/user', user)
 			.then(function (response) {	return onSuccess('updateUser', response.data); })
-			.catch(function(error) { return onError('updateUser', error) });
+			.catch(function(error) { return onError('updateUser', error); });
 	};
 
 	this.getHistory = function() {
 		return $http.get(apiUrl + '/user/history')
 			.then(function (response) {	return onSuccess('getHistory', response.data); })
-			.catch(function(error) { return onError('getHistory', error) });
+			.catch(function(error) { return onError('getHistory', error); });
 	};
 
 	this.addHistory = function(recipeId) {
 		return $http.put(apiUrl + '/user/history/' + recipeId)
 			.then(function (response) {	return onSuccess('addHistory', response.data); })
-			.catch(function(error) { return onError('addHistory', error) });
+			.catch(function(error) { return onError('addHistory', error); });
 	};
 
 	this.removeHistory = function(recipeId) {
 		return $http.delete(apiUrl + '/user/history/' + recipeId)
 			.then(function (response) {	return onSuccess('removeHistory', response.data); })
-			.catch(function(error) { return onError('removeHistory', error) });
+			.catch(function(error) { return onError('removeHistory', error); });
 	};
 
 	this.addFavorite = function(recipeId) {
 		return $http.put(apiUrl + '/user/favorites/' + recipeId)
 			.then(function (response) {	return onSuccess('addFavorite', response.data); })
-			.catch(function(error) { return onError('addFavorite', error) });
+			.catch(function(error) { return onError('addFavorite', error); });
 	};
 
 	this.removeFavorite = function(recipeId) {
 		return $http.delete(apiUrl + '/user/favorites/' + recipeId)
 			.then(function (response) {	return onSuccess('removeFavorite', response.data); })
-			.catch(function(error) { return onError('removeFavorite', error) });
+			.catch(function(error) { return onError('removeFavorite', error); });
 	};
 
 	this.purgeRecipes = function () {
 	    return $http.put(apiUrl + '/user/purge')
 			.then(function (response) { return onSuccess('purgeRecipes', response.data); })
-			.catch(function (error) { return onError('purgeRecipes', error) });
+			.catch(function (error) { return onError('purgeRecipes', error); });
 	};
 
 	this.getTranslations = function(langCode) {
 		return $http.get(apiUrl + '/translations/' + langCode)
 			.then(function (response) {	return onSuccess('getTranslations', response.data); })
-			.catch(function(error) { return onError('getTranslations', error) });
+			.catch(function(error) { return onError('getTranslations', error); });
 	};
 
 	this.getLanguages = function() {
 		return $http.get(apiUrl + '/translations/languages')
 			.then(function (response) {	return onSuccess('getLanguages', response.data); })
-			.catch(function(error) { return onError('getLanguages', error) });
+			.catch(function(error) { return onError('getLanguages', error); });
+	};
+
+	this.verifyUser = function (userName) {
+	    return $http.post(apiUrl + '/reset/verify/user', '=' + userName, {
+	        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+	        })
+			.then(function (response) { return onSuccess('verifyUser', response.data); })
+			.catch(function (error) { return onError('verifyUser', error); });
+	};
+
+    this.verifyPhone = function (phoneNumber) {
+	    return $http.post(apiUrl + '/reset/verify/phone', '=' + phoneNumber, {
+	        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' }
+	        })
+			.then(function (response) { return onSuccess('verifyPhone', response.data); })
+			.catch(function (error) { return onError('verifyPhone', error); });
 	};
 }]);

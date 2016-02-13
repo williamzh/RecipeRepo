@@ -1310,7 +1310,7 @@ small {
 }
 @media (min-width: 1000px) {
   .Article--preamble p {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 

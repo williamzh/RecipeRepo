@@ -4,6 +4,7 @@
         "informalOk": "Uppfattat!",
         "addLabel": "Lägg till",
         "cancelLabel": "Avbryt",
+        "nextButton": "Nästa",
         "backLabel": "Tillbaka",
         "generalErrorMessage": "Ett oväntat fel har tyvärr inträffat, var god försök senare.",
         "yes": "Ja",
@@ -24,6 +25,7 @@
         "genericRequired": "Detta fält är obligatoriskt",
         "numberFormat": "Vänligen ange ett numeriskt värde",
         "emailFormat": "Ogiltig e-postadress",
+        "phoneNumberFormat": "Ange tel nr utan bindestreck eller mellanslag",
         "imageUploadSizeExceeded": "Bilder måste vara mindre än 5 MB.",
         "imageUploadFormat": "Endast bildformaten .png,.jpg,.jpeg,.tif är tillåtna."
     },
@@ -56,11 +58,11 @@
         "forgotPasswordLabel": "Glömt lösenordet?",
         "submitButton": "Logga in",
         "loginErrorMessage": "Felaktigt användarnamn eller lösenord.",
+    },
+    "reset": {
         "resetPasswordHeading": "Nollställ lösenord",
-        "resetPasswordInstructions": "Ange din e-postadress så skickar vi instruktioner till dig för hur du återställer lösenordet.",
-        "resetEmailLabel": "E-post",
-        "resetButton": "Skicka",
-        "resetEmailRequired": "Ogiltig e-postadress"
+        "verifyUserNameInstructions": "Ange ditt användarnamn.",
+        "verifyPhoneInstructions": "Ange ditt telefonnummer som du angav vid registrering."
     },
     "navigation": {
         "searchLabel": "Sök",
@@ -129,12 +131,10 @@
         "myRecipesHeading": "Mina recept",
         "ownedRecipesHeading": "Upplagda recept",
         "noOwnedRecipes": "Recept som du lägger upp kommer att visas här.",
-        "removeRecipeError": "Ett oväntat fel inträffade när detta recept skulle tas bort. Vänligen försök igen senare.",
         "removeRecipeConfirmationHeading": "Bekräfta borttagning",
         "removeRecipeConfirmationMessage": "Är du säker på att du vill ta bort detta recept? Borttagningen kommer att vara permanent och går ej att ångra.",
         "favoriteRecipesHeading": "Favoritmarkerade recept",
         "noFavoriteRecipes": "Recept som du favoritmarkerar kommer att visas här.",
-        "removeFavoriteError": "Ett oväntat fel inträffade när detta recept skulle avmarkeras som favorit. Vänligen försök igen senare.",
         "removeFavoriteConfirmationHeading": "Bekräfta avmarkering",
         "removeFavoriteConfirmationMessage": "Är du säker på att du vill avmarkera detta recept som favorit? Om du skulle ångra dig kan du självklart favoritmarkera receptet igen!"
     },
@@ -149,6 +149,7 @@
         "lastNameLabel": "Efternamn",
         "userNameLabel": "Användarnamn",
         "emailLabel": "E-post",
+        "phoneNumberLabel": "Telefonnummer",
         "passwordLabel": "Lösenord",
         "repeatPasswordLabel": "Upprepa lösenord",
         "languageHeading": "Språk",

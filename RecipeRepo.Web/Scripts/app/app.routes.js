@@ -25,9 +25,26 @@ recipeRepoApp.config(['$locationProvider', '$stateProvider', '$urlRouterProvider
 		}).
 		// Reset password
 		state('resetPassword', {
+            abstract: true,
 			url: '/reset-password',
-			templateUrl: '/Scripts/app/areas/login/reset-password.html'
+			templateUrl: '/Scripts/app/areas/password-reset/password-reset.html',
+			controller: 'resetPasswordController'
 		}).
+        state('resetPassword.step1', {
+            url: '/reset-password',
+            templateUrl: '/Scripts/app/areas/password-reset/_step1.html',
+            controller: 'resetPasswordController'
+        }).
+        state('resetPassword.step2', {
+            url: '/reset-password',
+            templateUrl: '/Scripts/app/areas/password-reset/_step2.html',
+            controller: 'resetPasswordController'
+        }).
+        state('resetPassword.step3', {
+            url: '/reset-password',
+            templateUrl: '/Scripts/app/areas/password-reset/_step3.html',
+            controller: 'resetPasswordController'
+        }).
 		// Register
 		state('register', {
 			abstract: true,

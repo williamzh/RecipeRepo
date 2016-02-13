@@ -1,6 +1,6 @@
 <div class="Container" ng-controller="editProfileController" ng-init="init()">
-	<div ng-show="showError" class="u-spacingBottomMd">
-		<alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{'profile/updateErrorMessage' | translate}}"></alert>
+	<div ng-show="errorMsg" class="u-spacingBottomMd">
+		<alert type="danger" preamble="{{'global/errorAlertPreamble' | translate}}" message="{{errorMsg}}"></alert>
 	</div>
 
 	<div ng-show="profileUpdated" class="u-spacingBottomMd">
@@ -12,12 +12,6 @@
 
         <h2 class="u-spacingBothSm">{{'profile/personalDetailsHeading' | translate}}</h2>
         <div class="Grid Grid--withGutter" validator>
-            <div class="Grid-cell u-sizeFull u-md-size1of2">
-                <div class="Control">
-                    <label class="Control-label" for="userName">{{'profile/userNameLabel' | translate}}</label>
-                    <input type="text" class="Control-field" name="userName" ng-model="profile.userName" id="userName" disabled>
-                </div>
-            </div>
             <div class="Grid-cell u-sizeFull u-md-size1of2">
                 <div class="Control" ng-class="{ 'has-error': hasError('firstName') }">
                     <label class="Control-label" for="firstName">{{'profile/firstNameLabel' | translate}}</label>
@@ -40,6 +34,20 @@
                 </div>
             </div>
             <div class="Grid-cell u-sizeFull u-md-size1of2">
+                <div class="Control" ng-class="{ 'has-error': hasError('phoneNumber') }">
+                    <label class="Control-label" for="phoneNumber">{{'profile/phoneNumberLabel' | translate}}</label>
+                    <input type="tel" class="Control-field" name="phoneNumber" ng-model="profile.phoneNumber" id="phoneNumber" ng-pattern="/^[0-9]{10}$/">
+                    <span class="Control-error">{{'validation/phoneNumberFormat' | translate}}</span>
+                </div>
+            </div>
+            <div class="Grid-cell u-sizeFull u-md-size1of2">
+                <div class="Control">
+                    <label class="Control-label" for="userName">{{'profile/userNameLabel' | translate}}</label>
+                    <input type="text" class="Control-field" name="userNameFake" id="userNameFake" style="display: none;">  <!-- Use a hidden fake field to circumvent Chrome autofill username -->
+                    <input type="text" class="Control-field" name="userName" ng-model="profile.userName" id="userName" disabled>
+                </div>
+            </div>
+            <div class="Grid-cell u-sizeFull u-md-size1of2">
                 <div class="Control" ng-class="{ 'has-error': hasError('password') }">
                     <label class="Control-label" for="password">{{'profile/passwordLabel' | translate}}</label>
                     <input type="password" class="Control-field" name="password" ng-model="profile.password" id="password" required>
@@ -58,7 +66,7 @@
         </div>
 
         <div class="ButtonGroup ButtonGroup--alignRightJustified u-spacingTopLg">
-            <button type="submit" class="Button Button--primary">{{'profile/editSubmitButton' | translate}}</button>
+            <button type="submit" class="Button Button--primary" ng-disabled="isBusy">{{'profile/editSubmitButton' | translate}}</button>
         </div>
     </form>
     

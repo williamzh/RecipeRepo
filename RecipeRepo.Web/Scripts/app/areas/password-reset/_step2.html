@@ -1,0 +1,16 @@
+﻿<form name="verifyPhoneForm" ng-submit="verifyPhone()" novalidate>
+    <p class="u-spacingBothMd">
+        {{'reset/verifyPhoneInstructions' | translate}}
+    </p>
+
+    <div validator>
+        <div class="Control" ng-class="{ 'has-error': hasError('phoneNumber') }">
+            <input type="tel" class="Control-field" name="phoneNumber" placeholder="{{'profile/phoneNumberLabel' | translate}}" ng-model="profile.phoneNumber" ng-pattern="/^[0-9]{10}$/" />
+            <span class="Control-error">{{'validation/phoneNumberFormat' | translate}}</span>
+        </div>
+    </div>
+    <div class="ButtonGroup ButtonGroup--alignRight u-spacingTopMd">
+        <button id="reset-button" type="submit" class="Button Button--primary" ng-click="submitted = true">{{'global/nextButton' | translate}}</button>
+        <a class="Button Button--link" ui-sref="resetPassword.step1">{{'global/backLabel' | translate}}</a>
+    </div>
+</form>

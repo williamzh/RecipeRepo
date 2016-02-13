@@ -1,5 +1,5 @@
 recipeRepoControllers.controller('editProfileController', ['$scope', '$q', 'apiClient', function($scope, $q, apiClient) {
-	$scope.profile = {};
+    $scope.profile = {};
 
 	$scope.init = function () {
 	    $scope.isBusy = true;
@@ -12,8 +12,8 @@ recipeRepoControllers.controller('editProfileController', ['$scope', '$q', 'apiC
 				$scope.supportedLanguages = responses[1];
 				$scope.selectedLang = $scope.supportedLanguages[0];
 			})
-			.catch(function() {
-				$scope.showError = true;
+			.catch(function(err) {
+			    $scope.errorMsg = err.message;
 			})
 	        .finally(function() {
 		        $scope.isBusy = false;
@@ -25,6 +25,7 @@ recipeRepoControllers.controller('editProfileController', ['$scope', '$q', 'apiC
 			return;
 		}
 
+	    $scope.isBusy = true;
 		$scope.profileUpdated = false;
 
 		apiClient.updateUser($scope.profile)
@@ -35,8 +36,11 @@ recipeRepoControllers.controller('editProfileController', ['$scope', '$q', 'apiC
 				$scope.editProfileForm.$setPristine();
 				$scope.submitted = false;
 			})
-			.catch(function() {
-				$scope.showError = true;
+			.catch(function(err) {
+			    $scope.errorMsg = err.message;
+			})
+            .finally(function () {
+			    $scope.isBusy = false;
 			});
 	};
 }]);

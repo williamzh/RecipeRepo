@@ -28,13 +28,20 @@
 					<span class="Control-error">{{'validation/lastNameRequired' | translate}}</span>
 				</div>
 			</div>
-			<div class="Grid-cell u-sizeFull u-md-size1of2">
-				<div class="Control" ng-class="{ 'has-error': hasError('email') }">
-					<label class="Control-label" for="email">{{'profile/emailLabel' | translate}}</label>
-					<input type="email" class="Control-field" name="email" ng-model="profile.email" id="email" required>
-					<span class="Control-error">{{'validation/emailFormat' | translate}}</span>
-				</div>
-			</div>
+		    <div class="Grid-cell u-sizeFull u-md-size1of2">
+		        <div class="Control" ng-class="{ 'has-error': hasError('email') }">
+		            <label class="Control-label" for="email">{{'profile/emailLabel' | translate}}</label>
+		            <input type="email" class="Control-field" name="email" ng-model="profile.email" id="email" required>
+		            <span class="Control-error">{{'validation/emailFormat' | translate}}</span>
+		        </div>
+		    </div>
+            <div class="Grid-cell u-sizeFull u-md-size1of2">
+                <div class="Control" ng-class="{ 'has-error': hasError('phoneNumber') }">
+                    <label class="Control-label" for="phoneNumber">{{'profile/phoneNumberLabel' | translate}}</label>
+                    <input type="tel" class="Control-field" name="phoneNumber" ng-model="profile.phoneNumber" id="phoneNumber" ng-pattern="/^[0-9]{10}$/">
+                    <span class="Control-error">{{'validation/phoneNumberFormat' | translate}}</span>
+                </div>
+            </div>
 			<div class="Grid-cell u-sizeFull u-md-size1of2">
 				<div class="Control" ng-class="{ 'has-error': hasError('password') }">
 					<label class="Control-label" for="password">{{'profile/passwordLabel' | translate}}</label>

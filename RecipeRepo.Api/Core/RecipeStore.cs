@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using RecipeRepo.Api.Core.Search;
+using RecipeRepo.Api.Localization;
+using RecipeRepo.Api.Security;
 using RecipeRepo.Common.Contract;
 using RecipeRepo.Common.Extensions;
 using RecipeRepo.Integrations.Entities;
@@ -13,12 +15,16 @@ namespace RecipeRepo.Api.Core
 		private readonly IDbRepository<Recipe> _recipeRepository;
 		private readonly IDbRepository<User> _userRepository;
 		private readonly MappedSearchHandler<Recipe> _mappedSearchHandler;
+		private readonly ITranslator _translator;
+		private readonly IClaimContext _claimContext;
 
-		public RecipeStore(IDbRepository<Recipe> recipeRepository, IDbRepository<User> userRepository, MappedSearchHandler<Recipe> mappedSearchHandler)
+		public RecipeStore(IDbRepository<Recipe> recipeRepository, IDbRepository<User> userRepository, MappedSearchHandler<Recipe> mappedSearchHandler, ITranslator translator, IClaimContext claimContext)
 		{
 			_recipeRepository = recipeRepository;
 			_userRepository = userRepository;
 			_mappedSearchHandler = mappedSearchHandler;
+			_translator = translator;
+			_claimContext = claimContext;
 		}
 
 		public ActionResponse AddRecipe(string userId, Recipe recipe)
@@ -30,7 +36,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = AppStatusCode.EntityNotFound,
-					Message = "Could not add recipe - failed to get user " + userId + ". Underlying error: " + getUserResponse.Message
+					Message = "Could not add recipe - failed to get user " + userId + ". Underlying error: " + getUserResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -45,7 +52,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = addRecipeResponse.Code,
-					Message = addRecipeResponse.Message
+					Message = addRecipeResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -59,7 +67,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = updateUserResponse.Code,
-					Message = "Could not add recipe - failed to associate new recipe with user."
+					Message = "Could not add recipe - failed to associate new recipe with user.",
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -84,7 +93,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getRecipeResponse.Code,
-					Message = "Could not update recipe - existance check failed. Underlying error: " + getRecipeResponse.Message
+					Message = "Could not update recipe - existance check failed. Underlying error: " + getRecipeResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -93,7 +103,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = AppStatusCode.EntityNotFound,
-					Message = "Update failed. Could not find a recipe with a matching ID (" + recipe.Id + ")."
+					Message = "Update failed. Could not find a recipe with a matching ID (" + recipe.Id + ").",
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -108,7 +119,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getRecipeResponse.Code,
-					Message = "Could not delete recipe - existance check failed. Underlying error: " + getRecipeResponse.Message
+					Message = "Could not delete recipe - existance check failed. Underlying error: " + getRecipeResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -117,7 +129,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = AppStatusCode.EntityNotFound,
-					Message = "Delete failed. Could not find a recipe with a matching ID (" + recipeId + ")."
+					Message = "Delete failed. Could not find a recipe with a matching ID (" + recipeId + ").",
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 
@@ -127,7 +140,8 @@ namespace RecipeRepo.Api.Core
 				return new ActionResponse
 				{
 					Code = getRecipeResponse.Code,
-					Message = "Could not delete recipe - Could not obtain owner. Underlying error: " + getRecipeResponse.Message
+					Message = "Could not delete recipe - Could not obtain owner. Underlying error: " + getRecipeResponse.Message,
+					UserMessage = _translator.Translate("global", "generalErrorMessage", _claimContext.UserLanguage)
 				};
 			}
 

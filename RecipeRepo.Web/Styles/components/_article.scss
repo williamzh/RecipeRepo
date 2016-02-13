@@ -56,7 +56,7 @@
 
         font-size: $font-size-md;
         @media(min-width: $lg-viewport) {
-            font-size: $font-size-lg;
+            font-size: $font-size-lg * 0.9;
         }
     }
 }
